@@ -1,0 +1,38 @@
+@theme {
+  /* Spacing Scale - 일관된 간격 시스템 */
+
+  /* Gap */
+  --gap-2xs: 4px;
+  --gap-xs: 8px;
+  --gap-sm: 12px;
+  --gap-md: 16px;
+  --gap-xl: 24px;
+
+  /* Padding */
+  --padding-2xs: 4px;
+  --padding-xs: 8px;
+  --padding-sm: 12px;
+  --padding-md: 16px;
+  --padding-xl: 24px;
+
+  /* Margin */
+  --margin-2xs: 4px;
+  --margin-xs: 8px;
+  --margin-sm: 12px;
+  --margin-md: 16px;
+  --margin-xl: 24px;
+
+  /* Space (자식 요소 간 간격) */
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-xl: 24px;
+
+  /* Inset (position 관련) */
+  --inset-2xs: 4px;
+  --inset-xs: 8px;
+  --inset-sm: 12px;
+  --inset-md: 16px;
+  --inset-xl: 24px;
+}
