@@ -104,6 +104,10 @@ jobs:
         with:
           labels: 🌏 Deploy
 
+      - name: Success message
+        if: steps.validate.outputs.valid == 'true'
+        run: echo "✅ PR title validated and type label added successfully!"
+
   manage-status-labels:
     name: Manage Status Labels
     if: startsWith(github.head_ref, 'feature/')
@@ -153,3 +157,6 @@ jobs:
         uses: actions-ecosystem/action-add-labels@v1
         with:
           labels: ☑️ Need Review
+
+      - name: Success message
+        run: echo "✅ PR status label updated successfully!"
