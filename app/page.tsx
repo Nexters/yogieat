@@ -1,96 +1,66 @@
-type SpacingExampleProps = {
-  name: string;
-  value: string;
-  spacingClass: string;
-};
-
-function GapExample({ name, value, spacingClass }: SpacingExampleProps) {
-  return (
-    <div className="ygi:flex ygi:flex-col ygi:gap-sm">
-      <div className="ygi:flex ygi:items-center ygi:justify-between">
-        <span className="ygi:body-14-sb ygi:text-gray-900">{name}</span>
-        <span className="ygi:caption-12-md ygi:text-gray-500">{value}</span>
-      </div>
-      <div className={`ygi:flex ${spacingClass}`}>
-        <div className="ygi:w-16 ygi:h-16 ygi:bg-palette-primary-500 ygi:rounded-sm" />
-        <div className="ygi:w-16 ygi:h-16 ygi:bg-palette-primary-500 ygi:rounded-sm" />
-        <div className="ygi:w-16 ygi:h-16 ygi:bg-palette-primary-500 ygi:rounded-sm" />
-      </div>
-    </div>
-  );
-}
-
-function PaddingExample({ name, value, spacingClass }: SpacingExampleProps) {
-  return (
-    <div className="ygi:flex ygi:flex-col ygi:gap-sm">
-      <div className="ygi:flex ygi:items-center ygi:justify-between">
-        <span className="ygi:body-14-sb ygi:text-gray-900">{name}</span>
-        <span className="ygi:caption-12-md ygi:text-gray-500">{value}</span>
-      </div>
-      <div className="ygi:bg-palette-gray-200 ygi:rounded-sm ygi:inline-flex">
-        <div className={`ygi:bg-palette-primary-500 ygi:rounded-sm ${spacingClass}`}>
-          <div className="ygi:w-16 ygi:h-16 ygi:bg-palette-secondary-500 ygi:rounded-xs" />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function MarginExample({ name, value, spacingClass }: SpacingExampleProps) {
-  return (
-    <div className="ygi:flex ygi:flex-col ygi:gap-sm">
-      <div className="ygi:flex ygi:items-center ygi:justify-between">
-        <span className="ygi:body-14-sb ygi:text-gray-900">{name}</span>
-        <span className="ygi:caption-12-md ygi:text-gray-500">{value}</span>
-      </div>
-      <div className="ygi:bg-palette-gray-200 ygi:p-2 ygi:rounded-sm ygi:inline-flex ygi:flex-col">
-        <div className={`ygi:w-16 ygi:h-16 ygi:bg-palette-primary-500 ygi:rounded-sm ${spacingClass}`} />
-        <div className="ygi:w-16 ygi:h-16 ygi:bg-palette-secondary-500 ygi:rounded-sm" />
-      </div>
-    </div>
-  );
-}
+import { Chip } from "#/components/Chip";
 
 export default function Home() {
   return (
     <div className="ygi:flex ygi:flex-col ygi:gap-xl ygi:p-xl">
-      {/* Gap Section */}
       <div className="ygi:flex ygi:flex-col ygi:gap-md">
-        <h1 className="ygi:display-28-bd ygi:text-gray-900">Spacing System</h1>
+        <h1 className="ygi:display-28-bd ygi:text-gray-900">Chip Component</h1>
 
-        <div className="ygi:flex ygi:flex-col ygi:gap-md">
-          <h2 className="ygi:heading-20-sb ygi:text-gray-900">Gap</h2>
+        {/* Default State */}
+        <div className="ygi:flex ygi:flex-col ygi:gap-sm">
+          <h2 className="ygi:heading-20-sb ygi:text-gray-900">Default State</h2>
           <div className="ygi:flex ygi:gap-md ygi:flex-wrap">
-            <GapExample name="gap-2xs" value="4px" spacingClass="ygi:gap-2xs" />
-            <GapExample name="gap-xs" value="8px" spacingClass="ygi:gap-xs" />
-            <GapExample name="gap-sm" value="12px" spacingClass="ygi:gap-sm" />
-            <GapExample name="gap-md" value="16px" spacingClass="ygi:gap-md" />
-            <GapExample name="gap-xl" value="24px" spacingClass="ygi:gap-xl" />
+            <Chip>Default</Chip>
+            <Chip disabled>Default Disabled</Chip>
           </div>
+          <p className="ygi:body-14-rg ygi:text-gray-500">
+            기본 상태입니다. Hover 시 배경색과 텍스트 색상이 변경됩니다.
+          </p>
         </div>
-      </div>
 
-      {/* Padding Section */}
-      <div className="ygi:flex ygi:flex-col ygi:gap-md">
-        <h2 className="ygi:heading-20-sb ygi:text-gray-900">Padding</h2>
-        <div className="ygi:flex ygi:gap-md ygi:flex-wrap">
-          <PaddingExample name="p-2xs" value="4px" spacingClass="ygi:p-2xs" />
-          <PaddingExample name="p-xs" value="8px" spacingClass="ygi:p-xs" />
-          <PaddingExample name="p-sm" value="12px" spacingClass="ygi:p-sm" />
-          <PaddingExample name="p-md" value="16px" spacingClass="ygi:p-md" />
-          <PaddingExample name="p-xl" value="24px" spacingClass="ygi:p-xl" />
+        {/* Selected State */}
+        <div className="ygi:flex ygi:flex-col ygi:gap-sm">
+          <h2 className="ygi:heading-20-sb ygi:text-gray-900">Selected State</h2>
+          <div className="ygi:flex ygi:gap-md ygi:flex-wrap">
+            <Chip selected>Selected</Chip>
+            <Chip selected disabled>
+              Selected Disabled
+            </Chip>
+          </div>
+          <p className="ygi:body-14-rg ygi:text-gray-500">
+            선택된 상태입니다. 주요 액션을 강조하는 데 사용됩니다.
+          </p>
         </div>
-      </div>
 
-      {/* Margin Section */}
-      <div className="ygi:flex ygi:flex-col ygi:gap-md">
-        <h2 className="ygi:heading-20-sb ygi:text-gray-900">Margin</h2>
-        <div className="ygi:flex ygi:gap-md ygi:flex-wrap">
-          <MarginExample name="mb-2xs" value="4px" spacingClass="ygi:mb-2xs" />
-          <MarginExample name="mb-xs" value="8px" spacingClass="ygi:mb-xs" />
-          <MarginExample name="mb-sm" value="12px" spacingClass="ygi:mb-sm" />
-          <MarginExample name="mb-md" value="16px" spacingClass="ygi:mb-md" />
-          <MarginExample name="mb-xl" value="24px" spacingClass="ygi:mb-xl" />
+        {/* All States */}
+        <div className="ygi:flex ygi:flex-col ygi:gap-sm">
+          <h2 className="ygi:heading-20-sb ygi:text-gray-900">All States</h2>
+          <div className="ygi:flex ygi:gap-md ygi:flex-wrap">
+            <Chip>Default</Chip>
+            <Chip disabled>Default Disabled</Chip>
+            <Chip selected>Selected</Chip>
+            <Chip selected disabled>
+              Selected Disabled
+            </Chip>
+          </div>
+          <p className="ygi:body-14-rg ygi:text-gray-500">
+            모든 상태를 한눈에 확인할 수 있습니다. Hover 효과를 직접 테스트해보세요.
+          </p>
+        </div>
+
+        {/* Interactive Example */}
+        <div className="ygi:flex ygi:flex-col ygi:gap-sm">
+          <h2 className="ygi:heading-20-sb ygi:text-gray-900">Interactive Example</h2>
+          <div className="ygi:flex ygi:gap-md ygi:flex-wrap">
+            <Chip>카테고리 1</Chip>
+            <Chip>카테고리 2</Chip>
+            <Chip selected>카테고리 3</Chip>
+            <Chip>카테고리 4</Chip>
+            <Chip>카테고리 5</Chip>
+          </div>
+          <p className="ygi:body-14-rg ygi:text-gray-500">
+            실제 사용 예시입니다. 필터링이나 카테고리 선택에 활용할 수 있습니다.
+          </p>
         </div>
       </div>
     </div>
