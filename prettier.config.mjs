@@ -10,6 +10,7 @@ const config = {
 	plugins: [
 		"prettier-plugin-tailwindcss"
 	],
+	tailwindStylesheet: "./app/globals.css",
 	tailwindFunctions: ["cva", "twMerge"],
 	tailwindPreserveWhitespace: true,
 	tailwindPreserveDuplicates: true,
