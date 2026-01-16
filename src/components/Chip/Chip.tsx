@@ -4,7 +4,7 @@ import { type ComponentPropsWithoutRef, forwardRef } from "react";
 const chipVariants = cva(
   [
     "ygi:inline-flex ygi:items-center ygi:justify-center",
-    "ygi:px-md ygi:py-xs",
+    "ygi:px-md ygi:py-xs ygi:gap-xs",
     "ygi:rounded-xl ygi:transition-colors",
     "ygi:body-16-bd ygi:text-center ygi:whitespace-nowrap",
   ],
