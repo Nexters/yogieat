@@ -11,13 +11,15 @@
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.4",
     "@tanstack/react-query": "^5.90.16",
+    "class-variance-authority": "^0.7.1",
     "es-toolkit": "^1.43.0",
     "ky": "^1.14.2",
     "motion": "^12.26.1",
     "next": "16.1.1",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "react-hook-form": "^7.71.0"
+    "react-hook-form": "^7.71.0",
+    "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
