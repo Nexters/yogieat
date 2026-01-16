@@ -1,27 +1,12 @@
-@import "tailwindcss";
+@import "tailwindcss" prefix(ygi);
 @import "../src/styles/font.css";
+@import "../src/styles/typography.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@base {
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: 'SUIT Variable', system-ui, -apple-system, sans-serif;
+  }  
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: 'SUIT Variable', system-ui, -apple-system, sans-serif;
-  --font-mono: 'SUIT Variable', ui-monospace, monospace;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: 'SUIT Variable', system-ui, -apple-system, sans-serif;
-}
