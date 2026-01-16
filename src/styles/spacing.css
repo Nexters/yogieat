@@ -1,38 +1,42 @@
 @theme {
-  /* Spacing Scale - 일관된 간격 시스템 */
+  --spacing-2xs: 4px;
+  --spacing-xs: 8px;
+  --spacing-sm: 12px;
+  --spacing-md: 16px;
+  --spacing-xl: 24px;
 
   /* Gap */
-  --gap-2xs: 4px;
-  --gap-xs: 8px;
-  --gap-sm: 12px;
-  --gap-md: 16px;
-  --gap-xl: 24px;
+  --gap-2xs: var(--spacing-2xs);
+  --gap-xs: var(--spacing-xs);
+  --gap-sm: var(--spacing-sm);
+  --gap-md: var(--spacing-md);
+  --gap-xl: var(--spacing-xl);
 
   /* Padding */
-  --padding-2xs: 4px;
-  --padding-xs: 8px;
-  --padding-sm: 12px;
-  --padding-md: 16px;
-  --padding-xl: 24px;
+  --padding-2xs: var(--spacing-2xs);
+  --padding-xs: var(--spacing-xs);
+  --padding-sm: var(--spacing-sm);
+  --padding-md: var(--spacing-md);
+  --padding-xl: var(--spacing-xl);
 
   /* Margin */
-  --margin-2xs: 4px;
-  --margin-xs: 8px;
-  --margin-sm: 12px;
-  --margin-md: 16px;
-  --margin-xl: 24px;
+  --margin-2xs: var(--spacing-2xs);
+  --margin-xs: var(--spacing-xs);
+  --margin-sm: var(--spacing-sm);
+  --margin-md: var(--spacing-md);
+  --margin-xl: var(--spacing-xl);
 
   /* Space (자식 요소 간 간격) */
-  --space-2xs: 4px;
-  --space-xs: 8px;
-  --space-sm: 12px;
-  --space-md: 16px;
-  --space-xl: 24px;
+  --space-2xs: var(--spacing-2xs);
+  --space-xs: var(--spacing-xs);
+  --space-sm: var(--spacing-sm);
+  --space-md: var(--spacing-md);
+  --space-xl: var(--spacing-xl);
 
   /* Inset (position 관련) */
-  --inset-2xs: 4px;
-  --inset-xs: 8px;
-  --inset-sm: 12px;
-  --inset-md: 16px;
-  --inset-xl: 24px;
+  --inset-2xs: var(--spacing-2xs);
+  --inset-xs: var(--spacing-xs);
+  --inset-sm: var(--spacing-sm);
+  --inset-md: var(--spacing-md);
+  --inset-xl: var(--spacing-xl);
 }
