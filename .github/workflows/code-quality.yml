@@ -4,9 +4,19 @@ on:
   push:
     branches:
       - 'feature/**'
+    paths:
+      - 'src/**'
+      - 'eslint.config.mjs'
+      - 'tsconfig.json'
+      - 'prettier.config.mjs'
   pull_request:
     branches:
       - 'feature/**'
+    paths:
+      - 'src/**'
+      - 'eslint.config.mjs'
+      - 'tsconfig.json'
+      - 'prettier.config.mjs'
 
 jobs:
   eslint:
