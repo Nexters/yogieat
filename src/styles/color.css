@@ -1,5 +1,63 @@
-html {
-    
+@theme {
+  /* Common */
+  --color-palette-common-black: #000000;
+  --color-palette-common-white: #ffffff;
+
+  /* Gray */
+  --color-palette-gray-50: #f9fafb;
+  --color-palette-gray-100: #f3f4f6;
+  --color-palette-gray-200: #e5e7eb;
+  --color-palette-gray-300: #d1d5db;
+  --color-palette-gray-400: #9ca3af;
+  --color-palette-gray-500: #6b7280;
+  --color-palette-gray-600: #4b5563;
+  --color-palette-gray-700: #374151;
+  --color-palette-gray-800: #1f2933;
+  --color-palette-gray-900: #111827;
+
+  /* Primary (Orange/Red) */
+  --color-palette-primary-50: #ffedea;
+  --color-palette-primary-100: #ffd1c9;
+  --color-palette-primary-200: #ffab9e;
+  --color-palette-primary-300: #ff7f6b;
+  --color-palette-primary-400: #ff654e;
+  --color-palette-primary-500: #ff5a3c;
+  --color-palette-primary-600: #f2472a;
+  --color-palette-primary-700: #d93a20;
+  --color-palette-primary-800: #b82f1a;
+  --color-palette-primary-900: #912416;
+
+  /* Secondary (Blue) */
+  --color-palette-secondary-50: #ecf6ff;
+  --color-palette-secondary-100: #d6ecff;
+  --color-palette-secondary-200: #add9ff;
+  --color-palette-secondary-300: #7fc3ff;
+  --color-palette-secondary-400: #66b9ff;
+  --color-palette-secondary-500: #53b7ff;
+  --color-palette-secondary-600: #3ca9ff;
+  --color-palette-secondary-700: #1f94f2;
+  --color-palette-secondary-800: #1678cc;
+  --color-palette-secondary-900: #115c99;
+
+  /* Green */
+  --color-palette-green-100: #ddf9ef;
+  --color-palette-green-300: #7eecc4;
+  --color-palette-green-500: #25dc96;
+  --color-palette-green-700: #16b77b;
+  --color-palette-green-900: #0f8a5c;
+
+  /* Yellow */
+  --color-palette-yellow-100: #fff6bf;
+  --color-palette-yellow-300: #ffee7d;
+  --color-palette-yellow-500: #ffe731;
+  --color-palette-yellow-700: #ffd52f;
+  --color-palette-yellow-900: #ffbb00;
+
+  /* Opacity Gray */
+  --color-palette-opacity-gray-2: rgba(31, 41, 51, 0.02);
+  --color-palette-opacity-gray-4: rgba(31, 41, 51, 0.04);
+  --color-palette-opacity-gray-8: rgba(31, 41, 51, 0.08);
+  --color-palette-opacity-gray-16: rgba(31, 41, 51, 0.16);
+  --color-palette-opacity-gray-50: rgba(31, 41, 51, 0.5);
+  --color-palette-opacity-gray-80: rgba(31, 41, 51, 0.8);
 }
-
-
