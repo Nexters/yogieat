@@ -8,5 +8,7 @@
 
 @theme {
     --max-width-root-layout: 430px;
+    --spacing-layout-header-height: 48px;
+    --spacing-layout-footer-height: calc(72px + env(safe-area-inset-bottom));
 }
 
