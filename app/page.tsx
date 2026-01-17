@@ -1,5 +1,20 @@
 import { Chip } from '#/components/Chip';
 
+function MarginExample({ name, value, spacingClass }: SpacingExampleProps) {
+  return (
+    <div className="ygi:flex ygi:flex-col ygi:gap-sm">
+      <div className="ygi:flex ygi:items-center ygi:justify-between">
+        <span className="ygi:body-14-sb ygi:text-gray-900">{name}</span>
+        <span className="ygi:caption-12-md ygi:text-gray-500">{value}</span>
+      </div>
+      <div className="ygi:bg-palette-gray-200 ygi:p-2 ygi:rounded-sm ygi:inline-flex ygi:flex-col">
+        <div className={`ygi:w-16 ygi:h-16 ygi:bg-palette-primary-500 ygi:rounded-sm ${spacingClass}`} />
+        <div className="ygi:w-16 ygi:h-16 ygi:bg-palette-secondary-500 ygi:rounded-sm" />
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
 	return (
 		<div className="ygi:flex ygi:flex-col ygi:gap-xl ygi:p-xl">
