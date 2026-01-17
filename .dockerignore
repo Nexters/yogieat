@@ -1,0 +1,13 @@
+.vscode
+.git
+.github
+
+.next
+node_modules
+dist
+
+docker
+Dockerfile
+.dockerignore
+
+README.md

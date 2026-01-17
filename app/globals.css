@@ -6,12 +6,16 @@
 @import "../src/styles/radius.css";
 @import "../src/styles/layout.css";
 @import "../src/styles/dimension.css";
+@import "../src/styles/spacing.css";
 
 @base {
   body {
     background: var(--background);
     color: var(--foreground);
-    font-family: 'SUIT Variable', system-ui, -apple-system, sans-serif;
-  }  
+    font-family:
+      "SUIT Variable",
+      system-ui,
+      -apple-system,
+      sans-serif;
+  }
 }
-
