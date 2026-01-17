@@ -1,0 +1,162 @@
+name: PR Auto Labeler
+
+on:
+  pull_request:
+    types: [opened, edited, reopened, ready_for_review, converted_to_draft]
+  pull_request_review:
+    types: [submitted, dismissed]
+
+permissions:
+  pull-requests: write
+  contents: read
+
+concurrency:
+  group: pr-labels-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  validate-and-label:
+    name: Validate PR Title and Add Type Label
+    if: startsWith(github.head_ref, 'feature/')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Validate PR title and extract type
+        id: validate
+        run: |
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          echo "PR Title: $PR_TITLE"
+
+          # Conventional Commit 패턴 검증
+          if [[ "$PR_TITLE" =~ ^(feat|fix|docs|style|refactor|perf|test|chore|ci|build):[[:space:]]*.+ ]]; then
+            TYPE="${BASH_REMATCH[1]}"
+            echo "Valid conventional commit format"
+            echo "Type: $TYPE"
+            echo "type=$TYPE" >> $GITHUB_OUTPUT
+            echo "valid=true" >> $GITHUB_OUTPUT
+          else
+            echo "::error::PR title does not follow Conventional Commit format"
+            echo "::error::Expected format: (feat|fix|docs|style|refactor|perf|test|chore|ci|build): title"
+            echo "::error::Example: feat: add new feature"
+            echo "valid=false" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
+      - name: Remove all type labels
+        if: steps.validate.outputs.valid == 'true'
+        uses: actions-ecosystem/action-remove-labels@v1
+        with:
+          labels: |
+            ✨ Feature
+            🐞 Fix
+            📃 Docs
+            🧑‍🎨 Style
+            🔨 Refactor
+            ⚙ Setting
+            🌏 Deploy
+
+      - name: Add Feature label
+        if: steps.validate.outputs.valid == 'true' && steps.validate.outputs.type == 'feat'
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          labels: ✨ Feature
+
+      - name: Add Fix label
+        if: steps.validate.outputs.valid == 'true' && steps.validate.outputs.type == 'fix'
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          labels: 🐞 Fix
+
+      - name: Add Docs label
+        if: steps.validate.outputs.valid == 'true' && steps.validate.outputs.type == 'docs'
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          labels: 📃 Docs
+
+      - name: Add Style label
+        if: steps.validate.outputs.valid == 'true' && steps.validate.outputs.type == 'style'
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          labels: 🧑‍🎨 Style
+
+      - name: Add Refactor label
+        if: |
+          steps.validate.outputs.valid == 'true' &&
+          (steps.validate.outputs.type == 'refactor' || steps.validate.outputs.type == 'perf')
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          labels: 🔨 Refactor
+
+      - name: Add Setting label
+        if: |
+          steps.validate.outputs.valid == 'true' &&
+          (steps.validate.outputs.type == 'chore' || steps.validate.outputs.type == 'test')
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          labels: ⚙ Setting
+
+      - name: Add Deploy label
+        if: |
+          steps.validate.outputs.valid == 'true' &&
+          (steps.validate.outputs.type == 'ci' || steps.validate.outputs.type == 'build')
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          labels: 🌏 Deploy
+
+      - name: Success message
+        if: steps.validate.outputs.valid == 'true'
+        run: echo "✅ PR title validated and type label added successfully!"
+
+  manage-status-labels:
+    name: Manage Status Labels
+    if: startsWith(github.head_ref, 'feature/')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Remove all status labels
+        uses: actions-ecosystem/action-remove-labels@v1
+        with:
+          labels: |
+            📤 In Progress
+            ☑️ Need Review
+            ✅ In Review
+
+      - name: Label for Draft
+        if: github.event.pull_request.draft == true
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          labels: 📤 In Progress
+
+      - name: Label for Ready
+        if: >
+          (github.event.action == 'ready_for_review') ||
+          (github.event.action == 'opened' && github.event.pull_request.draft == false) ||
+          (github.event.action == 'reopened')
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          labels: ☑️ Need Review
+
+      - name: Label for Approved
+        if: >
+          github.event.review.state == 'approved' &&
+          github.event.pull_request.draft == false
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          labels: ✅ In Review
+
+      - name: Label for Changes Requested
+        if: github.event.review.state == 'changes_requested'
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          labels: 📤 In Progress
+
+      - name: Label for Dismissed Review
+        if: github.event.action == 'dismissed'
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          labels: ☑️ Need Review
+
+      - name: Success message
+        run: echo "✅ PR status label updated successfully!"
