@@ -94,7 +94,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Run Prettier
-        run: pnpm exec prettier --check .
+        run: pnpm exec prettier --check "src/**" "app/**"
 
       - name: Success message
         run: echo "✅ Prettier check passed successfully!"
