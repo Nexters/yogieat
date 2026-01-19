@@ -1,29 +1,18 @@
-import { cva } from "class-variance-authority";
-import type { ComponentProps } from "react";
-import { twJoin } from "tailwind-merge";
-import { HeartIcon } from "#/components/heartIcon";
-import { motion, AnimatePresence } from "motion/react";
+import type { ComponentProps } from 'react';
+import { twJoin } from 'tailwind-merge';
+import { HeartIcon } from '#/components/heartIcon';
+import { motion, AnimatePresence } from 'motion/react';
 
-const containerVariants = cva([
-	"ygi:relative ygi:w-full ygi:h-[12px]",
-	"ygi:bg-palette-gray-200 ygi:rounded-sm",
-	"ygi:overflow-visible",
-]);
+const containerClasses =
+	'ygi:relative ygi:h-[12px] ygi:w-full ygi:rounded-sm ygi:bg-palette-gray-200 ygi:overflow-visible';
 
-const fillVariants = cva([
-	"ygi:absolute ygi:left-0 ygi:top-0 ygi:h-full",
-	"ygi:bg-palette-primary-500 ygi:rounded-sm",
-]);
+const fillClasses =
+	'ygi:absolute ygi:top-0 ygi:left-0 ygi:h-full ygi:rounded-sm ygi:bg-palette-primary-500';
 
-const indicatorVariants = cva([
-	"ygi:absolute ygi:top-1/2 ygi:-translate-y-1/2",
-	"ygi:w-[28px] ygi:h-[28px]",
-	"ygi:bg-palette-primary-500 ygi:rounded-full",
-	"ygi:shadow-md",
-	"ygi:flex ygi:items-center ygi:justify-center",
-]);
+const indicatorClasses =
+	'ygi:absolute ygi:top-1/2 ygi:-translate-y-1/2 ygi:h-[28px] ygi:w-[28px] ygi:rounded-full ygi:bg-palette-primary-200 ygi:flex ygi:items-center ygi:justify-center ygi:border ygi:border-palette-common-white';
 
-export interface ProgressBarProps extends ComponentProps<"div"> {
+export interface ProgressBarProps extends ComponentProps<'div'> {
 	value: number; // 0-100
 }
 
@@ -37,7 +26,7 @@ export const ProgressBar = ({
 
 	return (
 		<div
-			className={twJoin(containerVariants(), className)}
+			className={twJoin(containerClasses, className)}
 			role="progressbar"
 			aria-valuenow={clampedValue}
 			aria-valuemin={0}
@@ -45,12 +34,12 @@ export const ProgressBar = ({
 			{...props}
 		>
 			<motion.div
-				className={fillVariants()}
-				initial={{ width: "0%" }}
+				className={fillClasses}
+				initial={{ width: '0%' }}
 				animate={{ width: `${clampedValue}%` }}
 				transition={{
 					duration: 0.3,
-					ease: "easeOut",
+					ease: 'easeOut',
 				}}
 			/>
 
@@ -58,20 +47,23 @@ export const ProgressBar = ({
 				{isValue && (
 					<motion.div
 						key="indicator"
-						className={indicatorVariants()}
-						initial={{ opacity: 0, scale: 0.5, left: "-14px" }}
+						className={indicatorClasses}
+						initial={{ opacity: 0, scale: 0.5, left: '-14px' }}
 						animate={{
 							opacity: 1,
 							scale: 1,
 							left: `calc(${clampedValue}% - 14px)`,
 						}}
-						exit={{ opacity: 0, scale: 0.5, left: "-14px" }}
+						exit={{ opacity: 0, scale: 0.5, left: '-14px' }}
 						transition={{
 							duration: 0.3,
-							ease: "easeOut",
+							ease: 'easeOut',
 						}}
 					>
-						<HeartIcon size={16} color="white" />
+						<HeartIcon
+							size={16}
+							className="ygi:text-palette-primary-600"
+						/>
 					</motion.div>
 				)}
 			</AnimatePresence>
