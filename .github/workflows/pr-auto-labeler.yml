@@ -141,15 +141,6 @@ jobs:
         with:
           labels: ☑️ Need Review
 
-      - name: Label for Approved
-        if: >
-          github.event.action != 'closed' &&
-          github.event.review.state == 'approved' &&
-          github.event.pull_request.draft == false
-        uses: actions-ecosystem/action-add-labels@v1
-        with:
-          labels: ✅ In Review
-
       - name: Label for Changes Requested
         if: github.event.action != 'closed' && github.event.review.state == 'changes_requested'
         uses: actions-ecosystem/action-add-labels@v1
