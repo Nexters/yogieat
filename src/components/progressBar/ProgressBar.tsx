@@ -2,6 +2,7 @@ import { cva } from "class-variance-authority";
 import type { ComponentProps } from "react";
 import { twJoin } from "tailwind-merge";
 import { HeartIcon } from "#/components/heartIcon";
+import { motion, AnimatePresence } from "motion/react";
 
 const containerVariants = cva([
 	"ygi:relative ygi:w-full ygi:h-[12px]",
@@ -12,14 +13,12 @@ const containerVariants = cva([
 const fillVariants = cva([
 	"ygi:absolute ygi:left-0 ygi:top-0 ygi:h-full",
 	"ygi:bg-palette-primary-500 ygi:rounded-sm",
-	"ygi:transition-all ygi:duration-300 ygi:ease-in-out",
 ]);
 
 const indicatorVariants = cva([
 	"ygi:absolute ygi:top-1/2 ygi:-translate-y-1/2",
 	"ygi:w-[28px] ygi:h-[28px]",
 	"ygi:bg-palette-primary-500 ygi:rounded-full",
-	"ygi:transition-all ygi:duration-300 ygi:ease-in-out",
 	"ygi:shadow-md",
 	"ygi:flex ygi:items-center ygi:justify-center",
 ]);
@@ -45,18 +44,37 @@ export const ProgressBar = ({
 			aria-valuemax={100}
 			{...props}
 		>
-			<div className={fillVariants()} style={{ width: `${clampedValue}%` }} />
+			<motion.div
+				className={fillVariants()}
+				initial={{ width: "0%" }}
+				animate={{ width: `${clampedValue}%` }}
+				transition={{
+					duration: 0.3,
+					ease: "easeOut",
+				}}
+			/>
 
-			{isValue && (
-				<div
-					className={indicatorVariants()}
-					style={{
-						left: `calc(${clampedValue}% - 14px)`,
-					}}
-				>
-					<HeartIcon size={16} color="white" />
-				</div>
-			)}
+			<AnimatePresence>
+				{isValue && (
+					<motion.div
+						key="indicator"
+						className={indicatorVariants()}
+						initial={{ opacity: 0, scale: 0.5 }}
+						animate={{
+							opacity: 1,
+							scale: 1,
+							left: `calc(${clampedValue}% - 14px)`,
+						}}
+						exit={{ opacity: 0, scale: 0.5 }}
+						transition={{
+							duration: 0.3,
+							ease: "easeOut",
+						}}
+					>
+						<HeartIcon size={16} color="white" />
+					</motion.div>
+				)}
+			</AnimatePresence>
 		</div>
 	);
 };
