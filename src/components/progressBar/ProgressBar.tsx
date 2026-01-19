@@ -33,8 +33,8 @@ export const ProgressBar = ({
 	className,
 	...props
 }: ProgressBarProps) => {
-	// Clamp value between 0-100
 	const clampedValue = Math.min(Math.max(value, 0), 100);
+	const isValue = clampedValue > 0;
 
 	return (
 		<div
@@ -45,15 +45,13 @@ export const ProgressBar = ({
 			aria-valuemax={100}
 			{...props}
 		>
-			{/* Progress fill */}
 			<div className={fillVariants()} style={{ width: `${clampedValue}%` }} />
 
-			{/* Indicator at end of progress */}
-			{clampedValue > 0 && (
+			{isValue && (
 				<div
 					className={indicatorVariants()}
 					style={{
-						left: `calc(${clampedValue}% - 14px)`, // Center on progress end
+						left: `calc(${clampedValue}% - 14px)`,
 					}}
 				>
 					<HeartIcon size={16} color="white" />
