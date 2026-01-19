@@ -79,14 +79,6 @@ export default function AtomsPage() {
 					</div>
 				</div>
 
-				<div className="ygi:bg-palette-gray-50 ygi:rounded-md ygi:p-xl">
-					<p className="ygi:body-14-md ygi:text-gray-500 ygi:mb-md">Colors</p>
-					<div className="ygi:flex ygi:gap-xl ygi:items-center">
-						<Spinner />
-						<Spinner color="currentColor" className="ygi:text-blue-500" />
-						<Spinner color="#10B981" />
-					</div>
-				</div>
 			</div>
 
 			{/* ProgressBar Section */}

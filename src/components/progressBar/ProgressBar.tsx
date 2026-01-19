@@ -59,13 +59,13 @@ export const ProgressBar = ({
 					<motion.div
 						key="indicator"
 						className={indicatorVariants()}
-						initial={{ opacity: 0, scale: 0.5 }}
+						initial={{ opacity: 0, scale: 0.5, left: "-14px" }}
 						animate={{
 							opacity: 1,
 							scale: 1,
 							left: `calc(${clampedValue}% - 14px)`,
 						}}
-						exit={{ opacity: 0, scale: 0.5 }}
+						exit={{ opacity: 0, scale: 0.5, left: "-14px" }}
 						transition={{
 							duration: 0.3,
 							ease: "easeOut",

@@ -25,12 +25,10 @@ const spinnerVariants = cva(["ygi:inline-block", "ygi:animate-spin"], {
 export interface SpinnerProps
 	extends Omit<SVGProps<SVGSVGElement>, "children"> {
 	size?: "small" | "medium" | "large";
-	color?: string;
 }
 
 export const Spinner = ({
 	size = "medium",
-	color = "var(--color-palette-primary-500)",
 	className,
 	...props
 }: SpinnerProps) => {
@@ -51,7 +49,7 @@ export const Spinner = ({
 				cy="25"
 				r="20"
 				fill="none"
-				stroke={color}
+				stroke="var(--color-palette-primary-100)"
 				strokeWidth="4"
 				strokeDasharray="60 200"
 				strokeLinecap="round"
