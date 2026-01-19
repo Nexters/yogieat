@@ -26,12 +26,10 @@ const indicatorVariants = cva([
 
 export interface ProgressBarProps extends ComponentProps<"div"> {
 	value: number; // 0-100
-	showIndicator?: boolean;
 }
 
 export const ProgressBar = ({
 	value,
-	showIndicator = true,
 	className,
 	...props
 }: ProgressBarProps) => {
@@ -51,7 +49,7 @@ export const ProgressBar = ({
 			<div className={fillVariants()} style={{ width: `${clampedValue}%` }} />
 
 			{/* Indicator at end of progress */}
-			{showIndicator && clampedValue > 0 && (
+			{clampedValue > 0 && (
 				<div
 					className={indicatorVariants()}
 					style={{
