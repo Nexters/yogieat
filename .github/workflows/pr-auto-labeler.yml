@@ -2,7 +2,7 @@ name: PR Auto Labeler
 
 on:
   pull_request:
-    types: [opened, edited, reopened, ready_for_review, converted_to_draft]
+    types: [opened, edited, reopened, ready_for_review, converted_to_draft, closed]
   pull_request_review:
     types: [submitted, dismissed]
 
@@ -17,7 +17,7 @@ concurrency:
 jobs:
   validate-and-label:
     name: Validate PR Title and Add Type Label
-    if: startsWith(github.head_ref, 'feature/')
+    if: startsWith(github.head_ref, 'feature/') && github.event.action != 'closed'
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
@@ -124,30 +124,25 @@ jobs:
             ✅ In Review
 
       - name: Label for Draft
-        if: github.event.pull_request.draft == true
+        if: github.event.action != 'closed' && github.event.pull_request.draft == true
         uses: actions-ecosystem/action-add-labels@v1
         with:
           labels: 📤 In Progress
 
       - name: Label for Ready
         if: >
-          (github.event.action == 'ready_for_review') ||
-          (github.event.action == 'opened' && github.event.pull_request.draft == false) ||
-          (github.event.action == 'reopened')
+          github.event.action != 'closed' &&
+          (
+            (github.event.action == 'ready_for_review') ||
+            (github.event.action == 'opened' && github.event.pull_request.draft == false) ||
+            (github.event.action == 'reopened')
+          )
         uses: actions-ecosystem/action-add-labels@v1
         with:
           labels: ☑️ Need Review
 
-      - name: Label for Approved
-        if: >
-          github.event.review.state == 'approved' &&
-          github.event.pull_request.draft == false
-        uses: actions-ecosystem/action-add-labels@v1
-        with:
-          labels: ✅ In Review
-
       - name: Label for Changes Requested
-        if: github.event.review.state == 'changes_requested'
+        if: github.event.action != 'closed' && github.event.review.state == 'changes_requested'
         uses: actions-ecosystem/action-add-labels@v1
         with:
           labels: 📤 In Progress
