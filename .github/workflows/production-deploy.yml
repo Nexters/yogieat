@@ -1,0 +1,109 @@
+name: Production Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-image:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Detect changed files
+        uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          filters: |
+            client:
+              - 'src/**'
+              - 'public/**'
+              - 'package.json'
+              - 'pnpm-lock.yaml'
+              - 'docker/client/**'
+              - 'next.config.js'
+              - 'tsconfig.json'
+            nginx:
+              - 'docker/nginx/**'
+
+      - name: Login to DockerHub
+        if: steps.changes.outputs.client == 'true' || steps.changes.outputs.nginx == 'true'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Set up Docker Buildx
+        if: steps.changes.outputs.client == 'true' || steps.changes.outputs.nginx == 'true'
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and Push Client image
+        if: steps.changes.outputs.client == 'true'
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          # platforms: linux/amd64,linux/arm64/v8
+          file: ./docker/client/Dockerfile
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/yogieat-client:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Build and Push Nginx image
+        if: steps.changes.outputs.nginx == 'true'
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          file: ./docker/nginx/Dockerfile
+          context: ./docker/nginx
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/yogieat-nginx:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  deploy-application:
+    needs: build-image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v5
+
+      - name: Copy docker-compose.yml to Server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_PRIVATE_KEY }}
+          source: "docker-compose.yml"
+          target: "/root/yogieat"
+
+      - name: Deploy Project to Gabia Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_PRIVATE_KEY }}
+          script: |
+            cd /root/yogieat
+
+            sudo docker image prune -a -f
+
+            sudo docker-compose -f ./docker-compose.yml pull
+
+            sudo docker-compose -f ./docker-compose.yml up -d
+
+      - name: Discord notification
+        if: always()
+        uses: sarisia/actions-status-discord@v1
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          title: "🚀 Production 배포"
+          description: |
+            **상태**: ${{ job.status }}
+            **브랜치**: ${{ github.ref_name }}
+            **커밋**: ${{ github.sha }}
+            **커밋 메시지**: ${{ github.event.head_commit.message }}
+            **이미지**: ${{ steps.metadata.outputs.tags }}
+          color: ${{ job.status == 'success' && '0x57F287' || '0xED4245' }}
+          username: GitHub Actions
