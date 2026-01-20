@@ -32,3 +32,19 @@ next-env.d.ts
 
 # Coverage
 coverage/
+
+# Binary and media files
+*.ico
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.svg
+*.woff
+*.woff2
+*.ttf
+*.eot
+*.otf
+*.pdf
+*.zip
