@@ -1,0 +1,31 @@
+services:
+  client:
+    build:
+      context: .
+      dockerfile: docker/client/Dockerfile
+    image: rookieanddocker/yogieat-client:latest
+    container_name: client
+    expose:
+      - "3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - HOSTNAME=0.0.0.0
+    labels:
+      - "name=client"
+      - "mode=local"
+
+  nginx:
+    build:
+      context: docker/nginx
+      dockerfile: Dockerfile
+    image: rookieanddocker/yogieat-nginx:latest
+    container_name: nginx
+    ports:
+      - 80:80
+    depends_on:
+      - client
+    labels:
+      - "name=nginx"
+      - "mode=local"
+    restart: on-failure
