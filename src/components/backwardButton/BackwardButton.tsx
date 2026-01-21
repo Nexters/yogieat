@@ -1,27 +1,25 @@
-import type { ComponentProps } from 'react';
-import { twJoin } from 'tailwind-merge';
-import { ArrowLeftIcon } from '#/components/arrowLeftIcon';
+import type { ComponentProps } from "react";
+import { twJoin } from "tailwind-merge";
+import { ArrowLeftIcon } from "#/components/arrowLeftIcon";
 
-export type BackwardButtonProps = ComponentProps<'button'>;
+export type BackwardButtonProps = Omit<
+	ComponentProps<"button">,
+	"children" | "className" | "aria-label" | "type"
+>;
 
-export const BackwardButton = ({
-	className,
-	ref,
-	...props
-}: BackwardButtonProps) => {
+export const BackwardButton = (props: BackwardButtonProps) => {
 	return (
 		<button
-			ref={ref}
 			type="button"
 			aria-label="뒤로 가기"
 			className={twJoin(
-				'ygi:flex ygi:items-center ygi:justify-center',
-				'ygi:w-space-48 ygi:h-space-48 ygi:p-space-12',
-				className,
+				"ygi:flex ygi:items-center ygi:justify-center",
+				"ygi:h-12 ygi:w-12 ygi:p-3",
+				"ygi:bg-transparent",
 			)}
 			{...props}
 		>
-			<ArrowLeftIcon size={24} color="#6b7280" />
+			<ArrowLeftIcon size={24} className="ygi:text-icon-default" />
 		</button>
 	);
 };
