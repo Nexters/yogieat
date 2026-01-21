@@ -4,7 +4,7 @@ import { type ComponentProps } from "react";
 const chipVariants = cva(
 	[
 		"ygi:inline-flex ygi:items-center ygi:justify-center",
-		"ygi:px-md ygi:py-xs",
+		"ygi:px-4 ygi:py-2",
 		"ygi:rounded-xl ygi:transition-colors",
 		"ygi:text-center ygi:body-16-bd ygi:whitespace-nowrap",
 		"ygi:cursor-pointer ygi:disabled:cursor-not-allowed",
@@ -13,14 +13,16 @@ const chipVariants = cva(
 		variants: {
 			selected: {
 				false: [
-					"ygi:bg-palette-gray-100 ygi:text-palette-gray-500",
-					"ygi:hover:bg-palette-gray-200 ygi:hover:text-palette-gray-600",
-					"ygi:disabled:bg-palette-gray-100 ygi:disabled:text-palette-gray-400",
+					"ygi:bg-button-tertiary ygi:text-text-secondary",
+					"ygi:hover:bg-button-tertiary-hover ygi:hover:text-text-primary",
+					"ygi:disabled:bg-button-tertiary-disabled ygi:disabled:text-text-disabled",
+					"ygi:disabled:hover:bg-button-tertiary-disabled ygi:disabled:hover:text-text-disabled",
 				],
 				true: [
-					"ygi:bg-palette-primary-500 ygi:text-palette-common-white",
-					"ygi:hover:bg-palette-primary-700",
-					"ygi:disabled:bg-palette-primary-200",
+					"ygi:bg-button-primary ygi:text-text-inverse",
+					"ygi:hover:bg-button-primary-hover",
+					"ygi:disabled:bg-button-primary-disabled ygi:disabled:text-text-inverse",
+					"ygi:disabled:hover:bg-button-primary-disabled",
 				],
 			},
 		},
