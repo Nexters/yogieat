@@ -1,34 +1,37 @@
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentProps } from "react";
-import { twJoin } from "tailwind-merge";
+import { twJoin, twMerge } from "tailwind-merge";
 
 const buttonVariants = cva(
 	[
 		"ygi:inline-flex ygi:items-center ygi:justify-center",
 		"ygi:text-center ygi:whitespace-nowrap",
-		"ygi:px-xl ygi:py-sm",
+		"ygi:px-6 ygi:py-3",
 		"ygi:cursor-pointer ygi:transition-colors",
-		"ygi:disabled:cursor-not-allowed ygi:disabled:opacity-50",
+		"ygi:disabled:cursor-not-allowed",
 		"ygi:heading-18-bd",
 	],
 	{
 		variants: {
 			variant: {
 				primary: [
-					"ygi:bg-palette-gray-900 ygi:text-palette-common-white",
-					"ygi:hover:bg-palette-gray-800",
-					"ygi:disabled:hover:bg-palette-gray-900",
+					"ygi:bg-button-primary ygi:text-text-inverse",
+					"ygi:hover:bg-button-primary-hover",
+					"ygi:disabled:bg-button-primary-disabled ygi:disabled:text-text-inverse",
+					"ygi:disabled:hover:bg-button-primary-disabled",
 				],
 				secondary: [
-					"ygi:bg-palette-primary-500 ygi:text-palette-common-white",
-					"ygi:hover:bg-palette-primary-700",
-					"ygi:disabled:hover:bg-palette-primary-500",
+					"ygi:bg-button-secondary ygi:text-text-inverse",
+					"ygi:hover:bg-button-secondary-hover",
+					"ygi:disabled:bg-button-secondary-disabled ygi:disabled:text-text-inverse",
+					"ygi:disabled:hover:bg-button-secondary-disabled",
 				],
 				tertiary: [
-					"ygi:bg-palette-gray-100 ygi:text-palette-gray-500",
-					"ygi:hover:bg-palette-gray-200 ygi:hover:text-palette-gray-600",
-					"ygi:disabled:hover:bg-palette-gray-100 ygi:disabled:hover:text-palette-gray-500",
+					"ygi:bg-button-tertiary ygi:text-text-secondary",
+					"ygi:hover:bg-button-tertiary-hover ygi:hover:text-text-primary",
+					"ygi:disabled:bg-button-tertiary-disabled ygi:disabled:text-text-disabled",
+					"ygi:disabled:hover:bg-button-tertiary-disabled ygi:disabled:hover:text-text-disabled",
 				],
 			},
 			shape: {
@@ -65,7 +68,7 @@ export const Button = ({
 			ref={ref}
 			disabled={disabled}
 			aria-disabled={disabled}
-			className={twJoin(
+			className={twMerge(
 				buttonVariants({
 					variant,
 					shape,
