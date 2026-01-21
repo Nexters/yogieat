@@ -1,19 +1,19 @@
-import type { ComponentProps } from "react";
+import type { ComponentPropsWithoutRef } from "react";
 import { twJoin } from "tailwind-merge";
 
-export type RootProps = ComponentProps<"div">;
+export type RootProps = Omit<ComponentPropsWithoutRef<"div">, "className">;
 
-export const Root = ({ children, className, ref, ...props }: RootProps) => {
+export const Root = ({ children, ...props }: RootProps) => {
 	return (
-		<div
-			ref={ref}
+		<section
 			className={twJoin(
-				"ygi:flex ygi:flex-col ygi:gap-space-12 ygi:items-start ygi:px-space-24 ygi:w-full",
-				className,
+				"ygi:flex ygi:w-full ygi:flex-col ygi:items-start",
+				"ygi:gap-3 ygi:px-6",
+				"ygi:w-full",
 			)}
 			{...props}
 		>
 			{children}
-		</div>
+		</section>
 	);
 };
