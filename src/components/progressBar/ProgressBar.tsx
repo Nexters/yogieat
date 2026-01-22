@@ -18,7 +18,7 @@ export const ProgressBar = ({
 	return (
 		<div
 			className={twJoin(
-				"ygi:relative ygi:h-3 ygi:w-full ygi:overflow-visible ygi:rounded-sm ygi:bg-palette-gray-200",
+				"ygi:relative ygi:h-3 ygi:w-full ygi:overflow-visible ygi:rounded-sm ygi:bg-surface-gray",
 				className,
 			)}
 			role="progressbar"
@@ -28,7 +28,7 @@ export const ProgressBar = ({
 			{...props}
 		>
 			<motion.div
-				className="ygi:absolute ygi:top-0 ygi:left-0 ygi:h-full ygi:rounded-sm ygi:bg-palette-primary-500"
+				className="ygi:absolute ygi:top-0 ygi:left-0 ygi:h-full ygi:rounded-sm ygi:bg-button-secondary"
 				initial={{ width: "0%" }}
 				animate={{ width: `${clampedValue}%` }}
 				transition={{
@@ -41,7 +41,11 @@ export const ProgressBar = ({
 				{showIndicator && (
 					<motion.div
 						key="indicator"
-						className="ygi:absolute ygi:top-1/2 ygi:flex ygi:h-7 ygi:w-7 ygi:-translate-y-1/2 ygi:items-center ygi:justify-center ygi:rounded-full ygi:border ygi:border-palette-common-white ygi:bg-palette-primary-200"
+						className={twJoin(
+							"ygi:absolute ygi:top-1/2 ygi:flex ygi:h-7 ygi:w-7 ygi:-translate-y-1/2",
+							"ygi:items-center ygi:justify-center ygi:rounded-full",
+							"ygi:border ygi:border-icon-inverse ygi:bg-red-200",
+						)}
 						initial={{ opacity: 0, scale: 0.5, left: "-14px" }}
 						animate={{
 							opacity: 1,

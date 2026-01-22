@@ -2,21 +2,14 @@ import { cva } from "class-variance-authority";
 import type { SVGProps } from "react";
 import { twJoin } from "tailwind-merge";
 
-// Spinner sizes (using standard Tailwind spacing)
-const spinnerSizes = {
-	small: 20,
-	medium: 32,
-	large: 44,
-} as const;
-
 const spinnerVariants = cva(
-	["ygi:inline-block", "ygi:animate-spin", "ygi:stroke-palette-primary-100"],
+	["ygi:inline-block", "ygi:animate-spin", "ygi:stroke-primary-disabled"],
 	{
 		variants: {
 			size: {
 				small: "ygi:h-5 ygi:w-5",
-				medium: "ygi:h-8 ygi:w-8",
-				large: "ygi:h-11 ygi:w-11",
+				medium: "ygi:h-9 ygi:w-9",
+				large: "ygi:h-13 ygi:w-13",
 			},
 		},
 		defaultVariants: {
@@ -27,27 +20,19 @@ const spinnerVariants = cva(
 
 export interface SpinnerProps extends Omit<
 	SVGProps<SVGSVGElement>,
-	"children"
+	"children" | "className"
 > {
 	size?: "small" | "medium" | "large";
 }
 
-export const Spinner = ({
-	size = "medium",
-	className,
-	...props
-}: SpinnerProps) => {
-	const pixelSize = spinnerSizes[size];
-
+export const Spinner = ({ size = "medium", ...props }: SpinnerProps) => {
 	return (
 		<svg
-			width={pixelSize}
-			height={pixelSize}
+			{...props}
 			viewBox="0 0 50 50"
-			className={twJoin(spinnerVariants({ size }), className)}
+			className={twJoin(spinnerVariants({ size }))}
 			role="status"
 			aria-label="Loading"
-			{...props}
 		>
 			<circle
 				cx="25"
@@ -55,8 +40,17 @@ export const Spinner = ({
 				r="20"
 				fill="none"
 				strokeWidth="4"
-				strokeDasharray="60 200"
+				className="ygi:stroke-surface-white"
+			/>
+			<circle
+				cx="25"
+				cy="25"
+				r="20"
+				fill="none"
+				strokeWidth="4"
+				strokeDasharray="40 200"
 				strokeLinecap="round"
+				className="ygi:stroke-button-secondary-disabled"
 			/>
 		</svg>
 	);
