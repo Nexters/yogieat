@@ -45,16 +45,18 @@ jobs:
 
       - name: Remove all type labels
         if: steps.validate.outputs.valid == 'true'
-        uses: actions-ecosystem/action-remove-labels@v1
-        with:
-          labels: |
-            ✨ Feature
-            🐞 Fix
-            📃 Docs
-            🧑‍🎨 Style
-            🔨 Refactor
-            ⚙ Setting
-            🌏 Deploy
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          LABELS_TO_REMOVE=("✨ Feature" "🐞 Fix" "📃 Docs" "🧑‍🎨 Style" "🔨 Refactor" "⚙ Setting" "🌏 Deploy")
+          CURRENT_LABELS=$(gh pr view ${{ github.event.pull_request.number }} --json labels --jq '.labels[].name')
+
+          for label in "${LABELS_TO_REMOVE[@]}"; do
+            if echo "$CURRENT_LABELS" | grep -Fxq "$label"; then
+              echo "Removing label: $label"
+              gh pr edit ${{ github.event.pull_request.number }} --remove-label "$label" || echo "Failed to remove $label, continuing..."
+            fi
+          done
 
       - name: Add Feature label
         if: steps.validate.outputs.valid == 'true' && steps.validate.outputs.type == 'feat'
@@ -116,12 +118,18 @@ jobs:
 
     steps:
       - name: Remove all status labels
-        uses: actions-ecosystem/action-remove-labels@v1
-        with:
-          labels: |
-            📤 In Progress
-            ☑️ Need Review
-            ✅ In Review
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          LABELS_TO_REMOVE=("📤 In Progress" "☑️ Need Review" "✅ In Review")
+          CURRENT_LABELS=$(gh pr view ${{ github.event.pull_request.number }} --json labels --jq '.labels[].name')
+
+          for label in "${LABELS_TO_REMOVE[@]}"; do
+            if echo "$CURRENT_LABELS" | grep -Fxq "$label"; then
+              echo "Removing label: $label"
+              gh pr edit ${{ github.event.pull_request.number }} --remove-label "$label" || echo "Failed to remove $label, continuing..."
+            fi
+          done
 
       - name: Label for Draft
         if: github.event.action != 'closed' && github.event.pull_request.draft == true

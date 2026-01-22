@@ -76,7 +76,7 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SERVER_PRIVATE_KEY }}
           source: "docker-compose.yml"
-          target: "/root/yogieat"
+          target: "~/yogieat"
 
       - name: Deploy Project to Gabia Server
         uses: appleboy/ssh-action@master
@@ -85,7 +85,7 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SERVER_PRIVATE_KEY }}
           script: |
-            cd /root/yogieat
+            cd ~/yogieat
 
             sudo docker image prune -a -f
 
