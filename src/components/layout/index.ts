@@ -4,8 +4,8 @@ import { Footer } from "./Footer";
 import { Content } from "./Content";
 
 export const Layout = {
-  Root,
-  Header,
-  Footer,
-  Content,
+	Root,
+	Header,
+	Footer,
+	Content,
 };
