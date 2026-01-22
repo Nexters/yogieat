@@ -2,6 +2,7 @@ import { BackwardButton } from "#/components/backwardButton";
 import { Layout } from "#/components/layout";
 import { StepHeader } from "#/components/stepHeader";
 import { colors } from "#/constants/color";
+import { ToastTest } from "./_test/ToastTest";
 
 export default function Home() {
 	return (
@@ -54,8 +55,8 @@ export default function Home() {
 				</div>
 			</Layout.Content>
 			<Layout.Footer>
-				<div className="ygi:flex ygi:h-layout-footer-height ygi:w-full ygi:items-center ygi:justify-center ygi:bg-surface-gray">
-					Footer
+				<div className="ygi:flex ygi:h-layout-footer-height ygi:w-full ygi:items-center ygi:justify-center ygi:gap-md ygi:bg-surface-gray">
+					<ToastTest />
 				</div>
 			</Layout.Footer>
 		</Layout.Root>
