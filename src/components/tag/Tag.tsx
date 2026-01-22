@@ -10,8 +10,8 @@ const tagVariants = cva(
 	{
 		variants: {
 			size: {
-				medium: ['ygi:px-xs ygi:py-2xs', 'ygi:rounded-sm'],
-				small: ['ygi:px-2xs ygi:py-0 ygi:h-4', 'ygi:rounded-xs'],
+				medium: ['ygi:px-2 ygi:py-1', 'ygi:rounded-sm'],
+				small: ['ygi:px-1 ygi:py-0 ygi:h-4', 'ygi:rounded-xs'],
 			},
 		},
 		defaultVariants: {
