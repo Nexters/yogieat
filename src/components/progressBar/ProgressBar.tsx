@@ -1,6 +1,6 @@
 import type { ComponentPropsWithoutRef } from "react";
 import { twJoin } from "tailwind-merge";
-import { HeartIcon } from "#/components/heartIcon";
+import { HeartIcon } from "#/icons/heartIcon";
 import { motion, AnimatePresence } from "motion/react";
 
 export interface ProgressBarProps extends Omit<

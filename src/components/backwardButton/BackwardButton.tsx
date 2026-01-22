@@ -1,6 +1,6 @@
 import type { ComponentProps } from "react";
 import { twJoin } from "tailwind-merge";
-import { ArrowLeftIcon } from "#/components/arrowLeftIcon";
+import { ArrowLeftIcon } from "#/icons/arrowLeftIcon";
 
 export type BackwardButtonProps = Omit<
 	ComponentProps<"button">,
