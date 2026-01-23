@@ -1,14 +1,13 @@
 @utility min-h-screen-dynamic {
-    /* Fallback for browsers that don't support dvh */
-    min-height: 100vh;
-    /* Use dvh (Dynamic Viewport Height) for modern browsers */
-    /* This handles mobile browser UI (address bar, navigation) changes */
-    min-height: 100dvh;
+	/* Fallback for browsers that don't support dvh */
+	min-height: 100vh;
+	/* Use dvh (Dynamic Viewport Height) for modern browsers */
+	/* This handles mobile browser UI (address bar, navigation) changes */
+	min-height: 100dvh;
 }
 
 @theme {
-    --max-width-root-layout: 430px;
-    --spacing-layout-header-height: calc(48px + env(safe-area-inset-top));
-    --spacing-layout-footer-height: calc(72px + env(safe-area-inset-bottom));
+	--max-width-root-layout: 430px;
+	--spacing-layout-header-height: calc(48px + env(safe-area-inset-top));
+	--spacing-layout-footer-height: calc(72px + env(safe-area-inset-bottom));
 }
-

@@ -1,8 +1,8 @@
 @theme {
-  /* Spacing Scale */
-  --spacing-2xs: 4px;
-  --spacing-xs: 8px;
-  --spacing-sm: 12px;
-  --spacing-md: 16px;
-  --spacing-xl: 24px;
+	/* Spacing Scale */
+	--spacing-2xs: 4px;
+	--spacing-xs: 8px;
+	--spacing-sm: 12px;
+	--spacing-md: 16px;
+	--spacing-xl: 24px;
 }

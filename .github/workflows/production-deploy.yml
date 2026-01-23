@@ -19,13 +19,13 @@ jobs:
         with:
           filters: |
             client:
+              - 'app/**'
               - 'src/**'
               - 'public/**'
               - 'package.json'
               - 'pnpm-lock.yaml'
               - 'docker/client/**'
               - 'next.config.js'
-              - 'tsconfig.json'
             nginx:
               - 'docker/nginx/**'
 
@@ -87,11 +87,21 @@ jobs:
           script: |
             cd ~/yogieat
 
+            sudo docker compose -f ./docker-compose.yml down
+            # Clean up unused images only (preserve volumes with SSL certificates)
             sudo docker image prune -a -f
 
-            sudo docker-compose -f ./docker-compose.yml pull
+            sudo docker compose -f ./docker-compose.yml pull
+            sudo docker compose -f ./docker-compose.yml up -d
+            sudo docker compose -f ./docker-compose.yml ps
 
-            sudo docker-compose -f ./docker-compose.yml up -d
+      - name: Extract commit info
+        id: commit
+        run: |
+          COMMIT_MSG=$(echo "${{ github.event.head_commit.message }}" | head -n 1)
+          SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
+          echo "message=$COMMIT_MSG" >> $GITHUB_OUTPUT
+          echo "sha=$SHORT_SHA" >> $GITHUB_OUTPUT
 
       - name: Discord notification
         if: always()
@@ -101,9 +111,7 @@ jobs:
           title: "🚀 Production 배포"
           description: |
             **상태**: ${{ job.status }}
-            **브랜치**: ${{ github.ref_name }}
-            **커밋**: ${{ github.sha }}
-            **커밋 메시지**: ${{ github.event.head_commit.message }}
-            **이미지**: ${{ steps.metadata.outputs.tags }}
+            **커밋**: [`${{ steps.commit.outputs.sha }}`](https://github.com/${{ github.repository }}/commit/${{ github.sha }})
+            **메시지**: ${{ steps.commit.outputs.message }}
           color: ${{ job.status == 'success' && '0x57F287' || '0xED4245' }}
           username: GitHub Actions

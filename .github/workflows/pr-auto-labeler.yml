@@ -1,8 +1,8 @@
-name: PR Auto Labeler
+name: PR Labeler
 
 on:
   pull_request:
-    types: [opened, edited, reopened, ready_for_review, converted_to_draft, closed]
+    types: [opened, edited, reopened, ready_for_review, converted_to_draft]
   pull_request_review:
     types: [submitted, dismissed]
 
@@ -15,9 +15,9 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  validate-and-label:
-    name: Validate PR Title and Add Type Label
-    if: startsWith(github.head_ref, 'feature/') && github.event.action != 'closed'
+  add-type-label:
+    name: Add Type Label Based on PR Title
+    if: github.event.action == 'opened' || github.event.action == 'edited'
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
@@ -45,18 +45,17 @@ jobs:
 
       - name: Remove all type labels
         if: steps.validate.outputs.valid == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          LABELS_TO_REMOVE=("✨ Feature" "🐞 Fix" "📃 Docs" "🧑‍🎨 Style" "🔨 Refactor" "⚙ Setting" "🌏 Deploy")
-          CURRENT_LABELS=$(gh pr view ${{ github.event.pull_request.number }} --json labels --jq '.labels[].name')
-
-          for label in "${LABELS_TO_REMOVE[@]}"; do
-            if echo "$CURRENT_LABELS" | grep -Fxq "$label"; then
-              echo "Removing label: $label"
-              gh pr edit ${{ github.event.pull_request.number }} --remove-label "$label" || echo "Failed to remove $label, continuing..."
-            fi
-          done
+        uses: actions-ecosystem/action-remove-labels@v1
+        with:
+          labels: |
+            ✨ Feature
+            🐞 Fix
+            📃 Docs
+            🧑‍🎨 Style
+            🔨 Refactor
+            ⚙ Setting
+            🌏 Deploy
+          fail_on_error: false
 
       - name: Add Feature label
         if: steps.validate.outputs.valid == 'true' && steps.validate.outputs.type == 'feat'
@@ -118,39 +117,31 @@ jobs:
 
     steps:
       - name: Remove all status labels
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          LABELS_TO_REMOVE=("📤 In Progress" "☑️ Need Review" "✅ In Review")
-          CURRENT_LABELS=$(gh pr view ${{ github.event.pull_request.number }} --json labels --jq '.labels[].name')
-
-          for label in "${LABELS_TO_REMOVE[@]}"; do
-            if echo "$CURRENT_LABELS" | grep -Fxq "$label"; then
-              echo "Removing label: $label"
-              gh pr edit ${{ github.event.pull_request.number }} --remove-label "$label" || echo "Failed to remove $label, continuing..."
-            fi
-          done
+        uses: actions-ecosystem/action-remove-labels@v1
+        with:
+          labels: |
+            📤 In Progress
+            ☑️ Need Review
+            ✅ In Review
+          fail_on_error: false
 
       - name: Label for Draft
-        if: github.event.action != 'closed' && github.event.pull_request.draft == true
+        if: github.event.pull_request.draft == true
         uses: actions-ecosystem/action-add-labels@v1
         with:
           labels: 📤 In Progress
 
       - name: Label for Ready
         if: >
-          github.event.action != 'closed' &&
-          (
-            (github.event.action == 'ready_for_review') ||
-            (github.event.action == 'opened' && github.event.pull_request.draft == false) ||
-            (github.event.action == 'reopened')
-          )
+          (github.event.action == 'ready_for_review') ||
+          (github.event.action == 'opened' && github.event.pull_request.draft == false) ||
+          (github.event.action == 'reopened')
         uses: actions-ecosystem/action-add-labels@v1
         with:
           labels: ☑️ Need Review
 
       - name: Label for Changes Requested
-        if: github.event.action != 'closed' && github.event.review.state == 'changes_requested'
+        if: github.event.review.state == 'changes_requested'
         uses: actions-ecosystem/action-add-labels@v1
         with:
           labels: 📤 In Progress

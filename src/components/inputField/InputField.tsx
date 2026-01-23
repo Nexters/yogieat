@@ -1,7 +1,7 @@
-import { twJoin } from 'tailwind-merge';
+import { twJoin } from "tailwind-merge";
 
-import { HelperText, type HelperTextProps } from './HelperText';
-import { Input, type InputProps } from './Input';
+import { HelperText, type HelperTextProps } from "./HelperText";
+import { Input, type InputProps } from "./Input";
 
 export type InputFieldProps = InputProps &
 	HelperTextProps & {
@@ -18,7 +18,12 @@ export const InputField = ({
 	const hasError = isError || !!errorText;
 
 	return (
-		<div className={twJoin('ygi:flex ygi:flex-col ygi:gap-xs', containerClassName)}>
+		<div
+			className={twJoin(
+				"ygi:flex ygi:flex-col ygi:gap-xs",
+				containerClassName,
+			)}
+		>
 			<Input {...inputProps} isError={hasError} />
 			<HelperText helperText={helperText} errorText={errorText} />
 		</div>
