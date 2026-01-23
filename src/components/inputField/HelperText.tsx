@@ -1,10 +1,10 @@
-import { cva } from 'class-variance-authority';
+import { cva } from "class-variance-authority";
 
-const helperTextVariants = cva(['ygi:body-14-rg'], {
+const helperTextVariants = cva(["ygi:body-14-rg"], {
 	variants: {
 		isError: {
-			false: 'ygi:text-palette-gray-400',
-			true: 'ygi:text-palette-primary-500',
+			false: "ygi:text-palette-gray-400",
+			true: "ygi:text-palette-primary-500",
 		},
 	},
 	defaultVariants: {
@@ -31,6 +31,8 @@ export const HelperText = ({
 	}
 
 	return (
-		<p className={helperTextVariants({ isError, className })}>{displayText}</p>
+		<p className={helperTextVariants({ isError, className })}>
+			{displayText}
+		</p>
 	);
 };

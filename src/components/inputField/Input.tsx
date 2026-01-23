@@ -1,4 +1,4 @@
-import { cva, type VariantProps } from 'class-variance-authority';
+import { cva, type VariantProps } from "class-variance-authority";
 import {
 	type ChangeEvent,
 	type ComponentProps,
@@ -6,29 +6,31 @@ import {
 	type ReactNode,
 	useRef,
 	useState,
-} from 'react';
-import { twJoin } from 'tailwind-merge';
+} from "react";
+import { twJoin } from "tailwind-merge";
 
 const inputContainerVariants = cva(
 	[
-		'ygi:flex ygi:w-full ygi:items-center ygi:gap-sm',
-		'ygi:px-md ygi:py-sm',
-		'ygi:rounded-sm ygi:border ygi:border-solid',
-		'ygi:transition-colors',
+		"ygi:flex ygi:w-full ygi:items-center ygi:gap-sm",
+		"ygi:px-md ygi:py-sm",
+		"ygi:rounded-sm ygi:border ygi:border-solid",
+		"ygi:transition-colors",
 	],
 	{
 		variants: {
 			isError: {
 				false: [
-					'ygi:bg-palette-common-white ygi:border-palette-gray-200',
-					'ygi:focus-within:bg-palette-gray-50 ygi:focus-within:border-palette-gray-800',
+					"ygi:border-palette-gray-200 ygi:bg-palette-common-white",
+					"ygi:focus-within:border-palette-gray-800 ygi:focus-within:bg-palette-gray-50",
 				],
-				true: ['ygi:bg-palette-common-white ygi:border-palette-primary-500'],
+				true: [
+					"ygi:border-palette-primary-500 ygi:bg-palette-common-white",
+				],
 			},
 			disabled: {
 				true: [
-					'ygi:bg-palette-gray-100 ygi:border-palette-gray-200',
-					'ygi:cursor-not-allowed',
+					"ygi:border-palette-gray-200 ygi:bg-palette-gray-100",
+					"ygi:cursor-not-allowed",
 				],
 				false: [],
 			},
@@ -41,11 +43,11 @@ const inputContainerVariants = cva(
 );
 
 const inputVariants = cva([
-	'ygi:flex-1 ygi:min-w-0',
-	'ygi:bg-transparent ygi:outline-none',
-	'ygi:body-16-md ygi:text-palette-gray-900',
-	'ygi:placeholder:text-palette-gray-400',
-	'ygi:disabled:text-palette-gray-400 ygi:disabled:cursor-not-allowed',
+	"ygi:min-w-0 ygi:flex-1",
+	"ygi:bg-transparent ygi:outline-none",
+	"ygi:body-16-md ygi:text-palette-gray-900",
+	"ygi:placeholder:text-palette-gray-400",
+	"ygi:disabled:cursor-not-allowed ygi:disabled:text-palette-gray-400",
 ]);
 
 type ClearButtonProps = {
@@ -58,11 +60,11 @@ const ClearButton = ({ onClick }: ClearButtonProps) => {
 			type="button"
 			onClick={onClick}
 			className={twJoin(
-				'ygi:flex ygi:items-center ygi:justify-center',
-				'ygi:size-5 ygi:rounded-full',
-				'ygi:bg-palette-gray-100',
-				'ygi:cursor-pointer',
-				'ygi:transition-colors ygi:hover:bg-palette-gray-200',
+				"ygi:flex ygi:items-center ygi:justify-center",
+				"ygi:size-5 ygi:rounded-full",
+				"ygi:bg-palette-gray-100",
+				"ygi:cursor-pointer",
+				"ygi:transition-colors ygi:hover:bg-palette-gray-200",
 			)}
 			aria-label="입력 지우기"
 		>
@@ -86,7 +88,7 @@ const ClearButton = ({ onClick }: ClearButtonProps) => {
 	);
 };
 
-export type InputProps = Omit<ComponentProps<'input'>, 'size'> &
+export type InputProps = Omit<ComponentProps<"input">, "size"> &
 	VariantProps<typeof inputContainerVariants> & {
 		leftSlot?: ReactNode;
 		rightSlot?: ReactNode;
@@ -112,7 +114,7 @@ export const Input = ({
 	const inputRef = (ref as React.RefObject<HTMLInputElement>) ?? internalRef;
 
 	const isControlled = value !== undefined;
-	const [internalValue, setInternalValue] = useState(defaultValue ?? '');
+	const [internalValue, setInternalValue] = useState(defaultValue ?? "");
 
 	const currentValue = isControlled ? value : internalValue;
 	const hasValue = String(currentValue).length > 0;
@@ -132,18 +134,20 @@ export const Input = ({
 		e.stopPropagation();
 
 		if (!isControlled) {
-			setInternalValue('');
+			setInternalValue("");
 		}
 
 		if (inputRef.current) {
 			const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
 				window.HTMLInputElement.prototype,
-				'value',
+				"value",
 			)?.set;
 
 			if (nativeInputValueSetter) {
-				nativeInputValueSetter.call(inputRef.current, '');
-				inputRef.current.dispatchEvent(new Event('input', { bubbles: true }));
+				nativeInputValueSetter.call(inputRef.current, "");
+				inputRef.current.dispatchEvent(
+					new Event("input", { bubbles: true }),
+				);
 			}
 		}
 
@@ -162,7 +166,7 @@ export const Input = ({
 			)}
 		>
 			{leftSlot && (
-				<span className="ygi:flex ygi:items-center ygi:shrink-0">
+				<span className="ygi:flex ygi:shrink-0 ygi:items-center">
 					{leftSlot}
 				</span>
 			)}
@@ -180,7 +184,7 @@ export const Input = ({
 
 			{shouldShowClearButton && <ClearButton onClick={handleClear} />}
 			{rightSlot && (
-				<span className="ygi:flex ygi:items-center ygi:shrink-0">
+				<span className="ygi:flex ygi:shrink-0 ygi:items-center">
 					{rightSlot}
 				</span>
 			)}
