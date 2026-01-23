@@ -6,8 +6,8 @@ interface HeaderProps {
 
 export const Header = ({ children }: HeaderProps) => {
 	return (
-		<header className="ygi:fixed ygi:top-0 ygi:left-0 ygi:z-layout-header ygi:flex ygi:h-layout-header-height ygi:w-full ygi:items-center ygi:justify-center">
-			<div className="ygi:h-layout-header-height ygi:w-full ygi:max-w-root-layout">
+		<header className="ygi:fixed ygi:top-0 ygi:left-0 ygi:z-layout-header ygi:flex ygi:h-layout-header-height ygi:w-full ygi:items-center ygi:justify-center ygi:bg-bg-white">
+			<div className="ygi:h-layout-header-height ygi:w-full ygi:max-w-root-layout ygi:px-3">
 				{children}
 			</div>
 		</header>
