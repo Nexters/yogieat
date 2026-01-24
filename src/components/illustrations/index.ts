@@ -1,0 +1,1 @@
+export { MeetingCompleteIllustration } from "./MeetingCompleteIllustration";
