@@ -18,6 +18,23 @@ export function usePeopleStepValidation(
 	return peopleCount !== undefined;
 }
 
+const DATE_PATTERN = /^\d{4}\.\d{2}\.\d{2}$/;
+
+const isValidDateFormat = (value: string): boolean => {
+	if (!DATE_PATTERN.test(value)) {
+		return false;
+	}
+
+	const [year, month, day] = value.split(".").map(Number);
+	const date = new Date(year, month - 1, day);
+
+	return (
+		date.getFullYear() === year &&
+		date.getMonth() === month - 1 &&
+		date.getDate() === day
+	);
+};
+
 export function useDateStepValidation(
 	control: ReturnType<typeof useForm<CreateMeetingForm>>["control"],
 ) {
@@ -25,7 +42,11 @@ export function useDateStepValidation(
 		control,
 		name: ["meetingDate", "timeSlot"],
 	});
-	return meetingDate !== undefined && timeSlot !== undefined;
+	return (
+		meetingDate !== undefined &&
+		isValidDateFormat(meetingDate) &&
+		timeSlot !== undefined
+	);
 }
 
 export function useLocationStepValidation(
