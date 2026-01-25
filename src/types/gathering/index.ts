@@ -48,4 +48,5 @@ export type {
 	IntroStepProps,
 	DistanceStepProps,
 	DislikeStepProps,
+	PreferenceStepProps,
 } from "./stepComponents";
