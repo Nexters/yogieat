@@ -7,8 +7,7 @@ export const Root = ({ children, ...props }: RootProps) => {
 	return (
 		<section
 			className={twJoin(
-				"ygi:flex ygi:w-full ygi:flex-col ygi:items-start",
-				"ygi:gap-3 ygi:px-6",
+				"ygi:flex ygi:flex-col ygi:items-start ygi:gap-3",
 				"ygi:w-full",
 			)}
 			{...props}
