@@ -7,6 +7,8 @@ import {
 	IntroStep,
 	DistanceStepContent,
 	DistanceStepFooter,
+	DislikeStepContent,
+	DislikeStepFooter,
 	StepTransition,
 } from "#/pageComponents/gathering/opinion";
 import { useOpinionForm, useOpinionFunnel } from "#/hooks/gathering";
@@ -73,6 +75,8 @@ export default function OpinionPage() {
 		switch (step) {
 			case "distance":
 				return <DistanceStepContent meetingContext={meetingContext} />;
+			case "dislike":
+				return <DislikeStepContent />;
 			default:
 				return null;
 		}
@@ -82,6 +86,8 @@ export default function OpinionPage() {
 		switch (step) {
 			case "distance":
 				return <DistanceStepFooter onNext={next} />;
+			case "dislike":
+				return <DislikeStepFooter onNext={next} />;
 			default:
 				return null;
 		}
