@@ -27,7 +27,8 @@ export function useOpinionFunnel() {
 	}, [step]);
 
 	const isFirstStep = step === OPINION_STEP_ORDER[0];
-	const isLastStep = step === OPINION_STEP_ORDER[OPINION_STEP_ORDER.length - 1];
+	const isLastStep =
+		step === OPINION_STEP_ORDER[OPINION_STEP_ORDER.length - 1];
 
 	return {
 		step,
