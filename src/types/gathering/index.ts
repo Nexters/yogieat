@@ -34,3 +34,6 @@ export interface OpinionForm {
 }
 
 export type OpinionStep = "intro" | "distance" | "dislike" | "preference";
+
+// Export meeting context
+export type { MeetingContext } from "#/constants/gathering/opinion/meeting";

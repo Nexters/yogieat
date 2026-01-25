@@ -73,3 +73,7 @@ export const UI_TEXT = {
 		description: "중복 선택은 불가능해요",
 	},
 } as const;
+
+// Re-export meeting context
+export type { MeetingContext } from "./meeting";
+export { MOCK_MEETING_DATA } from "./meeting";
