@@ -13,76 +13,73 @@ import {
 	DISTANCE_OPTIONS,
 	OPINION_TOTAL_STEPS,
 } from "#/constants/gathering/opinion";
-import type {
-	OpinionForm,
-	DistanceStepProps,
-} from "#/types/gathering";
+import type { OpinionForm, DistanceStepProps } from "#/types/gathering";
 
 export const DistanceStepContent = ({
 	meetingContext,
 }: Pick<DistanceStepProps, "meetingContext">) => {
-		const { control } = useFormContext<OpinionForm>();
+	const { control } = useFormContext<OpinionForm>();
 
-		return (
-			<div className="ygi:flex ygi:flex-col ygi:gap-xl ygi:px-6 ygi:pt-3">
-				<StepIndicator currentStep={1} totalSteps={OPINION_TOTAL_STEPS} />
-				<StepHeader.Root>
-					<StepHeader.Title>어디까지 괜찮으세요?</StepHeader.Title>
-					<StepHeader.Description>
-						{`${meetingContext.stationName} 기준으로 추천 범위를 정할게요`}
-					</StepHeader.Description>
-				</StepHeader.Root>
-				<Controller
-					name="distanceRange"
-					control={control}
-					render={({ field }) => (
-						<div className="ygi:flex ygi:gap-3">
-							{DISTANCE_OPTIONS.map((option) => (
-								<Chip
-									key={option.value}
-									selected={field.value === option.value}
-									onClick={() => {
-										field.onChange(
-											field.value === option.value
-												? undefined
-												: option.value,
-										);
-									}}
-								>
-									{option.label}
-								</Chip>
-							))}
-						</div>
-					)}
-				/>
-			</div>
-		);
+	return (
+		<div className="ygi:flex ygi:flex-col ygi:gap-xl ygi:px-6 ygi:pt-3">
+			<StepIndicator currentStep={1} totalSteps={OPINION_TOTAL_STEPS} />
+			<StepHeader.Root>
+				<StepHeader.Title>어디까지 괜찮으세요?</StepHeader.Title>
+				<StepHeader.Description>
+					{`${meetingContext.stationName} 기준으로 추천 범위를 정할게요`}
+				</StepHeader.Description>
+			</StepHeader.Root>
+			<Controller
+				name="distanceRange"
+				control={control}
+				render={({ field }) => (
+					<div className="ygi:flex ygi:gap-3">
+						{DISTANCE_OPTIONS.map((option) => (
+							<Chip
+								key={option.value}
+								selected={field.value === option.value}
+								onClick={() => {
+									field.onChange(
+										field.value === option.value
+											? undefined
+											: option.value,
+									);
+								}}
+							>
+								{option.label}
+							</Chip>
+						))}
+					</div>
+				)}
+			/>
+		</div>
+	);
 };
 
 export const DistanceStepFooter = ({
 	onNext,
 }: Pick<DistanceStepProps, "onNext">) => {
-		const { control } = useFormContext<OpinionForm>();
-		const isValid = useDistanceStepValidation(control);
+	const { control } = useFormContext<OpinionForm>();
+	const isValid = useDistanceStepValidation(control);
 
-		const handleNext = useCallback(() => {
-			if (isValid) {
-				onNext();
-			}
-		}, [isValid, onNext]);
+	const handleNext = useCallback(() => {
+		if (isValid) {
+			onNext();
+		}
+	}, [isValid, onNext]);
 
-		return (
-			<Layout.Footer>
-				<div className="ygi:px-6">
-					<Button
-						variant="primary"
-						width="full"
-						disabled={!isValid}
-						onClick={handleNext}
-					>
-						다음
-					</Button>
-				</div>
-			</Layout.Footer>
-		);
+	return (
+		<Layout.Footer>
+			<div className="ygi:px-6">
+				<Button
+					variant="primary"
+					width="full"
+					disabled={!isValid}
+					onClick={handleNext}
+				>
+					다음
+				</Button>
+			</div>
+		</Layout.Footer>
+	);
 };
