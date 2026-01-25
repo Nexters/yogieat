@@ -11,7 +11,7 @@ const config = {
 		"prettier-plugin-tailwindcss"
 	],
 	tailwindStylesheet: "./app/globals.css",
-	tailwindFunctions: ["cva", "twMerge"],
+	tailwindFunctions: ["cva", "twMerge", "twJoin"],
 	tailwindPreserveWhitespace: true,
 	tailwindPreserveDuplicates: true,
 };

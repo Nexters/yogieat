@@ -14,6 +14,7 @@
     "@radix-ui/react-slot": "^1.2.4",
     "@tanstack/react-query": "^5.90.16",
     "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "es-toolkit": "^1.43.0",
     "ky": "^1.14.2",
     "motion": "^12.26.1",
