@@ -62,7 +62,7 @@ export const LandingPage = () => {
 								alt=""
 								width={195}
 								height={207}
-								className="ygi:rotate-[15deg]"
+								className="ygi:rotate-15"
 							/>
 							<div className="ygi:absolute ygi:inset-0 ygi:flex ygi:items-center ygi:justify-center">
 								<Image
@@ -75,7 +75,7 @@ export const LandingPage = () => {
 							</div>
 						</div>
 						{/* Hand icons - positioned together as one unit */}
-						<div className="ygi:absolute ygi:right-[175px] ygi:-bottom-[5px]">
+						<div className="ygi:absolute ygi:right-22.75 ygi:-bottom-4.25">
 							<Image
 								src="/images/landing/hand-1.svg"
 								alt=""
@@ -84,7 +84,7 @@ export const LandingPage = () => {
 								className="ygi:rotate-[2.72deg]"
 							/>
 						</div>
-						<div className="ygi:absolute ygi:right-[135px] ygi:-bottom-[18px]">
+						<div className="ygi:absolute ygi:right-18.75 ygi:-bottom-8.5">
 							<Image
 								src="/images/landing/hand-2.svg"
 								alt=""
@@ -101,28 +101,28 @@ export const LandingPage = () => {
 						alt=""
 						width={48}
 						height={48}
-						className="ygi:absolute ygi:left-46.25 ygi:top-0"
+						className="ygi:absolute ygi:left-46.25 ygi:top-3"
 					/>
 					<Image
 						src="/images/landing/heart-1.svg"
 						alt=""
 						width={48}
 						height={48}
-						className="ygi:absolute ygi:left-55.25 ygi:top-10.25 ygi:rotate-[-21.93deg]"
+						className="ygi:absolute ygi:left-55.25 ygi:top-14.25 ygi:rotate-[-21.93deg]"
 					/>
 					<Image
 						src="/images/landing/heart-3.svg"
 						alt=""
 						width={48}
 						height={48}
-						className="ygi:absolute ygi:left-64.75 ygi:top-6.75 ygi:rotate-[14.45deg]"
+						className="ygi:absolute ygi:left-64.75 ygi:top-10.75 ygi:rotate-[14.45deg]"
 					/>
 					<Image
 						src="/images/landing/heart-2.svg"
 						alt=""
 						width={48}
 						height={48}
-						className="ygi:absolute ygi:left-24.25 ygi:top-49.25 ygi:rotate-[30.45deg]"
+						className="ygi:absolute ygi:left-28.25 ygi:top-52.25 ygi:rotate-[30.45deg]"
 					/>
 				</div>
 
@@ -130,8 +130,8 @@ export const LandingPage = () => {
 				<div className="ygi:absolute ygi:bottom-15 ygi:left-0 ygi:right-0 ygi:flex ygi:justify-center ygi:px-6">
 					<button
 						type="button"
-						onClick={handleStartClick}
 						className="ygi:inline-flex ygi:items-center ygi:justify-center ygi:px-6 ygi:py-3 ygi:bg-surface-white ygi:text-text-primary ygi:heading-18-bd ygi:rounded-full ygi:cursor-pointer ygi:transition-colors ygi:hover:bg-palette-gray-50"
+						onClick={handleStartClick}
 					>
 						모임 링크 생성 시작
 					</button>
