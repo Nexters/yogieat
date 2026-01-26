@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { motion } from "motion/react";
 
 import { Layout } from "#/components/layout";
 
@@ -9,7 +10,7 @@ export const LandingPage = () => {
 	const router = useRouter();
 
 	const handleStartClick = () => {
-		router.push("/gathering/create");
+		router.replace("/gathering/create");
 	};
 
 	return (
@@ -42,6 +43,7 @@ export const LandingPage = () => {
 									width={84}
 									height={61}
 									className="ygi:absolute ygi:top-21.25 ygi:left-15.25"
+									priority
 								/>
 								<Image
 									src="/images/landing/sushi-2.svg"
@@ -49,6 +51,7 @@ export const LandingPage = () => {
 									width={93}
 									height={68}
 									className="ygi:absolute ygi:top-25 ygi:left-24.25"
+									priority
 								/>
 							</div>
 						</div>
@@ -63,6 +66,7 @@ export const LandingPage = () => {
 								width={195}
 								height={207}
 								className="ygi:rotate-15"
+								priority
 							/>
 							<div className="ygi:absolute ygi:inset-0 ygi:flex ygi:items-center ygi:justify-center">
 								<Image
@@ -71,28 +75,51 @@ export const LandingPage = () => {
 									width={134}
 									height={145}
 									className="ygi:rotate-15"
+									priority
 								/>
 							</div>
 						</div>
-						{/* Hand icons - positioned together as one unit */}
-						<div className="ygi:absolute ygi:right-22.75 ygi:-bottom-4.25">
+						{/* Hand icons - animated to point between cards */}
+						<motion.div
+							className="ygi:absolute ygi:right-22.75 ygi:-bottom-0.25 ygi:z-1"
+							animate={{
+								x: [0, -180, -180, 0],
+								rotate: [2.72, 20, 20, 2.72],
+							}}
+							transition={{
+								duration: 1.5,
+								ease: "easeInOut",
+								times: [0, 0.4, 0.6, 1],
+							}}
+						>
 							<Image
 								src="/images/landing/hand-1.svg"
 								alt=""
 								width={82}
 								height={67}
-								className="ygi:rotate-[2.72deg]"
+								priority
 							/>
-						</div>
-						<div className="ygi:absolute ygi:right-18.75 ygi:-bottom-8.5">
+						</motion.div>
+						<motion.div
+							className="ygi:absolute ygi:right-18.75 ygi:-bottom-4.25 ygi:z-1"
+							animate={{
+								x: [0, -180, -180, 0],
+								rotate: [2.72, 20, 20, 2.72],
+							}}
+							transition={{
+								duration: 1.5,
+								ease: "easeInOut",
+								times: [0, 0.4, 0.6, 1],
+							}}
+						>
 							<Image
 								src="/images/landing/hand-2.svg"
 								alt=""
 								width={58}
 								height={58}
-								className="ygi:rotate-[2.72deg]"
+								priority
 							/>
-						</div>
+						</motion.div>
 					</div>
 
 					{/* Heart Icons */}
@@ -102,6 +129,7 @@ export const LandingPage = () => {
 						width={48}
 						height={48}
 						className="ygi:absolute ygi:top-3 ygi:left-46.25"
+						priority
 					/>
 					<Image
 						src="/images/landing/heart-1.svg"
@@ -109,6 +137,7 @@ export const LandingPage = () => {
 						width={48}
 						height={48}
 						className="ygi:absolute ygi:top-14.25 ygi:left-55.25 ygi:rotate-[-21.93deg]"
+						priority
 					/>
 					<Image
 						src="/images/landing/heart-3.svg"
@@ -116,6 +145,7 @@ export const LandingPage = () => {
 						width={48}
 						height={48}
 						className="ygi:absolute ygi:top-10.75 ygi:left-64.75 ygi:rotate-[14.45deg]"
+						priority
 					/>
 					<Image
 						src="/images/landing/heart-2.svg"
@@ -123,6 +153,7 @@ export const LandingPage = () => {
 						width={48}
 						height={48}
 						className="ygi:absolute ygi:top-52.25 ygi:left-28.25 ygi:rotate-[30.45deg]"
+						priority
 					/>
 				</div>
 
