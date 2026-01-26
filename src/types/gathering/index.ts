@@ -2,7 +2,7 @@ export interface CreateMeetingForm {
 	peopleCount?: number;
 	meetingDate: string;
 	timeSlot?: "LUNCH" | "DINNER";
-	location?: "hongdae" | "gangnam";
+	location?: "HONGDAE" | "GANGNAM";
 }
 
 export type TimeSlot = CreateMeetingForm["timeSlot"];
