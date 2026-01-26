@@ -1,6 +1,6 @@
 "use client";
 
-import { useFormContext } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
 
 import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator/StepIndicator";
@@ -8,8 +8,7 @@ import { Button } from "#/components/button/Button";
 import { InputField } from "#/components/inputField";
 import { Chip } from "#/components/chip";
 import { useDateStepValidation } from "#/hooks/gathering";
-import { DATE_PATTERN } from "#/constants/gathering/create";
-import { formatDateInput } from "#/utils/gathering/create";
+import { formatDateInput, isValidDateFormat } from "#/utils/gathering/create";
 import type { CreateMeetingForm, TimeSlot } from "#/types/gathering";
 
 interface DateStepProps {
@@ -17,13 +16,14 @@ interface DateStepProps {
 }
 
 export const DateStep = ({ onNext }: DateStepProps) => {
-	const { control, setValue, watch } = useFormContext<CreateMeetingForm>();
+	const { control, setValue } = useFormContext<CreateMeetingForm>();
 	const isValid = useDateStepValidation(control);
 
-	const meetingDate = watch("meetingDate");
-	const timeSlot = watch("timeSlot");
+	const meetingDate = useWatch({ control, name: "meetingDate" });
+	const timeSlot = useWatch({ control, name: "timeSlot" });
 
-	const hasDateError = meetingDate && !DATE_PATTERN.test(meetingDate);
+	const hasDateError =
+		meetingDate?.length === 10 && !isValidDateFormat(meetingDate);
 
 	const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const formatted = formatDateInput(e.target.value);
@@ -70,14 +70,14 @@ export const DateStep = ({ onNext }: DateStepProps) => {
 					</h2>
 					<div className="ygi:flex ygi:gap-3">
 						<Chip
-							selected={timeSlot === "lunch"}
-							onClick={() => handleTimeSlotChange("lunch")}
+							selected={timeSlot === "LUNCH"}
+							onClick={() => handleTimeSlotChange("LUNCH")}
 						>
 							점심
 						</Chip>
 						<Chip
-							selected={timeSlot === "dinner"}
-							onClick={() => handleTimeSlotChange("dinner")}
+							selected={timeSlot === "DINNER"}
+							onClick={() => handleTimeSlotChange("DINNER")}
 						>
 							저녁
 						</Chip>

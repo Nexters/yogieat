@@ -14,9 +14,9 @@ const PEOPLE_COUNTS = [
 
 export const PeopleCountGrid = ({ value, onChange }: PeopleCountGridProps) => {
 	return (
-		<div className="ygi:flex ygi:flex-col ygi:gap-sm">
+		<div className="ygi:flex ygi:flex-col ygi:gap-3">
 			{PEOPLE_COUNTS.map((row, rowIndex) => (
-				<div key={rowIndex} className="ygi:flex ygi:gap-xs">
+				<div key={rowIndex} className="ygi:flex ygi:gap-2">
 					{row.map((count) => {
 						const isSelected = value === count;
 						return (

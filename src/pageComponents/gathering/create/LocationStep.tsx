@@ -1,6 +1,6 @@
 "use client";
 
-import { useFormContext } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
 
 import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator/StepIndicator";
@@ -13,11 +13,16 @@ interface LocationStepProps {
 	onComplete: () => void;
 }
 
+const LOCATION_OPTIONS = [
+	{ id: "HONGDAE" as const, label: "홍대입구역" },
+	{ id: "GANGNAM" as const, label: "강남역" },
+];
+
 export const LocationStep = ({ onComplete }: LocationStepProps) => {
-	const { control, setValue, watch } = useFormContext<CreateMeetingForm>();
+	const { control, setValue } = useFormContext<CreateMeetingForm>();
 	const isValid = useLocationStepValidation(control);
 
-	const location = watch("location");
+	const location = useWatch({ control, name: "location" });
 
 	const handleLocationChange = (loc: Location) => {
 		setValue("location", loc === location ? undefined : loc, {
@@ -33,18 +38,15 @@ export const LocationStep = ({ onComplete }: LocationStepProps) => {
 					장소를 선택해 주세요
 				</h1>
 				<div className="ygi:flex ygi:gap-3">
-					<Chip
-						selected={location === "hongdae"}
-						onClick={() => handleLocationChange("hongdae")}
-					>
-						홍대입구역
-					</Chip>
-					<Chip
-						selected={location === "gangnam"}
-						onClick={() => handleLocationChange("gangnam")}
-					>
-						강남역
-					</Chip>
+					{LOCATION_OPTIONS.map(({ id, label }) => (
+						<Chip
+							key={id}
+							selected={location === id}
+							onClick={() => handleLocationChange(id)}
+						>
+							{label}
+						</Chip>
+					))}
 				</div>
 			</div>
 
