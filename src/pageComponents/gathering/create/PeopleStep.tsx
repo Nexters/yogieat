@@ -3,8 +3,8 @@
 import { useFormContext } from "react-hook-form";
 
 import { Layout } from "#/components/layout";
-import { StepIndicator } from "#/components/stepIndicator/StepIndicator";
-import { Button } from "#/components/button/Button";
+import { StepIndicator } from "#/components/stepIndicator";
+import { Button } from "#/components/button";
 import { PeopleCountGrid } from "./PeopleCountGrid";
 import { usePeopleStepValidation } from "#/hooks/gathering";
 import type { CreateMeetingForm } from "#/types/gathering";
@@ -13,7 +13,7 @@ interface PeopleStepProps {
 	onNext: () => void;
 }
 
-export function PeopleStep({ onNext }: PeopleStepProps) {
+export const PeopleStep = ({ onNext }: PeopleStepProps) => {
 	const { control, setValue, watch } = useFormContext<CreateMeetingForm>();
 	const isValid = usePeopleStepValidation(control);
 	const value = watch("peopleCount");
@@ -24,7 +24,7 @@ export function PeopleStep({ onNext }: PeopleStepProps) {
 
 	return (
 		<section className="ygi:pt-3">
-			<div className="ygi:flex ygi:flex-col ygi:gap-xl ygi:px-6">
+			<div className="ygi:flex ygi:flex-col ygi:gap-6 ygi:px-6">
 				<StepIndicator currentStep={1} totalSteps={3} />
 				<h1 className="ygi:heading-22-bd ygi:text-text-primary">
 					몇 명이서 만나요?
@@ -46,4 +46,4 @@ export function PeopleStep({ onNext }: PeopleStepProps) {
 			</Layout.Footer>
 		</section>
 	);
-}
+};

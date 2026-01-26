@@ -1,7 +1,7 @@
 export interface CreateMeetingForm {
 	peopleCount?: number;
 	meetingDate: string;
-	timeSlot?: "lunch" | "dinner";
+	timeSlot?: "LUNCH" | "DINNER";
 	location?: "hongdae" | "gangnam";
 }
 

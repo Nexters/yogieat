@@ -1,3 +1,4 @@
+import { parse, isValid } from "date-fns";
 import { DATE_PATTERN } from "#/constants/gathering/create";
 
 /**
@@ -67,21 +68,17 @@ export const formatDateInput = (value: string): string => {
 	return `${digits.slice(0, 4)}.${digits.slice(4, 6)}.${digits.slice(6)}`;
 };
 
+const DATE_FORMAT = "yyyy.MM.dd";
+
 /**
  * 날짜 문자열이 유효한 형식인지 검사합니다.
- * yyyy.mm.dd 패턴과 실제 존재하는 날짜인지 확인합니다.
+ * yyyy.MM.dd 패턴과 실제 존재하는 날짜인지 확인합니다.
  */
 export const isValidDateFormat = (value: string): boolean => {
 	if (!DATE_PATTERN.test(value)) {
 		return false;
 	}
 
-	const [year, month, day] = value.split(".").map(Number);
-	const date = new Date(year, month - 1, day);
-
-	return (
-		date.getFullYear() === year &&
-		date.getMonth() === month - 1 &&
-		date.getDate() === day
-	);
+	const parsedDate = parse(value, DATE_FORMAT, new Date());
+	return isValid(parsedDate);
 };
