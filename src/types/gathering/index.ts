@@ -12,14 +12,14 @@ export type Location = CreateMeetingForm["location"];
 export type CreateMeetingStep = "people" | "date" | "location";
 
 // Opinion 관련 타입
-export type DistanceRange = "500m" | "1km" | "any";
+export type DistanceRange = "RANGE_500M" | "RANGE_1KM" | "ANY";
 export type FoodCategory =
-	| "korean"
-	| "japanese"
-	| "chinese"
-	| "western"
-	| "asian"
-	| "whatever";
+	| "KOREAN"
+	| "JAPANESE"
+	| "CHINESE"
+	| "WESTERN"
+	| "ASIAN"
+	| "ANY";
 
 export type RankKey = "first" | "second" | "third";
 
