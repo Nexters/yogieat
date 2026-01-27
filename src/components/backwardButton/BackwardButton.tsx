@@ -15,7 +15,7 @@ export const BackwardButton = (props: BackwardButtonProps) => {
 			className={twJoin(
 				"ygi:flex ygi:items-center ygi:justify-center",
 				"ygi:h-12 ygi:w-12 ygi:p-3",
-				"ygi:bg-transparent",
+				"ygi:cursor-pointer ygi:bg-transparent",
 			)}
 			{...props}
 		>

@@ -84,6 +84,7 @@
 	--color-surface-primary: var(--ygi-color-palette-primary-50);
 	--color-surface-disabled: var(--ygi-color-palette-gray-100);
 	--color-surface-secondary: var(--ygi-color-palette-secondary-50);
+	--color-surface-active: var(--ygi-color-palette-primary-500);
 
 	/* Text */
 	--color-text-primary: var(--ygi-color-palette-gray-900);
