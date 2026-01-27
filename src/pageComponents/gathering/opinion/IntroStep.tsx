@@ -15,7 +15,7 @@ export const IntroStep = ({ meetingContext }: IntroStepProps) => {
 				</h1>
 				<div className="ygi:inline-flex ygi:w-fit ygi:items-center ygi:justify-center ygi:rounded-full ygi:bg-button-secondary ygi:px-4 ygi:py-2">
 					<span className="ygi:body-16-bd ygi:text-text-inverse">
-						{meetingContext.meetingDate}
+						{meetingContext.scheduledDate}
 					</span>
 				</div>
 			</div>

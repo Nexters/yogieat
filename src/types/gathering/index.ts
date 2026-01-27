@@ -1,6 +1,6 @@
 export interface CreateMeetingForm {
 	peopleCount?: number;
-	meetingDate: string;
+	scheduledDate: string;
 	timeSlot?: "LUNCH" | "DINNER";
 	location?: "HONGDAE" | "GANGNAM";
 }
@@ -36,7 +36,7 @@ export type OpinionStep = "intro" | "distance" | "dislike" | "preference";
 
 export interface MeetingContext {
 	gatheringId: string;
-	meetingDate: string;
+	scheduledDate: string;
 	stationName: string;
 	totalParticipants?: number;
 	submittedCount?: number;

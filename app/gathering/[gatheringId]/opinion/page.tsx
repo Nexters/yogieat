@@ -33,7 +33,7 @@ export default function OpinionPage() {
 	const meetingContext = useMemo<MeetingContext>(
 		() => ({
 			gatheringId,
-			meetingDate: MOCK_MEETING_DATA.DATE,
+			scheduledDate: MOCK_MEETING_DATA.DATE,
 			stationName: MOCK_MEETING_DATA.STATION_NAME,
 		}),
 		[gatheringId],

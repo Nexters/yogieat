@@ -19,19 +19,19 @@ export const DateStep = ({ onNext }: DateStepProps) => {
 	const { control, setValue } = useFormContext<CreateMeetingForm>();
 	const isValid = useDateStepValidation(control);
 
-	const meetingDate = useWatch({ control, name: "meetingDate" });
+	const scheduledDate = useWatch({ control, name: "scheduledDate" });
 	const timeSlot = useWatch({ control, name: "timeSlot" });
 
 	const hasDateError =
-		meetingDate?.length === 10 && !isValidDateFormat(meetingDate);
+		scheduledDate?.length === 10 && !isValidDateFormat(scheduledDate);
 
 	const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const formatted = formatDateInput(e.target.value);
-		setValue("meetingDate", formatted, { shouldValidate: true });
+		setValue("scheduledDate", formatted, { shouldValidate: true });
 	};
 
 	const handleDateClear = () => {
-		setValue("meetingDate", "", { shouldValidate: true });
+		setValue("scheduledDate", "", { shouldValidate: true });
 	};
 
 	const handleTimeSlotChange = (slot: TimeSlot) => {
@@ -58,7 +58,7 @@ export const DateStep = ({ onNext }: DateStepProps) => {
 						}
 						inputMode="numeric"
 						showClearButton
-						value={meetingDate || ""}
+						value={scheduledDate || ""}
 						onChange={handleDateChange}
 						onClear={handleDateClear}
 					/>

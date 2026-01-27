@@ -23,15 +23,15 @@ export const usePeopleStepValidation = (
 export const useDateStepValidation = (
 	control: ReturnType<typeof useForm<CreateMeetingForm>>["control"],
 ) => {
-	const [meetingDate, timeSlot] = useWatch({
+	const [scheduledDate, timeSlot] = useWatch({
 		control,
-		name: ["meetingDate", "timeSlot"],
+		name: ["scheduledDate", "timeSlot"],
 	});
 
 	return (
-		!isNil(meetingDate) &&
+		!isNil(scheduledDate) &&
 		!isNil(timeSlot) &&
-		isValidDateFormat(meetingDate)
+		isValidDateFormat(scheduledDate)
 	);
 };
 
