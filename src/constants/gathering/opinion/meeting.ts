@@ -1,11 +1,3 @@
-export interface MeetingContext {
-	gatheringId: string;
-	meetingDate: string;
-	stationName: string;
-	totalParticipants?: number;
-	submittedCount?: number;
-}
-
 /**
  * Mock meeting data for development
  * TODO: Replace with API data fetching

@@ -19,7 +19,7 @@ export type FoodCategory =
 	| "chinese"
 	| "western"
 	| "asian"
-	| "none";
+	| "whatever";
 
 export type RankKey = "first" | "second" | "third";
 
@@ -35,5 +35,10 @@ export interface OpinionForm {
 
 export type OpinionStep = "intro" | "distance" | "dislike" | "preference";
 
-// Export meeting context
-export type { MeetingContext } from "#/constants/gathering/opinion/meeting";
+export interface MeetingContext {
+	gatheringId: string;
+	meetingDate: string;
+	stationName: string;
+	totalParticipants?: number;
+	submittedCount?: number;
+}
