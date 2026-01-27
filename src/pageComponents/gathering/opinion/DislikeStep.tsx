@@ -88,6 +88,8 @@ export const DislikeStepContent = () => {
 export const DislikeStepFooter = ({
 	onNext,
 }: Pick<DislikeStepProps, "onNext">) => {
+	const { control } = useFormContext<OpinionForm>();
+
 	const handleNext = useCallback(() => {
 		onNext();
 	}, [onNext]);
@@ -95,9 +97,20 @@ export const DislikeStepFooter = ({
 	return (
 		<Layout.Footer>
 			<div className="ygi:px-6">
-				<Button variant="primary" width="full" onClick={handleNext}>
-					다음
-				</Button>
+				<Controller
+					name="dislikedFoods"
+					control={control}
+					render={({ field }) => (
+						<Button
+							variant="primary"
+							width="full"
+							disabled={!field.value || field.value.length === 0}
+							onClick={handleNext}
+						>
+							다음
+						</Button>
+					)}
+				/>
 			</div>
 		</Layout.Footer>
 	);
