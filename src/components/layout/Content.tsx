@@ -18,7 +18,7 @@ export const Content = ({ children, background = "white" }: ContentProps) => {
 		<main
 			className={twJoin(
 				"ygi:relative ygi:h-dvh ygi:pt-layout-header-height ygi:pb-layout-footer-height",
-				"ygi:overflow-x-hidden ygi:overflow-y-auto ",
+				"ygi:scrollbar-hide ygi:overflow-x-hidden ygi:overflow-y-auto",
 				BACKGROUND_CLASSES[background],
 			)}
 		>
