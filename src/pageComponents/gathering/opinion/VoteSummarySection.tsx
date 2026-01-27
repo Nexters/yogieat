@@ -22,7 +22,10 @@ interface VoteCategoryProps {
 
 const VoteCategory = ({ icon, title, votes }: VoteCategoryProps) => {
 	const sortedVotes = Object.entries(votes)
-		.map(([category, count]) => ({ category: category as FoodCategory, count }))
+		.map(([category, count]) => ({
+			category: category as FoodCategory,
+			count,
+		}))
 		.sort((a, b) => b.count - a.count);
 
 	return (

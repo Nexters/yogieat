@@ -3,7 +3,14 @@
 import { motion } from "motion/react";
 import { FoodCard } from "./FoodCard";
 
-const FOOD_CATEGORIES = ["korean", "japanese", "chinese", "western", "asian", "any"];
+const FOOD_CATEGORIES = [
+	"korean",
+	"japanese",
+	"chinese",
+	"western",
+	"asian",
+	"any",
+];
 
 export const FoodCategoryCarousel = () => {
 	// 카드 2세트를 만들어서 무한 스크롤 효과 구현
@@ -26,7 +33,10 @@ export const FoodCategoryCarousel = () => {
 				}}
 			>
 				{duplicatedCategories.map((category, index) => (
-					<FoodCard key={`${category}-${index}`} category={category} />
+					<FoodCard
+						key={`${category}-${index}`}
+						category={category}
+					/>
 				))}
 			</motion.div>
 		</div>
