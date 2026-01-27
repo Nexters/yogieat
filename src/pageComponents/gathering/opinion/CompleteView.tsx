@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Layout } from "#/components/layout";
 import { StepHeader } from "#/components/stepHeader";
 import { twJoin } from "tailwind-merge";
@@ -37,10 +38,14 @@ export const CompleteView = ({
 					</StepHeader.Description>
 				</StepHeader.Root>
 
-				<div className="ygi:mt-12 ygi:flex ygi:h-61 ygi:w-61 ygi:items-center ygi:justify-center ygi:rounded-2xl ygi:bg-gray-200">
-					<span className="ygi:body-14-rg ygi:text-text-secondary">
-						이미지 준비 중
-					</span>
+				<div className="ygi:relative ygi:mt-22 ygi:h-75 ygi:w-70">
+					<Image
+						src="/images/opinion/prepare-suggestion.svg"
+						alt="메뉴 추천 준비중"
+						fill
+						className="ygi:object-contain"
+						priority
+					/>
 				</div>
 			</div>
 		</Layout.Content>
