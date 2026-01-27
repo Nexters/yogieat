@@ -2,6 +2,7 @@
 
 import { LogoIcon } from "#/icons/logoIcon";
 import type { IntroStepProps } from "#/types/gathering";
+import Image from "next/image";
 
 export const IntroStep = ({ meetingContext }: IntroStepProps) => {
 	return (
@@ -19,9 +20,15 @@ export const IntroStep = ({ meetingContext }: IntroStepProps) => {
 				</div>
 			</div>
 			<div className="ygi:flex ygi:flex-1 ygi:items-center ygi:justify-center">
-				<span className="ygi:body-14-rg ygi:text-text-secondary">
-					일러스트 준비 중
-				</span>
+				<div className="ygi:relative ygi:h-full ygi:w-full">
+					<Image
+						src="/images/opinion/opinion-intro.svg"
+						alt="메뉴 선택 일러스트"
+						fill
+						className="ygi:object-contain"
+						priority
+					/>
+				</div>
 			</div>
 		</section>
 	);
