@@ -4,8 +4,10 @@ import { CrownIcon } from "#/icons/crownIcon";
 import { StarIcon } from "#/icons/starIcon";
 import { ChevronRightIcon } from "#/icons/chevronRightIcon";
 import type { Restaurant } from "#/types/gathering";
-import { formatDistance } from "#/utils/formatDistance";
-import { FOOD_CATEGORY_LABELS } from "#/constants/gathering/opinion";
+import {
+	FOOD_CATEGORY_LABELS,
+	DISTANCE_LABELS,
+} from "#/constants/gathering/opinion";
 import Image from "next/image";
 import { Tag } from "../tag";
 
@@ -24,11 +26,15 @@ export const RestaurantCard = ({
 }: RestaurantCardProps) => {
 	const isFeatured = variant === "featured";
 
+	const handleMapClick = () => {
+		window.open(restaurant.mapUrl, "_blank", "noopener,noreferrer");
+	};
+
 	if (isFeatured) {
 		return (
 			<article
 				className="ygi:flex ygi:flex-col ygi:items-start"
-				aria-label={`${ranking}위 추천 음식점: ${restaurant.name}`}
+				aria-label={`${ranking}위 추천 음식점: ${restaurant.restaurantName}`}
 			>
 				<div className="ygi:relative ygi:h-46.5 ygi:w-full ygi:overflow-hidden ygi:rounded-t-xl ygi:bg-gray-200">
 					{showRanking && ranking === 1 && (
@@ -39,7 +45,7 @@ export const RestaurantCard = ({
 					{restaurant.imageUrl ? (
 						<Image
 							src={restaurant.imageUrl}
-							alt={restaurant.name}
+							alt={restaurant.restaurantName}
 							fill
 							className="ygi:object-cover"
 						/>
@@ -54,15 +60,18 @@ export const RestaurantCard = ({
 
 				<div className="ygi:flex ygi:w-full ygi:flex-col ygi:gap-3 ygi:rounded-b-xl ygi:bg-surface-white ygi:p-5">
 					<div className="ygi:flex ygi:flex-col ygi:gap-2">
-						<div className="ygi:inline-flex ygi:items-center">
+						<button
+							onClick={handleMapClick}
+							className="ygi:inline-flex ygi:items-center ygi:text-left"
+						>
 							<h3 className="ygi:body-18-bd ygi:text-text-primary">
-								{restaurant.name}
+								{restaurant.restaurantName}
 							</h3>
 							<ChevronRightIcon
 								size={24}
 								className="ygi:shrink-0 ygi:text-icon-disabled"
 							/>
-						</div>
+						</button>
 
 						{/* Rating */}
 						<div className="ygi:flex ygi:items-center ygi:gap-1">
@@ -75,10 +84,10 @@ export const RestaurantCard = ({
 
 					<div className="ygi:flex ygi:flex-wrap ygi:gap-2">
 						<Tag size="medium">
-							{`역에서 ${formatDistance(restaurant.distance)} 이내`}
+							{`역에서 ${DISTANCE_LABELS[restaurant.majorityDistanceRange]}`}
 						</Tag>
 						<Tag size="medium">
-							{FOOD_CATEGORY_LABELS[restaurant.category]}
+							{FOOD_CATEGORY_LABELS[restaurant.largeCategory]}
 						</Tag>
 					</div>
 				</div>
@@ -89,13 +98,13 @@ export const RestaurantCard = ({
 	return (
 		<article
 			className="ygi:flex ygi:items-start ygi:overflow-hidden"
-			aria-label={`${ranking}위 추천 음식점: ${restaurant.name}`}
+			aria-label={`${ranking}위 추천 음식점: ${restaurant.restaurantName}`}
 		>
 			<div className="ygi:relative ygi:h-20 ygi:w-20 ygi:shrink-0 ygi:overflow-hidden ygi:rounded ygi:bg-gray-200">
 				{restaurant.imageUrl ? (
 					<Image
 						src={restaurant.imageUrl}
-						alt={restaurant.name}
+						alt={restaurant.restaurantName}
 						fill
 						className="ygi:object-cover"
 					/>
@@ -108,20 +117,20 @@ export const RestaurantCard = ({
 				)}
 			</div>
 
-			{/* Compact Content */}
 			<div className="ygi:flex ygi:flex-1 ygi:flex-col ygi:justify-center ygi:gap-2 ygi:px-5">
-				{/* Name with Chevron */}
-				<div className="ygi:flex ygi:items-center">
+				<button
+					onClick={handleMapClick}
+					className="ygi:flex ygi:items-center ygi:text-left"
+				>
 					<h3 className="ygi:body-14-bd ygi:text-text-primary">
-						{restaurant.name}
+						{restaurant.restaurantName}
 					</h3>
 					<ChevronRightIcon
 						size={24}
 						className="ygi:text-text-primary"
 					/>
-				</div>
+				</button>
 
-				{/* Rating */}
 				<div className="ygi:flex ygi:items-center ygi:gap-1">
 					<StarIcon size={14} color="#FF5A3C" />
 					<span className="ygi:body-14-bd ygi:text-text-secondary">
@@ -129,13 +138,12 @@ export const RestaurantCard = ({
 					</span>
 				</div>
 
-				{/* Distance and Category Tags */}
 				<div className="ygi:flex ygi:flex-wrap ygi:gap-2">
 					<Tag size="medium">
-						{`역에서 ${formatDistance(restaurant.distance)} 이내`}
+						{`역에서 ${DISTANCE_LABELS[restaurant.majorityDistanceRange]}`}
 					</Tag>
 					<Tag size="medium">
-						{FOOD_CATEGORY_LABELS[restaurant.category]}
+						{FOOD_CATEGORY_LABELS[restaurant.largeCategory]}
 					</Tag>
 				</div>
 			</div>
