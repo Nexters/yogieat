@@ -35,9 +35,9 @@ export const useDateStepValidation = (
 	);
 };
 
-export const useLocationStepValidation = (
+export const useRegionStepValidation = (
 	control: ReturnType<typeof useForm<CreateMeetingForm>>["control"],
 ) => {
-	const location = useWatch({ control, name: "location" });
-	return !isNil(location);
+	const region = useWatch({ control, name: "region" });
+	return !isNil(region);
 };

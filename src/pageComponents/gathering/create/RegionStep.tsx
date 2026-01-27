@@ -6,26 +6,26 @@ import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator/StepIndicator";
 import { Button } from "#/components/button/Button";
 import { Chip } from "#/components/chip";
-import { useLocationStepValidation } from "#/hooks/gathering";
-import type { CreateMeetingForm, Location } from "#/types/gathering";
+import { useRegionStepValidation } from "#/hooks/gathering";
+import type { CreateMeetingForm, Region } from "#/types/gathering";
 
-interface LocationStepProps {
+interface RegionStepProps {
 	onComplete: () => void;
 }
 
-const LOCATION_OPTIONS = [
+const REGION_OPTIONS = [
 	{ id: "HONGDAE" as const, label: "홍대입구역" },
 	{ id: "GANGNAM" as const, label: "강남역" },
 ];
 
-export const LocationStep = ({ onComplete }: LocationStepProps) => {
+export const RegionStep = ({ onComplete }: RegionStepProps) => {
 	const { control, setValue } = useFormContext<CreateMeetingForm>();
-	const isValid = useLocationStepValidation(control);
+	const isValid = useRegionStepValidation(control);
 
-	const location = useWatch({ control, name: "location" });
+	const region = useWatch({ control, name: "region" });
 
-	const handleLocationChange = (loc: Location) => {
-		setValue("location", loc === location ? undefined : loc, {
+	const handleRegionChange = (loc: Region) => {
+		setValue("region", loc === region ? undefined : loc, {
 			shouldValidate: true,
 		});
 	};
@@ -38,11 +38,11 @@ export const LocationStep = ({ onComplete }: LocationStepProps) => {
 					장소를 선택해 주세요
 				</h1>
 				<div className="ygi:flex ygi:gap-3">
-					{LOCATION_OPTIONS.map(({ id, label }) => (
+					{REGION_OPTIONS.map(({ id, label }) => (
 						<Chip
 							key={id}
-							selected={location === id}
-							onClick={() => handleLocationChange(id)}
+							selected={region === id}
+							onClick={() => handleRegionChange(id)}
 						>
 							{label}
 						</Chip>

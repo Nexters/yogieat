@@ -8,7 +8,7 @@ import { BackwardButton } from "#/components/backwardButton/BackwardButton";
 import {
 	PeopleStep,
 	DateStep,
-	LocationStep,
+	RegionStep,
 } from "#/pageComponents/gathering/create";
 import {
 	useCreateMeetingForm,
@@ -38,8 +38,8 @@ export default function GatheringCreatePage() {
 				<Layout.Content>
 					{step === "people" && <PeopleStep onNext={next} />}
 					{step === "date" && <DateStep onNext={next} />}
-					{step === "location" && (
-						<LocationStep
+					{step === "region" && (
+						<RegionStep
 							onComplete={() => {
 								router.push("/gathering/create/complete");
 							}}

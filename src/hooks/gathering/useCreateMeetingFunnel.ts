@@ -3,7 +3,7 @@
 import { useState, useCallback } from "react";
 import type { CreateMeetingStep } from "#/types/gathering";
 
-const STEP_ORDER: CreateMeetingStep[] = ["people", "date", "location"];
+const STEP_ORDER: CreateMeetingStep[] = ["people", "date", "region"];
 
 export function useCreateMeetingFunnel() {
 	const [step, setStep] = useState<CreateMeetingStep>("people");

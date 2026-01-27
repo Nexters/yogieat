@@ -2,13 +2,13 @@ export interface CreateMeetingForm {
 	peopleCount?: number;
 	scheduledDate: string;
 	timeSlot?: "LUNCH" | "DINNER";
-	location?: "HONGDAE" | "GANGNAM";
+	region?: "HONGDAE" | "GANGNAM";
 }
 
 export type TimeSlot = CreateMeetingForm["timeSlot"];
-export type Location = CreateMeetingForm["location"];
+export type Region = CreateMeetingForm["region"];
 
-export type CreateMeetingStep = "people" | "date" | "location";
+export type CreateMeetingStep = "people" | "date" | "region";
 
 export type DistanceRange = "RANGE_500M" | "RANGE_1KM" | "ANY";
 

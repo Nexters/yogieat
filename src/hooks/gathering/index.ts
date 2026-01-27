@@ -2,7 +2,7 @@ export {
 	useCreateMeetingForm,
 	usePeopleStepValidation,
 	useDateStepValidation,
-	useLocationStepValidation,
+	useRegionStepValidation,
 } from "./useCreateMeetingForm";
 
 export { useCreateMeetingFunnel } from "./useCreateMeetingFunnel";
