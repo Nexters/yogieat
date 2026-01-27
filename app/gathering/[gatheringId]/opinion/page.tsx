@@ -7,10 +7,8 @@ import { IntroStep } from "#/pageComponents/gathering/opinion";
 import { useOpinionFunnel } from "#/hooks/gathering";
 import { Button } from "#/components/button";
 import { Layout } from "#/components/layout";
-import {
-	MOCK_MEETING_DATA,
-	type MeetingContext,
-} from "#/constants/gathering/opinion/meeting";
+import { MOCK_MEETING_DATA } from "#/constants/gathering/opinion/meeting";
+import { MeetingContext } from "#/types/gathering";
 
 export default function OpinionPage() {
 	const params = useParams();
