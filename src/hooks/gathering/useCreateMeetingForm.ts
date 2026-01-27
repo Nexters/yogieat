@@ -1,8 +1,9 @@
 "use client";
 
 import { useForm, useWatch } from "react-hook-form";
+import { isValidDateFormat } from "#/utils/gathering/create";
 import type { CreateMeetingForm } from "#/types/gathering";
-import { isUndefined } from "es-toolkit";
+import { isNil } from "es-toolkit";
 
 export const useCreateMeetingForm = () => {
 	const form = useForm<CreateMeetingForm>({
@@ -16,7 +17,7 @@ export const usePeopleStepValidation = (
 	control: ReturnType<typeof useForm<CreateMeetingForm>>["control"],
 ) => {
 	const peopleCount = useWatch({ control, name: "peopleCount" });
-	return !isUndefined(peopleCount);
+	return !isNil(peopleCount);
 };
 
 export const useDateStepValidation = (
@@ -27,12 +28,16 @@ export const useDateStepValidation = (
 		name: ["meetingDate", "timeSlot"],
 	});
 
-	return !isUndefined(meetingDate) && !isUndefined(timeSlot);
+	return (
+		!isNil(meetingDate) &&
+		!isNil(timeSlot) &&
+		isValidDateFormat(meetingDate)
+	);
 };
 
 export const useLocationStepValidation = (
 	control: ReturnType<typeof useForm<CreateMeetingForm>>["control"],
 ) => {
 	const location = useWatch({ control, name: "location" });
-	return !isUndefined(location);
+	return !isNil(location);
 };

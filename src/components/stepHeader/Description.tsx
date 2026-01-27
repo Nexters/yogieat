@@ -14,7 +14,7 @@ export const Description = ({ children, ...props }: DescriptionProps) => {
 			className={twJoin(
 				"ygi:body-16-md ygi:text-text-secondary",
 				"ygi:leading-normal ygi:tracking-tight",
-				"ygi:w-full",
+				"ygi:w-full ygi:whitespace-pre-line",
 			)}
 			{...props}
 		>

@@ -6,3 +6,12 @@ export {
 } from "./useCreateMeetingForm";
 
 export { useCreateMeetingFunnel } from "./useCreateMeetingFunnel";
+
+export {
+	useOpinionForm,
+	useDistanceStepValidation,
+	useDislikeStepValidation,
+	usePreferenceStepValidation,
+} from "./useOpinionForm";
+
+export { useOpinionFunnel } from "./useOpinionFunnel";
