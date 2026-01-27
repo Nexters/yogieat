@@ -16,7 +16,7 @@ export const FoodCard = ({ category }: FoodCardProps) => {
 					src={imageSrc}
 					alt={category}
 					fill
-					className="ygi:object-contain"
+					className="ygi:object-contain ygi:p-2.5"
 				/>
 			</div>
 		</div>
