@@ -1,9 +1,9 @@
 "use client";
 
-import clsx from "clsx";
 import { useMemo, type ReactNode } from "react";
 
 import { CheckBoxContext } from "./context";
+import { twMerge } from "tailwind-merge";
 
 interface CheckBoxRootProps {
 	checked: boolean;
@@ -45,7 +45,7 @@ export const Root = ({
 				tabIndex={disabled ? -1 : 0}
 				onClick={handleClick}
 				onKeyDown={handleKeyDown}
-				className={clsx(
+				className={twMerge(
 					"ygi:inline-flex ygi:cursor-pointer ygi:items-center ygi:gap-2 ygi:select-none",
 					disabled && "ygi:cursor-not-allowed ygi:opacity-50",
 				)}
