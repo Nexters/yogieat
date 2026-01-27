@@ -24,8 +24,8 @@ export const RegionStep = ({ onComplete }: RegionStepProps) => {
 
 	const region = useWatch({ control, name: "region" });
 
-	const handleRegionChange = (loc: Region) => {
-		setValue("region", loc === region ? undefined : loc, {
+	const handleRegionChange = (selectedRegion: Region) => {
+		setValue("region", selectedRegion === region ? undefined : selectedRegion, {
 			shouldValidate: true,
 		});
 	};
