@@ -1,7 +1,10 @@
 "use client";
 
 import { Layout } from "#/components/layout";
-import { RestaurantCard } from "#/components/restaurantCard";
+import {
+	TopRecommendCard,
+	OtherCandidateCard,
+} from "#/components/restaurantCard";
 import { VoteSummarySection } from "./VoteSummarySection";
 import type { RecommendationResult } from "#/types/gathering";
 import { twJoin } from "tailwind-merge";
@@ -30,16 +33,15 @@ export const ResultView = ({ recommendationResult }: ResultViewProps) => {
 				</div>
 
 				{/* Top Recommendation */}
-				<RestaurantCard
+				<TopRecommendCard
 					restaurant={recommendationResult.topRecommendation}
-					variant="featured"
-					showRanking
-					ranking={1}
 				/>
 
 				{/* Vote Summary */}
 				<VoteSummarySection
-					voteStats={recommendationResult.voteStats}
+					preferences={recommendationResult.preferences}
+				dislikes={recommendationResult.dislikes}
+				agreementRate={recommendationResult.agreementRate}
 				/>
 
 				{/* Other Candidates */}
@@ -56,11 +58,9 @@ export const ResultView = ({ recommendationResult }: ResultViewProps) => {
 						<div className="ygi:flex ygi:flex-col ygi:gap-5">
 							{recommendationResult.otherCandidates.map(
 								(restaurant, index) => (
-									<RestaurantCard
-										key={restaurant.id}
+									<OtherCandidateCard
+										key={restaurant.restaurantId}
 										restaurant={restaurant}
-										variant="default"
-										showRanking
 										ranking={index + 2}
 									/>
 								),
