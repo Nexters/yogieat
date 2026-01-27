@@ -4,8 +4,9 @@ import { motion } from "motion/react";
 import { XIcon } from "#/icons/xIcon";
 import { cva, type VariantProps } from "class-variance-authority";
 import { AnimatePresence } from "motion/react";
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import type { ComponentPropsWithoutRef } from "react";
 import { twJoin } from "tailwind-merge";
+import Image from "next/image";
 
 const foodCategoryButtonVariants = cva(
 	[
@@ -17,35 +18,30 @@ const foodCategoryButtonVariants = cva(
 	],
 	{
 		variants: {
-			variant: {
-				default: [],
-				noPreference: [],
+			isAny: {
+				false: [],
+				true: [],
 			},
 			selected: {
 				false: [
 					"ygi:bg-surface-lightgray-50",
 					"ygi:border-transparent",
 				],
-				true: [],
+				true: ["ygi:border-border-primary", "ygi:bg-surface-primary"],
 			},
 		},
 		compoundVariants: [
 			{
-				variant: "default",
-				selected: true,
-				class: ["ygi:bg-surface-primary", "ygi:border-border-primary"],
-			},
-			{
-				variant: "noPreference",
+				isAny: true,
 				selected: true,
 				class: [
-					"ygi:bg-surface-secondary",
 					"ygi:border-border-secondary",
+					"ygi:bg-surface-secondary",
 				],
 			},
 		],
 		defaultVariants: {
-			variant: "default",
+			isAny: false,
 			selected: false,
 		},
 	},
@@ -56,27 +52,36 @@ export type FoodCategoryButtonProps = Omit<
 	"className"
 > &
 	VariantProps<typeof foodCategoryButtonVariants> & {
-		icon?: ReactNode;
+		category: string;
 		label: string;
 	};
 
 export const FoodCategoryButton = ({
-	variant,
+	category,
 	selected,
-	icon,
 	label,
 	...props
 }: FoodCategoryButtonProps) => {
+	const isAny = category === "ANY";
+	const shouldShowXIcon = selected && !isAny;
+	const imageSrc = `/images/foodCategory/${category.toLowerCase()}.svg`;
+
 	return (
 		<button
 			aria-pressed={selected ?? false}
-			className={foodCategoryButtonVariants({ variant, selected })}
+			className={foodCategoryButtonVariants({ isAny, selected })}
 			{...props}
 		>
 			<div className="ygi:relative ygi:size-20">
-				{icon}
+				<Image
+					src={imageSrc}
+					alt={label}
+					fill
+					className="ygi:object-contain"
+					priority
+				/>
 				<AnimatePresence>
-					{selected && variant !== "noPreference" && (
+					{shouldShowXIcon && (
 						<motion.div
 							initial={{ opacity: 0, scale: 0.8 }}
 							animate={{ opacity: 1, scale: 1 }}
