@@ -48,7 +48,10 @@ export const ProgressBar = ({ value, ...props }: ProgressBarProps) => {
 						animate={{
 							opacity: 1,
 							scale: 1,
-							left: `calc(${clampedValue}% - 14px)`,
+							left:
+								clampedValue === 100
+									? "calc(100% - 28px)"
+									: `calc(${clampedValue}% - 14px)`,
 						}}
 						exit={{ opacity: 0, scale: 0.5, left: "-14px" }}
 						transition={{

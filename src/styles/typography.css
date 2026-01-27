@@ -70,12 +70,19 @@
 	letter-spacing: -0.015em;
 }
 
+@utility heading-18-bd {
+	font-size: 18px;
+	font-weight: 700;
+	line-height: 150%;
+	letter-spacing: -0.015em;
+}
+
 /* Body */
 @utility body-18-bd {
 	font-size: 18px;
 	font-weight: 700;
 	line-height: 150%;
-	letter-spacing: -0.015em;
+	letter-spacing: -0.016875em;
 }
 
 @utility body-18-sb {
