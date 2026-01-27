@@ -100,7 +100,7 @@ export const FoodCategoryButton = ({
 			</div>
 			<span
 				className={twJoin(
-					"ygi:heading-18-bd ygi:text-center",
+					"ygi:text-center ygi:heading-18-bd",
 					selected
 						? "ygi:text-text-primary"
 						: "ygi:text-text-secondary",

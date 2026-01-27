@@ -78,7 +78,7 @@ export const VoteSummarySection = ({
 			{/* 의견 집계율 */}
 			<div className="ygi:flex ygi:flex-col ygi:gap-5">
 				<div className="ygi:flex ygi:items-start ygi:justify-between">
-					<h5 className="ygi:heading-18-bd ygi:flex-1 ygi:text-text-primary">
+					<h5 className="ygi:flex-1 ygi:heading-18-bd ygi:text-text-primary">
 						의견 일치율
 					</h5>
 					<span className="ygi:shrink-0 ygi:body-18-bd ygi:text-text-interactive">
