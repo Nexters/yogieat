@@ -8,11 +8,10 @@ export interface CreateMeetingForm {
 export type TimeSlot = CreateMeetingForm["timeSlot"];
 export type Location = CreateMeetingForm["location"];
 
-// Funnel step type (useFunnel은 step 네비게이션만 담당)
 export type CreateMeetingStep = "people" | "date" | "location";
 
-// Opinion 관련 타입
 export type DistanceRange = "RANGE_500M" | "RANGE_1KM" | "ANY";
+
 export type FoodCategory =
 	| "KOREAN"
 	| "JAPANESE"
@@ -41,6 +40,40 @@ export interface MeetingContext {
 	stationName: string;
 	totalParticipants?: number;
 	submittedCount?: number;
+}
+
+export interface Restaurant {
+	rank: number;
+	restaurantId: number;
+	restaurantName: string;
+	address: string;
+	rating: number;
+	imageUrl: string | null;
+	mapUrl: string;
+	representativeReview: string;
+	description: string;
+	region: string | null;
+	location: {
+		type: string;
+		coordinates: [number, number];
+	};
+	largeCategory: FoodCategory;
+	mediumCategory: string;
+	majorityDistanceRange: DistanceRange;
+}
+
+export interface VoteStatistics {
+	preferences: Record<string, number>;
+	dislikes: Record<string, number>;
+	agreementRate: number;
+}
+
+export interface RecommendationResult {
+	topRecommendation: Restaurant;
+	otherCandidates: Restaurant[];
+	preferences: Record<string, number>;
+	dislikes: Record<string, number>;
+	agreementRate: number;
 }
 
 export type {

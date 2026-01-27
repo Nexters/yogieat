@@ -30,7 +30,6 @@ export default function OpinionPage() {
 	const form = useOpinionForm();
 	const { step, direction, next, back, isFirstStep } = useOpinionFunnel();
 
-	// Meeting context
 	const meetingContext = useMemo<MeetingContext>(
 		() => ({
 			gatheringId,
