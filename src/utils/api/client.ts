@@ -114,7 +114,10 @@ export const createApiClient = (config: ApiClientConfig) => {
 			url: string,
 			options?: ApiRequestOptions,
 		): Promise<ApiResponse<T>> => {
-			const response = await instance.delete(url, buildKyOptions(options));
+			const response = await instance.delete(
+				url,
+				buildKyOptions(options),
+			);
 			return response.json<ApiResponse<T>>();
 		},
 	};
