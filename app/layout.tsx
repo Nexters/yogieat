@@ -50,7 +50,6 @@ export default function RootLayout({
 				className={`${geistSans.variable} ${geistMono.variable} antialiased ygi:overflow-x-hidden`}
 			>
 				{children}
-				<Toaster offset={100} />
 			</body>
 		</html>
 	);
