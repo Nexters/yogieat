@@ -19,7 +19,7 @@ export const RankSection = ({
 	onMenuSelect,
 }: RankSectionProps) => {
 	return (
-		<div className="ygi:flex ygi:flex-col ygi:gap-xl">
+		<div className="ygi:flex ygi:flex-col ygi:gap-6 ygi:py-6">
 			<div className="ygi:flex ygi:items-center ygi:justify-between">
 				<h2 className="ygi:heading-18-bd ygi:text-text-primary">
 					{RANK_LABELS[rank]}
