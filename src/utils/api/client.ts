@@ -8,11 +8,11 @@ import type { ApiRequestOptions, ApiResponse, ErrorResponse } from "./types";
  */
 interface ApiClientConfig {
 	/** 기본 URL */
-	baseUrl: string;
+	baseUrl: KyOptions["prefixUrl"];
 	/** 기본 타임아웃 (ms) */
-	timeout?: number;
+	timeout?: KyOptions["timeout"];
 	/** 기본 헤더 */
-	headers?: Record<string, string>;
+	headers?: KyOptions["headers"];
 }
 
 /**
