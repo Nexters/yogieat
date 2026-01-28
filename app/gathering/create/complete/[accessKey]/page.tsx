@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 import { Layout } from "#/components/layout";
 import { BackwardButton } from "#/components/backwardButton";
@@ -10,6 +10,7 @@ import { share } from "#/utils/share";
 import { Toaster } from "#/components/toast";
 
 export default function GatheringCreateCompletePage() {
+	const params = useParams<{ accessKey: string }>();
 	const router = useRouter();
 
 	const handleBackward = () => {
@@ -17,15 +18,15 @@ export default function GatheringCreateCompletePage() {
 	};
 
 	const handlePreferenceInput = () => {
-		// TODO: Navigate to preference input page
+		router.push(`/gathering/${params.accessKey}/opinion`);
 	};
 
 	const handleShare = () => {
-		// TODO: modify metadata
+		const opinionUrl = `${window.location.origin}/gathering/${params.accessKey}/opinion`;
 		share({
-			title: "요기잇 - 맛집 모임",
-			text: "함께 맛집을 정해보세요!",
-			url: window.location.href,
+			title: "함께 갈 맛집, 같이 정해요!",
+			text: "[요기잇] 다인원을 위한 맛집 서비스",
+			url: opinionUrl,
 		});
 	};
 

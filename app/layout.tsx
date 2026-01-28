@@ -2,8 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-import { Toaster } from "#/components/toast";
-
 const geistSans = Geist({
 	variable: "--font-geist-sans",
 	subsets: ["latin"],
@@ -50,7 +48,6 @@ export default function RootLayout({
 				className={`${geistSans.variable} ${geistMono.variable} antialiased ygi:overflow-x-hidden`}
 			>
 				{children}
-				<Toaster offset={100} />
 			</body>
 		</html>
 	);

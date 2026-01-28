@@ -14,6 +14,7 @@ import {
 	useCreateMeetingForm,
 	useCreateMeetingFunnel,
 } from "#/hooks/gathering";
+import { Toaster } from "#/components/toast";
 
 export default function GatheringCreatePage() {
 	const router = useRouter();
@@ -42,12 +43,19 @@ export default function GatheringCreatePage() {
 					{step === "date" && <DateStep onNext={next} />}
 					{step === "region" && (
 						<RegionStep
-							onComplete={() => {
-								router.push("/gathering/create/complete");
+							onComplete={(accessKey) => {
+								router.push(
+									`/gathering/create/complete/${accessKey}`,
+								);
 							}}
 						/>
 					)}
 				</Layout.Content>
+
+				<Toaster
+					offset={{ bottom: 96 }}
+					mobileOffset={{ bottom: 96 }}
+				/>
 			</Layout.Root>
 		</FormProvider>
 	);
