@@ -44,10 +44,10 @@ export const StepTransition = ({
 				animate="center"
 				exit="exit"
 				transition={{
-					x: { type: "spring", stiffness: 300, damping: 30 },
+					x: { type: "tween", duration: 0.3, ease: "easeOut" },
 					opacity: { duration: 0.2 },
 				}}
-				className="ygi:h-full ygi:w-full ygi:overflow-x-hidden"
+				className="ygi:scrollbar-hide ygi:h-full ygi:w-full ygi:overflow-x-hidden"
 			>
 				{children}
 			</motion.div>

@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { FormProvider } from "react-hook-form";
 
 import { Layout } from "#/components/layout";
-import { BackwardButton } from "#/components/backwardButton/BackwardButton";
+import { BackwardButton } from "#/components/backwardButton";
 import {
 	PeopleStep,
 	DateStep,
@@ -32,7 +32,9 @@ export default function GatheringCreatePage() {
 		<FormProvider {...form}>
 			<Layout.Root>
 				<Layout.Header>
-					<BackwardButton onClick={handleBackward} />
+					{step !== "people" && (
+						<BackwardButton onClick={handleBackward} />
+					)}
 				</Layout.Header>
 
 				<Layout.Content>

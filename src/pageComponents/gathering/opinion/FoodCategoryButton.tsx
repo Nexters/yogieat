@@ -14,7 +14,7 @@ const foodCategoryButtonVariants = cva(
 		"ygi:size-[156px] ygi:rounded-full",
 		"ygi:gap-1 ygi:p-6",
 		"ygi:cursor-pointer ygi:transition",
-		"ygi:border ygi:border-solid",
+		"ygi:border ygi:border-solid ygi:bg-surface-lightgray",
 	],
 	{
 		variants: {

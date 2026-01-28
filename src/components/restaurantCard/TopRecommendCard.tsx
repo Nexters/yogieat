@@ -1,8 +1,8 @@
 "use client";
 
-import { CrownIcon } from "#/icons/crownIcon";
 import { StarIcon } from "#/icons/starIcon";
 import { ChevronRightIcon } from "#/icons/chevronRightIcon";
+import type { SyntheticEvent } from "react";
 import type { Restaurant } from "#/types/gathering";
 import {
 	FOOD_CATEGORY_LABELS,
@@ -16,6 +16,10 @@ export interface TopRecommendCardProps {
 }
 
 export const TopRecommendCard = ({ restaurant }: TopRecommendCardProps) => {
+	const handleImageError = (event: SyntheticEvent<HTMLImageElement>) => {
+		event.currentTarget.src = "/public/images/placeholder/restaurant.png";
+	};
+
 	const handleMapClick = () => {
 		window.open(restaurant.mapUrl, "_blank", "noopener,noreferrer");
 	};
@@ -26,22 +30,14 @@ export const TopRecommendCard = ({ restaurant }: TopRecommendCardProps) => {
 			aria-label={`1위 추천 음식점: ${restaurant.restaurantName}`}
 		>
 			<div className="ygi:relative ygi:h-46.5 ygi:w-full ygi:overflow-hidden ygi:rounded-t-xl ygi:bg-gray-200">
-				<div className="ygi:absolute ygi:top-4 ygi:left-4 ygi:z-10">
-					<CrownIcon size={24} />
-				</div>
-				{restaurant.imageUrl ? (
+				{restaurant.imageUrl && (
 					<Image
 						src={restaurant.imageUrl}
 						alt={restaurant.restaurantName}
 						fill
 						className="ygi:object-cover"
+						onError={handleImageError}
 					/>
-				) : (
-					<div className="ygi:flex ygi:h-full ygi:items-center ygi:justify-center">
-						<span className="ygi:text-text-tertiary ygi:body-14-rg">
-							이미지 준비 중
-						</span>
-					</div>
 				)}
 			</div>
 

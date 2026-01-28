@@ -31,7 +31,7 @@ export default function OpinionPendingPage() {
 				submittedCount={submittedCount}
 			/>
 
-			<Layout.Footer background="gray">
+			<Layout.Footer>
 				<div className="ygi:px-6">
 					<Button variant="primary" width="full" disabled>
 						추천 결과 보기

@@ -1,9 +1,17 @@
 "use client";
 
-import Image from "next/image";
+import dynamic from "next/dynamic";
 import { Layout } from "#/components/layout";
 import { StepHeader } from "#/components/stepHeader";
 import { twJoin } from "tailwind-merge";
+
+const Player = dynamic(
+	() =>
+		import("@lottiefiles/react-lottie-player").then(
+			(module) => module.Player,
+		),
+	{ ssr: false },
+);
 
 export const PendingView = () => {
 	return (
@@ -23,14 +31,12 @@ export const PendingView = () => {
 					</StepHeader.Description>
 				</StepHeader.Root>
 
-				<div className="ygi:item-center ygi:mb-43 ygi:flex ygi:w-full ygi:flex-1 ygi:flex-col ygi:justify-center">
-					<Image
-						src="/images/opinion/prepare-suggestion.svg"
-						alt="메뉴 추천 준비중"
-						width={280}
-						height={300}
-						className="ygi:mx-auto ygi:object-contain"
-						priority
+				<div className="ygi:item-center ygi:mb-43 ygi:flex ygi:w-full ygi:flex-1 ygi:flex-col ygi:justify-end">
+					<Player
+						autoplay
+						loop
+						src="/lotties/opinion-submission.json"
+						style={{ width: 280, height: 300 }}
 					/>
 				</div>
 			</div>

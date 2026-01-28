@@ -2,7 +2,6 @@
 
 import { Layout } from "#/components/layout";
 import { StepHeader } from "#/components/stepHeader";
-import { twJoin } from "tailwind-merge";
 import { FoodCategoryCarousel } from "./FoodCategoryCarousel";
 
 export const CompleteView = () => {
@@ -11,12 +10,7 @@ export const CompleteView = () => {
 
 	return (
 		<Layout.Content background="gray">
-			<div
-				className={twJoin(
-					"ygi:flex ygi:flex-col",
-					"ygi:h-full ygi:pt-3",
-				)}
-			>
+			<div className="ygi:flex ygi:h-full ygi:flex-col">
 				<div className="ygi:px-6">
 					<StepHeader.Root>
 						<StepHeader.Title>{title}</StepHeader.Title>

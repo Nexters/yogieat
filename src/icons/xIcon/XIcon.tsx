@@ -4,9 +4,9 @@ export type XIconProps = Omit<IconBaseProps, "children">;
 
 export const XIcon = ({ size = 16, ...props }: XIconProps) => {
 	return (
-		<IconBase size={size} viewBox="0 0 20 20" {...props}>
+		<IconBase size={size} viewBox="0 0 9 9" {...props}>
 			<path
-				d="M15.8332 4.16675L4.1665 15.8334M15.8332 15.8334L4.1665 4.16675"
+				d="M7.5928 1.1127L1.11272 7.59257M7.5942 7.59418L1.11133 1.11108"
 				strokeWidth="1.66667"
 				strokeLinecap="round"
 			/>

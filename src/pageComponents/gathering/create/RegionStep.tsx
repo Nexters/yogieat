@@ -3,7 +3,7 @@
 import { useFormContext, useWatch } from "react-hook-form";
 
 import { Layout } from "#/components/layout";
-import { StepIndicator } from "#/components/stepIndicator/StepIndicator";
+import { StepIndicator } from "#/components/stepIndicator";
 import { Button } from "#/components/button/Button";
 import { Chip } from "#/components/chip";
 import { useRegionStepValidation } from "#/hooks/gathering";

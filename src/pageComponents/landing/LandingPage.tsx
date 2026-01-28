@@ -81,7 +81,7 @@ export const LandingPage = () => {
 						</div>
 						{/* Hand icons - animated to point between cards */}
 						<motion.div
-							className="ygi:absolute ygi:right-22.75 ygi:-bottom-0.25 ygi:z-1"
+							className="ygi:absolute ygi:right-22.75 ygi:-bottom-px ygi:z-1"
 							animate={{
 								x: [0, -180, -180, 0],
 								rotate: [2.72, 20, 20, 2.72],

@@ -1,11 +1,11 @@
-import type { ComponentPropsWithoutRef } from "react";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import { twJoin } from "tailwind-merge";
 
 export interface TitleProps extends Omit<
 	ComponentPropsWithoutRef<"h2">,
 	"className" | "children"
 > {
-	children: string;
+	children: ReactNode;
 }
 
 export const Title = ({ children, ...props }: TitleProps) => {

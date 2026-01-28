@@ -21,15 +21,14 @@ export const ResultView = ({ recommendationResult }: ResultViewProps) => {
 		<Layout.Content background="gray">
 			<div className="ygi:flex ygi:flex-col ygi:gap-3 ygi:px-6 ygi:pb-3">
 				{/* Header */}
-				<div className="ygi:pt-6 ygi:pb-3">
-					<div className="ygi:flex ygi:items-center ygi:gap-2">
-						<Chip selected>
-							<CrownIcon size={16} /> 1위
-						</Chip>
-						<h1 className="ygi:heading-22-bd ygi:text-text-primary">
-							요기잇의 추천 맛집
-						</h1>
-					</div>
+
+				<div className="ygi:flex ygi:items-center ygi:gap-2 ygi:py-6">
+					<Chip selected>
+						<CrownIcon size={16} /> 1위
+					</Chip>
+					<h1 className="ygi:heading-22-bd ygi:text-text-primary">
+						요기잇의 추천 맛집
+					</h1>
 				</div>
 
 				{/* Top Recommendation */}
