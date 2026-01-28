@@ -1,5 +1,9 @@
 // Types
-export type { CreateGatheringRequest, CreateGatheringResponse } from "./type";
+export type {
+	CreateGatheringRequest,
+	CreateGatheringResponse,
+	GetGatheringResponse,
+} from "./type";
 
 // API
-export { createGathering } from "./api";
+export { createGathering, getGathering } from "./api";
