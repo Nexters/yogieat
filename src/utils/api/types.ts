@@ -1,3 +1,5 @@
+import type { Options as KyOptions } from "ky";
+
 /**
  * API 응답 및 에러 타입 정의
  */
@@ -32,11 +34,7 @@ export interface ErrorResponse {
 /**
  * API 요청 옵션
  */
-export interface ApiRequestOptions {
-	/** 요청 헤더 */
-	headers?: Record<string, string>;
-	/** 쿼리 파라미터 */
-	searchParams?: Record<string, string | number | boolean>;
-	/** 요청 타임아웃 (ms) */
-	timeout?: number;
-}
+export type ApiRequestOptions = Pick<
+	KyOptions,
+	"headers" | "searchParams" | "timeout"
+>;
