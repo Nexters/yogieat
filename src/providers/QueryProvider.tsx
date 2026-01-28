@@ -13,8 +13,7 @@ export const QueryProvider = ({ children }: QueryProviderProps) => {
 			new QueryClient({
 				defaultOptions: {
 					queries: {
-						staleTime: 60 * 1000,
-						retry: 1,
+						retry: 0,
 					},
 					mutations: {
 						retry: 0,
