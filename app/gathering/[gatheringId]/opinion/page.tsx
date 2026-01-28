@@ -9,10 +9,10 @@ import {
 	DistanceStepFooter,
 	DislikeStepContent,
 	DislikeStepFooter,
-	StepTransition,
 	PreferenceStepContent,
 	PreferenceStepFooter,
 } from "#/pageComponents/gathering/opinion";
+import { StepTransition } from "#/components/stepTransition";
 import { useOpinionForm, useOpinionFunnel } from "#/hooks/gathering";
 import { Button } from "#/components/button";
 import { Layout } from "#/components/layout";

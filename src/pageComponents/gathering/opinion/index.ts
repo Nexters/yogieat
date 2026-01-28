@@ -6,4 +6,3 @@ export { PendingView } from "./PendingView";
 export { ResultView } from "./ResultView";
 export { CompleteView } from "./CompleteView";
 export { SubmissionBottomSheet } from "./SubmissionBottomSheet";
-export { StepTransition } from "./StepTransition";
