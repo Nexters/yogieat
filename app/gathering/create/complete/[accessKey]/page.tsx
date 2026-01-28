@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 import { Layout } from "#/components/layout";
 import { BackwardButton } from "#/components/backwardButton";
@@ -10,6 +10,7 @@ import { share } from "#/utils/share";
 import { Toaster } from "#/components/toast";
 
 export default function GatheringCreateCompletePage() {
+	const params = useParams<{ accessKey: string }>();
 	const router = useRouter();
 
 	const handleBackward = () => {
