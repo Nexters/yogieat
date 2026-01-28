@@ -1,16 +1,21 @@
 "use client";
 
+import { useState } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 
 import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
 import { Button } from "#/components/button/Button";
 import { Chip } from "#/components/chip";
+import { Spinner } from "#/components/spinner";
 import { useRegionStepValidation } from "#/hooks/gathering";
+import { createGathering } from "#/apis/gathering";
+import { isApiError } from "#/utils/api";
+import { toast } from "#/utils/toast";
 import type { CreateMeetingForm, Region } from "#/types/gathering";
 
 interface RegionStepProps {
-	onComplete: () => void;
+	onComplete: (accessKey: string) => void;
 }
 
 const REGION_OPTIONS = [
@@ -19,8 +24,10 @@ const REGION_OPTIONS = [
 ];
 
 export const RegionStep = ({ onComplete }: RegionStepProps) => {
-	const { control, setValue } = useFormContext<CreateMeetingForm>();
+	const { control, setValue, getValues } =
+		useFormContext<CreateMeetingForm>();
 	const isValid = useRegionStepValidation(control);
+	const [isSubmitting, setIsSubmitting] = useState(false);
 
 	const region = useWatch({ control, name: "region" });
 
@@ -32,6 +39,38 @@ export const RegionStep = ({ onComplete }: RegionStepProps) => {
 				shouldValidate: true,
 			},
 		);
+	};
+
+	const handleComplete = async () => {
+		const formData = getValues();
+
+		if (
+			!formData.peopleCount ||
+			!formData.region ||
+			!formData.scheduledDate ||
+			!formData.timeSlot
+		) {
+			return;
+		}
+
+		setIsSubmitting(true);
+
+		try {
+			const response = await createGathering({
+				peopleCount: formData.peopleCount,
+				region: formData.region,
+				scheduledDate: formData.scheduledDate.replace(/\./g, "-"), // yyyy.mm.dd -> yyyy-mm-dd 형태로 변환
+				timeSlot: formData.timeSlot,
+			});
+
+			onComplete(response.data.accessKey);
+		} catch (error) {
+			if (isApiError(error)) {
+				toast.warning(error.message);
+			}
+		} finally {
+			setIsSubmitting(false);
+		}
 	};
 
 	return (
@@ -59,10 +98,10 @@ export const RegionStep = ({ onComplete }: RegionStepProps) => {
 					<Button
 						variant="primary"
 						width="full"
-						disabled={!isValid}
-						onClick={onComplete}
+						disabled={!isValid || isSubmitting}
+						onClick={handleComplete}
 					>
-						완료
+						{isSubmitting ? <Spinner size="small" /> : "완료"}
 					</Button>
 				</div>
 			</Layout.Footer>
