@@ -12,7 +12,6 @@ import { Chip } from "#/components/chip";
 import { CrownIcon } from "#/icons/crownIcon";
 
 export interface ResultViewProps {
-	gatheringId: string;
 	recommendationResult: RecommendationResult;
 }
 

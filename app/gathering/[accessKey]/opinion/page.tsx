@@ -1,7 +1,6 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
-import { useMemo } from "react";
 
 import {
 	IntroStep,
@@ -16,51 +15,52 @@ import { StepTransition } from "#/components/stepTransition";
 import { useOpinionForm, useOpinionFunnel } from "#/hooks/gathering";
 import { Button } from "#/components/button";
 import { Layout } from "#/components/layout";
-import { MOCK_MEETING_DATA } from "#/constants/gathering/opinion/meeting";
-import { MeetingContext } from "#/types/gathering";
 import { FormProvider } from "react-hook-form";
 import { BackwardButton } from "#/components/backwardButton";
 import { Toaster } from "#/components/toast";
+import { useMemo } from "react";
+import { MeetingContext } from "#/types/gathering";
+import { MOCK_MEETING_DATA } from "#/constants/gathering/opinion/meeting";
 
 export default function OpinionPage() {
-	const params = useParams();
+	const { accessKey } = useParams<{ accessKey: string }>();
 	const router = useRouter();
-	const gatheringId = params.gatheringId as string;
 
 	const form = useOpinionForm();
 	const { step, direction, next, back, isFirstStep } = useOpinionFunnel();
 
 	const meetingContext = useMemo<MeetingContext>(
 		() => ({
-			gatheringId,
+			accessKey,
 			scheduledDate: MOCK_MEETING_DATA.DATE,
 			stationName: MOCK_MEETING_DATA.STATION_NAME,
 		}),
-		[gatheringId],
+		[accessKey],
 	);
 
 	const handleBackward = () => {
 		if (isFirstStep) {
-			router.push(`/gathering/${gatheringId}`);
+			router.push(`/gathering/${accessKey}`);
 		} else {
 			back();
 		}
 	};
 
 	const handleComplete = () => {
-		router.replace(`/gathering/${gatheringId}/opinion/pending`);
+		router.replace(`/gathering/${accessKey}/opinion/pending`);
 	};
 
 	if (step === "intro") {
 		return (
-			<Layout.Root>
+			<>
 				<Layout.Header background="gray">
 					<div className="ygi:h-full ygi:w-full" />
 				</Layout.Header>
 				<Layout.Content background="gray">
+					{/* TODO : API 연동 과정에서 대체가 필요한 코드 */}
 					<IntroStep
-						step="intro"
 						meetingContext={meetingContext}
+						step="intro"
 						onNext={next}
 					/>
 				</Layout.Content>
@@ -71,7 +71,7 @@ export default function OpinionPage() {
 						</Button>
 					</div>
 				</Layout.Footer>
-			</Layout.Root>
+			</>
 		);
 	}
 
@@ -103,17 +103,15 @@ export default function OpinionPage() {
 
 	return (
 		<FormProvider {...form}>
-			<Layout.Root>
-				<Layout.Header>
-					<BackwardButton onClick={handleBackward} />
-				</Layout.Header>
-				<Layout.Content>
-					<StepTransition step={step} direction={direction}>
-						{renderContent()}
-					</StepTransition>
-				</Layout.Content>
-				{renderFooter()}
-			</Layout.Root>
+			<Layout.Header>
+				<BackwardButton onClick={handleBackward} />
+			</Layout.Header>
+			<Layout.Content>
+				<StepTransition step={step} direction={direction}>
+					{renderContent()}
+				</StepTransition>
+			</Layout.Content>
+			{renderFooter()}
 			<Toaster offset={{ bottom: 96 }} mobileOffset={{ bottom: 96 }} />
 		</FormProvider>
 	);

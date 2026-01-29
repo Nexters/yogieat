@@ -2,18 +2,15 @@
 
 import { Button, type ButtonProps } from "#/components/button";
 import { share } from "#/utils/share";
+import { useParams } from "next/navigation";
 
-export interface ShareButtonProps extends Omit<ButtonProps, "onClick"> {
-	gatheringId: string;
-}
+export type ShareButtonProps = Omit<ButtonProps, "onClick">;
 
-export const ShareButton = ({
-	gatheringId,
-	disabled,
-	...props
-}: ShareButtonProps) => {
+export const ShareButton = ({ disabled, ...props }: ShareButtonProps) => {
+	const { accessKey } = useParams<{ accessKey: string }>();
+
 	const handleShare = async () => {
-		const url = `${window.location.origin}/gathering/${gatheringId}/opinion/result`;
+		const url = `${window.location.origin}/gathering/${accessKey}/opinion/result`;
 		await share({
 			title: "요기잇 맛집 추천 결과",
 			text: "우리 모임의 추천 결과를 확인해보세요!",

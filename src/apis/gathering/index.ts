@@ -5,9 +5,9 @@ export type {
 	GetGatheringResponse,
 } from "./type";
 
-// API
-export { createGathering, getGathering } from "./api";
-
-// Query Factory
+// Query Key & Option
 export { gatheringKeys } from "./queryKey";
 export { gatheringOptions } from "./queryOption";
+
+// API
+export { createGathering, getGathering } from "./api";

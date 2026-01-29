@@ -1,5 +1,11 @@
-import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import type { Metadata } from "next";
+
+import { Layout } from "#/components/layout";
+
+interface OpinionLayoutProps {
+	children: ReactNode;
+}
 
 export const metadata: Metadata = {
 	title: "요기잇",
@@ -19,10 +25,6 @@ export const metadata: Metadata = {
 	},
 };
 
-interface LayoutProps {
-	children: ReactNode;
-}
-
-export default function Layout({ children }: LayoutProps) {
-	return children;
+export default function layout({ children }: OpinionLayoutProps) {
+	return <Layout.Root>{children}</Layout.Root>;
 }
