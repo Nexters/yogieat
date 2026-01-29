@@ -1,103 +1,32 @@
-"use client";
-
-import { useParams, useRouter } from "next/navigation";
-
 import {
-	IntroStep,
-	DistanceStepContent,
-	DistanceStepFooter,
-	DislikeStepContent,
-	DislikeStepFooter,
-	PreferenceStepContent,
-	PreferenceStepFooter,
-} from "#/pageComponents/gathering/opinion";
-import { StepTransition } from "#/components/stepTransition";
-import { useOpinionForm, useOpinionFunnel } from "#/hooks/gathering";
-import { Button } from "#/components/button";
-import { Layout } from "#/components/layout";
-import { FormProvider } from "react-hook-form";
-import { BackwardButton } from "#/components/backwardButton";
-import { Toaster } from "#/components/toast";
-import { useGetGathering } from "#/hooks/apis/gathering";
+	HydrationBoundary,
+	QueryClient,
+	dehydrate,
+} from "@tanstack/react-query";
 
-export default function OpinionPage() {
-	const { accessKey } = useParams<{ accessKey: string }>();
-	const router = useRouter();
+import { gatheringOptions } from "#/apis/gathering";
+import OpinionView from "./OpinionView";
 
-	const { methods, onSubmit } = useOpinionForm();
-	const { step, direction, next, back, isFirstStep } = useOpinionFunnel();
-	const { data: gathering } = useGetGathering(accessKey);
+interface OpinionPageProps {
+	params: Promise<{
+		accessKey: string;
+	}>;
+}
 
-	const handleBackward = () => {
-		if (isFirstStep) {
-			router.push(`/gathering/${accessKey}`);
-		} else {
-			back();
-		}
-	};
+/**
+ * 의견 수렴 페이지 (서버 컴포넌트)
+ * - gathering 데이터를 서버에서 prefetch하여 무한 렌더링 방지
+ */
+export default async function OpinionPage({ params }: OpinionPageProps) {
+	const { accessKey } = await params;
+	const queryClient = new QueryClient();
 
-	const handleComplete = () => {
-		onSubmit();
-	};
-
-	if (step === "intro") {
-		return (
-			<>
-				<Layout.Header background="gray">
-					<div className="ygi:h-full ygi:w-full" />
-				</Layout.Header>
-				<Layout.Content background="gray">
-					<IntroStep scheduledDate={gathering.data.scheduledDate} />
-				</Layout.Content>
-				<Layout.Footer background="gray">
-					<div className="ygi:py-auto ygi:px-6">
-						<Button variant="primary" width="full" onClick={next}>
-							내 취향 입력
-						</Button>
-					</div>
-				</Layout.Footer>
-			</>
-		);
-	}
-
-	const renderContent = () => {
-		switch (step) {
-			case "distance":
-				return <DistanceStepContent region={gathering.data.region} />;
-			case "dislike":
-				return <DislikeStepContent />;
-			case "preference":
-				return <PreferenceStepContent />;
-			default:
-				return null;
-		}
-	};
-
-	const renderFooter = () => {
-		switch (step) {
-			case "distance":
-				return <DistanceStepFooter onNext={next} />;
-			case "dislike":
-				return <DislikeStepFooter onNext={next} />;
-			case "preference":
-				return <PreferenceStepFooter onSubmit={handleComplete} />;
-			default:
-				return null;
-		}
-	};
+	// 서버에서 gathering 데이터 미리 가져오기
+	await queryClient.prefetchQuery(gatheringOptions.detail(accessKey));
 
 	return (
-		<FormProvider {...methods}>
-			<Layout.Header>
-				<BackwardButton onClick={handleBackward} />
-			</Layout.Header>
-			<Layout.Content>
-				<StepTransition step={step} direction={direction}>
-					{renderContent()}
-				</StepTransition>
-			</Layout.Content>
-			{renderFooter()}
-			<Toaster offset={{ bottom: 96 }} mobileOffset={{ bottom: 96 }} />
-		</FormProvider>
+		<HydrationBoundary state={dehydrate(queryClient)}>
+			<OpinionView />
+		</HydrationBoundary>
 	);
 }
