@@ -10,12 +10,7 @@ import { Button } from "#/components/button";
 import { RANKS, OPINION_TOTAL_STEPS } from "#/constants/gathering/opinion";
 import { toast } from "#/utils/toast";
 import { RankSection } from "./RankSection";
-import type {
-	OpinionForm,
-	FoodCategory,
-	RankKey,
-	PreferenceStepProps,
-} from "#/types/gathering";
+import type { OpinionForm, FoodCategory, RankKey } from "#/types/gathering";
 
 const isNoneSelected = (
 	rank: RankKey,
@@ -151,9 +146,13 @@ const isCompleteEnabled = (
 	});
 };
 
+interface PreferenceStepFooterProps {
+	onSubmit: () => void;
+}
+
 export const PreferenceStepFooter = ({
-	onComplete,
-}: Pick<PreferenceStepProps, "onComplete">) => {
+	onSubmit,
+}: PreferenceStepFooterProps) => {
 	const { control } = useFormContext<OpinionForm>();
 
 	return (
@@ -167,7 +166,7 @@ export const PreferenceStepFooter = ({
 							variant="primary"
 							width="full"
 							disabled={!isCompleteEnabled(field.value || {})}
-							onClick={onComplete}
+							onClick={onSubmit}
 						>
 							완료
 						</Button>
