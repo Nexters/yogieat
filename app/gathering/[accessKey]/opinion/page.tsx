@@ -18,6 +18,9 @@ import { Layout } from "#/components/layout";
 import { FormProvider } from "react-hook-form";
 import { BackwardButton } from "#/components/backwardButton";
 import { Toaster } from "#/components/toast";
+import { useMemo } from "react";
+import { MeetingContext } from "#/types/gathering";
+import { MOCK_MEETING_DATA } from "#/constants/gathering/opinion/meeting";
 
 export default function OpinionPage() {
 	const { accessKey } = useParams<{ accessKey: string }>();
@@ -25,6 +28,15 @@ export default function OpinionPage() {
 
 	const form = useOpinionForm();
 	const { step, direction, next, back, isFirstStep } = useOpinionFunnel();
+
+	const meetingContext = useMemo<MeetingContext>(
+		() => ({
+			accessKey,
+			scheduledDate: MOCK_MEETING_DATA.DATE,
+			stationName: MOCK_MEETING_DATA.STATION_NAME,
+		}),
+		[accessKey],
+	);
 
 	const handleBackward = () => {
 		if (isFirstStep) {
@@ -46,7 +58,11 @@ export default function OpinionPage() {
 				</Layout.Header>
 				<Layout.Content background="gray">
 					{/* TODO : API 연동 과정에서 대체가 필요한 코드 */}
-					<IntroStep scheduledDate="2026-01-30" />
+					<IntroStep
+						meetingContext={meetingContext}
+						step="intro"
+						onNext={next}
+					/>
 				</Layout.Content>
 				<Layout.Footer background="gray">
 					<div className="ygi:py-auto ygi:px-6">
@@ -62,10 +78,7 @@ export default function OpinionPage() {
 	const renderContent = () => {
 		switch (step) {
 			case "distance":
-				{
-					/* TODO : API 연동 과정에서 대체가 필요한 코드 */
-				}
-				return <DistanceStepContent region="HONGDAE" />;
+				return <DistanceStepContent meetingContext={meetingContext} />;
 			case "dislike":
 				return <DislikeStepContent />;
 			case "preference":
