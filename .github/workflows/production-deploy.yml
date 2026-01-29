@@ -50,6 +50,9 @@ jobs:
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/yogieat-client:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          build-args: |
+            NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
+            NEXT_PUBLIC_AWS_S3=${{ secrets.NEXT_PUBLIC_AWS_S3 }}
 
       - name: Build and Push Nginx image
         if: steps.changes.outputs.nginx == 'true'
