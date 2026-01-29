@@ -7,8 +7,3 @@ export type {
 
 // API
 export { createGathering, getGatheringCapacity } from "./api";
-	GetGatheringResponse,
-} from "./type";
-
-// API
-export { createGathering, getGathering } from "./api";
