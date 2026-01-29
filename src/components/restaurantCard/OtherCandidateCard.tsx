@@ -48,7 +48,7 @@ export const OtherCandidateCard = ({
 			<div className="ygi:flex ygi:flex-1 ygi:flex-col ygi:justify-center ygi:gap-2 ygi:px-5">
 				<button
 					onClick={handleMapClick}
-					className="ygi:flex ygi:items-center ygi:text-left"
+					className="ygi:flex ygi:cursor-pointer ygi:items-center ygi:text-left"
 				>
 					<h3 className="ygi:body-14-bd ygi:text-text-primary">
 						{restaurant.restaurantName}

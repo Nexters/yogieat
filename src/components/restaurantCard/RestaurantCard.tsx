@@ -62,7 +62,7 @@ export const RestaurantCard = ({
 					<div className="ygi:flex ygi:flex-col ygi:gap-2">
 						<button
 							onClick={handleMapClick}
-							className="ygi:inline-flex ygi:items-center ygi:text-left"
+							className="ygi:inline-flex ygi:cursor-pointer ygi:items-center ygi:text-left"
 						>
 							<h3 className="ygi:body-18-bd ygi:text-text-primary">
 								{restaurant.restaurantName}
