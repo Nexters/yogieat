@@ -7,7 +7,6 @@ import { StepIndicator } from "#/components/stepIndicator";
 import { StepHeader } from "#/components/stepHeader";
 import { Button } from "#/components/button";
 import { Chip } from "#/components/chip";
-import { useDistanceStepValidation } from "#/hooks/gathering";
 import {
 	DISTANCE_OPTIONS,
 	OPINION_TOTAL_STEPS,
@@ -48,11 +47,7 @@ export const DistanceStepContent = ({ region }: DistanceStepContentProps) => {
 						key={option.value}
 						selected={field.value === option.value}
 						onClick={() => {
-							field.onChange(
-								field.value === option.value
-									? undefined
-									: option.value,
-							);
+							field.onChange(option.value);
 						}}
 					>
 						{option.label}
@@ -68,8 +63,10 @@ interface DistanceStepFooterProps {
 }
 
 export const DistanceStepFooter = ({ onNext }: DistanceStepFooterProps) => {
-	const { control } = useFormContext<OpinionForm>();
-	const isValid = useDistanceStepValidation(control);
+	const { control, formState } = useFormContext<OpinionForm>();
+	const { field } = useController({ name: "distanceRange", control });
+
+	const isValid = !!field.value && !formState.errors.distanceRange;
 
 	const handleNext = () => {
 		if (isValid) {
