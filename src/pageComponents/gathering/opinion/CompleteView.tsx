@@ -5,17 +5,16 @@ import { StepHeader } from "#/components/stepHeader";
 import { FoodCategoryCarousel } from "./FoodCategoryCarousel";
 
 export const CompleteView = () => {
-	const title = "메뉴 선택이 끝났어요!";
-	const description = "추천 결과를 확인해 보세요";
-
 	return (
 		<Layout.Content background="gray">
 			<div className="ygi:flex ygi:h-full ygi:flex-col">
 				<div className="ygi:px-6">
 					<StepHeader.Root>
-						<StepHeader.Title>{title}</StepHeader.Title>
+						<StepHeader.Title>
+							메뉴 선택이 끝났어요!
+						</StepHeader.Title>
 						<StepHeader.Description>
-							{description}
+							추천 결과를 확인해 보세요
 						</StepHeader.Description>
 					</StepHeader.Root>
 				</div>
