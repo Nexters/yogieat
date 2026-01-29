@@ -1,14 +1,15 @@
 import { useCallback } from "react";
 import { useController } from "react-hook-form";
 import type { Control } from "react-hook-form";
-import type { OpinionForm, FoodCategory, RankKey } from "#/types/gathering";
+import type { FoodCategory, RankKey } from "#/types/gathering";
+import type { OpinionFormSchema } from "#/schemas/gathering";
 import { RANKS } from "#/constants/gathering/opinion";
 import { toast } from "#/utils/toast";
 
 /**
  * PreferenceStep의 상태 및 복잡한 로직을 관리하는 custom hook
  */
-export function usePreferenceStep(control: Control<OpinionForm>) {
+export function usePreferenceStep(control: Control<OpinionFormSchema>) {
 	const { field } = useController({
 		name: "preferredMenus",
 		control,
@@ -46,7 +47,7 @@ export function usePreferenceStep(control: Control<OpinionForm>) {
 					Object.entries(newMenus).filter(
 						([key]) => !ranksToRemove.includes(key as RankKey),
 					),
-				) as OpinionForm["preferredMenus"];
+				) as OpinionFormSchema["preferredMenus"];
 			}
 
 			field.onChange(newMenus);

@@ -12,7 +12,7 @@ import {
 	OPINION_TOTAL_STEPS,
 	REGION_OPTIONS,
 } from "#/constants/gathering/opinion";
-import type { OpinionForm } from "#/types/gathering";
+import type { OpinionFormSchema } from "#/schemas/gathering";
 import type { GetGatheringResponse } from "#/apis/gathering";
 
 interface DistanceStepContentProps {
@@ -20,7 +20,7 @@ interface DistanceStepContentProps {
 }
 
 export const DistanceStepContent = ({ region }: DistanceStepContentProps) => {
-	const { control } = useFormContext<OpinionForm>();
+	const { control } = useFormContext<OpinionFormSchema>();
 	const { field } = useController({ name: "distanceRange", control });
 
 	// FIXME : Region 관련 ENUM 혹은 as const 상수화 필요 (타입 안정성 확보)
@@ -63,7 +63,7 @@ interface DistanceStepFooterProps {
 }
 
 export const DistanceStepFooter = ({ onNext }: DistanceStepFooterProps) => {
-	const { control, formState } = useFormContext<OpinionForm>();
+	const { control, formState } = useFormContext<OpinionFormSchema>();
 	const { field } = useController({ name: "distanceRange", control });
 
 	const isValid = !!field.value && !formState.errors.distanceRange;

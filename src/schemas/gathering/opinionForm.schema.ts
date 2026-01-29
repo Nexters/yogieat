@@ -1,16 +1,16 @@
 import { z } from "zod";
 import type { DistanceRange } from "#/types/gathering";
 
-const distanceRangeSchema = z.enum(["RANGE_500M", "RANGE_1KM", "ANY"], {
-	required_error: "거리 범위를 선택해주세요",
-});
+const distanceRangeSchema = z.enum(["RANGE_500M", "RANGE_1KM", "ANY"]);
 
-export const foodCategorySchema = z.enum(
-	["KOREAN", "JAPANESE", "CHINESE", "WESTERN", "ASIAN", "ANY"],
-	{
-		required_error: "음식 카테고리를 선택해주세요",
-	},
-);
+export const foodCategorySchema = z.enum([
+	"KOREAN",
+	"JAPANESE",
+	"CHINESE",
+	"WESTERN",
+	"ASIAN",
+	"ANY",
+]);
 
 export const opinionFormSchema = z.object({
 	distanceRange: distanceRangeSchema,

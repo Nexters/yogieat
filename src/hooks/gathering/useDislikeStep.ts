@@ -1,11 +1,12 @@
 import { useController } from "react-hook-form";
 import type { Control } from "react-hook-form";
-import type { OpinionForm, FoodCategory } from "#/types/gathering";
+import type { FoodCategory } from "#/types/gathering";
+import type { OpinionFormSchema } from "#/schemas/gathering";
 
 /**
  * DislikeStep의 상태 및 로직을 관리하는 custom hook
  */
-export function useDislikeStep(control: Control<OpinionForm>) {
+export function useDislikeStep(control: Control<OpinionFormSchema>) {
 	const { field } = useController({
 		name: "dislikedFoods",
 		control,

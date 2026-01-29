@@ -13,10 +13,11 @@ import {
 	OPINION_TOTAL_STEPS,
 } from "#/constants/gathering/opinion";
 import { useDislikeStep } from "#/hooks/gathering";
-import type { OpinionForm, DislikeStepProps } from "#/types/gathering";
+import type { DislikeStepProps } from "#/types/gathering";
+import type { OpinionFormSchema } from "#/schemas/gathering";
 
 export const DislikeStepContent = () => {
-	const { control } = useFormContext<OpinionForm>();
+	const { control } = useFormContext<OpinionFormSchema>();
 	const { dislikedFoods, handleFoodSelect } = useDislikeStep(control);
 
 	return (
@@ -54,7 +55,7 @@ export const DislikeStepContent = () => {
 export const DislikeStepFooter = ({
 	onNext,
 }: Pick<DislikeStepProps, "onNext">) => {
-	const { control } = useFormContext<OpinionForm>();
+	const { control } = useFormContext<OpinionFormSchema>();
 	const { isValid } = useDislikeStep(control);
 
 	const handleNext = useCallback(() => {

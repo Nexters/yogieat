@@ -9,10 +9,10 @@ import { Button } from "#/components/button";
 import { RANKS, OPINION_TOTAL_STEPS } from "#/constants/gathering/opinion";
 import { usePreferenceStep } from "#/hooks/gathering";
 import { RankSection } from "./RankSection";
-import type { OpinionForm } from "#/types/gathering";
+import type { OpinionFormSchema } from "#/schemas/gathering";
 
 export const PreferenceStepContent = () => {
-	const { control } = useFormContext<OpinionForm>();
+	const { control } = useFormContext<OpinionFormSchema>();
 	const { preferredMenus, handleMenuSelect, isRankDisabled } =
 		usePreferenceStep(control);
 
@@ -52,7 +52,7 @@ interface PreferenceStepFooterProps {
 export const PreferenceStepFooter = ({
 	onSubmit,
 }: PreferenceStepFooterProps) => {
-	const { control } = useFormContext<OpinionForm>();
+	const { control } = useFormContext<OpinionFormSchema>();
 	const { isValid } = usePreferenceStep(control);
 
 	return (
