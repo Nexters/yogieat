@@ -1,7 +1,12 @@
 "use client";
 
-import { useForm, useWatch } from "react-hook-form";
-import type { OpinionForm } from "#/types/gathering";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+	opinionFormSchema,
+	distanceRangeToKm,
+	type OpinionFormSchema,
+} from "#/schemas/gathering";
 import { useCreateParticipant } from "../apis/participant";
 import { useParams, useRouter } from "next/navigation";
 import { isApiError } from "#/utils/api";
@@ -12,10 +17,11 @@ export function useOpinionForm() {
 	const { accessKey } = useParams<{ accessKey: string }>();
 	const { mutateAsync: createParticipant } = useCreateParticipant();
 
-	const methods = useForm<OpinionForm>({
+	const methods = useForm<OpinionFormSchema>({
 		mode: "onChange",
+		resolver: zodResolver(opinionFormSchema),
 		defaultValues: {
-			distanceRange: undefined,
+			distanceRange: undefined as any,
 			dislikedFoods: [],
 			preferredMenus: {
 				first: undefined,
@@ -33,9 +39,9 @@ export function useOpinionForm() {
 					data.preferredMenus.first,
 					data.preferredMenus.second,
 					data.preferredMenus.third,
-				],
+				].filter(Boolean) as string[],
 				dislikes: data.dislikedFoods,
-				distance: 0.5,
+				distance: distanceRangeToKm(data.distanceRange),
 			});
 			router.replace(`/gathering/${accessKey}/opinion/pending`);
 		} catch (error) {
@@ -51,22 +57,4 @@ export function useOpinionForm() {
 		methods,
 		onSubmit: handleSubmit,
 	};
-}
-
-export function useDistanceStepValidation(
-	control: ReturnType<typeof useForm<OpinionForm>>["control"],
-) {
-	const distanceRange = useWatch({ control, name: "distanceRange" });
-	return distanceRange !== undefined;
-}
-
-export function useDislikeStepValidation(
-	control: ReturnType<typeof useForm<OpinionForm>>["control"],
-) {
-	const dislikedFoods = useWatch({ control, name: "dislikedFoods" });
-	return dislikedFoods && dislikedFoods.length > 0;
-}
-
-export function usePreferenceStepValidation() {
-	return true;
 }

@@ -7,12 +7,7 @@ export {
 
 export { useCreateMeetingFunnel } from "./useCreateMeetingFunnel";
 
-export {
-	useOpinionForm,
-	useDistanceStepValidation,
-	useDislikeStepValidation,
-	usePreferenceStepValidation,
-} from "./useOpinionForm";
+export { useOpinionForm } from "./useOpinionForm";
 
 export { useOpinionFunnel } from "./useOpinionFunnel";
 
