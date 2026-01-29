@@ -43,10 +43,8 @@ jobs:
       - name: Create .env.production
         if: steps.changes.outputs.client == 'true'
         run: |
-          cat <<EOF > .env.production
-          NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
-          NEXT_PUBLIC_AWS_S3=${{ secrets.NEXT_PUBLIC_AWS_S3 }}
-          EOF
+          echo "NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}" > .env.production
+          echo "NEXT_PUBLIC_AWS_S3=${{ secrets.NEXT_PUBLIC_AWS_S3 }}" >> .env.production
 
       - name: Build and Push Client image
         if: steps.changes.outputs.client == 'true'
