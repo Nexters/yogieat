@@ -5,7 +5,7 @@ import { useFormContext } from "react-hook-form";
 import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
 import { Button } from "#/components/button/Button";
-import { Spinner } from "#/components/spinner";
+import { DotsLoader } from "#/components/dotsLoader";
 import { useRegionStepValidation } from "#/hooks/gathering";
 import { useCreateGathering } from "#/hooks/apis/gathering";
 import { isApiError } from "#/utils/api";
@@ -83,7 +83,7 @@ export const RegionStepFooter = ({ onComplete }: RegionStepFooterProps) => {
 					disabled={!isValid || isPending}
 					onClick={handleComplete}
 				>
-					{isPending ? <Spinner size="small" /> : "완료"}
+					{isPending ? <DotsLoader /> : "완료"}
 				</Button>
 			</div>
 		</Layout.Footer>
