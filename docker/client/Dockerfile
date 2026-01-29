@@ -16,11 +16,6 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-ARG NEXT_PUBLIC_API_URL
-ARG NEXT_PUBLIC_AWS_S3
-ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
-ENV NEXT_PUBLIC_AWS_S3=$NEXT_PUBLIC_AWS_S3
-
 ENV NEXT_PRIVATE_STANDALONE=true
 
 RUN corepack enable pnpm && pnpm run build;
