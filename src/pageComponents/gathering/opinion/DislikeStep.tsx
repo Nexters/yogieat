@@ -45,21 +45,8 @@ export const DislikeStepContent = () => {
 					const dislikedFoods = field.value || [];
 
 					const handleFoodToggle = (food: FoodCategory) => {
-						const isNoCareSelected = food === "ANY";
 						const isSelected = dislikedFoods.includes(food);
-
-						if (isNoCareSelected) {
-							field.onChange(isSelected ? [] : ["ANY"]);
-							return;
-						}
-
-						const updatedDislikedFoods = isSelected
-							? dislikedFoods.filter((f) => f !== food)
-							: [...dislikedFoods, food];
-
-						field.onChange(
-							updatedDislikedFoods.filter((f) => f !== "ANY"),
-						);
+						field.onChange(isSelected ? [] : [food]);
 					};
 
 					return (
