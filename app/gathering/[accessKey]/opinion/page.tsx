@@ -18,7 +18,6 @@ import { Layout } from "#/components/layout";
 import { FormProvider } from "react-hook-form";
 import { BackwardButton } from "#/components/backwardButton";
 import { Toaster } from "#/components/toast";
-import { useGetGathering } from "#/hooks/apis/gathering";
 
 export default function OpinionPage() {
 	const { accessKey } = useParams<{ accessKey: string }>();
@@ -26,10 +25,6 @@ export default function OpinionPage() {
 
 	const form = useOpinionForm();
 	const { step, direction, next, back, isFirstStep } = useOpinionFunnel();
-
-	const { data: gathering } = useGetGathering({
-		accessKey,
-	});
 
 	const handleBackward = () => {
 		if (isFirstStep) {
@@ -50,7 +45,8 @@ export default function OpinionPage() {
 					<div className="ygi:h-full ygi:w-full" />
 				</Layout.Header>
 				<Layout.Content background="gray">
-					<IntroStep scheduledDate={gathering.scheduledDate} />
+					{/* TODO : API 연동 과정에서 대체가 필요한 코드 */}
+					<IntroStep scheduledDate="2026-01-30" />
 				</Layout.Content>
 				<Layout.Footer background="gray">
 					<div className="ygi:py-auto ygi:px-6">
@@ -66,7 +62,10 @@ export default function OpinionPage() {
 	const renderContent = () => {
 		switch (step) {
 			case "distance":
-				return <DistanceStepContent region={gathering.region} />;
+				{
+					/* TODO : API 연동 과정에서 대체가 필요한 코드 */
+				}
+				return <DistanceStepContent region="HONGDAE" />;
 			case "dislike":
 				return <DislikeStepContent />;
 			case "preference":
