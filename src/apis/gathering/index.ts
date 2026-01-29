@@ -11,4 +11,3 @@ export { gatheringOptions } from "./queryOption";
 
 // API
 export { createGathering, getGathering } from "./api";
-
