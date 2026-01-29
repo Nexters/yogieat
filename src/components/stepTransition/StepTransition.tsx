@@ -2,10 +2,9 @@
 
 import { AnimatePresence, motion } from "motion/react";
 import type { ReactNode } from "react";
-import type { OpinionStep } from "#/types/gathering";
 
 interface StepTransitionProps {
-	step: OpinionStep;
+	step: string;
 	direction: "forward" | "backward";
 	children: ReactNode;
 }
@@ -30,10 +29,6 @@ export const StepTransition = ({
 	direction,
 	children,
 }: StepTransitionProps) => {
-	if (step === "intro") {
-		return <>{children}</>;
-	}
-
 	return (
 		<AnimatePresence mode="wait" custom={direction}>
 			<motion.div
