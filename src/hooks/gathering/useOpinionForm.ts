@@ -2,7 +2,7 @@
 
 import { useForm, useWatch } from "react-hook-form";
 import type { OpinionForm } from "#/types/gathering";
-import { useCreateParticipant } from "../apis/gathering";
+import { useCreateParticipant } from "../apis/participant";
 import { useParams, useRouter } from "next/navigation";
 import { isApiError } from "#/utils/api";
 import { toast } from "#/utils/toast";
