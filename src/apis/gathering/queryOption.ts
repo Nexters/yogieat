@@ -1,5 +1,7 @@
+import { queryOptions } from "@tanstack/react-query";
+
 import { gatheringKeys } from "./queryKey";
-import { createGathering } from "./api";
+import { createGathering, getGathering } from "./api";
 import type { CreateGatheringRequest } from "./type";
 
 /**
@@ -11,4 +13,10 @@ export const gatheringOptions = {
 		mutationFn: (request: CreateGatheringRequest) =>
 			createGathering(request),
 	}),
+
+	detail: (accessKey: string) =>
+		queryOptions({
+			queryKey: gatheringKeys.detail(accessKey),
+			queryFn: () => getGathering(accessKey),
+		}),
 };

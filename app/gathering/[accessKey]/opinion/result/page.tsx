@@ -9,8 +9,7 @@ import { redirect } from "next/navigation";
 import { BackwardButton } from "#/components/backwardButton";
 
 export default function OpinionResultPage() {
-	const params = useParams();
-	const gatheringId = params.gatheringId as string;
+	const { accessKey } = useParams<{ accessKey: string }>();
 
 	const totalCount = 5;
 	const submittedCount = 5;
@@ -18,11 +17,11 @@ export default function OpinionResultPage() {
 	const isComplete = submittedCount >= totalCount;
 
 	if (!isComplete) {
-		redirect(`/gathering/${gatheringId}/opinion/complete`);
+		redirect(`/gathering/${accessKey}/opinion/complete`);
 	}
 
 	const handleClickBackward = () => {
-		redirect(`/gathering/${gatheringId}/opinion/complete`);
+		redirect(`/gathering/${accessKey}/opinion/complete`);
 	};
 
 	return (
@@ -30,14 +29,11 @@ export default function OpinionResultPage() {
 			<Layout.Header background="gray">
 				<BackwardButton onClick={handleClickBackward} />
 			</Layout.Header>
-			<ResultView
-				gatheringId={gatheringId}
-				recommendationResult={MOCK_RECOMMENDATION_RESULT}
-			/>
+			<ResultView recommendationResult={MOCK_RECOMMENDATION_RESULT} />
 
 			<Layout.Footer background="gray">
 				<div className="ygi:mt-auto ygi:px-6 ygi:pt-4">
-					<ShareButton gatheringId={gatheringId} disabled={false} />
+					<ShareButton disabled={false} />
 				</div>
 			</Layout.Footer>
 		</Layout.Root>
