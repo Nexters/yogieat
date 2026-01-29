@@ -24,7 +24,7 @@ export const getGatheringCapacity = (accessKey: string) => {
 	return apiClient.get<GatheringCapacityResponse>(
 		`gatherings/${accessKey}/capacity`,
 	);
-}
+};
 
 /**
  * 모임 단건 조회 API
