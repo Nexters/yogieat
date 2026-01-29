@@ -35,5 +35,3 @@ export function useDislikeStepValidation(
 export function usePreferenceStepValidation() {
 	return true;
 }
-
-export type { OpinionForm };
