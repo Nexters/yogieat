@@ -35,7 +35,7 @@ export interface OpinionForm {
 export type OpinionStep = "intro" | "distance" | "dislike" | "preference";
 
 export interface MeetingContext {
-	gatheringId: string;
+	accessKey: string;
 	scheduledDate: string;
 	stationName: string;
 	totalParticipants?: number;
