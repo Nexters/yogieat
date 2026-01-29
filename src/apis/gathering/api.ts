@@ -3,6 +3,7 @@ import { apiClient } from "#/utils/api";
 import type {
 	CreateGatheringRequest,
 	CreateGatheringResponse,
+	GatheringCapacityResponse,
 	GetGatheringResponse,
 } from "./type";
 
@@ -17,8 +18,16 @@ export const createGathering = (request: CreateGatheringRequest) => {
 };
 
 /**
+ * 모임 참여자 현황 조회 API
+ */
+export const getGatheringCapacity = (accessKey: string) => {
+	return apiClient.get<GatheringCapacityResponse>(
+		`gatherings/${accessKey}/capacity`,
+	);
+};
+
+/**
  * 모임 단건 조회 API
- * @param accessKey 모임 접근키
  */
 export const getGathering = (accessKey: string) => {
 	return apiClient.get<GetGatheringResponse>(`gatherings/${accessKey}`);

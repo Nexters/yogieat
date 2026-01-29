@@ -2,8 +2,8 @@
 export type {
 	CreateGatheringRequest,
 	CreateGatheringResponse,
-	GetGatheringResponse,
+	GatheringCapacityResponse,
 } from "./type";
 
 // API
-export { createGathering, getGathering } from "./api";
+export { createGathering, getGatheringCapacity } from "./api";
