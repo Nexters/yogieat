@@ -82,7 +82,7 @@ export const VoteSummarySection = ({
 						의견 일치율
 					</h5>
 					<span className="ygi:shrink-0 ygi:body-18-bd ygi:text-text-interactive">
-						{agreementRate}%
+						{Math.round(agreementRate)}%
 					</span>
 				</div>
 				<ProgressBar value={agreementRate} />
