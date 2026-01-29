@@ -21,3 +21,11 @@ export interface CreateGatheringResponse {
 	/** 모임 접근키 */
 	accessKey: string;
 }
+
+/** 모임 참여자 현황 조회 응답 */
+export interface GatheringCapacityResponse {
+	/** 현재 참여 인원 */
+	currentCount: number;
+	/** 최대 참여 인원 */
+	maxCount: number;
+}
