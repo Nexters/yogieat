@@ -9,6 +9,7 @@ import { gatheringOptions } from "#/apis/gathering";
 export const useGetGatheringCapacity = (accessKey: string) => {
 	return useSuspenseQuery({
 		...gatheringOptions.capacity(accessKey),
+		select: (response) => response.data,
 		refetchInterval: 1000 * 10,
 	});
 };

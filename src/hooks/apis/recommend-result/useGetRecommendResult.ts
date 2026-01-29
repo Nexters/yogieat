@@ -6,5 +6,8 @@ import { recommendResultOptions } from "#/apis/recommend-result";
  * 추천 결과 조회 query hook
  */
 export const useGetRecommendResult = (accessKey: string) => {
-	return useSuspenseQuery(recommendResultOptions.detail(accessKey));
+	return useSuspenseQuery({
+		...recommendResultOptions.detail(accessKey),
+		select: (response) => response.data,
+	});
 };
