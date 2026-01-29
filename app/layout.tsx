@@ -19,15 +19,14 @@ export const metadata: Metadata = {
 		title: "요기잇",
 		description: "다인원을 위한 맛집 추천 서비스",
 		type: "website",
-		// TODO: OG 이미지 추가 시 아래 주석 해제
-		// images: [
-		// 	{
-		// 		url: "/images/og-image.png",
-		// 		width: 1200,
-		// 		height: 630,
-		// 		alt: "요기잇",
-		// 	},
-		// ],
+		images: [
+			{
+				url: "https://yogieat-statics.s3.ap-southeast-2.amazonaws.com/images/opengraph/landing-og-image.png",
+				width: 1200,
+				height: 630,
+				alt: "요기잇",
+			},
+		],
 	},
 };
 
