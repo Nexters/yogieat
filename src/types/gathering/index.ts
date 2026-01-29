@@ -23,17 +23,21 @@ export type FoodCategory =
 export type RankKey = "first" | "second" | "third";
 
 export interface OpinionForm {
-	distanceRange?: DistanceRange;
+	distanceRange: DistanceRange;
 	dislikedFoods: FoodCategory[];
 	preferredMenus: {
-		first?: FoodCategory;
-		second?: FoodCategory;
-		third?: FoodCategory;
+		first: FoodCategory;
+		second: FoodCategory;
+		third: FoodCategory;
 	};
 }
 
 export type OpinionStep = "intro" | "distance" | "dislike" | "preference";
 
+/**
+ * @deprecated This interface will be removed in the next PR.
+ * Use GetGatheringResponse from #/apis/gathering instead.
+ */
 export interface MeetingContext {
 	accessKey: string;
 	scheduledDate: string;
