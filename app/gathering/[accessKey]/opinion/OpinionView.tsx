@@ -47,7 +47,7 @@ export default function OpinionView() {
 					<div className="ygi:h-full ygi:w-full" />
 				</Layout.Header>
 				<Layout.Content background="gray">
-					<IntroStep scheduledDate={gathering.data.scheduledDate} />
+					<IntroStep scheduledDate={gathering.scheduledDate} />
 				</Layout.Content>
 				<Layout.Footer background="gray">
 					<div className="ygi:py-auto ygi:px-6">
@@ -63,7 +63,7 @@ export default function OpinionView() {
 	const renderContent = () => {
 		switch (step) {
 			case "distance":
-				return <DistanceStepContent region={gathering.data.region} />;
+				return <DistanceStepContent region={gathering.region} />;
 			case "dislike":
 				return <DislikeStepContent />;
 			case "preference":
