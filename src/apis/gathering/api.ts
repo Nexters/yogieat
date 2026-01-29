@@ -18,6 +18,8 @@ export const createGathering = (request: CreateGatheringRequest) => {
 };
 
 /**
+ * 모임 단건 조회 API
+ * @param accessKey 모임 접근키
  * 모임 참여자 현황 조회 API
  */
 export const getGatheringCapacity = (accessKey: string) => {

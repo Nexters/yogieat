@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 
 import { Layout } from "#/components/layout";
@@ -9,25 +8,18 @@ import { Button } from "#/components/button/Button";
 import { Chip } from "#/components/chip";
 import { Spinner } from "#/components/spinner";
 import { useRegionStepValidation } from "#/hooks/gathering";
-import { createGathering } from "#/apis/gathering";
+import { useCreateGathering } from "#/hooks/apis/gathering";
 import { isApiError } from "#/utils/api";
 import { toast } from "#/utils/toast";
 import type { CreateMeetingForm, Region } from "#/types/gathering";
-
-interface RegionStepProps {
-	onComplete: (accessKey: string) => void;
-}
 
 const REGION_OPTIONS = [
 	{ id: "HONGDAE" as const, label: "홍대입구역" },
 	{ id: "GANGNAM" as const, label: "강남역" },
 ];
 
-export const RegionStep = ({ onComplete }: RegionStepProps) => {
-	const { control, setValue, getValues } =
-		useFormContext<CreateMeetingForm>();
-	const isValid = useRegionStepValidation(control);
-	const [isSubmitting, setIsSubmitting] = useState(false);
+export const RegionStepContent = () => {
+	const { control, setValue } = useFormContext<CreateMeetingForm>();
 
 	const region = useWatch({ control, name: "region" });
 
@@ -39,38 +31,6 @@ export const RegionStep = ({ onComplete }: RegionStepProps) => {
 				shouldValidate: true,
 			},
 		);
-	};
-
-	const handleComplete = async () => {
-		const formData = getValues();
-
-		if (
-			!formData.peopleCount ||
-			!formData.region ||
-			!formData.scheduledDate ||
-			!formData.timeSlot
-		) {
-			return;
-		}
-
-		setIsSubmitting(true);
-
-		try {
-			const response = await createGathering({
-				peopleCount: formData.peopleCount,
-				region: formData.region,
-				scheduledDate: formData.scheduledDate.replace(/\./g, "-"), // yyyy.mm.dd -> yyyy-mm-dd 형태로 변환
-				timeSlot: formData.timeSlot,
-			});
-
-			onComplete(response.data.accessKey);
-		} catch (error) {
-			if (isApiError(error)) {
-				toast.warning(error.message);
-			}
-		} finally {
-			setIsSubmitting(false);
-		}
 	};
 
 	return (
@@ -92,19 +52,64 @@ export const RegionStep = ({ onComplete }: RegionStepProps) => {
 					))}
 				</div>
 			</div>
-
-			<Layout.Footer>
-				<div className="ygi:px-6">
-					<Button
-						variant="primary"
-						width="full"
-						disabled={!isValid || isSubmitting}
-						onClick={handleComplete}
-					>
-						{isSubmitting ? <Spinner size="small" /> : "완료"}
-					</Button>
-				</div>
-			</Layout.Footer>
 		</section>
+	);
+};
+
+interface RegionStepFooterProps {
+	onComplete: (accessKey: string) => void;
+}
+
+export const RegionStepFooter = ({ onComplete }: RegionStepFooterProps) => {
+	const { control, getValues } = useFormContext<CreateMeetingForm>();
+	const isValid = useRegionStepValidation(control);
+
+	const { mutate: createGathering, isPending } = useCreateGathering();
+
+	const handleComplete = () => {
+		const formData = getValues();
+
+		if (
+			!formData.peopleCount ||
+			!formData.region ||
+			!formData.scheduledDate ||
+			!formData.timeSlot
+		) {
+			return;
+		}
+
+		createGathering(
+			{
+				peopleCount: formData.peopleCount,
+				region: formData.region,
+				scheduledDate: formData.scheduledDate.replace(/\./g, "-"), // yyyy.mm.dd -> yyyy-mm-dd 형태로 변환
+				timeSlot: formData.timeSlot,
+			},
+			{
+				onSuccess: (response) => {
+					onComplete(response.data.accessKey);
+				},
+				onError: (error) => {
+					if (isApiError(error)) {
+						toast.warning(error.message);
+					}
+				},
+			},
+		);
+	};
+
+	return (
+		<Layout.Footer>
+			<div className="ygi:px-6">
+				<Button
+					variant="primary"
+					width="full"
+					disabled={!isValid || isPending}
+					onClick={handleComplete}
+				>
+					{isPending ? <Spinner size="small" /> : "완료"}
+				</Button>
+			</div>
+		</Layout.Footer>
 	);
 };

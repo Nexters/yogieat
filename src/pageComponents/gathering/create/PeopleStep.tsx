@@ -9,13 +9,8 @@ import { PeopleCountGrid } from "./PeopleCountGrid";
 import { usePeopleStepValidation } from "#/hooks/gathering";
 import type { CreateMeetingForm } from "#/types/gathering";
 
-interface PeopleStepProps {
-	onNext: () => void;
-}
-
-export const PeopleStep = ({ onNext }: PeopleStepProps) => {
-	const { control, setValue, watch } = useFormContext<CreateMeetingForm>();
-	const isValid = usePeopleStepValidation(control);
+export const PeopleStepContent = () => {
+	const { setValue, watch } = useFormContext<CreateMeetingForm>();
 	const value = watch("peopleCount");
 
 	const handleChange = (count?: number) => {
@@ -31,19 +26,30 @@ export const PeopleStep = ({ onNext }: PeopleStepProps) => {
 				</h1>
 				<PeopleCountGrid value={value} onChange={handleChange} />
 			</div>
-
-			<Layout.Footer>
-				<div className="ygi:px-6">
-					<Button
-						variant="primary"
-						width="full"
-						disabled={!isValid}
-						onClick={onNext}
-					>
-						다음
-					</Button>
-				</div>
-			</Layout.Footer>
 		</section>
+	);
+};
+
+interface PeopleStepFooterProps {
+	onNext: () => void;
+}
+
+export const PeopleStepFooter = ({ onNext }: PeopleStepFooterProps) => {
+	const { control } = useFormContext<CreateMeetingForm>();
+	const isValid = usePeopleStepValidation(control);
+
+	return (
+		<Layout.Footer>
+			<div className="ygi:px-6">
+				<Button
+					variant="primary"
+					width="full"
+					disabled={!isValid}
+					onClick={onNext}
+				>
+					다음
+				</Button>
+			</div>
+		</Layout.Footer>
 	);
 };
