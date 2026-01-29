@@ -7,7 +7,6 @@ interface OpinionLayoutProps {
 	children: ReactNode;
 }
 
-
 export const metadata: Metadata = {
 	title: "요기잇",
 	description: "다인원을 위한 맛집 추천 서비스",
@@ -25,7 +24,6 @@ export const metadata: Metadata = {
 		],
 	},
 };
-
 
 export default function layout({ children }: OpinionLayoutProps) {
 	return <Layout.Root>{children}</Layout.Root>;
