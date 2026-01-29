@@ -11,6 +11,5 @@ export const recommendResultOptions = {
 		queryOptions({
 			queryKey: recommendResultKeys.detail(accessKey),
 			queryFn: () => getRecommendResult(accessKey),
-			select: (response) => response.data,
 		}),
 };
