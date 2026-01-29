@@ -1,41 +1,37 @@
-"use client";
+import {
+	HydrationBoundary,
+	QueryClient,
+	dehydrate,
+} from "@tanstack/react-query";
 
-import { Layout } from "#/components/layout";
-import { ShareButton } from "#/components/shareButton";
-import { ResultView } from "#/pageComponents/gathering/opinion";
-import { MOCK_RECOMMENDATION_RESULT } from "#/constants/gathering/opinion/mockResults";
-import { useParams } from "next/navigation";
-import { redirect } from "next/navigation";
-import { BackwardButton } from "#/components/backwardButton";
+import { gatheringOptions } from "#/apis/gathering";
+import { recommendResultOptions } from "#/apis/recommend-result";
+import ResultView from "./ResultView";
 
-export default function OpinionResultPage() {
-	const { accessKey } = useParams<{ accessKey: string }>();
+interface OpinionResultPageProps {
+	params: Promise<{
+		accessKey: string;
+	}>;
+}
 
-	const maxCount = 5;
-	const currentCount = 5;
+/**
+ * 의견 수렴 결과 페이지 (서버 컴포넌트)
+ * - gathering capacity, recommend-result 데이터를 서버에서 prefetch하여 무한 렌더링 방지
+ */
+export default async function OpinionResultPage({
+	params,
+}: OpinionResultPageProps) {
+	const { accessKey } = await params;
+	const queryClient = new QueryClient();
 
-	const isComplete = currentCount >= maxCount;
-
-	if (!isComplete) {
-		redirect(`/gathering/${accessKey}/opinion/complete`);
-	}
-
-	const handleClickBackward = () => {
-		redirect(`/gathering/${accessKey}/opinion/complete`);
-	};
+	await Promise.all([
+		queryClient.prefetchQuery(gatheringOptions.capacity(accessKey)),
+		queryClient.prefetchQuery(recommendResultOptions.detail(accessKey)),
+	]);
 
 	return (
-		<Layout.Root>
-			<Layout.Header background="gray">
-				<BackwardButton onClick={handleClickBackward} />
-			</Layout.Header>
-			<ResultView recommendationResult={MOCK_RECOMMENDATION_RESULT} />
-
-			<Layout.Footer background="gray">
-				<div className="ygi:mt-auto ygi:px-6 ygi:pt-4">
-					<ShareButton disabled={false} />
-				</div>
-			</Layout.Footer>
-		</Layout.Root>
+		<HydrationBoundary state={dehydrate(queryClient)}>
+			<ResultView />
+		</HydrationBoundary>
 	);
 }
