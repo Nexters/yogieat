@@ -40,12 +40,20 @@ jobs:
         if: steps.changes.outputs.client == 'true' || steps.changes.outputs.nginx == 'true'
         uses: docker/setup-buildx-action@v3
 
+      - name: Create .env.production
+        if: steps.changes.outputs.client == 'true'
+        run: |
+          cat <<EOF > .env.production
+          NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
+          NEXT_PUBLIC_AWS_S3=${{ secrets.NEXT_PUBLIC_AWS_S3 }}
+          EOF
+
       - name: Build and Push Client image
         if: steps.changes.outputs.client == 'true'
         uses: docker/build-push-action@v5
         with:
           push: true
-          # platforms: linux/amd64,linux/arm64/v8
+          context: .
           file: ./docker/client/Dockerfile
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/yogieat-client:latest
           cache-from: type=gha
