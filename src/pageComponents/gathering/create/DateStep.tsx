@@ -11,13 +11,8 @@ import { useDateStepValidation } from "#/hooks/gathering";
 import { formatDateInput, isValidDateFormat } from "#/utils/gathering/create";
 import type { CreateMeetingForm, TimeSlot } from "#/types/gathering";
 
-interface DateStepProps {
-	onNext: () => void;
-}
-
-export const DateStep = ({ onNext }: DateStepProps) => {
+export const DateStepContent = () => {
 	const { control, setValue } = useFormContext<CreateMeetingForm>();
-	const isValid = useDateStepValidation(control);
 
 	const scheduledDate = useWatch({ control, name: "scheduledDate" });
 	const timeSlot = useWatch({ control, name: "timeSlot" });
@@ -84,19 +79,30 @@ export const DateStep = ({ onNext }: DateStepProps) => {
 					</div>
 				</div>
 			</div>
-
-			<Layout.Footer>
-				<div className="ygi:px-6">
-					<Button
-						variant="primary"
-						width="full"
-						disabled={!isValid}
-						onClick={onNext}
-					>
-						다음
-					</Button>
-				</div>
-			</Layout.Footer>
 		</section>
+	);
+};
+
+interface DateStepFooterProps {
+	onNext: () => void;
+}
+
+export const DateStepFooter = ({ onNext }: DateStepFooterProps) => {
+	const { control } = useFormContext<CreateMeetingForm>();
+	const isValid = useDateStepValidation(control);
+
+	return (
+		<Layout.Footer>
+			<div className="ygi:px-6">
+				<Button
+					variant="primary"
+					width="full"
+					disabled={!isValid}
+					onClick={onNext}
+				>
+					다음
+				</Button>
+			</div>
+		</Layout.Footer>
 	);
 };
