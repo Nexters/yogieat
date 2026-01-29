@@ -49,9 +49,7 @@ export const DateStepContent = () => {
 	};
 
 	const handleTimeSlotChange = (slot: TimeSlot) => {
-		timeSlotField.onChange(
-			slot === timeSlotField.value ? undefined : slot,
-		);
+		timeSlotField.onChange(slot === timeSlotField.value ? undefined : slot);
 	};
 
 	return (
