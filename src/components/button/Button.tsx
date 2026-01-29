@@ -6,7 +6,7 @@ const buttonVariants = cva(
 	[
 		"ygi:inline-flex ygi:items-center ygi:justify-center",
 		"ygi:text-center ygi:whitespace-nowrap",
-		"ygi:px-6 ygi:py-3",
+		"ygi:h-14 ygi:px-6 ygi:py-3",
 		"ygi:cursor-pointer ygi:transition-colors",
 		"ygi:disabled:cursor-not-allowed",
 		"ygi:heading-18-bd",
