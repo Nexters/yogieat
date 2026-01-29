@@ -57,6 +57,7 @@ export const Button = ({
 	variant = "primary",
 	shape = "rounded",
 	width = "fit",
+	type = "button",
 	disabled = false,
 	children,
 	ref,
@@ -74,6 +75,7 @@ export const Button = ({
 					width,
 				}),
 			)}
+			type={type}
 			{...props}
 		>
 			{children}
