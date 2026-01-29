@@ -13,10 +13,10 @@ export default function OpinionCompletePage() {
 	const { accessKey } = useParams<{ accessKey: string }>();
 
 	// TODO: API 연동 시 실제 데이터로 교체
-	const totalCount = 5;
-	const submittedCount = 5;
+	const maxCount = 5;
+	const currentCount = 5;
 
-	const isPending = submittedCount < totalCount;
+	const isPending = currentCount < maxCount;
 
 	if (isPending) {
 		redirect(`/gathering/${accessKey}/opinion/pending`);
@@ -31,8 +31,8 @@ export default function OpinionCompletePage() {
 			<CompleteView />
 
 			<SubmissionBottomSheet
-				totalCount={totalCount}
-				submittedCount={submittedCount}
+				maxCount={maxCount}
+				currentCount={currentCount}
 			/>
 
 			<Layout.Footer>

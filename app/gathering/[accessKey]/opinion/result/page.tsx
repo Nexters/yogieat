@@ -11,10 +11,10 @@ import { BackwardButton } from "#/components/backwardButton";
 export default function OpinionResultPage() {
 	const { accessKey } = useParams<{ accessKey: string }>();
 
-	const totalCount = 5;
-	const submittedCount = 5;
+	const maxCount = 5;
+	const currentCount = 5;
 
-	const isComplete = submittedCount >= totalCount;
+	const isComplete = currentCount >= maxCount;
 
 	if (!isComplete) {
 		redirect(`/gathering/${accessKey}/opinion/complete`);

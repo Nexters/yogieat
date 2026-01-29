@@ -12,10 +12,10 @@ import { redirect } from "next/navigation";
 export default function OpinionPendingPage() {
 	const { accessKey } = useParams<{ accessKey: string }>();
 
-	const totalCount = 5;
-	const submittedCount = 3;
+	const maxCount = 5;
+	const currentCount = 3;
 
-	const isComplete = submittedCount >= totalCount;
+	const isComplete = currentCount >= maxCount;
 	if (isComplete) {
 		redirect(`/gathering/${accessKey}/opinion/complete`);
 	}
@@ -25,8 +25,8 @@ export default function OpinionPendingPage() {
 			<PendingView />
 
 			<SubmissionBottomSheet
-				totalCount={totalCount}
-				submittedCount={submittedCount}
+				maxCount={maxCount}
+				currentCount={currentCount}
 			/>
 
 			<Layout.Footer>

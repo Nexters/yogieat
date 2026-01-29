@@ -18,25 +18,15 @@ import { Layout } from "#/components/layout";
 import { FormProvider } from "react-hook-form";
 import { BackwardButton } from "#/components/backwardButton";
 import { Toaster } from "#/components/toast";
-import { useMemo } from "react";
-import { MeetingContext } from "#/types/gathering";
-import { MOCK_MEETING_DATA } from "#/constants/gathering/opinion/meeting";
+import { useGetGathering } from "#/hooks/apis/gathering";
 
 export default function OpinionPage() {
 	const { accessKey } = useParams<{ accessKey: string }>();
 	const router = useRouter();
 
-	const form = useOpinionForm();
+	const { methods, onSubmit } = useOpinionForm();
 	const { step, direction, next, back, isFirstStep } = useOpinionFunnel();
-
-	const meetingContext = useMemo<MeetingContext>(
-		() => ({
-			accessKey,
-			scheduledDate: MOCK_MEETING_DATA.DATE,
-			stationName: MOCK_MEETING_DATA.STATION_NAME,
-		}),
-		[accessKey],
-	);
+	const { data: gathering } = useGetGathering(accessKey);
 
 	const handleBackward = () => {
 		if (isFirstStep) {
@@ -47,7 +37,7 @@ export default function OpinionPage() {
 	};
 
 	const handleComplete = () => {
-		router.replace(`/gathering/${accessKey}/opinion/pending`);
+		onSubmit();
 	};
 
 	if (step === "intro") {
@@ -57,12 +47,7 @@ export default function OpinionPage() {
 					<div className="ygi:h-full ygi:w-full" />
 				</Layout.Header>
 				<Layout.Content background="gray">
-					{/* TODO : API 연동 과정에서 대체가 필요한 코드 */}
-					<IntroStep
-						meetingContext={meetingContext}
-						step="intro"
-						onNext={next}
-					/>
+					<IntroStep scheduledDate={gathering.data.scheduledDate} />
 				</Layout.Content>
 				<Layout.Footer background="gray">
 					<div className="ygi:py-auto ygi:px-6">
@@ -78,7 +63,7 @@ export default function OpinionPage() {
 	const renderContent = () => {
 		switch (step) {
 			case "distance":
-				return <DistanceStepContent meetingContext={meetingContext} />;
+				return <DistanceStepContent region={gathering.data.region} />;
 			case "dislike":
 				return <DislikeStepContent />;
 			case "preference":
@@ -95,14 +80,14 @@ export default function OpinionPage() {
 			case "dislike":
 				return <DislikeStepFooter onNext={next} />;
 			case "preference":
-				return <PreferenceStepFooter onComplete={handleComplete} />;
+				return <PreferenceStepFooter onSubmit={handleComplete} />;
 			default:
 				return null;
 		}
 	};
 
 	return (
-		<FormProvider {...form}>
+		<FormProvider {...methods}>
 			<Layout.Header>
 				<BackwardButton onClick={handleBackward} />
 			</Layout.Header>
