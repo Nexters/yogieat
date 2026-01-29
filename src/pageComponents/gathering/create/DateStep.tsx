@@ -1,38 +1,57 @@
 "use client";
 
-import { useFormContext, useWatch } from "react-hook-form";
+import { useFormContext, useController } from "react-hook-form";
+import { isNil } from "es-toolkit";
 
 import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
 import { Button } from "#/components/button";
 import { InputField } from "#/components/inputField";
 import { Chip } from "#/components/chip";
-import { useDateStepValidation } from "#/hooks/gathering";
 import { formatDateInput, isValidDateFormat } from "#/utils/gathering/create";
 import type { CreateMeetingForm, TimeSlot } from "#/types/gathering";
 
-export const DateStepContent = () => {
-	const { control, setValue } = useFormContext<CreateMeetingForm>();
+const scheduledDateRules = {
+	validate: (value: string | undefined) =>
+		!isNil(value) && isValidDateFormat(value),
+};
 
-	const scheduledDate = useWatch({ control, name: "scheduledDate" });
-	const timeSlot = useWatch({ control, name: "timeSlot" });
+const timeSlotRules = {
+	validate: (value: TimeSlot | undefined) => !isNil(value),
+};
+
+export const DateStepContent = () => {
+	const { control } = useFormContext<CreateMeetingForm>();
+
+	const { field: scheduledDateField } = useController({
+		control,
+		name: "scheduledDate",
+		rules: scheduledDateRules,
+	});
+
+	const { field: timeSlotField } = useController({
+		control,
+		name: "timeSlot",
+		rules: timeSlotRules,
+	});
 
 	const hasDateError =
-		scheduledDate?.length === 10 && !isValidDateFormat(scheduledDate);
+		scheduledDateField.value?.length === 10 &&
+		!isValidDateFormat(scheduledDateField.value);
 
 	const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const formatted = formatDateInput(e.target.value);
-		setValue("scheduledDate", formatted, { shouldValidate: true });
+		scheduledDateField.onChange(formatted);
 	};
 
 	const handleDateClear = () => {
-		setValue("scheduledDate", "", { shouldValidate: true });
+		scheduledDateField.onChange("");
 	};
 
 	const handleTimeSlotChange = (slot: TimeSlot) => {
-		setValue("timeSlot", slot === timeSlot ? undefined : slot, {
-			shouldValidate: true,
-		});
+		timeSlotField.onChange(
+			slot === timeSlotField.value ? undefined : slot,
+		);
 	};
 
 	return (
@@ -53,7 +72,7 @@ export const DateStepContent = () => {
 						}
 						inputMode="numeric"
 						showClearButton
-						value={scheduledDate || ""}
+						value={scheduledDateField.value || ""}
 						onChange={handleDateChange}
 						onClear={handleDateClear}
 					/>
@@ -65,13 +84,13 @@ export const DateStepContent = () => {
 					</h2>
 					<div className="ygi:flex ygi:gap-3">
 						<Chip
-							selected={timeSlot === "LUNCH"}
+							selected={timeSlotField.value === "LUNCH"}
 							onClick={() => handleTimeSlotChange("LUNCH")}
 						>
 							점심
 						</Chip>
 						<Chip
-							selected={timeSlot === "DINNER"}
+							selected={timeSlotField.value === "DINNER"}
 							onClick={() => handleTimeSlotChange("DINNER")}
 						>
 							저녁
@@ -89,12 +108,29 @@ interface DateStepFooterProps {
 
 export const DateStepFooter = ({ onNext }: DateStepFooterProps) => {
 	const { control } = useFormContext<CreateMeetingForm>();
-	const isValid = useDateStepValidation(control);
+
+	const { field: scheduledDateField } = useController({
+		control,
+		name: "scheduledDate",
+		rules: scheduledDateRules,
+	});
+
+	const { field: timeSlotField } = useController({
+		control,
+		name: "timeSlot",
+		rules: timeSlotRules,
+	});
+
+	const isValid =
+		!isNil(scheduledDateField.value) &&
+		isValidDateFormat(scheduledDateField.value) &&
+		!isNil(timeSlotField.value);
 
 	return (
 		<Layout.Footer>
 			<div className="ygi:px-6">
 				<Button
+					type="button"
 					variant="primary"
 					width="full"
 					disabled={!isValid}

@@ -6,9 +6,10 @@ export type {
 	GatheringCapacityResponse,
 } from "./type";
 
-// Query Key & Option
+// Query Key & Options
 export { gatheringKeys } from "./queryKey";
-export { gatheringOptions } from "./queryOption";
+export { gatheringQueryOptions } from "./queryOptions";
+export { gatheringMutationOptions } from "./mutationOptions";
 
 // API
 export { createGathering, getGathering, getGatheringCapacity } from "./api";
