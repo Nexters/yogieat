@@ -1,51 +1,33 @@
-"use client";
-
-import { Button } from "#/components/button";
-import { Layout } from "#/components/layout";
 import {
-	CompleteView,
-	SubmissionBottomSheet,
-} from "#/pageComponents/gathering/opinion";
-import { useParams } from "next/navigation";
-import { redirect } from "next/navigation";
+	HydrationBoundary,
+	QueryClient,
+	dehydrate,
+} from "@tanstack/react-query";
 
-export default function OpinionCompletePage() {
-	const { accessKey } = useParams<{ accessKey: string }>();
+import { gatheringOptions } from "#/apis/gathering";
+import CompleteView from "./CompleteView";
 
-	// TODO: API 연동 시 실제 데이터로 교체
-	const maxCount = 5;
-	const currentCount = 5;
+interface OpinionCompletePageProps {
+	params: Promise<{
+		accessKey: string;
+	}>;
+}
 
-	const isPending = currentCount < maxCount;
+/**
+ * 의견 수렴 완료 페이지 (서버 컴포넌트)
+ * - gathering capacity 데이터를 서버에서 prefetch하여 무한 렌더링 방지
+ */
+export default async function OpinionCompletePage({
+	params,
+}: OpinionCompletePageProps) {
+	const { accessKey } = await params;
+	const queryClient = new QueryClient();
 
-	if (isPending) {
-		redirect(`/gathering/${accessKey}/opinion/pending`);
-	}
-
-	const handleRedirectResult = () => {
-		redirect(`/gathering/${accessKey}/opinion/result`);
-	};
+	await queryClient.prefetchQuery(gatheringOptions.capacity(accessKey));
 
 	return (
-		<Layout.Root>
+		<HydrationBoundary state={dehydrate(queryClient)}>
 			<CompleteView />
-
-			<SubmissionBottomSheet
-				maxCount={maxCount}
-				currentCount={currentCount}
-			/>
-
-			<Layout.Footer>
-				<div className="ygi:px-6">
-					<Button
-						variant="primary"
-						width="full"
-						onClick={handleRedirectResult}
-					>
-						추천 결과 보기
-					</Button>
-				</div>
-			</Layout.Footer>
-		</Layout.Root>
+		</HydrationBoundary>
 	);
 }
