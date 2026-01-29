@@ -29,3 +29,21 @@ export interface GatheringCapacityResponse {
 	/** 최대 참여 인원 */
 	maxCount: number;
 }
+
+/** 모임 단건 조회 응답 */
+export interface GetGatheringResponse {
+	/** 모임 ID */
+	id: number;
+	/** 모임 접근키 */
+	accessKey: string;
+	/** 모임 제목 */
+	title: string;
+	/** 모임 날짜 (YYYY-MM-DD) */
+	scheduledDate: string;
+	/** 시간대 */
+	timeSlot: NonNullable<TimeSlot>;
+	/** 지역 */
+	region: NonNullable<Region>;
+	/** 모임 인원수 */
+	peopleCount: number;
+}

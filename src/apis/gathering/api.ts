@@ -4,6 +4,7 @@ import type {
 	CreateGatheringRequest,
 	CreateGatheringResponse,
 	GatheringCapacityResponse,
+	GetGatheringResponse,
 } from "./type";
 
 /**
@@ -23,4 +24,11 @@ export const getGatheringCapacity = (accessKey: string) => {
 	return apiClient.get<GatheringCapacityResponse>(
 		`gatherings/${accessKey}/capacity`,
 	);
+}
+
+/**
+ * 모임 단건 조회 API
+ */
+export const getGathering = (accessKey: string) => {
+	return apiClient.get<GetGatheringResponse>(`gatherings/${accessKey}`);
 };
