@@ -6,35 +6,10 @@ import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
 import { StepHeader } from "#/components/stepHeader";
 import { Button } from "#/components/button";
-import { Chip } from "#/components/chip";
-import {
-	DISTANCE_OPTIONS,
-	OPINION_TOTAL_STEPS,
-	REGION_OPTIONS,
-} from "#/constants/gathering/opinion";
+import { OPINION_TOTAL_STEPS, REGION_OPTIONS } from "#/constants/gathering/opinion";
 import type { OpinionFormSchema } from "#/schemas/gathering";
 import type { GetGatheringResponse } from "#/apis/gathering";
-
-const DistanceChipGroup = () => {
-	const { control } = useFormContext<OpinionFormSchema>();
-	const { field } = useController({ name: "distanceRange", control });
-
-	return (
-		<div className="ygi:flex ygi:gap-3">
-			{DISTANCE_OPTIONS.map((option) => (
-				<Chip
-					key={option.value}
-					selected={field.value === option.value}
-					onClick={() => {
-						field.onChange(option.value);
-					}}
-				>
-					{option.label}
-				</Chip>
-			))}
-		</div>
-	);
-};
+import { DistanceSelector } from "./DistanceSelector";
 
 interface DistanceStepContentProps {
 	region: GetGatheringResponse["region"];
@@ -59,7 +34,7 @@ export const DistanceStepContent = ({ region }: DistanceStepContentProps) => {
 					{`${stationName} 기준으로 추천 범위를 정할게요`}
 				</StepHeader.Description>
 			</StepHeader.Root>
-			<DistanceChipGroup />
+			<DistanceSelector />
 		</div>
 	);
 };
