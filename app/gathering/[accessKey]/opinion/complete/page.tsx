@@ -4,7 +4,7 @@ import {
 	dehydrate,
 } from "@tanstack/react-query";
 
-import { gatheringOptions } from "#/apis/gathering";
+import { gatheringQueryOptions } from "#/apis/gathering";
 import CompleteView from "./CompleteView";
 
 interface OpinionCompletePageProps {
@@ -23,7 +23,7 @@ export default async function OpinionCompletePage({
 	const { accessKey } = await params;
 	const queryClient = new QueryClient();
 
-	await queryClient.prefetchQuery(gatheringOptions.capacity(accessKey));
+	await queryClient.prefetchQuery(gatheringQueryOptions.capacity(accessKey));
 
 	return (
 		<HydrationBoundary state={dehydrate(queryClient)}>

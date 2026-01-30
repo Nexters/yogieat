@@ -1,20 +1,28 @@
 "use client";
 
-import { useFormContext } from "react-hook-form";
+import { useFormContext, useController } from "react-hook-form";
+import { isNil } from "es-toolkit";
 
 import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
 import { Button } from "#/components/button";
 import { PeopleCountGrid } from "./PeopleCountGrid";
-import { usePeopleStepValidation } from "#/hooks/gathering";
 import type { CreateMeetingForm } from "#/types/gathering";
 
+const rules = {
+	validate: (value: number | undefined) => !isNil(value),
+};
+
 export const PeopleStepContent = () => {
-	const { setValue, watch } = useFormContext<CreateMeetingForm>();
-	const value = watch("peopleCount");
+	const { control } = useFormContext<CreateMeetingForm>();
+	const { field } = useController({
+		control,
+		name: "peopleCount",
+		rules,
+	});
 
 	const handleChange = (count?: number) => {
-		setValue("peopleCount", count, { shouldValidate: true });
+		field.onChange(count);
 	};
 
 	return (
@@ -24,7 +32,7 @@ export const PeopleStepContent = () => {
 				<h1 className="ygi:heading-22-bd ygi:text-text-primary">
 					몇 명이서 만나요?
 				</h1>
-				<PeopleCountGrid value={value} onChange={handleChange} />
+				<PeopleCountGrid value={field.value} onChange={handleChange} />
 			</div>
 		</section>
 	);
@@ -36,12 +44,19 @@ interface PeopleStepFooterProps {
 
 export const PeopleStepFooter = ({ onNext }: PeopleStepFooterProps) => {
 	const { control } = useFormContext<CreateMeetingForm>();
-	const isValid = usePeopleStepValidation(control);
+	const { field } = useController({
+		control,
+		name: "peopleCount",
+		rules,
+	});
+
+	const isValid = !isNil(field.value);
 
 	return (
 		<Layout.Footer>
 			<div className="ygi:px-6">
 				<Button
+					type="button"
 					variant="primary"
 					width="full"
 					disabled={!isValid}

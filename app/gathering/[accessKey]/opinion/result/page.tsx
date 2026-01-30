@@ -4,7 +4,7 @@ import {
 	dehydrate,
 } from "@tanstack/react-query";
 
-import { gatheringOptions } from "#/apis/gathering";
+import { gatheringQueryOptions } from "#/apis/gathering";
 import { recommendResultOptions } from "#/apis/recommendResult";
 import ResultView from "./ResultView";
 
@@ -25,7 +25,7 @@ export default async function OpinionResultPage({
 	const queryClient = new QueryClient();
 
 	await Promise.all([
-		queryClient.prefetchQuery(gatheringOptions.capacity(accessKey)),
+		queryClient.prefetchQuery(gatheringQueryOptions.capacity(accessKey)),
 		queryClient.prefetchQuery(recommendResultOptions.detail(accessKey)),
 	]);
 
