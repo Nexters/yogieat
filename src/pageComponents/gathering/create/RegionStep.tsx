@@ -1,18 +1,15 @@
 "use client";
 
-import { useFormContext } from "react-hook-form";
+import { useController, useFormContext } from "react-hook-form";
 
 import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
 import { Button } from "#/components/button/Button";
-import { Spinner } from "#/components/spinner";
-import { useRegionStepValidation } from "#/hooks/gathering";
-import { useCreateGathering } from "#/hooks/apis/gathering";
-import { isApiError } from "#/utils/api";
-import { toast } from "#/utils/toast";
+import { DotsLoader } from "#/components/dotsLoader";
 import { REGION_OPTIONS } from "#/constants/gathering/opinion";
 import { RegionChip } from "./RegionChip";
 import type { CreateMeetingForm } from "#/types/gathering";
+import { isNil } from "es-toolkit";
 
 export const RegionStepContent = () => {
 	return (
@@ -33,57 +30,30 @@ export const RegionStepContent = () => {
 };
 
 interface RegionStepFooterProps {
-	onComplete: (accessKey: string) => void;
+	isPending: boolean;
 }
 
-export const RegionStepFooter = ({ onComplete }: RegionStepFooterProps) => {
-	const { control, getValues } = useFormContext<CreateMeetingForm>();
-	const isValid = useRegionStepValidation(control);
+export const RegionStepFooter = ({ isPending }: RegionStepFooterProps) => {
+	const { control } = useFormContext<CreateMeetingForm>();
 
-	const { mutate: createGathering, isPending } = useCreateGathering();
+	const { field } = useController({
+		control,
+		name: "region",
+		rules: { required: true },
+	});
 
-	const handleComplete = () => {
-		const formData = getValues();
-
-		if (
-			!formData.peopleCount ||
-			!formData.region ||
-			!formData.scheduledDate ||
-			!formData.timeSlot
-		) {
-			return;
-		}
-
-		createGathering(
-			{
-				peopleCount: formData.peopleCount,
-				region: formData.region,
-				scheduledDate: formData.scheduledDate.replace(/\./g, "-"), // yyyy.mm.dd -> yyyy-mm-dd 형태로 변환
-				timeSlot: formData.timeSlot,
-			},
-			{
-				onSuccess: (response) => {
-					onComplete(response.data.accessKey);
-				},
-				onError: (error) => {
-					if (isApiError(error)) {
-						toast.warning(error.message);
-					}
-				},
-			},
-		);
-	};
+	const isValid = !isNil(field.value);
 
 	return (
 		<Layout.Footer>
 			<div className="ygi:px-6">
 				<Button
+					type="submit"
 					variant="primary"
 					width="full"
 					disabled={!isValid || isPending}
-					onClick={handleComplete}
 				>
-					{isPending ? <Spinner size="small" /> : "완료"}
+					{isPending ? <DotsLoader /> : "완료"}
 				</Button>
 			</div>
 		</Layout.Footer>
