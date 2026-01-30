@@ -7,6 +7,7 @@ import {
 	distanceRangeToKm,
 	type OpinionFormSchema,
 } from "#/schemas/gathering";
+import type { FoodCategory } from "#/types/gathering";
 import { useCreateParticipant } from "../apis/participant";
 import { useParams, useRouter } from "next/navigation";
 import { isApiError } from "#/utils/api";
@@ -33,13 +34,15 @@ export function useOpinionForm() {
 
 	const handleSubmit = methods.handleSubmit(async (data) => {
 		try {
+			const preferences = [
+				data.preferredMenus.first,
+				data.preferredMenus.second,
+				data.preferredMenus.third,
+			].filter((menu): menu is FoodCategory => menu !== undefined);
+
 			await createParticipant({
 				accessKey,
-				preferences: [
-					data.preferredMenus.first,
-					data.preferredMenus.second,
-					data.preferredMenus.third,
-				].filter(Boolean) as string[],
+				preferences,
 				dislikes: data.dislikedFoods,
 				distance: distanceRangeToKm(data.distanceRange),
 			});
