@@ -11,12 +11,8 @@ import { useRegionStepValidation } from "#/hooks/gathering";
 import { useCreateGathering } from "#/hooks/apis/gathering";
 import { isApiError } from "#/utils/api";
 import { toast } from "#/utils/toast";
+import { REGION_OPTIONS } from "#/constants/gathering/opinion";
 import type { CreateMeetingForm, Region } from "#/types/gathering";
-
-const REGION_OPTIONS = [
-	{ id: "HONGDAE" as const, label: "홍대입구역" },
-	{ id: "GANGNAM" as const, label: "강남역" },
-];
 
 export const RegionStepContent = () => {
 	const { control, setValue } = useFormContext<CreateMeetingForm>();
@@ -41,11 +37,11 @@ export const RegionStepContent = () => {
 					장소를 선택해 주세요
 				</h1>
 				<div className="ygi:flex ygi:gap-3">
-					{REGION_OPTIONS.map(({ id, label }) => (
+					{REGION_OPTIONS.map(({ value, label }) => (
 						<Chip
-							key={id}
-							selected={region === id}
-							onClick={() => handleRegionChange(id)}
+							key={value}
+							selected={region === value}
+							onClick={() => handleRegionChange(value)}
 						>
 							{label}
 						</Chip>

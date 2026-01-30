@@ -17,9 +17,8 @@ interface DistanceStepContentProps {
 }
 
 export const DistanceStepContent = ({ region }: DistanceStepContentProps) => {
-	// FIXME : Region 관련 ENUM 혹은 as const 상수화 필요 (타입 안정성 확보)
 	const stationName =
-		REGION_OPTIONS.find((currentRegion) => currentRegion.id === region)
+		REGION_OPTIONS.find((currentRegion) => currentRegion.value === region)
 			?.label ?? "";
 
 	return (
