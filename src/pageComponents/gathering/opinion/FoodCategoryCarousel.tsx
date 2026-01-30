@@ -4,15 +4,7 @@ import { useLayoutEffect, useRef } from "react";
 import Image from "next/image";
 import { motion, useMotionValue, animate } from "motion/react";
 import { FoodCard } from "./FoodCard";
-
-const FOOD_CATEGORIES = [
-	"korean",
-	"japanese",
-	"chinese",
-	"western",
-	"asian",
-	"any",
-];
+import { FOOD_CATEGORY_VALUES } from "#/constants/gathering/opinion";
 
 const CARD_WIDTH = 200;
 const GAP = 16;
@@ -21,8 +13,12 @@ const ANIMATION_DURATION = 0.4;
 const PAUSE_DURATION = 600;
 
 export const FoodCategoryCarousel = () => {
-	const totalCount = FOOD_CATEGORIES.length;
-	const items = [...FOOD_CATEGORIES, ...FOOD_CATEGORIES, ...FOOD_CATEGORIES];
+	const totalCount = FOOD_CATEGORY_VALUES.length;
+	const items = [
+		...FOOD_CATEGORY_VALUES,
+		...FOOD_CATEGORY_VALUES,
+		...FOOD_CATEGORY_VALUES,
+	];
 
 	const x = useMotionValue(0);
 	const indexRef = useRef(totalCount);
@@ -40,7 +36,7 @@ export const FoodCategoryCarousel = () => {
 			containerRef.current.style.opacity = "1";
 		}
 
-		const step = async () => {
+		const moveToNextStep = async () => {
 			indexRef.current += 1;
 
 			await animate(x, getTargetX(indexRef.current), {
@@ -55,12 +51,12 @@ export const FoodCategoryCarousel = () => {
 		};
 
 		const interval = setInterval(
-			step,
+			moveToNextStep,
 			PAUSE_DURATION + ANIMATION_DURATION * 1000,
 		);
 
 		return () => clearInterval(interval);
-	}, [totalCount]);
+	}, [totalCount, x]);
 
 	return (
 		<div

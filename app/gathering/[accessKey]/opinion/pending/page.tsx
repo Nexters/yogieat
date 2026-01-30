@@ -1,41 +1,33 @@
-"use client";
-
-import { Button } from "#/components/button";
-import { Layout } from "#/components/layout";
 import {
-	PendingView,
-	SubmissionBottomSheet,
-} from "#/pageComponents/gathering/opinion";
-import { useParams } from "next/navigation";
-import { redirect } from "next/navigation";
+	HydrationBoundary,
+	QueryClient,
+	dehydrate,
+} from "@tanstack/react-query";
 
-export default function OpinionPendingPage() {
-	const { accessKey } = useParams<{ accessKey: string }>();
+import { gatheringOptions } from "#/apis/gathering";
+import PendingView from "./PendingView";
 
-	const totalCount = 5;
-	const submittedCount = 3;
+interface OpinionPendingPageProps {
+	params: Promise<{
+		accessKey: string;
+	}>;
+}
 
-	const isComplete = submittedCount >= totalCount;
-	if (isComplete) {
-		redirect(`/gathering/${accessKey}/opinion/complete`);
-	}
+/**
+ * 의견 수렴 대기 페이지 (서버 컴포넌트)
+ * - gathering capacity 데이터를 서버에서 prefetch하여 무한 렌더링 방지
+ */
+export default async function OpinionPendingPage({
+	params,
+}: OpinionPendingPageProps) {
+	const { accessKey } = await params;
+	const queryClient = new QueryClient();
+
+	await queryClient.prefetchQuery(gatheringOptions.capacity(accessKey));
 
 	return (
-		<Layout.Root>
+		<HydrationBoundary state={dehydrate(queryClient)}>
 			<PendingView />
-
-			<SubmissionBottomSheet
-				totalCount={totalCount}
-				submittedCount={submittedCount}
-			/>
-
-			<Layout.Footer>
-				<div className="ygi:px-6">
-					<Button variant="primary" width="full" disabled>
-						추천 결과 보기
-					</Button>
-				</div>
-			</Layout.Footer>
-		</Layout.Root>
+		</HydrationBoundary>
 	);
 }

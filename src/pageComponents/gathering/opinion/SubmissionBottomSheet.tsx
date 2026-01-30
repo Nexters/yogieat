@@ -3,22 +3,22 @@
 import { ProgressBar } from "#/components/progressBar";
 
 interface SubmissionBottomSheetProps {
-	totalCount: number;
-	submittedCount: number;
+	maxCount: number;
+	currentCount: number;
 }
 
 export const SubmissionBottomSheet = ({
-	totalCount,
-	submittedCount,
+	maxCount,
+	currentCount,
 }: SubmissionBottomSheetProps) => {
 	const percentage =
-		totalCount > 0 ? Math.round((submittedCount / totalCount) * 100) : 0;
+		maxCount > 0 ? Math.round((currentCount / maxCount) * 100) : 0;
 
-	const isComplete = submittedCount >= totalCount;
+	const isComplete = currentCount >= maxCount;
 
 	const title = isComplete
-		? `${totalCount}명 중 모두 참여했어요`
-		: `${totalCount}명 중 ${submittedCount}명이 제출했어요`;
+		? `${maxCount}명 중 모두 참여했어요`
+		: `${maxCount}명 중 ${currentCount}명이 제출했어요`;
 
 	const description = isComplete
 		? "모두의 취향을 반영한 추천 결과를 보여드릴게요"
