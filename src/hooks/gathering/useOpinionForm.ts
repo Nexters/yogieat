@@ -7,7 +7,6 @@ import {
 	distanceRangeToKm,
 	type OpinionFormSchema,
 } from "#/schemas/gathering";
-import type { FoodCategory } from "#/types/gathering";
 import { useCreateParticipant } from "../apis/participant";
 import { useParams, useRouter } from "next/navigation";
 import { isApiError } from "#/utils/api";
