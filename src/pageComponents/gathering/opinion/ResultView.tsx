@@ -14,19 +14,16 @@ import { CircleIcon } from "#/icons/circleIcon";
 import { XIcon } from "#/icons/xIcon";
 import { FOOD_CATEGORY_LABELS } from "#/constants/gathering/opinion";
 import type { FoodCategory } from "#/types/gathering";
-import type { ReactNode } from "react";
 
 export interface ResultViewProps {
 	recommendationResult: RecommendationResult;
 }
 
-interface VoteCategoryProps {
-	icon: ReactNode;
-	title: string;
+interface VoteListProps {
 	votes: Record<string, number>;
 }
 
-const VoteCategory = ({ icon, title, votes }: VoteCategoryProps) => {
+const VoteList = ({ votes }: VoteListProps) => {
 	const sortedVotes = Object.entries(votes)
 		.map(([category, count]) => ({
 			category: category as FoodCategory,
@@ -35,34 +32,25 @@ const VoteCategory = ({ icon, title, votes }: VoteCategoryProps) => {
 		.sort((a, b) => b.count - a.count);
 
 	return (
-		<div className="ygi:flex ygi:flex-col ygi:gap-4">
-			{/* Title with Icon */}
-			<div className="ygi:flex ygi:items-center ygi:gap-2">
-				{icon}
-				<h3 className="ygi:body-14-sb ygi:text-text-primary">{title}</h3>
-			</div>
-
-			{/* Vote Items */}
-			<div className="ygi:flex ygi:flex-wrap ygi:items-center ygi:gap-4">
-				{sortedVotes.map((vote) => (
-					<div
-						key={vote.category}
-						className="ygi:flex ygi:items-center ygi:gap-1"
+		<div className="ygi:flex ygi:flex-wrap ygi:items-center ygi:gap-4">
+			{sortedVotes.map((vote) => (
+				<div
+					key={vote.category}
+					className="ygi:flex ygi:items-center ygi:gap-1"
+				>
+					<span className="ygi:body-14-md ygi:text-text-secondary">
+						{FOOD_CATEGORY_LABELS[vote.category]}
+					</span>
+					<span
+						className={twJoin(
+							"ygi:rounded ygi:px-1 ygi:py-0.5",
+							"ygi:bg-surface-primary ygi:caption-12-sb ygi:text-text-interactive",
+						)}
 					>
-						<span className="ygi:body-14-md ygi:text-text-secondary">
-							{FOOD_CATEGORY_LABELS[vote.category]}
-						</span>
-						<span
-							className={twJoin(
-								"ygi:rounded ygi:px-1 ygi:py-0.5",
-								"ygi:bg-surface-primary ygi:caption-12-sb ygi:text-text-interactive",
-							)}
-						>
-							{vote.count}표
-						</span>
-					</div>
-				))}
-			</div>
+						{vote.count}표
+					</span>
+				</div>
+			))}
 		</div>
 	);
 };
@@ -110,8 +98,8 @@ export const ResultView = ({ recommendationResult }: ResultViewProps) => {
 					<div className="ygi:h-px ygi:bg-border-default" />
 
 					{/* 좋아하는 음식 */}
-					<VoteCategory
-						icon={
+					<div className="ygi:flex ygi:flex-col ygi:gap-4">
+						<div className="ygi:flex ygi:items-center ygi:gap-2">
 							<div
 								className={twJoin(
 									"ygi:flex ygi:items-center ygi:justify-center",
@@ -121,14 +109,16 @@ export const ResultView = ({ recommendationResult }: ResultViewProps) => {
 							>
 								<CircleIcon size={11} className="ygi:text-white" />
 							</div>
-						}
-						title="좋아하는 음식"
-						votes={recommendationResult.preferences}
-					/>
+							<h3 className="ygi:body-14-sb ygi:text-text-primary">
+								좋아하는 음식
+							</h3>
+						</div>
+						<VoteList votes={recommendationResult.preferences} />
+					</div>
 
 					{/* 피하고 싶은 음식 */}
-					<VoteCategory
-						icon={
+					<div className="ygi:flex ygi:flex-col ygi:gap-4">
+						<div className="ygi:flex ygi:items-center ygi:gap-2">
 							<div
 								className={twJoin(
 									"ygi:flex ygi:items-center ygi:justify-center",
@@ -138,10 +128,12 @@ export const ResultView = ({ recommendationResult }: ResultViewProps) => {
 							>
 								<XIcon size={11} className="ygi:text-white" />
 							</div>
-						}
-						title="피하고 싶은 음식"
-						votes={recommendationResult.dislikes}
-					/>
+							<h3 className="ygi:body-14-sb ygi:text-text-primary">
+								피하고 싶은 음식
+							</h3>
+						</div>
+						<VoteList votes={recommendationResult.dislikes} />
+					</div>
 				</section>
 
 				{/* Other Candidates */}
