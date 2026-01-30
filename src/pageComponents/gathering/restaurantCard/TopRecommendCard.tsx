@@ -5,11 +5,11 @@ import { ChevronRightIcon } from "#/icons/chevronRightIcon";
 import type { SyntheticEvent } from "react";
 import type { Restaurant } from "#/types/gathering";
 import {
-	FOOD_CATEGORY_LABELS,
-	DISTANCE_LABELS,
+	FOOD_CATEGORY_LABEL,
+	DISTANCE_RANGE_LABEL,
 } from "#/constants/gathering/opinion";
 import Image from "next/image";
-import { Tag } from "../tag";
+import { Tag } from "#/components/tag";
 
 export interface TopRecommendCardProps {
 	restaurant: Restaurant;
@@ -45,7 +45,7 @@ export const TopRecommendCard = ({ restaurant }: TopRecommendCardProps) => {
 				<div className="ygi:flex ygi:flex-col ygi:gap-2">
 					<button
 						onClick={handleMapClick}
-						className="ygi:inline-flex ygi:items-center ygi:text-left"
+						className="ygi:inline-flex ygi:cursor-pointer ygi:items-center ygi:text-left"
 					>
 						<h3 className="ygi:body-18-bd ygi:text-text-primary">
 							{restaurant.restaurantName}
@@ -66,10 +66,10 @@ export const TopRecommendCard = ({ restaurant }: TopRecommendCardProps) => {
 
 				<div className="ygi:flex ygi:flex-wrap ygi:gap-2">
 					<Tag size="medium">
-						{`역에서 ${DISTANCE_LABELS[restaurant.majorityDistanceRange]}`}
+						{`역에서 ${DISTANCE_RANGE_LABEL[restaurant.majorityDistanceRange]}`}
 					</Tag>
 					<Tag size="medium">
-						{FOOD_CATEGORY_LABELS[restaurant.largeCategory]}
+						{FOOD_CATEGORY_LABEL[restaurant.largeCategory]}
 					</Tag>
 				</div>
 			</div>

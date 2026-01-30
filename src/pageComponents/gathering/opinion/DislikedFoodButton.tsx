@@ -1,14 +1,18 @@
 "use client";
 
+import { useFormContext, useController } from "react-hook-form";
 import { motion } from "motion/react";
 import { XIcon } from "#/icons/xIcon";
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
 import { AnimatePresence } from "motion/react";
-import type { ComponentPropsWithoutRef } from "react";
 import { twJoin } from "tailwind-merge";
 import Image from "next/image";
 
-const foodCategoryButtonVariants = cva(
+import { FOOD_CATEGORY_LABEL } from "#/constants/gathering/opinion";
+import type { FoodCategory } from "#/types/gathering";
+import type { OpinionFormSchema } from "#/schemas/gathering";
+
+const dislikedFoodButtonVariants = cva(
 	[
 		"ygi:flex ygi:flex-col ygi:items-center ygi:justify-center",
 		"ygi:size-[156px] ygi:rounded-full",
@@ -47,36 +51,34 @@ const foodCategoryButtonVariants = cva(
 	},
 );
 
-export type FoodCategoryButtonProps = Omit<
-	ComponentPropsWithoutRef<"button">,
-	"className"
-> &
-	VariantProps<typeof foodCategoryButtonVariants> & {
-		category: string;
-		label: string;
-	};
+interface DislikedFoodButtonProps {
+	category: FoodCategory;
+}
 
-export const FoodCategoryButton = ({
-	category,
-	selected,
-	label,
-	...props
-}: FoodCategoryButtonProps) => {
+export const DislikedFoodButton = ({ category }: DislikedFoodButtonProps) => {
+	const { control } = useFormContext<OpinionFormSchema>();
+	const { field } = useController({ name: "dislikedFoods", control });
+
+	const dislikedFoods = field.value || [];
+
+	const isSelected = dislikedFoods.includes(category);
 	const isAny = category === "ANY";
-	const shouldShowXIcon = selected && !isAny;
-	const imageSrc = `/images/foodCategory/${category.toLowerCase()}.svg`;
+	const shouldShowXIcon = isSelected && !isAny;
 
 	return (
 		<button
 			type="button"
-			aria-pressed={selected ?? false}
-			className={foodCategoryButtonVariants({ isAny, selected })}
-			{...props}
+			aria-pressed={isSelected}
+			className={dislikedFoodButtonVariants({
+				isAny,
+				selected: isSelected,
+			})}
+			onClick={() => field.onChange(isSelected ? [] : [category])}
 		>
 			<div className="ygi:relative ygi:size-20">
 				<Image
-					src={imageSrc}
-					alt={label}
+					src={`/images/foodCategory/${category.toLowerCase()}.svg`}
+					alt={FOOD_CATEGORY_LABEL[category]}
 					fill
 					className="ygi:object-contain"
 					priority
@@ -102,12 +104,12 @@ export const FoodCategoryButton = ({
 			<span
 				className={twJoin(
 					"ygi:text-center ygi:heading-18-bd",
-					selected
+					isSelected
 						? "ygi:text-text-primary"
 						: "ygi:text-text-secondary",
 				)}
 			>
-				{label}
+				{FOOD_CATEGORY_LABEL[category]}
 			</span>
 		</button>
 	);

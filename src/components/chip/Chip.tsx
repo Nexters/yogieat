@@ -37,6 +37,7 @@ export type ChipProps = Omit<ComponentProps<"button">, "className"> &
 
 export const Chip = ({
 	ref,
+	type = "button",
 	selected,
 	children,
 	disabled,
@@ -45,6 +46,7 @@ export const Chip = ({
 	return (
 		<button
 			ref={ref}
+			type={type}
 			aria-pressed={selected ?? false}
 			disabled={disabled}
 			className={chipVariants({ selected })}
