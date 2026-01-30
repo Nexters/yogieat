@@ -9,3 +9,9 @@ export const DISTANCE_OPTIONS: { value: DistanceRange; label: string }[] = [
 export const DISTANCE_LABELS = Object.fromEntries(
 	DISTANCE_OPTIONS.map(({ value, label }) => [value, label]),
 ) as Record<DistanceRange, string>;
+
+export const DISTANCE_RANGE_VALUES: Record<DistanceRange, number | null> = {
+	RANGE_500M: 0.5,
+	RANGE_1KM: 1,
+	ANY: null,
+};

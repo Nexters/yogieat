@@ -6,6 +6,7 @@ import { useCreateParticipant } from "../apis/participant";
 import { useParams, useRouter } from "next/navigation";
 import { isApiError } from "#/utils/api";
 import { toast } from "#/utils/toast";
+import { DISTANCE_RANGE_VALUES } from "#/constants/gathering/opinion";
 
 export function useOpinionForm() {
 	const router = useRouter();
@@ -35,7 +36,7 @@ export function useOpinionForm() {
 					data.preferredMenus.third,
 				],
 				dislikes: data.dislikedFoods,
-				distance: 0.5,
+				distance: DISTANCE_RANGE_VALUES[data.distanceRange],
 			});
 			router.replace(`/gathering/${accessKey}/opinion/pending`);
 		} catch (error) {
