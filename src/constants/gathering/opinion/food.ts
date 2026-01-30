@@ -1,6 +1,18 @@
-import type { FoodCategory } from "#/types/gathering";
+export const FOOD_CATEGORY_LABEL = {
+	KOREAN: "한식",
+	JAPANESE: "일식",
+	CHINESE: "중식",
+	WESTERN: "양식",
+	ASIAN: "아시안",
+	ANY: "상관없음",
+} as const;
 
-export const FOOD_CATEGORIES: { value: FoodCategory; label: string }[] = [
+export type FoodCategory = keyof typeof FOOD_CATEGORY_LABEL;
+
+export const FOOD_CATEGORIES: ReadonlyArray<{
+	value: FoodCategory;
+	label: string;
+}> = [
 	{ value: "KOREAN", label: "한식" },
 	{ value: "JAPANESE", label: "일식" },
 	{ value: "CHINESE", label: "중식" },
@@ -9,6 +21,11 @@ export const FOOD_CATEGORIES: { value: FoodCategory; label: string }[] = [
 	{ value: "ANY", label: "상관없음" },
 ];
 
-export const FOOD_CATEGORY_LABELS = Object.fromEntries(
-	FOOD_CATEGORIES.map(({ value, label }) => [value, label]),
-) as Record<FoodCategory, string>;
+export const FOOD_CATEGORY_VALUES: ReadonlyArray<FoodCategory> = [
+	"KOREAN",
+	"JAPANESE",
+	"CHINESE",
+	"WESTERN",
+	"ASIAN",
+	"ANY",
+];

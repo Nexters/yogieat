@@ -21,7 +21,7 @@ interface DistanceStepContentProps {
 
 export const DistanceStepContent = ({ region }: DistanceStepContentProps) => {
 	const stationName =
-		REGION_OPTIONS.find((currentRegion) => currentRegion.id === region)
+		REGION_OPTIONS.find((currentRegion) => currentRegion.value === region)
 			?.label ?? "";
 
 	return (

@@ -5,7 +5,7 @@ import { useFormContext, useController } from "react-hook-form";
 import { omit, drop } from "es-toolkit";
 
 import { Chip } from "#/components/chip";
-import { FOOD_CATEGORY_LABELS, RANKS } from "#/constants/gathering/opinion";
+import { FOOD_CATEGORY_LABEL, RANKS } from "#/constants/gathering/opinion";
 import type { FoodCategory, RankKey } from "#/types/gathering";
 import type { OpinionFormSchema } from "#/schemas/gathering";
 import { toast } from "#/utils/toast";
@@ -57,7 +57,7 @@ export const RankChip = ({ rank, category, disabled }: RankChipProps) => {
 
 	return (
 		<Chip selected={isSelected} disabled={disabled} onClick={handleClick}>
-			{FOOD_CATEGORY_LABELS[category]}
+			{FOOD_CATEGORY_LABEL[category]}
 		</Chip>
 	);
 };
