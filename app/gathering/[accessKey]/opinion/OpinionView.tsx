@@ -36,10 +36,6 @@ export default function OpinionView() {
 		}
 	};
 
-	const handleComplete = () => {
-		onSubmit();
-	};
-
 	if (step === "intro") {
 		return (
 			<>
@@ -80,7 +76,7 @@ export default function OpinionView() {
 			case "dislike":
 				return <DislikeStepFooter onNext={next} />;
 			case "preference":
-				return <PreferenceStepFooter onSubmit={handleComplete} />;
+				return <PreferenceStepFooter />;
 			default:
 				return null;
 		}
@@ -88,16 +84,21 @@ export default function OpinionView() {
 
 	return (
 		<FormProvider {...methods}>
-			<Layout.Header>
-				<BackwardButton onClick={handleBackward} />
-			</Layout.Header>
-			<Layout.Content>
-				<StepTransition step={step} direction={direction}>
-					{renderContent()}
-				</StepTransition>
-			</Layout.Content>
-			{renderFooter()}
-			<Toaster offset={{ bottom: 96 }} mobileOffset={{ bottom: 96 }} />
+			<form onSubmit={onSubmit}>
+				<Layout.Header>
+					<BackwardButton onClick={handleBackward} />
+				</Layout.Header>
+				<Layout.Content>
+					<StepTransition step={step} direction={direction}>
+						{renderContent()}
+					</StepTransition>
+				</Layout.Content>
+				{renderFooter()}
+				<Toaster
+					offset={{ bottom: 96 }}
+					mobileOffset={{ bottom: 96 }}
+				/>
+			</form>
 		</FormProvider>
 	);
 }

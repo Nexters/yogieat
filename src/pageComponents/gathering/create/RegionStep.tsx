@@ -1,38 +1,20 @@
 "use client";
 
-import { useFormContext, useWatch } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
 import { Button } from "#/components/button/Button";
-import { Chip } from "#/components/chip";
 import { Spinner } from "#/components/spinner";
 import { useRegionStepValidation } from "#/hooks/gathering";
 import { useCreateGathering } from "#/hooks/apis/gathering";
 import { isApiError } from "#/utils/api";
 import { toast } from "#/utils/toast";
-import type { CreateMeetingForm, Region } from "#/types/gathering";
-
-const REGION_OPTIONS = [
-	{ id: "HONGDAE" as const, label: "홍대입구역" },
-	{ id: "GANGNAM" as const, label: "강남역" },
-];
+import { REGION_OPTIONS } from "#/constants/gathering/opinion";
+import { RegionChip } from "./RegionChip";
+import type { CreateMeetingForm } from "#/types/gathering";
 
 export const RegionStepContent = () => {
-	const { control, setValue } = useFormContext<CreateMeetingForm>();
-
-	const region = useWatch({ control, name: "region" });
-
-	const handleRegionChange = (selectedRegion: Region) => {
-		setValue(
-			"region",
-			selectedRegion === region ? undefined : selectedRegion,
-			{
-				shouldValidate: true,
-			},
-		);
-	};
-
 	return (
 		<section className="ygi:pt-3">
 			<div className="ygi:flex ygi:flex-col ygi:gap-xl ygi:px-6">
@@ -41,14 +23,8 @@ export const RegionStepContent = () => {
 					장소를 선택해 주세요
 				</h1>
 				<div className="ygi:flex ygi:gap-3">
-					{REGION_OPTIONS.map(({ id, label }) => (
-						<Chip
-							key={id}
-							selected={region === id}
-							onClick={() => handleRegionChange(id)}
-						>
-							{label}
-						</Chip>
+					{REGION_OPTIONS.map(({ value, label }) => (
+						<RegionChip key={value} value={value} label={label} />
 					))}
 				</div>
 			</div>

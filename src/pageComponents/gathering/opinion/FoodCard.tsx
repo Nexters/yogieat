@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import type { FoodCategory } from "#/types/gathering";
 
 interface FoodCardProps {
-	category: string;
+	category: FoodCategory;
 }
 
 export const FoodCard = ({ category }: FoodCardProps) => {

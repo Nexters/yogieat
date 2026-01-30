@@ -1,20 +1,27 @@
 "use client";
 
-import { useForm, useWatch } from "react-hook-form";
-import type { OpinionForm } from "#/types/gathering";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+	opinionFormSchema,
+	distanceRangeToKm,
+	type OpinionFormSchema,
+} from "#/schemas/gathering";
+import type { FoodCategory } from "#/types/gathering";
 import { useCreateParticipant } from "../apis/participant";
 import { useParams, useRouter } from "next/navigation";
 import { isApiError } from "#/utils/api";
 import { toast } from "#/utils/toast";
-import { DISTANCE_RANGE_VALUES } from "#/constants/gathering/opinion";
+import { compact } from "es-toolkit";
 
 export function useOpinionForm() {
 	const router = useRouter();
 	const { accessKey } = useParams<{ accessKey: string }>();
 	const { mutateAsync: createParticipant } = useCreateParticipant();
 
-	const methods = useForm<OpinionForm>({
+	const methods = useForm<OpinionFormSchema>({
 		mode: "onChange",
+		resolver: zodResolver(opinionFormSchema),
 		defaultValues: {
 			distanceRange: undefined,
 			dislikedFoods: [],
@@ -28,15 +35,17 @@ export function useOpinionForm() {
 
 	const handleSubmit = methods.handleSubmit(async (data) => {
 		try {
+			const preferences = compact([
+				data.preferredMenus.first,
+				data.preferredMenus.second,
+				data.preferredMenus.third,
+			]);
+
 			await createParticipant({
 				accessKey,
-				preferences: [
-					data.preferredMenus.first,
-					data.preferredMenus.second,
-					data.preferredMenus.third,
-				],
+				preferences,
 				dislikes: data.dislikedFoods,
-				distance: DISTANCE_RANGE_VALUES[data.distanceRange],
+				distance: distanceRangeToKm(data.distanceRange),
 			});
 			router.replace(`/gathering/${accessKey}/opinion/pending`);
 		} catch (error) {
@@ -52,22 +61,4 @@ export function useOpinionForm() {
 		methods,
 		onSubmit: handleSubmit,
 	};
-}
-
-export function useDistanceStepValidation(
-	control: ReturnType<typeof useForm<OpinionForm>>["control"],
-) {
-	const distanceRange = useWatch({ control, name: "distanceRange" });
-	return distanceRange !== undefined;
-}
-
-export function useDislikeStepValidation(
-	control: ReturnType<typeof useForm<OpinionForm>>["control"],
-) {
-	const dislikedFoods = useWatch({ control, name: "dislikedFoods" });
-	return dislikedFoods && dislikedFoods.length > 0;
-}
-
-export function usePreferenceStepValidation() {
-	return true;
 }
