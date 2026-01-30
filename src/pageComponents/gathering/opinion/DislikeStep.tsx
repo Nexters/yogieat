@@ -1,26 +1,19 @@
 "use client";
 
-import { useCallback } from "react";
-import { useFormContext, Controller } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
 
 import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
 import { StepHeader } from "#/components/stepHeader";
 import { Button } from "#/components/button/Button";
-import { FoodCategoryButton } from "./FoodCategoryButton";
+import { DislikedFoodButton } from "./DislikedFoodButton";
 import {
 	FOOD_CATEGORIES,
 	OPINION_TOTAL_STEPS,
 } from "#/constants/gathering/opinion";
-import type {
-	OpinionForm,
-	FoodCategory,
-	DislikeStepProps,
-} from "#/types/gathering";
+import type { OpinionFormSchema } from "#/schemas/gathering";
 
 export const DislikeStepContent = () => {
-	const { control } = useFormContext<OpinionForm>();
-
 	return (
 		<div className="ygi:pt-3">
 			<div className="ygi:flex ygi:flex-col ygi:gap-xl ygi:px-6">
@@ -38,66 +31,41 @@ export const DislikeStepContent = () => {
 				</StepHeader.Root>
 			</div>
 
-			<Controller
-				name="dislikedFoods"
-				control={control}
-				render={({ field }) => {
-					const dislikedFoods = field.value || [];
-
-					const handleFoodToggle = (food: FoodCategory) => {
-						const isSelected = dislikedFoods.includes(food);
-						field.onChange(isSelected ? [] : [food]);
-					};
-
-					return (
-						<div className="ygi:flex ygi:flex-wrap ygi:justify-center ygi:gap-3 ygi:px-6 ygi:pt-6 ygi:pb-9">
-							{FOOD_CATEGORIES.map((category) => (
-								<FoodCategoryButton
-									key={category.value}
-									category={category.value}
-									selected={dislikedFoods.includes(
-										category.value,
-									)}
-									onClick={() =>
-										handleFoodToggle(category.value)
-									}
-									label={category.label}
-								/>
-							))}
-						</div>
-					);
-				}}
-			/>
+			<div className="ygi:flex ygi:flex-wrap ygi:justify-center ygi:gap-3 ygi:px-6 ygi:pt-6 ygi:pb-9">
+				{FOOD_CATEGORIES.map((category) => (
+					<DislikedFoodButton
+						key={category.value}
+						category={category.value}
+					/>
+				))}
+			</div>
 		</div>
 	);
 };
 
-export const DislikeStepFooter = ({
-	onNext,
-}: Pick<DislikeStepProps, "onNext">) => {
-	const { control } = useFormContext<OpinionForm>();
+interface DislikeStepFooterProps {
+	onNext: () => void;
+}
 
-	const handleNext = useCallback(() => {
-		onNext();
-	}, [onNext]);
+export const DislikeStepFooter = ({ onNext }: DislikeStepFooterProps) => {
+	const { control } = useFormContext<OpinionFormSchema>();
+	const disabled = useWatch({
+		control,
+		name: "dislikedFoods",
+		compute: (value) => !value || value.length === 0,
+	});
 
 	return (
 		<Layout.Footer>
 			<div className="ygi:px-6">
-				<Controller
-					name="dislikedFoods"
-					control={control}
-					render={({ field }) => (
-						<Button
-							variant="primary"
-							width="full"
-							disabled={!field.value || field.value.length === 0}
-							onClick={handleNext}
-						>
-							다음
-						</Button>
-					)}
-				/>
+				<Button
+					variant="primary"
+					width="full"
+					disabled={disabled}
+					onClick={onNext}
+				>
+					다음
+				</Button>
 			</div>
 		</Layout.Footer>
 	);

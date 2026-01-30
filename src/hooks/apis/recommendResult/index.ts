@@ -1,0 +1,1 @@
+export { useGetRecommendResult } from "./useGetRecommendResult";

@@ -7,7 +7,7 @@ export interface CreateParticipantRequest {
 	/** 모임 접근키 */
 	accessKey: string;
 	/** 거리 (km) */
-	distance: number;
+	distance: number | null;
 	/** 싫어하는 음식 목록 */
 	dislikes: string[];
 	/** 선호하는 음식 목록 */
