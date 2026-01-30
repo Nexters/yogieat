@@ -10,26 +10,6 @@ import { RANKS, OPINION_TOTAL_STEPS } from "#/constants/gathering/opinion";
 import { RankSection } from "./RankSection";
 import type { OpinionFormSchema } from "#/schemas/gathering";
 
-const isCompleteEnabled = (
-	preferredMenus: OpinionFormSchema["preferredMenus"],
-): boolean => {
-	const noneSelectedIndex = RANKS.findIndex(
-		(rank) => preferredMenus[rank] === "ANY",
-	);
-
-	if (noneSelectedIndex === -1) {
-		return RANKS.every((rank) => {
-			const value = preferredMenus[rank];
-			return value && value !== "ANY";
-		});
-	}
-
-	return RANKS.slice(0, noneSelectedIndex).every((rank) => {
-		const value = preferredMenus[rank];
-		return value && value !== "ANY";
-	});
-};
-
 export const PreferenceStepContent = () => {
 	return (
 		<div className="ygi:flex ygi:flex-col ygi:gap-8 ygi:px-6 ygi:pt-3 ygi:pb-6">
@@ -56,7 +36,28 @@ export const PreferenceStepContent = () => {
 
 export const PreferenceStepFooter = () => {
 	const { control } = useFormContext<OpinionFormSchema>();
-	const preferredMenus = useWatch({ control, name: "preferredMenus" }) || {};
+	const disabled = useWatch({
+		control,
+		name: "preferredMenus",
+		compute: (value) => {
+			const { first, second, third } = value || {};
+
+			// 1순위 필수
+			if (!first) return true;
+
+			// 1순위가 "ANY"면 2, 3순위 없어야 함
+			if (first === "ANY") return !!second || !!third;
+
+			// 2순위 필수
+			if (!second) return true;
+
+			// 2순위가 "ANY"면 3순위 없어야 함
+			if (second === "ANY") return !!third;
+
+			// 3순위 필수
+			return !third;
+		},
+	});
 
 	return (
 		<Layout.Footer>
@@ -65,7 +66,7 @@ export const PreferenceStepFooter = () => {
 					type="submit"
 					variant="primary"
 					width="full"
-					disabled={!isCompleteEnabled(preferredMenus)}
+					disabled={disabled}
 				>
 					완료
 				</Button>

@@ -1,7 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
-import { useFormContext } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
 
 import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
@@ -56,11 +55,11 @@ export const DislikeStepFooter = ({
 	onNext,
 }: Pick<DislikeStepProps, "onNext">) => {
 	const { control } = useFormContext<OpinionFormSchema>();
-	const { isValid } = useDislikeStep(control);
-
-	const handleNext = useCallback(() => {
-		onNext();
-	}, [onNext]);
+	const disabled = useWatch({
+		control,
+		name: "dislikedFoods",
+		compute: (value) => !value || value.length === 0,
+	});
 
 	return (
 		<Layout.Footer>
@@ -68,8 +67,8 @@ export const DislikeStepFooter = ({
 				<Button
 					variant="primary"
 					width="full"
-					disabled={!isValid}
-					onClick={handleNext}
+					disabled={disabled}
+					onClick={onNext}
 				>
 					다음
 				</Button>
