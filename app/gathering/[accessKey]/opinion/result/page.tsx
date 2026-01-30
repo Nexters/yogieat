@@ -5,7 +5,7 @@ import {
 } from "@tanstack/react-query";
 
 import { gatheringOptions } from "#/apis/gathering";
-import { recommendResultOptions } from "#/apis/recommend-result";
+import { recommendResultOptions } from "#/apis/recommendResult";
 import ResultView from "./ResultView";
 
 interface OpinionResultPageProps {
