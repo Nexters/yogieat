@@ -68,6 +68,7 @@ export const FoodCategoryButton = ({
 
 	return (
 		<button
+			type="button"
 			aria-pressed={selected ?? false}
 			className={foodCategoryButtonVariants({ isAny, selected })}
 			{...props}

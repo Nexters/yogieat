@@ -18,7 +18,6 @@ export const CompleteView = () => {
 						</StepHeader.Description>
 					</StepHeader.Root>
 				</div>
-
 				<div className="ygi:mb-43 ygi:flex ygi:w-full ygi:flex-1 ygi:flex-col ygi:justify-center">
 					<FoodCategoryCarousel />
 				</div>
