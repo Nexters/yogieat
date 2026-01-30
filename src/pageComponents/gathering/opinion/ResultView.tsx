@@ -88,10 +88,13 @@ export const ResultView = ({ recommendationResult }: ResultViewProps) => {
 								의견 일치율
 							</h5>
 							<span className="ygi:shrink-0 ygi:body-18-bd ygi:text-text-interactive">
-								{Math.round(recommendationResult.agreementRate)}%
+								{Math.round(recommendationResult.agreementRate)}
+								%
 							</span>
 						</div>
-						<ProgressBar value={recommendationResult.agreementRate} />
+						<ProgressBar
+							value={recommendationResult.agreementRate}
+						/>
 					</div>
 
 					{/* Divider */}
@@ -107,7 +110,10 @@ export const ResultView = ({ recommendationResult }: ResultViewProps) => {
 									"ygi:bg-palette-secondary-500",
 								)}
 							>
-								<CircleIcon size={11} className="ygi:text-white" />
+								<CircleIcon
+									size={11}
+									className="ygi:text-white"
+								/>
 							</div>
 							<h3 className="ygi:body-14-sb ygi:text-text-primary">
 								좋아하는 음식

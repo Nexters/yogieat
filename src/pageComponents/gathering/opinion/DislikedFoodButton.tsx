@@ -8,7 +8,7 @@ import { AnimatePresence } from "motion/react";
 import { twJoin } from "tailwind-merge";
 import Image from "next/image";
 
-import { FOOD_CATEGORY_LABELS } from "#/constants/gathering/opinion";
+import { FOOD_CATEGORY_LABEL } from "#/constants/gathering/opinion";
 import type { FoodCategory } from "#/types/gathering";
 import type { OpinionFormSchema } from "#/schemas/gathering";
 
@@ -60,11 +60,10 @@ export const DislikedFoodButton = ({ category }: DislikedFoodButtonProps) => {
 	const { field } = useController({ name: "dislikedFoods", control });
 
 	const dislikedFoods = field.value || [];
+
 	const isSelected = dislikedFoods.includes(category);
 	const isAny = category === "ANY";
 	const shouldShowXIcon = isSelected && !isAny;
-	const imageSrc = `/images/foodCategory/${category.toLowerCase()}.svg`;
-	const label = FOOD_CATEGORY_LABELS[category];
 
 	return (
 		<button
@@ -78,8 +77,8 @@ export const DislikedFoodButton = ({ category }: DislikedFoodButtonProps) => {
 		>
 			<div className="ygi:relative ygi:size-20">
 				<Image
-					src={imageSrc}
-					alt={label}
+					src={`/images/foodCategory/${category.toLowerCase()}.svg`}
+					alt={FOOD_CATEGORY_LABEL[category]}
 					fill
 					className="ygi:object-contain"
 					priority
@@ -110,7 +109,7 @@ export const DislikedFoodButton = ({ category }: DislikedFoodButtonProps) => {
 						: "ygi:text-text-secondary",
 				)}
 			>
-				{label}
+				{FOOD_CATEGORY_LABEL[category]}
 			</span>
 		</button>
 	);
