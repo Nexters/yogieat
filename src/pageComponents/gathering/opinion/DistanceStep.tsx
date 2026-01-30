@@ -1,30 +1,22 @@
 "use client";
 
-import { useFormContext, useController } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
+import { isUndefined } from "es-toolkit/predicate";
 
 import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
 import { StepHeader } from "#/components/stepHeader";
 import { Button } from "#/components/button";
-import { Chip } from "#/components/chip";
-import { useDistanceStepValidation } from "#/hooks/gathering";
-import {
-	DISTANCE_OPTIONS,
-	OPINION_TOTAL_STEPS,
-	REGION_OPTIONS,
-} from "#/constants/gathering/opinion";
-import type { OpinionForm } from "#/types/gathering";
+import { OPINION_TOTAL_STEPS, REGION_OPTIONS } from "#/constants/gathering/opinion";
+import type { OpinionFormSchema } from "#/schemas/gathering";
 import type { GetGatheringResponse } from "#/apis/gathering";
+import { DistanceSelector } from "./DistanceSelector";
 
 interface DistanceStepContentProps {
 	region: GetGatheringResponse["region"];
 }
 
 export const DistanceStepContent = ({ region }: DistanceStepContentProps) => {
-	const { control } = useFormContext<OpinionForm>();
-	const { field } = useController({ name: "distanceRange", control });
-
-	// FIXME : Region 관련 ENUM 혹은 as const 상수화 필요 (타입 안정성 확보)
 	const stationName =
 		REGION_OPTIONS.find((currentRegion) => currentRegion.id === region)
 			?.label ?? "";
@@ -42,23 +34,7 @@ export const DistanceStepContent = ({ region }: DistanceStepContentProps) => {
 					{`${stationName} 기준으로 추천 범위를 정할게요`}
 				</StepHeader.Description>
 			</StepHeader.Root>
-			<div className="ygi:flex ygi:gap-3">
-				{DISTANCE_OPTIONS.map((option) => (
-					<Chip
-						key={option.value}
-						selected={field.value === option.value}
-						onClick={() => {
-							field.onChange(
-								field.value === option.value
-									? undefined
-									: option.value,
-							);
-						}}
-					>
-						{option.label}
-					</Chip>
-				))}
-			</div>
+			<DistanceSelector />
 		</div>
 	);
 };
@@ -68,14 +44,12 @@ interface DistanceStepFooterProps {
 }
 
 export const DistanceStepFooter = ({ onNext }: DistanceStepFooterProps) => {
-	const { control } = useFormContext<OpinionForm>();
-	const isValid = useDistanceStepValidation(control);
-
-	const handleNext = () => {
-		if (isValid) {
-			onNext();
-		}
-	};
+	const { control } = useFormContext<OpinionFormSchema>();
+	const disabled = useWatch({
+		control,
+		name: "distanceRange",
+		compute: (value) => isUndefined(value),
+	});
 
 	return (
 		<Layout.Footer>
@@ -83,8 +57,8 @@ export const DistanceStepFooter = ({ onNext }: DistanceStepFooterProps) => {
 				<Button
 					variant="primary"
 					width="full"
-					disabled={!isValid}
-					onClick={handleNext}
+					disabled={disabled}
+					onClick={onNext}
 				>
 					다음
 				</Button>
