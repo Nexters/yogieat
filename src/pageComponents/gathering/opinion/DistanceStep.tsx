@@ -1,6 +1,7 @@
 "use client";
 
-import { useFormContext, useController } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
+import { isUndefined } from "es-toolkit/predicate";
 
 import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
@@ -44,16 +45,12 @@ interface DistanceStepFooterProps {
 }
 
 export const DistanceStepFooter = ({ onNext }: DistanceStepFooterProps) => {
-	const { control, formState } = useFormContext<OpinionFormSchema>();
-	const { field } = useController({ name: "distanceRange", control });
-
-	const isValid = !!field.value && !formState.errors.distanceRange;
-
-	const handleNext = () => {
-		if (isValid) {
-			onNext();
-		}
-	};
+	const { control } = useFormContext<OpinionFormSchema>();
+	const disabled = useWatch({
+		control,
+		name: "distanceRange",
+		compute: (value) => isUndefined(value),
+	});
 
 	return (
 		<Layout.Footer>
@@ -61,8 +58,8 @@ export const DistanceStepFooter = ({ onNext }: DistanceStepFooterProps) => {
 				<Button
 					variant="primary"
 					width="full"
-					disabled={!isValid}
-					onClick={handleNext}
+					disabled={disabled}
+					onClick={onNext}
 				>
 					다음
 				</Button>
