@@ -22,14 +22,12 @@ export type FoodCategory =
 
 export type RankKey = "first" | "second" | "third";
 
+export type PreferredMenu = Partial<Record<RankKey, FoodCategory>>;
+
 export interface OpinionForm {
 	distanceRange: DistanceRange;
 	dislikedFoods: FoodCategory[];
-	preferredMenus: {
-		first: FoodCategory;
-		second: FoodCategory;
-		third: FoodCategory;
-	};
+	preferredMenus: PreferredMenu;
 }
 
 export type OpinionStep = "intro" | "distance" | "dislike" | "preference";
