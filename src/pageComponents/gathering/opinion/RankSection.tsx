@@ -1,23 +1,33 @@
 "use client";
 
-import { Chip } from "#/components/chip";
-import { FOOD_CATEGORIES, RANK_LABELS } from "#/constants/gathering/opinion";
-import type { FoodCategory, RankKey } from "#/types/gathering";
+import { useFormContext, useWatch } from "react-hook-form";
+
+import {
+	RANK_LABELS,
+	FOOD_CATEGORIES,
+	RANKS,
+} from "#/constants/gathering/opinion";
+import type { RankKey } from "#/types/gathering";
+import type { OpinionFormSchema } from "#/schemas/gathering";
+import { RankChip } from "./RankChip";
 import { twJoin } from "tailwind-merge";
 
 interface RankSectionProps {
 	rank: RankKey;
-	selectedMenu?: FoodCategory;
-	isDisabled: boolean;
-	onMenuSelect: (menu: FoodCategory) => void;
 }
 
-export const RankSection = ({
-	rank,
-	selectedMenu,
-	isDisabled,
-	onMenuSelect,
-}: RankSectionProps) => {
+export const RankSection = ({ rank }: RankSectionProps) => {
+	const { control } = useFormContext<OpinionFormSchema>();
+
+	const disabled = useWatch({
+		control,
+		name: "preferredMenus",
+		compute: (data) =>
+			RANKS.slice(0, RANKS.indexOf(rank)).some(
+				(prevRank) => data[prevRank] === "ANY",
+			),
+	});
+
 	return (
 		<div className="ygi:flex ygi:flex-col ygi:gap-6 ygi:py-6">
 			<div className="ygi:flex ygi:items-center ygi:justify-between">
@@ -25,21 +35,14 @@ export const RankSection = ({
 					{RANK_LABELS[rank]}
 				</h2>
 			</div>
-			<div
-				className={twJoin(
-					"ygi:flex ygi:flex-wrap ygi:gap-3",
-					isDisabled && "ygi:opacity-40",
-				)}
-			>
+			<div className={twJoin("ygi:flex ygi:flex-wrap ygi:gap-3")}>
 				{FOOD_CATEGORIES.map((category) => (
-					<Chip
+					<RankChip
 						key={category.value}
-						selected={selectedMenu === category.value}
-						disabled={isDisabled}
-						onClick={() => onMenuSelect(category.value)}
-					>
-						{category.label}
-					</Chip>
+						rank={rank}
+						category={category.value}
+						disabled={disabled}
+					/>
 				))}
 			</div>
 		</div>
