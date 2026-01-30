@@ -7,7 +7,10 @@ import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
 import { StepHeader } from "#/components/stepHeader";
 import { Button } from "#/components/button";
-import { OPINION_TOTAL_STEPS, REGION_OPTIONS } from "#/constants/gathering/opinion";
+import {
+	OPINION_TOTAL_STEPS,
+	REGION_OPTIONS,
+} from "#/constants/gathering/opinion";
 import type { OpinionFormSchema } from "#/schemas/gathering";
 import type { GetGatheringResponse } from "#/apis/gathering";
 import { DistanceSelector } from "./DistanceSelector";

@@ -70,7 +70,10 @@ export const DislikedFoodButton = ({ category }: DislikedFoodButtonProps) => {
 		<button
 			type="button"
 			aria-pressed={isSelected}
-			className={dislikedFoodButtonVariants({ isAny, selected: isSelected })}
+			className={dislikedFoodButtonVariants({
+				isAny,
+				selected: isSelected,
+			})}
 			onClick={() => field.onChange([category])}
 		>
 			<div className="ygi:relative ygi:size-20">
