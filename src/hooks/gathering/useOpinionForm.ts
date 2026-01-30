@@ -12,6 +12,7 @@ import { useCreateParticipant } from "../apis/participant";
 import { useParams, useRouter } from "next/navigation";
 import { isApiError } from "#/utils/api";
 import { toast } from "#/utils/toast";
+import { compact } from "es-toolkit";
 
 export function useOpinionForm() {
 	const router = useRouter();
@@ -34,11 +35,11 @@ export function useOpinionForm() {
 
 	const handleSubmit = methods.handleSubmit(async (data) => {
 		try {
-			const preferences = [
+			const preferences = compact([
 				data.preferredMenus.first,
 				data.preferredMenus.second,
 				data.preferredMenus.third,
-			].filter((menu): menu is FoodCategory => menu !== undefined);
+			]);
 
 			await createParticipant({
 				accessKey,
