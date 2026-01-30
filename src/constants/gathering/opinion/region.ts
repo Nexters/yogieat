@@ -1,17 +1,19 @@
-import type { Region } from "#/types/gathering";
+export const REGION = {
+	HONGDAE: "HONGDAE",
+	GANGNAM: "GANGNAM",
+} as const;
 
-export interface RegionOption {
-	id: NonNullable<Region>;
+export type Region = (typeof REGION)[keyof typeof REGION];
+
+export const REGION_LABEL = {
+	HONGDAE: "홍대입구역",
+	GANGNAM: "강남역",
+} as const;
+
+export const REGION_OPTIONS: ReadonlyArray<{
+	value: Region;
 	label: string;
-}
-
-export const REGION_OPTIONS: RegionOption[] = [
-	{
-		id: "HONGDAE",
-		label: "홍대입구역",
-	},
-	{
-		id: "GANGNAM",
-		label: "강남역",
-	},
-] as const;
+}> = [
+	{ value: REGION.HONGDAE, label: REGION_LABEL.HONGDAE },
+	{ value: REGION.GANGNAM, label: REGION_LABEL.GANGNAM },
+];
