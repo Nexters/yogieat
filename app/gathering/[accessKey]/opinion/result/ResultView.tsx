@@ -6,7 +6,7 @@ import { ResultView } from "#/pageComponents/gathering/opinion";
 import { useParams, redirect } from "next/navigation";
 import { BackwardButton } from "#/components/backwardButton";
 import { useGetGatheringCapacity } from "#/hooks/apis/gathering";
-import { useGetRecommendResult } from "#/hooks/apis/recommend-result";
+import { useGetRecommendResult } from "#/hooks/apis/recommendResult";
 
 export default function ResultViewContainer() {
 	const { accessKey } = useParams<{ accessKey: string }>();
