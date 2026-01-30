@@ -18,11 +18,13 @@ export const gatheringOptions = {
 		queryOptions({
 			queryKey: gatheringKeys.detail(accessKey),
 			queryFn: () => getGathering(accessKey),
+			select: (response) => response.data,
 		}),
 
 	capacity: (accessKey: string) =>
 		queryOptions({
 			queryKey: gatheringKeys.capacity(accessKey),
 			queryFn: () => getGatheringCapacity(accessKey),
+			select: (response) => response.data,
 		}),
 };
