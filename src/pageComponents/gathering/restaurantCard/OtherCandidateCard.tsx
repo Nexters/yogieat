@@ -5,10 +5,10 @@ import { ChevronRightIcon } from "#/icons/chevronRightIcon";
 import type { Restaurant } from "#/types/gathering";
 import {
 	FOOD_CATEGORY_LABEL,
-	DISTANCE_LABELS,
+	DISTANCE_RANGE_LABEL,
 } from "#/constants/gathering/opinion";
 import Image from "next/image";
-import { Tag } from "../tag";
+import { Tag } from "#/components/tag";
 
 export interface OtherCandidateCardProps {
 	restaurant: Restaurant;
@@ -68,7 +68,7 @@ export const OtherCandidateCard = ({
 
 				<div className="ygi:flex ygi:flex-wrap ygi:gap-2">
 					<Tag size="medium">
-						{`역에서 ${DISTANCE_LABELS[restaurant.majorityDistanceRange]}`}
+						{`역에서 ${DISTANCE_RANGE_LABEL[restaurant.majorityDistanceRange]}`}
 					</Tag>
 					<Tag size="medium">
 						{FOOD_CATEGORY_LABEL[restaurant.largeCategory]}

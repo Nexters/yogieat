@@ -4,7 +4,7 @@ import { Layout } from "#/components/layout";
 import {
 	TopRecommendCard,
 	OtherCandidateCard,
-} from "#/components/restaurantCard";
+} from "#/pageComponents/gathering/restaurantCard";
 import type { RecommendationResult } from "#/types/gathering";
 import { twJoin } from "tailwind-merge";
 import { Chip } from "#/components/chip";
