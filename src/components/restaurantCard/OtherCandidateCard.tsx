@@ -4,7 +4,7 @@ import { StarIcon } from "#/icons/starIcon";
 import { ChevronRightIcon } from "#/icons/chevronRightIcon";
 import type { Restaurant } from "#/types/gathering";
 import {
-	FOOD_CATEGORY_LABELS,
+	FOOD_CATEGORY_LABEL,
 	DISTANCE_LABELS,
 } from "#/constants/gathering/opinion";
 import Image from "next/image";
@@ -71,7 +71,7 @@ export const OtherCandidateCard = ({
 						{`역에서 ${DISTANCE_LABELS[restaurant.majorityDistanceRange]}`}
 					</Tag>
 					<Tag size="medium">
-						{FOOD_CATEGORY_LABELS[restaurant.largeCategory]}
+						{FOOD_CATEGORY_LABEL[restaurant.largeCategory]}
 					</Tag>
 				</div>
 			</div>

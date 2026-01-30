@@ -1,9 +1,15 @@
 export { OPINION_STEP_ORDER, OPINION_TOTAL_STEPS } from "./funnel";
-export { DISTANCE_OPTIONS, DISTANCE_LABELS } from "./distance";
 export {
+	DISTANCE_RANGE,
+	DISTANCE_RANGE_LABEL,
+	DISTANCE_OPTIONS,
+	type DistanceRange,
+} from "./distance";
+export {
+	FOOD_CATEGORY_LABEL,
 	FOOD_CATEGORIES,
-	FOOD_CATEGORY_LABELS,
 	FOOD_CATEGORY_VALUES,
+	type FoodCategory,
 } from "./food";
 export { RANKS, RANK_LABELS } from "./rank";
 export { REGION_OPTIONS } from "./region";

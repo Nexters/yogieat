@@ -12,7 +12,7 @@ import { CrownIcon } from "#/icons/crownIcon";
 import { ProgressBar } from "#/components/progressBar";
 import { CircleIcon } from "#/icons/circleIcon";
 import { XIcon } from "#/icons/xIcon";
-import { FOOD_CATEGORY_LABELS } from "#/constants/gathering/opinion";
+import { FOOD_CATEGORY_LABEL } from "#/constants/gathering/opinion";
 import type { FoodCategory } from "#/types/gathering";
 
 export interface ResultViewProps {
@@ -39,7 +39,7 @@ const VoteList = ({ votes }: VoteListProps) => {
 					className="ygi:flex ygi:items-center ygi:gap-1"
 				>
 					<span className="ygi:body-14-md ygi:text-text-secondary">
-						{FOOD_CATEGORY_LABELS[vote.category]}
+						{FOOD_CATEGORY_LABEL[vote.category]}
 					</span>
 					<span
 						className={twJoin(

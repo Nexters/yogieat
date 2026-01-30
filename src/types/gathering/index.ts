@@ -1,3 +1,8 @@
+import type { DistanceRange } from "#/constants/gathering/opinion/distance";
+import type { FoodCategory } from "#/constants/gathering/opinion/food";
+
+export type { DistanceRange, FoodCategory };
+
 export interface CreateMeetingForm {
 	peopleCount?: number;
 	scheduledDate: string;
@@ -9,16 +14,6 @@ export type TimeSlot = CreateMeetingForm["timeSlot"];
 export type Region = CreateMeetingForm["region"];
 
 export type CreateMeetingStep = "people" | "date" | "region";
-
-export type DistanceRange = "RANGE_500M" | "RANGE_1KM" | "ANY";
-
-export type FoodCategory =
-	| "KOREAN"
-	| "JAPANESE"
-	| "CHINESE"
-	| "WESTERN"
-	| "ASIAN"
-	| "ANY";
 
 export type RankKey = "first" | "second" | "third";
 
