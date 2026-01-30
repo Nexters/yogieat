@@ -73,7 +73,7 @@ export const DislikedFoodButton = ({ category }: DislikedFoodButtonProps) => {
 				isAny,
 				selected: isSelected,
 			})}
-			onClick={() => field.onChange([category])}
+			onClick={() => field.onChange(isSelected ? [] : [category])}
 		>
 			<div className="ygi:relative ygi:size-20">
 				<Image

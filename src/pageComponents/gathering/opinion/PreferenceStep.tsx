@@ -40,15 +40,17 @@ export const PreferenceStepFooter = () => {
 		control,
 		name: "preferredMenus",
 		compute: (value) => {
-			const { first, second, third } = value || {};
+			const { first, second, third } = value ?? {};
 
-			if (!first) return true;
-
-			if (first === "ANY") return !!second || !!third;
-
-			if (!second) return true;
-
-			if (second === "ANY") return !!third;
+			if (!first) {
+				return true;
+			}
+			if (first === "ANY") {
+				return !second && !third;
+			}
+			if (!second) {
+				return true;
+			}
 
 			return !third;
 		},
