@@ -15,14 +15,32 @@ import {
 import type { OpinionFormSchema } from "#/schemas/gathering";
 import type { GetGatheringResponse } from "#/apis/gathering";
 
+const DistanceChipGroup = () => {
+	const { control } = useFormContext<OpinionFormSchema>();
+	const { field } = useController({ name: "distanceRange", control });
+
+	return (
+		<div className="ygi:flex ygi:gap-3">
+			{DISTANCE_OPTIONS.map((option) => (
+				<Chip
+					key={option.value}
+					selected={field.value === option.value}
+					onClick={() => {
+						field.onChange(option.value);
+					}}
+				>
+					{option.label}
+				</Chip>
+			))}
+		</div>
+	);
+};
+
 interface DistanceStepContentProps {
 	region: GetGatheringResponse["region"];
 }
 
 export const DistanceStepContent = ({ region }: DistanceStepContentProps) => {
-	const { control } = useFormContext<OpinionFormSchema>();
-	const { field } = useController({ name: "distanceRange", control });
-
 	// FIXME : Region 관련 ENUM 혹은 as const 상수화 필요 (타입 안정성 확보)
 	const stationName =
 		REGION_OPTIONS.find((currentRegion) => currentRegion.id === region)
@@ -41,19 +59,7 @@ export const DistanceStepContent = ({ region }: DistanceStepContentProps) => {
 					{`${stationName} 기준으로 추천 범위를 정할게요`}
 				</StepHeader.Description>
 			</StepHeader.Root>
-			<div className="ygi:flex ygi:gap-3">
-				{DISTANCE_OPTIONS.map((option) => (
-					<Chip
-						key={option.value}
-						selected={field.value === option.value}
-						onClick={() => {
-							field.onChange(option.value);
-						}}
-					>
-						{option.label}
-					</Chip>
-				))}
-			</div>
+			<DistanceChipGroup />
 		</div>
 	);
 };
