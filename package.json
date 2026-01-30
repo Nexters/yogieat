@@ -11,6 +11,7 @@
     "generate:colors": "node scripts/colors/generate.js"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
     "@lottiefiles/react-lottie-player": "^3.6.0",
     "@radix-ui/react-slot": "^1.2.4",
     "@tanstack/react-query": "^5.90.16",
@@ -24,7 +25,8 @@
     "react-dom": "19.2.3",
     "react-hook-form": "^7.71.0",
     "sonner": "^2.0.7",
-    "tailwind-merge": "^3.4.0"
+    "tailwind-merge": "^3.4.0",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
