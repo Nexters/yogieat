@@ -12,3 +12,7 @@ export const FOOD_CATEGORIES: { value: FoodCategory; label: string }[] = [
 export const FOOD_CATEGORY_LABELS = Object.fromEntries(
 	FOOD_CATEGORIES.map(({ value, label }) => [value, label]),
 ) as Record<FoodCategory, string>;
+
+export const FOOD_CATEGORY_VALUES = FOOD_CATEGORIES.map(
+	({ value }) => value,
+);
