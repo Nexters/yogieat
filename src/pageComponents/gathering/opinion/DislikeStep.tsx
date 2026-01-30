@@ -11,7 +11,6 @@ import {
 	FOOD_CATEGORIES,
 	OPINION_TOTAL_STEPS,
 } from "#/constants/gathering/opinion";
-import type { DislikeStepProps } from "#/types/gathering";
 import type { OpinionFormSchema } from "#/schemas/gathering";
 
 export const DislikeStepContent = () => {
@@ -44,9 +43,11 @@ export const DislikeStepContent = () => {
 	);
 };
 
-export const DislikeStepFooter = ({
-	onNext,
-}: Pick<DislikeStepProps, "onNext">) => {
+interface DislikeStepFooterProps {
+	onNext: () => void;
+}
+
+export const DislikeStepFooter = ({ onNext }: DislikeStepFooterProps) => {
 	const { control } = useFormContext<OpinionFormSchema>();
 	const disabled = useWatch({
 		control,
