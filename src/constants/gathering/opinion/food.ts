@@ -1,6 +1,3 @@
-/**
- * FoodCategory Label
- */
 export const FOOD_CATEGORY_LABEL = {
 	KOREAN: "한식",
 	JAPANESE: "일식",
@@ -12,9 +9,6 @@ export const FOOD_CATEGORY_LABEL = {
 
 export type FoodCategory = keyof typeof FOOD_CATEGORY_LABEL;
 
-/**
- * FoodCategory UI 옵션
- */
 export const FOOD_CATEGORIES: ReadonlyArray<{
 	value: FoodCategory;
 	label: string;

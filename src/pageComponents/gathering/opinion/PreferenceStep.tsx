@@ -42,19 +42,14 @@ export const PreferenceStepFooter = () => {
 		compute: (value) => {
 			const { first, second, third } = value || {};
 
-			// 1순위 필수
 			if (!first) return true;
 
-			// 1순위가 "ANY"면 2, 3순위 없어야 함
 			if (first === "ANY") return !!second || !!third;
 
-			// 2순위 필수
 			if (!second) return true;
 
-			// 2순위가 "ANY"면 3순위 없어야 함
 			if (second === "ANY") return !!third;
 
-			// 3순위 필수
 			return !third;
 		},
 	});
