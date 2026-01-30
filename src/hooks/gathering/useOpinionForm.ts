@@ -22,7 +22,7 @@ export function useOpinionForm() {
 		mode: "onChange",
 		resolver: zodResolver(opinionFormSchema),
 		defaultValues: {
-			distanceRange: undefined as any,
+			distanceRange: undefined,
 			dislikedFoods: [],
 			preferredMenus: {
 				first: undefined,
