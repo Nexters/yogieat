@@ -27,7 +27,7 @@ export const PeopleCountGrid = ({ value, onChange }: PeopleCountGridProps) => {
 									onChange(isSelected ? undefined : count)
 								}
 								className={twJoin(
-									"ygi:flex ygi:h-14 ygi:flex-1 ygi:cursor-pointer ygi:items-center ygi:justify-center",
+									"ygi:flex ygi:aspect-square ygi:flex-1 ygi:cursor-pointer ygi:items-center ygi:justify-center",
 									"ygi:rounded-md",
 									"ygi:body-18-bd",
 									isSelected

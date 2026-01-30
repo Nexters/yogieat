@@ -32,7 +32,7 @@ export default function ResultViewContainer() {
 
 			<Layout.Footer background="gray">
 				<div className="ygi:mt-auto ygi:px-6 ygi:pt-4">
-					<ShareButton disabled={false} />
+					<ShareButton />
 				</div>
 			</Layout.Footer>
 		</Layout.Root>

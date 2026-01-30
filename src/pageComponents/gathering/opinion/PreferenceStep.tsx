@@ -42,15 +42,11 @@ export const PreferenceStepFooter = () => {
 		compute: (value) => {
 			const { first, second, third } = value ?? {};
 
-			if (!first) {
-				return true;
-			}
-			if (first === "ANY") {
-				return !second && !third;
-			}
-			if (!second) {
-				return true;
-			}
+			if (!first) return true;
+			if (first === "ANY") return false;
+
+			if (!second) return true;
+			if (second === "ANY") return false;
 
 			return !third;
 		},
