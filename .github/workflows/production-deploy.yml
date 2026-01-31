@@ -45,6 +45,7 @@ jobs:
         run: |
           echo "NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}" > .env.production
           echo "NEXT_PUBLIC_AWS_S3=${{ secrets.NEXT_PUBLIC_AWS_S3 }}" >> .env.production
+          echo "NEXT_PUBLIC_GTM_ID=${{ secrets.NEXT_PUBLIC_GTM_ID }}" >> .env.production
 
       - name: Build and Push Client image
         if: steps.changes.outputs.client == 'true'
