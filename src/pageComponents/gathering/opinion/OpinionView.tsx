@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
+import { redirect, useParams, useRouter } from "next/navigation";
 
 import {
 	IntroStep,
@@ -18,15 +18,26 @@ import { Layout } from "#/components/layout";
 import { FormProvider } from "react-hook-form";
 import { BackwardButton } from "#/components/backwardButton";
 import { Toaster } from "#/components/toast";
-import { useGetGathering } from "#/hooks/apis/gathering";
+import {
+	useGetGathering,
+	useGetGatheringCapacity,
+} from "#/hooks/apis/gathering";
 
-export default function OpinionView() {
+export function OpinionView() {
 	const { accessKey } = useParams<{ accessKey: string }>();
 	const router = useRouter();
 
 	const { methods, onSubmit } = useOpinionForm();
 	const { step, direction, next, back, isFirstStep } = useOpinionFunnel();
+
+	const { data: capacity } = useGetGatheringCapacity(accessKey);
 	const { data: gathering } = useGetGathering(accessKey);
+
+	const isComplete = capacity.currentCount >= capacity.maxCount;
+
+	if (isComplete) {
+		redirect(`/gathering/${accessKey}/opinion/complete`);
+	}
 
 	const handleBackward = () => {
 		if (isFirstStep) {
