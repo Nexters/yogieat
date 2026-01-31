@@ -1,1 +1,6 @@
-export { formatDateInput, isValidDateFormat } from "./dateStep";
+export {
+	formatDateInput,
+	isValidDateFormat,
+	validateDateInput,
+	type DateValidationError,
+} from "./dateStep";

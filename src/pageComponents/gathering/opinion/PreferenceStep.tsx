@@ -1,6 +1,8 @@
 "use client";
 
+import { useEffect } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
+import { omit } from "es-toolkit";
 
 import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
@@ -9,8 +11,38 @@ import { Button } from "#/components/button";
 import { RANKS, OPINION_TOTAL_STEPS } from "#/constants/gathering/opinion";
 import { RankSection } from "./RankSection";
 import type { OpinionFormSchema } from "#/schemas/gathering";
+import type { RankKey } from "#/types/gathering";
 
 export const PreferenceStepContent = () => {
+	const { control, setValue } = useFormContext<OpinionFormSchema>();
+
+	const [dislikedFoods, preferredMenus] = useWatch({
+		control,
+		name: ["dislikedFoods", "preferredMenus"],
+	});
+
+	useEffect(() => {
+		if (!dislikedFoods || !preferredMenus) return;
+
+		const ranksToRemove: RankKey[] = [];
+
+		RANKS.forEach((rank) => {
+			const selectedCategory = preferredMenus[rank];
+			if (
+				selectedCategory &&
+				selectedCategory !== "ANY" &&
+				dislikedFoods.includes(selectedCategory)
+			) {
+				ranksToRemove.push(rank);
+			}
+		});
+
+		if (ranksToRemove.length > 0) {
+			const cleanedMenus = omit(preferredMenus, ranksToRemove);
+			setValue("preferredMenus", cleanedMenus);
+		}
+	}, [dislikedFoods, preferredMenus, setValue]);
+
 	return (
 		<div className="ygi:flex ygi:flex-col ygi:gap-8 ygi:px-6 ygi:pt-3 ygi:pb-6">
 			<div className="ygi:flex ygi:flex-col ygi:gap-6">

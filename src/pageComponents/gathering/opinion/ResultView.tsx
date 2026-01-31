@@ -58,7 +58,7 @@ const VoteList = ({ votes }: VoteListProps) => {
 export const ResultView = ({ recommendationResult }: ResultViewProps) => {
 	return (
 		<Layout.Content background="gray">
-			<div className="ygi:flex ygi:flex-col ygi:gap-3 ygi:px-6 ygi:pb-3">
+			<div className="ygi:flex ygi:flex-col ygi:gap-3 ygi:px-6 ygi:pb-8">
 				{/* Header */}
 				<div className="ygi:flex ygi:items-center ygi:gap-2 ygi:py-6">
 					<Chip selected>

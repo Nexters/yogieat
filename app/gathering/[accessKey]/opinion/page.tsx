@@ -5,7 +5,7 @@ import {
 } from "@tanstack/react-query";
 
 import { gatheringQueryOptions } from "#/apis/gathering";
-import OpinionView from "./OpinionView";
+import { OpinionView } from "#/pageComponents/gathering/opinion";
 
 interface OpinionPageProps {
 	params: Promise<{
@@ -22,7 +22,10 @@ export default async function OpinionPage({ params }: OpinionPageProps) {
 	const queryClient = new QueryClient();
 
 	// 서버에서 gathering 데이터 미리 가져오기
-	await queryClient.prefetchQuery(gatheringQueryOptions.detail(accessKey));
+	await Promise.all([
+		queryClient.prefetchQuery(gatheringQueryOptions.detail(accessKey)),
+		queryClient.prefetchQuery(gatheringQueryOptions.capacity(accessKey)),
+	]);
 
 	return (
 		<HydrationBoundary state={dehydrate(queryClient)}>
