@@ -80,7 +80,7 @@ export type DateValidationError =
  * 날짜 문자열의 유효성을 검사하고 에러 타입을 반환합니다.
  * - INVALID_FORMAT: 형식이 올바르지 않음 (yyyy.MM.dd)
  * - INVALID_DATE: 존재하지 않는 날짜 (예: 2026.02.30)
- * - PAST_DATE: 오늘 이전 날짜
+ * - PAST_DATE: 이미 지난 날짜
  * - null: 유효한 날짜
  */
 export const validateDateInput = (value: string): DateValidationError => {

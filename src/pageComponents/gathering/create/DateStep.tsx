@@ -31,7 +31,7 @@ const DATE_ERROR_MESSAGES: Record<
 > = {
 	INVALID_FORMAT: "날짜 형식을 확인해주세요 (예: 2026.01.31)",
 	INVALID_DATE: "존재하지 않는 날짜예요",
-	PAST_DATE: "오늘 이후 날짜를 선택해주세요",
+	PAST_DATE: "이미 지난 날짜예요",
 };
 
 export const DateStepContent = () => {
@@ -79,7 +79,9 @@ export const DateStepContent = () => {
 						placeholder="날짜를 입력해주세요"
 						helperText="예) 2026.01.28"
 						errorText={
-							dateError ? DATE_ERROR_MESSAGES[dateError] : undefined
+							dateError
+								? DATE_ERROR_MESSAGES[dateError]
+								: undefined
 						}
 						inputMode="numeric"
 						showClearButton
