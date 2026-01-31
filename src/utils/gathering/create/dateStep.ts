@@ -1,4 +1,4 @@
-import { parse, isValid } from "date-fns";
+import { parse, isValid, startOfDay, isBefore } from "date-fns";
 import { DATE_PATTERN } from "#/constants/gathering/create";
 
 /**
@@ -72,7 +72,8 @@ const DATE_FORMAT = "yyyy.MM.dd";
 
 /**
  * 날짜 문자열이 유효한 형식인지 검사합니다.
- * yyyy.MM.dd 패턴과 실제 존재하는 날짜인지 확인합니다.
+ * yyyy.MM.dd 패턴과 실제 존재하는 날짜인지 확인하며,
+ * 오늘 날짜 이전은 선택할 수 없습니다.
  */
 export const isValidDateFormat = (value: string): boolean => {
 	if (!DATE_PATTERN.test(value)) {
@@ -80,5 +81,16 @@ export const isValidDateFormat = (value: string): boolean => {
 	}
 
 	const parsedDate = parse(value, DATE_FORMAT, new Date());
-	return isValid(parsedDate);
+
+	if (!isValid(parsedDate)) {
+		return false;
+	}
+
+	const today = startOfDay(new Date());
+
+	if (isBefore(parsedDate, today)) {
+		return false;
+	}
+
+	return true;
 };
