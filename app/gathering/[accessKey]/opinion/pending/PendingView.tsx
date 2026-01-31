@@ -8,6 +8,7 @@ import {
 } from "#/pageComponents/gathering/opinion";
 import { useParams, redirect } from "next/navigation";
 import { useGetGatheringCapacity } from "#/hooks/apis/gathering";
+import { ShareButton } from "#/components/shareButton";
 
 export default function PendingViewContainer() {
 	const { accessKey } = useParams<{ accessKey: string }>();
@@ -29,7 +30,8 @@ export default function PendingViewContainer() {
 			/>
 
 			<Layout.Footer>
-				<div className="ygi:px-6">
+				<div className="ygi:flex ygi:gap-3 ygi:px-6">
+					<ShareButton />
 					<Button variant="primary" width="full" disabled>
 						추천 결과 보기
 					</Button>
