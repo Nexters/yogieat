@@ -14,6 +14,7 @@ export default function PendingViewContainer() {
 	const { data: capacity } = useGetGatheringCapacity(accessKey);
 
 	const isComplete = capacity.currentCount >= capacity.maxCount;
+
 	if (isComplete) {
 		redirect(`/gathering/${accessKey}/opinion/complete`);
 	}

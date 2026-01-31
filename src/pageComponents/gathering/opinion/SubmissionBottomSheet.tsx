@@ -17,7 +17,7 @@ export const SubmissionBottomSheet = ({
 	const isComplete = currentCount >= maxCount;
 
 	const title = isComplete
-		? `${maxCount}명 중 모두 참여했어요`
+		? `${maxCount}명아 모두 참여했어요`
 		: `${maxCount}명 중 ${currentCount}명이 제출했어요`;
 
 	const description = isComplete
