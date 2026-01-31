@@ -28,10 +28,11 @@ export default function ResultViewContainer() {
 			<Layout.Header background="gray">
 				<BackwardButton onClick={handleClickBackward} />
 			</Layout.Header>
+
 			<ResultView recommendationResult={recommendationResult} />
 
 			<Layout.Footer background="gray">
-				<div className="ygi:mt-auto ygi:px-6 ygi:pt-4">
+				<div className="ygi:px-6">
 					<ShareButton />
 				</div>
 			</Layout.Footer>
