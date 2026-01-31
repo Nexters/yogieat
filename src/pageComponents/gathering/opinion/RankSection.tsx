@@ -33,9 +33,10 @@ export const RankSection = ({ rank }: RankSectionProps) => {
 		name: "dislikedFoods",
 	});
 
-	// DislikeStep에서 선택한 카테고리를 제외
+	// DislikeStep에서 선택한 카테고리를 제외 (단, "상관 없음(ANY)"은 제외하지 않음)
 	const availableCategories = FOOD_CATEGORIES.filter(
-		(category) => !dislikedFoods?.includes(category.value),
+		(category) =>
+			category.value === "ANY" || !dislikedFoods?.includes(category.value),
 	);
 
 	return (
