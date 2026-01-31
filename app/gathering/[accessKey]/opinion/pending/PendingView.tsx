@@ -41,7 +41,7 @@ export default function PendingViewContainer() {
 			<Layout.Footer>
 				<div className="ygi:flex ygi:gap-3 ygi:px-6">
 					<Button
-						variant="secondary"
+						variant="primary"
 						width="full"
 						onClick={handleShare}
 					>
