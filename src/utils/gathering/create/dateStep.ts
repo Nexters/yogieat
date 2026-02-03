@@ -1,5 +1,6 @@
-import { parse, isValid } from "date-fns";
+import { parse, isValid, startOfDay, isBefore } from "date-fns";
 import { DATE_PATTERN } from "#/constants/gathering/create";
+import { isNil } from "es-toolkit";
 
 /**
  * 날짜 입력값을 yyyy.mm.dd 형식으로 포맷팅합니다.
@@ -70,15 +71,44 @@ export const formatDateInput = (value: string): string => {
 
 const DATE_FORMAT = "yyyy.MM.dd";
 
+export type DateValidationError =
+	| "INVALID_FORMAT"
+	| "INVALID_DATE"
+	| "PAST_DATE"
+	| null;
+
 /**
- * 날짜 문자열이 유효한 형식인지 검사합니다.
- * yyyy.MM.dd 패턴과 실제 존재하는 날짜인지 확인합니다.
+ * 날짜 문자열의 유효성을 검사하고 에러 타입을 반환합니다.
+ * - INVALID_FORMAT: 형식이 올바르지 않음 (yyyy.MM.dd)
+ * - INVALID_DATE: 존재하지 않는 날짜 (예: 2026.02.30)
+ * - PAST_DATE: 이미 지난 날짜
+ * - null: 유효한 날짜
  */
-export const isValidDateFormat = (value: string): boolean => {
+export const validateDateInput = (value: string): DateValidationError => {
 	if (!DATE_PATTERN.test(value)) {
-		return false;
+		return "INVALID_FORMAT";
 	}
 
 	const parsedDate = parse(value, DATE_FORMAT, new Date());
-	return isValid(parsedDate);
+
+	if (!isValid(parsedDate)) {
+		return "INVALID_DATE";
+	}
+
+	const today = startOfDay(new Date());
+
+	if (isBefore(parsedDate, today)) {
+		return "PAST_DATE";
+	}
+
+	return null;
+};
+
+/**
+ * 날짜 문자열이 유효한 형식인지 검사합니다.
+ * yyyy.MM.dd 패턴과 실제 존재하는 날짜인지 확인하며,
+ * 오늘 날짜 이전은 선택할 수 없습니다.
+ */
+export const isValidDateFormat = (value: string): boolean => {
+	return isNil(validateDateInput(value));
 };

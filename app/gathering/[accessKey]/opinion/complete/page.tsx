@@ -5,7 +5,7 @@ import {
 } from "@tanstack/react-query";
 
 import { gatheringQueryOptions } from "#/apis/gathering";
-import CompleteView from "./CompleteView";
+import { CompleteViewContainer } from "./CompleteViewContainer";
 
 interface OpinionCompletePageProps {
 	params: Promise<{
@@ -27,7 +27,7 @@ export default async function OpinionCompletePage({
 
 	return (
 		<HydrationBoundary state={dehydrate(queryClient)}>
-			<CompleteView />
+			<CompleteViewContainer />
 		</HydrationBoundary>
 	);
 }

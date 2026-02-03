@@ -5,7 +5,7 @@ import {
 } from "@tanstack/react-query";
 
 import { gatheringQueryOptions } from "#/apis/gathering";
-import PendingView from "./PendingView";
+import { PendingViewContainer } from "./PendingViewContainer";
 
 interface OpinionPendingPageProps {
 	params: Promise<{
@@ -27,7 +27,7 @@ export default async function OpinionPendingPage({
 
 	return (
 		<HydrationBoundary state={dehydrate(queryClient)}>
-			<PendingView />
+			<PendingViewContainer />
 		</HydrationBoundary>
 	);
 }

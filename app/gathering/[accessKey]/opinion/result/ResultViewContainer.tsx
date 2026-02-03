@@ -8,7 +8,7 @@ import { BackwardButton } from "#/components/backwardButton";
 import { useGetGatheringCapacity } from "#/hooks/apis/gathering";
 import { useGetRecommendResult } from "#/hooks/apis/recommendResult";
 
-export default function ResultViewContainer() {
+export function ResultViewContainer() {
 	const { accessKey } = useParams<{ accessKey: string }>();
 	const { data: capacity } = useGetGatheringCapacity(accessKey);
 	const { data: recommendationResult } = useGetRecommendResult(accessKey);
@@ -28,10 +28,11 @@ export default function ResultViewContainer() {
 			<Layout.Header background="gray">
 				<BackwardButton onClick={handleClickBackward} />
 			</Layout.Header>
+
 			<ResultView recommendationResult={recommendationResult} />
 
 			<Layout.Footer background="gray">
-				<div className="ygi:mt-auto ygi:px-6 ygi:pt-4">
+				<div className="ygi:px-6">
 					<ShareButton />
 				</div>
 			</Layout.Footer>

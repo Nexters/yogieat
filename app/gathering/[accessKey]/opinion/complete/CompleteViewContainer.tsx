@@ -8,8 +8,9 @@ import {
 } from "#/pageComponents/gathering/opinion";
 import { useParams, redirect } from "next/navigation";
 import { useGetGatheringCapacity } from "#/hooks/apis/gathering";
+import { Toaster } from "#/components/toast";
 
-export default function CompleteViewContainer() {
+export function CompleteViewContainer() {
 	const { accessKey } = useParams<{ accessKey: string }>();
 	const { data: capacity } = useGetGatheringCapacity(accessKey);
 
@@ -43,6 +44,7 @@ export default function CompleteViewContainer() {
 					</Button>
 				</div>
 			</Layout.Footer>
+			<Toaster offset={{ bottom: 96 }} mobileOffset={{ bottom: 96 }} />
 		</Layout.Root>
 	);
 }

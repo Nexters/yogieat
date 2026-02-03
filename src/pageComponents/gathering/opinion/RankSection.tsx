@@ -28,6 +28,17 @@ export const RankSection = ({ rank }: RankSectionProps) => {
 			),
 	});
 
+	const dislikedFoods = useWatch({
+		control,
+		name: "dislikedFoods",
+	});
+
+	const availableCategories = FOOD_CATEGORIES.filter(
+		(category) =>
+			category.value === "ANY" ||
+			!dislikedFoods?.includes(category.value),
+	);
+
 	return (
 		<div className="ygi:flex ygi:flex-col ygi:gap-6 ygi:py-6">
 			<div className="ygi:flex ygi:items-center ygi:justify-between">
@@ -36,7 +47,7 @@ export const RankSection = ({ rank }: RankSectionProps) => {
 				</h2>
 			</div>
 			<div className={twJoin("ygi:flex ygi:flex-wrap ygi:gap-3")}>
-				{FOOD_CATEGORIES.map((category) => (
+				{availableCategories.map((category) => (
 					<RankChip
 						key={category.value}
 						rank={rank}
