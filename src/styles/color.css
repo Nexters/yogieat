@@ -75,21 +75,24 @@
 	/* Background */
 	--color-bg-white: var(--ygi-color-palette-common-white);
 	--color-bg-gray: var(--ygi-color-palette-gray-100);
+	--color-bg-website: var(--ygi-color-palette-gray-200);
 	--color-bg-dim: var(--ygi-color-palette-opacity-gray-16);
 
 	/* Surface */
 	--color-surface-white: var(--ygi-color-palette-common-white);
+	--color-surface-primary: var(--ygi-color-palette-primary-50);
+	--color-surface-secondary: var(--ygi-color-palette-secondary-50);
 	--color-surface-lightgray: var(--ygi-color-palette-gray-50);
 	--color-surface-gray: var(--ygi-color-palette-gray-100);
-	--color-surface-primary: var(--ygi-color-palette-primary-50);
-	--color-surface-disabled: var(--ygi-color-palette-gray-100);
-	--color-surface-secondary: var(--ygi-color-palette-secondary-50);
+	--color-surface-disabled: var(--ygi-color-palette-gray-50);
+	
 	--color-surface-active: var(--ygi-color-palette-primary-500);
+	--color-surface-dark: var(--ygi-color-palette-gray-800);
 
 	/* Text */
 	--color-text-primary: var(--ygi-color-palette-gray-900);
 	--color-text-secondary: var(--ygi-color-palette-gray-500);
-	--color-text-disabled: var(--ygi-color-palette-gray-400);
+	--color-text-disabled: var(--ygi-color-palette-gray-300);
 	--color-text-inverse: var(--ygi-color-palette-common-white);
 	--color-text-inverse-secondary: var(--ygi-color-palette-gray-50);
 	--color-text-placeholder: var(--ygi-color-palette-gray-400);
@@ -97,14 +100,15 @@
 
 	/* Border */
 	--color-border-default: var(--ygi-color-palette-gray-200);
-	--color-border-strong: var(--ygi-color-palette-gray-800);
 	--color-border-primary: var(--ygi-color-palette-primary-500);
 	--color-border-primary-opacity: var(--ygi-color-palette-opacity-primary-80);
 	--color-border-secondary: var(--ygi-color-palette-secondary-500);
+	--color-border-inverse: var(--ygi-color-palette-common-white);
 
 	/* Icon */
 	--color-icon-default: var(--ygi-color-palette-gray-500);
 	--color-icon-disabled: var(--ygi-color-palette-gray-400);
+	--color-icon-strong: var(--ygi-color-palette-gray-800);
 	--color-icon-inverse: var(--ygi-color-palette-common-white);
 
 	/* Button */
@@ -116,5 +120,8 @@
 	--color-button-secondary-disabled: var(--ygi-color-palette-primary-200);
 	--color-button-tertiary: var(--ygi-color-palette-gray-100);
 	--color-button-tertiary-hover: var(--ygi-color-palette-gray-200);
-	--color-button-tertiary-disabled: var(--ygi-color-palette-gray-100);
+	--color-button-tertiary-disabled: var(--ygi-color-palette-gray-50);
+	--color-button-inverse: var(--ygi-color-palette-common-white);
+	--color-button-inverse-hover: var(--ygi-color-palette-gray-50);
+	--color-button-inverse-disabled: var(--ygi-color-palette-gray-100);
 }
