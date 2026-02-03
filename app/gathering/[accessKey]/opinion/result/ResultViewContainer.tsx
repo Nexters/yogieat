@@ -8,7 +8,7 @@ import { BackwardButton } from "#/components/backwardButton";
 import { useGetGatheringCapacity } from "#/hooks/apis/gathering";
 import { useGetRecommendResult } from "#/hooks/apis/recommendResult";
 
-export default function ResultViewContainer() {
+export function ResultViewContainer() {
 	const { accessKey } = useParams<{ accessKey: string }>();
 	const { data: capacity } = useGetGatheringCapacity(accessKey);
 	const { data: recommendationResult } = useGetRecommendResult(accessKey);

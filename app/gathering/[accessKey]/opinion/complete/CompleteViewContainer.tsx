@@ -10,7 +10,7 @@ import { useParams, redirect } from "next/navigation";
 import { useGetGatheringCapacity } from "#/hooks/apis/gathering";
 import { Toaster } from "#/components/toast";
 
-export default function CompleteViewContainer() {
+export function CompleteViewContainer() {
 	const { accessKey } = useParams<{ accessKey: string }>();
 	const { data: capacity } = useGetGatheringCapacity(accessKey);
 

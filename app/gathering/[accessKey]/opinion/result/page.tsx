@@ -6,7 +6,7 @@ import {
 
 import { gatheringQueryOptions } from "#/apis/gathering";
 import { recommendResultOptions } from "#/apis/recommendResult";
-import ResultView from "./ResultView";
+import { ResultViewContainer } from "./ResultViewContainer";
 
 interface OpinionResultPageProps {
 	params: Promise<{
@@ -31,7 +31,7 @@ export default async function OpinionResultPage({
 
 	return (
 		<HydrationBoundary state={dehydrate(queryClient)}>
-			<ResultView />
+			<ResultViewContainer />
 		</HydrationBoundary>
 	);
 }
