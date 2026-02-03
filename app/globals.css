@@ -7,6 +7,7 @@
 @import "../src/styles/layout.css";
 @import "../src/styles/dimension.css";
 @import "../src/styles/spacing.css";
+@import "../src/styles/shadow.css";
 
 @base {
 	html {
