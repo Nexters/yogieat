@@ -1,5 +1,6 @@
 import { parse, isValid, startOfDay, isBefore } from "date-fns";
 import { DATE_PATTERN } from "#/constants/gathering/create";
+import { isNil } from "es-toolkit";
 
 /**
  * 날짜 입력값을 yyyy.mm.dd 형식으로 포맷팅합니다.
@@ -109,5 +110,5 @@ export const validateDateInput = (value: string): DateValidationError => {
  * 오늘 날짜 이전은 선택할 수 없습니다.
  */
 export const isValidDateFormat = (value: string): boolean => {
-	return validateDateInput(value) === null;
+	return isNil(validateDateInput(value));
 };
