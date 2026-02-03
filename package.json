@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "format": "prettier --write \"src/**/*.{ts,tsx}\" \"app/**/*.{ts,tsx}\" --ignore-unknown",
+    "format": "prettier --write \"src/**/*.{ts,tsx,css}\" \"app/**/*.{ts,tsx,css}\" --ignore-unknown",
     "generate:colors": "node scripts/colors/generate.js"
   },
   "dependencies": {
