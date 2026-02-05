@@ -1,34 +1,48 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { OPINION_STEP_ORDER } from "#/constants/gathering/opinion";
+import { useState, useCallback, useMemo } from "react";
+import {
+	OPINION_STEP_ORDER,
+	OPINION_FORM_STEP_ORDER,
+} from "#/constants/gathering/opinion";
 import type { OpinionStep } from "#/types/gathering";
 
-export function useOpinionFunnel() {
-	const [step, setStep] = useState<OpinionStep>("intro");
+interface UseOpinionFunnelOptions {
+	skipIntro?: boolean;
+}
+
+export function useOpinionFunnel(options: UseOpinionFunnelOptions = {}) {
+	const { skipIntro = false } = options;
+
+	const stepOrder = useMemo(
+		() => (skipIntro ? OPINION_FORM_STEP_ORDER : OPINION_STEP_ORDER),
+		[skipIntro],
+	);
+
+	const initialStep = stepOrder[0];
+	const [step, setStep] = useState<OpinionStep>(initialStep);
 	const [direction, setDirection] = useState<"forward" | "backward">(
 		"forward",
 	);
 
 	const next = useCallback(() => {
 		setDirection("forward");
-		const currentIndex = OPINION_STEP_ORDER.indexOf(step);
-		if (currentIndex < OPINION_STEP_ORDER.length - 1) {
-			setStep(OPINION_STEP_ORDER[currentIndex + 1]);
+		const currentIndex = stepOrder.indexOf(step);
+		if (currentIndex < stepOrder.length - 1) {
+			setStep(stepOrder[currentIndex + 1]);
 		}
-	}, [step]);
+	}, [step, stepOrder]);
 
 	const back = useCallback(() => {
 		setDirection("backward");
-		const currentIndex = OPINION_STEP_ORDER.indexOf(step);
+		const currentIndex = stepOrder.indexOf(step);
 		if (currentIndex > 0) {
-			setStep(OPINION_STEP_ORDER[currentIndex - 1]);
+			setStep(stepOrder[currentIndex - 1]);
 		}
-	}, [step]);
+	}, [step, stepOrder]);
 
-	const isFirstStep = step === OPINION_STEP_ORDER[0];
-	const isLastStep =
-		step === OPINION_STEP_ORDER[OPINION_STEP_ORDER.length - 1];
+	const isFirstStep = step === stepOrder[0];
+	const isLastStep = step === stepOrder[stepOrder.length - 1];
 
 	return {
 		step,
