@@ -37,7 +37,11 @@ export function LandingView() {
 			</Layout.Content>
 			<Layout.Footer background="gray">
 				<div className="ygi:py-auto ygi:px-6">
-					<Button variant="primary" width="full" onClick={handleStartOpinion}>
+					<Button
+						variant="primary"
+						width="full"
+						onClick={handleStartOpinion}
+					>
 						내 취향 입력
 					</Button>
 				</div>

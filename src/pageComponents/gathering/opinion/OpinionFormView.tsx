@@ -85,7 +85,10 @@ export function OpinionFormView() {
 					</StepTransition>
 				</Layout.Content>
 				{renderFooter()}
-				<Toaster offset={{ bottom: 96 }} mobileOffset={{ bottom: 96 }} />
+				<Toaster
+					offset={{ bottom: 96 }}
+					mobileOffset={{ bottom: 96 }}
+				/>
 			</form>
 		</FormProvider>
 	);
