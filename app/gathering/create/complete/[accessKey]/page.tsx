@@ -22,11 +22,11 @@ export default function GatheringCreateCompletePage() {
 	};
 
 	const handleShare = () => {
-		const opinionUrl = `${window.location.origin}/gathering/${params.accessKey}/opinion`;
+		const landingUrl = `${window.location.origin}/gathering/${params.accessKey}/landing`;
 		share({
 			title: "함께 갈 맛집, 같이 정해요!",
 			text: "[요기잇] 다인원을 위한 맛집 서비스",
-			url: opinionUrl,
+			url: landingUrl,
 		});
 	};
 
