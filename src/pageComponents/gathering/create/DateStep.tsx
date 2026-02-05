@@ -8,28 +8,17 @@ import { StepIndicator } from "#/components/stepIndicator";
 import { Button } from "#/components/button";
 import { InputField } from "#/components/inputField";
 import { Chip } from "#/components/chip";
-import {
-	formatDateInput,
-	isValidDateFormat,
-	validateDateInput,
-	type DateValidationError,
-} from "#/utils/gathering/create";
+import { formatDateInput } from "#/utils/gathering/create";
 import type { CreateMeetingFormSchema } from "#/schemas/gathering";
 import type { TimeSlot } from "#/types/gathering";
-
-const DATE_ERROR_MESSAGES: Record<
-	Exclude<DateValidationError, null>,
-	string
-> = {
-	INVALID_FORMAT: "날짜 형식을 확인해주세요 (예: 2026.01.31)",
-	INVALID_DATE: "존재하지 않는 날짜예요",
-	PAST_DATE: "이미 지난 날짜예요",
-};
 
 export const DateStepContent = () => {
 	const { control } = useFormContext<CreateMeetingFormSchema>();
 
-	const { field: scheduledDateField } = useController({
+	const {
+		field: scheduledDateField,
+		fieldState: { error: scheduledDateError },
+	} = useController({
 		control,
 		name: "scheduledDate",
 	});
@@ -38,11 +27,6 @@ export const DateStepContent = () => {
 		control,
 		name: "timeSlot",
 	});
-
-	const dateError =
-		scheduledDateField.value?.length === 10
-			? validateDateInput(scheduledDateField.value)
-			: null;
 
 	const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const formatted = formatDateInput(e.target.value);
@@ -68,11 +52,7 @@ export const DateStepContent = () => {
 					<InputField
 						placeholder="날짜를 입력해주세요"
 						helperText="예) 2026.01.28"
-						errorText={
-							dateError
-								? DATE_ERROR_MESSAGES[dateError]
-								: undefined
-						}
+						errorText={scheduledDateError?.message}
 						inputMode="numeric"
 						showClearButton
 						value={scheduledDateField.value || ""}
@@ -110,13 +90,17 @@ interface DateStepFooterProps {
 }
 
 export const DateStepFooter = ({ onNext }: DateStepFooterProps) => {
-	const { control } = useFormContext<CreateMeetingFormSchema>();
+	const {
+		control,
+		formState: { errors },
+	} = useFormContext<CreateMeetingFormSchema>();
 	const scheduledDate = useWatch({ control, name: "scheduledDate" });
 	const timeSlot = useWatch({ control, name: "timeSlot" });
 
 	const isValid =
 		!isNil(scheduledDate) &&
-		isValidDateFormat(scheduledDate) &&
+		scheduledDate.length > 0 &&
+		!errors.scheduledDate &&
 		!isNil(timeSlot);
 
 	return (

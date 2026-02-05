@@ -2,7 +2,7 @@ import { z } from "zod";
 import type { TimeSlot, Region } from "#/types/gathering";
 import {
 	validateDateInput,
-	type DateValidationError,
+	DATE_ERROR_MESSAGES,
 } from "#/utils/gathering/create";
 
 const timeSlotSchema = z.enum([
@@ -16,29 +16,23 @@ const regionSchema = z.enum([
 	"GONGDEOK",
 ] satisfies readonly Region[]);
 
-const DATE_ERROR_MESSAGES: Record<
-	Exclude<DateValidationError, null>,
-	string
-> = {
-	INVALID_FORMAT: "날짜 형식을 확인해주세요 (예: 2026.01.31)",
-	INVALID_DATE: "존재하지 않는 날짜예요",
-	PAST_DATE: "이미 지난 날짜예요",
-};
+const scheduledDateSchema = z.string().check((ctx) => {
+	// 10자리(yyyy.MM.dd) 입력 완료 시에만 validation 수행
+	// 빈 문자열이거나 입력 중일 때는 에러 표시하지 않음
+	if (ctx.value.length < 10) {
+		return;
+	}
 
-const scheduledDateSchema = z
-	.string()
-	.min(1, "날짜를 입력해주세요")
-	.check((ctx) => {
-		const error = validateDateInput(ctx.value);
-		if (error) {
-			ctx.issues.push({
-				code: "custom",
-				message: DATE_ERROR_MESSAGES[error],
-				input: ctx.value,
-				path: [],
-			});
-		}
-	});
+	const error = validateDateInput(ctx.value);
+	if (error) {
+		ctx.issues.push({
+			code: "custom",
+			message: DATE_ERROR_MESSAGES[error],
+			input: ctx.value,
+			path: [],
+		});
+	}
+});
 
 export const createMeetingFormSchema = z.object({
 	peopleCount: z.number().nullable(),
