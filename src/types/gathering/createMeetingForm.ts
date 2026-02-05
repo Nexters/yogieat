@@ -4,8 +4,8 @@ import { TimeSlot } from "./timeSlot";
 export type CreateMeetingStep = "people" | "date" | "region";
 
 export interface CreateMeetingForm {
-	peopleCount?: number;
+	peopleCount: number | null;
 	scheduledDate: string;
-	timeSlot?: TimeSlot;
-	region?: Region;
+	timeSlot: TimeSlot | null;
+	region: Region | null;
 }
