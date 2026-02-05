@@ -1,9 +1,9 @@
-name: Production Deployment
+name: Development Deployment
 
 on:
   push:
     branches:
-      - main
+      - develop
 
 jobs:
   build-image:
@@ -115,7 +115,7 @@ jobs:
         uses: sarisia/actions-status-discord@v1
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          title: "🚀 Production 배포"
+          title: "🚀 Development 배포"
           description: |
             **상태**: ${{ job.status }}
             **커밋**: [`${{ steps.commit.outputs.sha }}`](https://github.com/${{ github.repository }}/commit/${{ github.sha }})
