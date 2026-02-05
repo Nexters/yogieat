@@ -8,7 +8,7 @@ import { Button } from "#/components/button/Button";
 import { DotsLoader } from "#/components/dotsLoader";
 import { REGION_OPTIONS } from "#/constants/gathering/opinion";
 import { RegionChip } from "./RegionChip";
-import type { CreateMeetingForm } from "#/types/gathering";
+import type { CreateMeetingFormSchema } from "#/schemas/gathering";
 import { isNil } from "es-toolkit";
 
 export const RegionStepContent = () => {
@@ -34,7 +34,7 @@ interface RegionStepFooterProps {
 }
 
 export const RegionStepFooter = ({ isPending }: RegionStepFooterProps) => {
-	const { control } = useFormContext<CreateMeetingForm>();
+	const { control } = useFormContext<CreateMeetingFormSchema>();
 	const region = useWatch({ control, name: "region" });
 
 	const isValid = !isNil(region);

@@ -3,7 +3,8 @@
 import { useFormContext, useController } from "react-hook-form";
 
 import { Chip } from "#/components/chip";
-import type { CreateMeetingForm, Region } from "#/types/gathering";
+import type { CreateMeetingFormSchema } from "#/schemas/gathering";
+import type { Region } from "#/types/gathering";
 
 interface RegionChipProps {
 	value: Region;
@@ -11,7 +12,7 @@ interface RegionChipProps {
 }
 
 export const RegionChip = ({ value, label }: RegionChipProps) => {
-	const { control } = useFormContext<CreateMeetingForm>();
+	const { control } = useFormContext<CreateMeetingFormSchema>();
 	const { field } = useController({
 		name: "region",
 		control,

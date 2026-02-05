@@ -14,16 +14,8 @@ import {
 	validateDateInput,
 	type DateValidationError,
 } from "#/utils/gathering/create";
-import type { CreateMeetingForm, TimeSlot } from "#/types/gathering";
-
-const scheduledDateRules = {
-	validate: (value: string | undefined) =>
-		!isNil(value) && isValidDateFormat(value),
-};
-
-const timeSlotRules = {
-	validate: (value: TimeSlot | null) => !isNil(value),
-};
+import type { CreateMeetingFormSchema } from "#/schemas/gathering";
+import type { TimeSlot } from "#/types/gathering";
 
 const DATE_ERROR_MESSAGES: Record<
 	Exclude<DateValidationError, null>,
@@ -35,18 +27,16 @@ const DATE_ERROR_MESSAGES: Record<
 };
 
 export const DateStepContent = () => {
-	const { control } = useFormContext<CreateMeetingForm>();
+	const { control } = useFormContext<CreateMeetingFormSchema>();
 
 	const { field: scheduledDateField } = useController({
 		control,
 		name: "scheduledDate",
-		rules: scheduledDateRules,
 	});
 
 	const { field: timeSlotField } = useController({
 		control,
 		name: "timeSlot",
-		rules: timeSlotRules,
 	});
 
 	const dateError =
@@ -120,7 +110,7 @@ interface DateStepFooterProps {
 }
 
 export const DateStepFooter = ({ onNext }: DateStepFooterProps) => {
-	const { control } = useFormContext<CreateMeetingForm>();
+	const { control } = useFormContext<CreateMeetingFormSchema>();
 	const scheduledDate = useWatch({ control, name: "scheduledDate" });
 	const timeSlot = useWatch({ control, name: "timeSlot" });
 

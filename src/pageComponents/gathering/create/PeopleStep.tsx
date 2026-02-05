@@ -7,18 +7,13 @@ import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
 import { Button } from "#/components/button";
 import { PeopleCountGrid } from "./PeopleCountGrid";
-import type { CreateMeetingForm } from "#/types/gathering";
-
-const rules = {
-	validate: (value: number | null) => !isNil(value),
-};
+import type { CreateMeetingFormSchema } from "#/schemas/gathering";
 
 export const PeopleStepContent = () => {
-	const { control } = useFormContext<CreateMeetingForm>();
+	const { control } = useFormContext<CreateMeetingFormSchema>();
 	const { field } = useController({
 		control,
 		name: "peopleCount",
-		rules,
 	});
 
 	const handleChange = (count: number | null) => {
@@ -43,7 +38,7 @@ interface PeopleStepFooterProps {
 }
 
 export const PeopleStepFooter = ({ onNext }: PeopleStepFooterProps) => {
-	const { control } = useFormContext<CreateMeetingForm>();
+	const { control } = useFormContext<CreateMeetingFormSchema>();
 	const peopleCount = useWatch({ control, name: "peopleCount" });
 
 	const isValid = !isNil(peopleCount);
