@@ -27,7 +27,12 @@ export function useCreateMeetingForm() {
 	});
 
 	const handleSubmit = methods.handleSubmit((data) => {
-		if (!data.peopleCount || !data.timeSlot || !data.scheduledDate || !data.region) {
+		if (
+			!data.peopleCount ||
+			!data.timeSlot ||
+			!data.scheduledDate ||
+			!data.region
+		) {
 			return;
 		}
 
