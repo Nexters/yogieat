@@ -16,7 +16,7 @@ export const REGION_OPTIONS: ReadonlyArray<{
 	value: Region;
 	label: string;
 }> = [
-	{ value: REGION.HONGDAE, label: REGION_LABEL.HONGDAE },
 	{ value: REGION.GANGNAM, label: REGION_LABEL.GANGNAM },
 	{ value: REGION.GONGDEOK, label: REGION_LABEL.GONGDEOK },
+	{ value: REGION.HONGDAE, label: REGION_LABEL.HONGDAE },
 ];

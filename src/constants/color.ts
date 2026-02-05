@@ -119,20 +119,23 @@ export const colors = {
 	bg: {
 		white: "#ffffff",
 		gray: "#f3f4f6",
+		website: "#e5e7eb",
 		dim: "rgba(31, 41, 51, 0.16)",
 	},
 	surface: {
 		white: "#ffffff",
+		primary: "#ffedea",
+		secondary: "#ecf6ff",
 		lightgray: "#f9fafb",
 		gray: "#f3f4f6",
-		primary: "#ffedea",
-		disabled: "#f3f4f6",
-		secondary: "#ecf6ff",
+		disabled: "#f9fafb",
+		active: "#ff5a3c",
+		dark: "#1f2933",
 	},
 	text: {
 		primary: "#111827",
 		secondary: "#6b7280",
-		disabled: "#9ca3af",
+		disabled: "#d1d5db",
 		inverse: "#ffffff",
 		inverseSecondary: "#f9fafb",
 		placeholder: "#9ca3af",
@@ -140,14 +143,15 @@ export const colors = {
 	},
 	border: {
 		default: "#e5e7eb",
-		strong: "#1f2933",
 		primary: "#ff5a3c",
 		primaryOpacity: "rgba(255, 90, 60, 0.8)",
 		secondary: "#53b7ff",
+		inverse: "#ffffff",
 	},
 	icon: {
 		default: "#6b7280",
 		disabled: "#9ca3af",
+		strong: "#1f2933",
 		inverse: "#ffffff",
 	},
 	button: {
@@ -159,7 +163,10 @@ export const colors = {
 		secondaryDisabled: "#ffab9e",
 		tertiary: "#f3f4f6",
 		tertiaryHover: "#e5e7eb",
-		tertiaryDisabled: "#f3f4f6",
+		tertiaryDisabled: "#f9fafb",
+		inverse: "#ffffff",
+		inverseHover: "#f9fafb",
+		inverseDisabled: "#f3f4f6",
 	},
 } as const;
 

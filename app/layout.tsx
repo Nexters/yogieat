@@ -45,7 +45,7 @@ export default function RootLayout({
 	return (
 		<html lang="en" className="ygi:overflow-x-hidden">
 			<body
-				className={`${geistSans.variable} ${geistMono.variable} antialiased ygi:overflow-x-hidden`}
+				className={`${geistSans.variable} ${geistMono.variable} antialiased ygi:overflow-x-hidden ygi:bg-bg-website`}
 			>
 				{children}
 				<Analytics />
