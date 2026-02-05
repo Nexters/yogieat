@@ -68,20 +68,11 @@ export const PreferenceStepContent = () => {
 
 export const PreferenceStepFooter = () => {
 	const { control } = useFormContext<OpinionFormSchema>();
+
 	const disabled = useWatch({
 		control,
 		name: "preferredMenus",
-		compute: (value) => {
-			const { first, second, third } = value ?? {};
-
-			if (!first) return true;
-			if (first === "ANY") return false;
-
-			if (!second) return true;
-			if (second === "ANY") return false;
-
-			return !third;
-		},
+		compute: ({ first }) => !first,
 	});
 
 	return (
