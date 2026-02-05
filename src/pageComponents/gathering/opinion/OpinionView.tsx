@@ -1,9 +1,9 @@
 "use client";
 
 import { redirect, useParams, useRouter } from "next/navigation";
+import { FormProvider } from "react-hook-form";
 
 import {
-	IntroStep,
 	DistanceStepContent,
 	DistanceStepFooter,
 	DislikeStepContent,
@@ -13,9 +13,7 @@ import {
 } from "#/pageComponents/gathering/opinion";
 import { StepTransition } from "#/components/stepTransition";
 import { useOpinionForm, useOpinionFunnel } from "#/hooks/gathering";
-import { Button } from "#/components/button";
 import { Layout } from "#/components/layout";
-import { FormProvider } from "react-hook-form";
 import { BackwardButton } from "#/components/backwardButton";
 import { Toaster } from "#/components/toast";
 import {
@@ -41,31 +39,11 @@ export function OpinionView() {
 
 	const handleBackward = () => {
 		if (isFirstStep) {
-			router.push(`/gathering/${accessKey}`);
+			router.back();
 		} else {
 			back();
 		}
 	};
-
-	if (step === "intro") {
-		return (
-			<>
-				<Layout.Header background="gray">
-					<div className="ygi:h-full ygi:w-full" />
-				</Layout.Header>
-				<Layout.Content background="gray">
-					<IntroStep scheduledDate={gathering.scheduledDate} />
-				</Layout.Content>
-				<Layout.Footer background="gray">
-					<div className="ygi:py-auto ygi:px-6">
-						<Button variant="primary" width="full" onClick={next}>
-							내 취향 입력
-						</Button>
-					</div>
-				</Layout.Footer>
-			</>
-		);
-	}
 
 	const renderContent = () => {
 		switch (step) {
