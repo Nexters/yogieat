@@ -26,9 +26,7 @@ export function OpinionFormView() {
 	const router = useRouter();
 
 	const { methods, onSubmit } = useOpinionForm();
-	const { step, direction, next, back, isFirstStep } = useOpinionFunnel({
-		skipIntro: true,
-	});
+	const { step, direction, next, back, isFirstStep } = useOpinionFunnel();
 
 	const { data: capacity } = useGetGatheringCapacity(accessKey);
 	const { data: gathering } = useGetGathering(accessKey);

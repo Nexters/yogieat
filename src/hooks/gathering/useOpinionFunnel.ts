@@ -1,48 +1,34 @@
 "use client";
 
-import { useState, useCallback, useMemo } from "react";
-import {
-	OPINION_STEP_ORDER,
-	OPINION_FORM_STEP_ORDER,
-} from "#/constants/gathering/opinion";
+import { useState, useCallback } from "react";
+import { OPINION_FORM_STEP_ORDER } from "#/constants/gathering/opinion";
 import type { OpinionStep } from "#/types/gathering";
 
-interface UseOpinionFunnelOptions {
-	skipIntro?: boolean;
-}
-
-export function useOpinionFunnel(options: UseOpinionFunnelOptions = {}) {
-	const { skipIntro = false } = options;
-
-	const stepOrder = useMemo(
-		() => (skipIntro ? OPINION_FORM_STEP_ORDER : OPINION_STEP_ORDER),
-		[skipIntro],
-	);
-
-	const initialStep = stepOrder[0];
-	const [step, setStep] = useState<OpinionStep>(initialStep);
+export function useOpinionFunnel() {
+	const [step, setStep] = useState<OpinionStep>(OPINION_FORM_STEP_ORDER[0]);
 	const [direction, setDirection] = useState<"forward" | "backward">(
 		"forward",
 	);
 
 	const next = useCallback(() => {
 		setDirection("forward");
-		const currentIndex = stepOrder.indexOf(step);
-		if (currentIndex < stepOrder.length - 1) {
-			setStep(stepOrder[currentIndex + 1]);
+		const currentIndex = OPINION_FORM_STEP_ORDER.indexOf(step);
+		if (currentIndex < OPINION_FORM_STEP_ORDER.length - 1) {
+			setStep(OPINION_FORM_STEP_ORDER[currentIndex + 1]);
 		}
-	}, [step, stepOrder]);
+	}, [step]);
 
 	const back = useCallback(() => {
 		setDirection("backward");
-		const currentIndex = stepOrder.indexOf(step);
+		const currentIndex = OPINION_FORM_STEP_ORDER.indexOf(step);
 		if (currentIndex > 0) {
-			setStep(stepOrder[currentIndex - 1]);
+			setStep(OPINION_FORM_STEP_ORDER[currentIndex - 1]);
 		}
-	}, [step, stepOrder]);
+	}, [step]);
 
-	const isFirstStep = step === stepOrder[0];
-	const isLastStep = step === stepOrder[stepOrder.length - 1];
+	const isFirstStep = step === OPINION_FORM_STEP_ORDER[0];
+	const isLastStep =
+		step === OPINION_FORM_STEP_ORDER[OPINION_FORM_STEP_ORDER.length - 1];
 
 	return {
 		step,
