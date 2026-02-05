@@ -3,8 +3,8 @@
 import { twJoin } from "tailwind-merge";
 
 interface PeopleCountGridProps {
-	value: number | undefined;
-	onChange: (count: number | undefined) => void;
+	value: number | null;
+	onChange: (count: number | null) => void;
 }
 
 const PEOPLE_COUNTS = [
@@ -24,7 +24,7 @@ export const PeopleCountGrid = ({ value, onChange }: PeopleCountGridProps) => {
 								key={count}
 								type="button"
 								onClick={() =>
-									onChange(isSelected ? undefined : count)
+									onChange(isSelected ? null : count)
 								}
 								className={twJoin(
 									"ygi:flex ygi:aspect-square ygi:flex-1 ygi:cursor-pointer ygi:items-center ygi:justify-center",

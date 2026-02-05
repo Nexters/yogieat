@@ -1,6 +1,6 @@
 "use client";
 
-import { useFormContext, useController } from "react-hook-form";
+import { useFormContext, useController, useWatch } from "react-hook-form";
 import { isNil } from "es-toolkit";
 
 import { Layout } from "#/components/layout";
@@ -22,7 +22,7 @@ const scheduledDateRules = {
 };
 
 const timeSlotRules = {
-	validate: (value: TimeSlot | undefined) => !isNil(value),
+	validate: (value: TimeSlot | null) => !isNil(value),
 };
 
 const DATE_ERROR_MESSAGES: Record<
@@ -64,7 +64,7 @@ export const DateStepContent = () => {
 	};
 
 	const handleTimeSlotChange = (slot: TimeSlot) => {
-		timeSlotField.onChange(slot === timeSlotField.value ? undefined : slot);
+		timeSlotField.onChange(slot === timeSlotField.value ? null : slot);
 	};
 
 	return (
@@ -121,23 +121,13 @@ interface DateStepFooterProps {
 
 export const DateStepFooter = ({ onNext }: DateStepFooterProps) => {
 	const { control } = useFormContext<CreateMeetingForm>();
-
-	const { field: scheduledDateField } = useController({
-		control,
-		name: "scheduledDate",
-		rules: scheduledDateRules,
-	});
-
-	const { field: timeSlotField } = useController({
-		control,
-		name: "timeSlot",
-		rules: timeSlotRules,
-	});
+	const scheduledDate = useWatch({ control, name: "scheduledDate" });
+	const timeSlot = useWatch({ control, name: "timeSlot" });
 
 	const isValid =
-		!isNil(scheduledDateField.value) &&
-		isValidDateFormat(scheduledDateField.value) &&
-		!isNil(timeSlotField.value);
+		!isNil(scheduledDate) &&
+		isValidDateFormat(scheduledDate) &&
+		!isNil(timeSlot);
 
 	return (
 		<Layout.Footer>

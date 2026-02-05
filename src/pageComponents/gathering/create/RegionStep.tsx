@@ -1,6 +1,6 @@
 "use client";
 
-import { useController, useFormContext } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
 
 import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
@@ -35,14 +35,9 @@ interface RegionStepFooterProps {
 
 export const RegionStepFooter = ({ isPending }: RegionStepFooterProps) => {
 	const { control } = useFormContext<CreateMeetingForm>();
+	const region = useWatch({ control, name: "region" });
 
-	const { field } = useController({
-		control,
-		name: "region",
-		rules: { required: true },
-	});
-
-	const isValid = !isNil(field.value);
+	const isValid = !isNil(region);
 
 	return (
 		<Layout.Footer>

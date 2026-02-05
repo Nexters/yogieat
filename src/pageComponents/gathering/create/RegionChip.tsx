@@ -17,11 +17,12 @@ export const RegionChip = ({ value, label }: RegionChipProps) => {
 		control,
 	});
 
+	const handleClick = () => {
+		field.onChange(field.value === value ? null : value);
+	};
+
 	return (
-		<Chip
-			selected={field.value === value}
-			onClick={() => field.onChange(value)}
-		>
+		<Chip selected={field.value === value} onClick={handleClick}>
 			{label}
 		</Chip>
 	);
