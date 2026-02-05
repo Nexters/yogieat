@@ -8,4 +8,4 @@ export interface OpinionForm {
 	preferredMenus: PreferredMenu;
 }
 
-export type OpinionStep = "intro" | "distance" | "dislike" | "preference";
+export type OpinionStep = "distance" | "dislike" | "preference";

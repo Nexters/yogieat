@@ -5,7 +5,7 @@ import { OPINION_STEP_ORDER } from "#/constants/gathering/opinion";
 import type { OpinionStep } from "#/types/gathering";
 
 export function useOpinionFunnel() {
-	const [step, setStep] = useState<OpinionStep>("intro");
+	const [step, setStep] = useState<OpinionStep>(OPINION_STEP_ORDER[0]);
 	const [direction, setDirection] = useState<"forward" | "backward">(
 		"forward",
 	);

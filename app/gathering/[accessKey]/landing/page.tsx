@@ -5,20 +5,20 @@ import {
 } from "@tanstack/react-query";
 
 import { gatheringQueryOptions } from "#/apis/gathering";
-import { OpinionFormView } from "#/pageComponents/gathering/opinion";
+import { LandingView } from "#/pageComponents/gathering/opinion";
 
-interface OpinionPageProps {
+interface LandingPageProps {
 	params: Promise<{
 		accessKey: string;
 	}>;
 }
 
 /**
- * 의견 수렴 폼 페이지 (서버 컴포넌트)
- * - 실제 의견 입력 (distance -> dislike -> preference)
+ * 의견 수렴 랜딩 페이지 (서버 컴포넌트)
+ * - 공유 링크로 접근 시 IntroStep을 보여줌
  * - gathering 데이터를 서버에서 prefetch하여 무한 렌더링 방지
  */
-export default async function OpinionPage({ params }: OpinionPageProps) {
+export default async function LandingPage({ params }: LandingPageProps) {
 	const { accessKey } = await params;
 	const queryClient = new QueryClient();
 
@@ -30,7 +30,7 @@ export default async function OpinionPage({ params }: OpinionPageProps) {
 
 	return (
 		<HydrationBoundary state={dehydrate(queryClient)}>
-			<OpinionFormView />
+			<LandingView />
 		</HydrationBoundary>
 	);
 }

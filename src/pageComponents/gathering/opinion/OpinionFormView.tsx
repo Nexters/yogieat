@@ -21,7 +21,7 @@ import {
 	useGetGatheringCapacity,
 } from "#/hooks/apis/gathering";
 
-export function OpinionView() {
+export function OpinionFormView() {
 	const { accessKey } = useParams<{ accessKey: string }>();
 	const router = useRouter();
 
