@@ -1,4 +1,4 @@
-export type { CreateMeetingStep, CreateMeetingForm } from "./createMeetingForm";
+export type { CreateMeetingStep } from "./createMeetingForm";
 export type { OpinionForm, OpinionStep } from "./createOpinionForm";
 export type { DistanceRange } from "./distance";
 export type { FoodCategory } from "./foodCategory";
