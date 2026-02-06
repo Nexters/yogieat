@@ -16,10 +16,7 @@ import { useOpinionForm, useOpinionFunnel } from "#/hooks/gathering";
 import { Layout } from "#/components/layout";
 import { BackwardButton } from "#/components/backwardButton";
 import { Toaster } from "#/components/toast";
-import {
-	useGetGathering,
-	useGetGatheringCapacity,
-} from "#/hooks/apis/gathering";
+import { useGetGathering } from "#/hooks/apis/gathering";
 
 export function OpinionFormView() {
 	const { accessKey } = useParams<{ accessKey: string }>();
@@ -28,14 +25,7 @@ export function OpinionFormView() {
 	const { methods, onSubmit } = useOpinionForm();
 	const { step, direction, next, back, isFirstStep } = useOpinionFunnel();
 
-	const { data: capacity } = useGetGatheringCapacity(accessKey);
 	const { data: gathering } = useGetGathering(accessKey);
-
-	const isComplete = capacity.currentCount >= capacity.maxCount;
-
-	if (isComplete) {
-		redirect(`/gathering/${accessKey}/opinion/complete`);
-	}
 
 	const handleBackward = () => {
 		if (isFirstStep) {
