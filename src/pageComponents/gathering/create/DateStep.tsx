@@ -8,7 +8,7 @@ import { StepIndicator } from "#/components/stepIndicator";
 import { Button } from "#/components/button";
 import { InputField } from "#/components/inputField";
 import { Chip } from "#/components/chip";
-import { formatDateInput } from "#/utils/gathering/create";
+import { formatDateInput, isValidDateFormat } from "#/utils/gathering/create";
 import type { CreateMeetingFormSchema } from "#/schemas/gathering";
 import type { TimeSlot } from "#/types/gathering";
 
@@ -90,20 +90,15 @@ interface DateStepFooterProps {
 }
 
 export const DateStepFooter = ({ onNext }: DateStepFooterProps) => {
-	const {
-		control,
-		formState: { errors },
-	} = useFormContext<CreateMeetingFormSchema>();
-	const [scheduledDate, timeSlot] = useWatch({
+	const { control } = useFormContext<CreateMeetingFormSchema>();
+	const isValid = useWatch({
 		control,
 		name: ["scheduledDate", "timeSlot"],
+		compute: ([scheduledDate, timeSlot]) =>
+			!isNil(scheduledDate) &&
+			!isNil(timeSlot) &&
+			isValidDateFormat(scheduledDate),
 	});
-
-	const isValid =
-		!isNil(scheduledDate) &&
-		scheduledDate.length > 0 &&
-		!errors.scheduledDate &&
-		!isNil(timeSlot);
 
 	return (
 		<Layout.Footer>
