@@ -39,9 +39,11 @@ interface PeopleStepFooterProps {
 
 export const PeopleStepFooter = ({ onNext }: PeopleStepFooterProps) => {
 	const { control } = useFormContext<CreateMeetingFormSchema>();
-	const peopleCount = useWatch({ control, name: "peopleCount" });
-
-	const isValid = !isNil(peopleCount);
+	const isValid = useWatch({
+		control,
+		name: "peopleCount",
+		compute: (peopleCount) => !isNil(peopleCount),
+	});
 
 	return (
 		<Layout.Footer>

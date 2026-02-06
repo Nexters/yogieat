@@ -35,9 +35,11 @@ interface RegionStepFooterProps {
 
 export const RegionStepFooter = ({ isPending }: RegionStepFooterProps) => {
 	const { control } = useFormContext<CreateMeetingFormSchema>();
-	const region = useWatch({ control, name: "region" });
-
-	const isValid = !isNil(region);
+	const isValid = useWatch({
+		control,
+		name: "region",
+		compute: (region) => !isNil(region),
+	});
 
 	return (
 		<Layout.Footer>

@@ -94,8 +94,10 @@ export const DateStepFooter = ({ onNext }: DateStepFooterProps) => {
 		control,
 		formState: { errors },
 	} = useFormContext<CreateMeetingFormSchema>();
-	const scheduledDate = useWatch({ control, name: "scheduledDate" });
-	const timeSlot = useWatch({ control, name: "timeSlot" });
+	const [scheduledDate, timeSlot] = useWatch({
+		control,
+		name: ["scheduledDate", "timeSlot"],
+	});
 
 	const isValid =
 		!isNil(scheduledDate) &&
