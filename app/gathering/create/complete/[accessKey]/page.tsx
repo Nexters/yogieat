@@ -2,18 +2,20 @@
 
 import { useParams, useRouter } from "next/navigation";
 
+import { twJoin } from "tailwind-merge";
+
 import { Layout } from "#/components/layout";
-import { BackwardButton } from "#/components/backwardButton";
 import { Button } from "#/components/button";
 import { MeetingCompleteIllustration } from "#/components/illustrations";
 import { Toaster } from "#/components/toast";
+import { HomeIcon } from "#/icons/homeIcon";
 
 export default function GatheringCreateCompletePage() {
 	const params = useParams<{ accessKey: string }>();
 	const router = useRouter();
 
-	const handleBackward = () => {
-		router.push("/gathering/create");
+	const handleHomeButtonClick = () => {
+		router.push("/");
 	};
 
 	const handlePreferenceInput = () => {
@@ -23,7 +25,18 @@ export default function GatheringCreateCompletePage() {
 	return (
 		<Layout.Root>
 			<Layout.Header>
-				<BackwardButton onClick={handleBackward} />
+				<button
+					type="button"
+					aria-label="홈으로 가기"
+					onClick={handleHomeButtonClick}
+					className={twJoin(
+						"ygi:flex ygi:items-center ygi:justify-center",
+						"ygi:h-12 ygi:w-12 ygi:p-3",
+						"ygi:cursor-pointer ygi:bg-transparent",
+					)}
+				>
+					<HomeIcon size={24} className="ygi:text-icon-default" />
+				</button>
 			</Layout.Header>
 
 			<Layout.Content>
