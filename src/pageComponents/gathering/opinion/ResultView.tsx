@@ -7,8 +7,6 @@ import {
 } from "#/pageComponents/gathering/restaurantCard";
 import type { RecommendationResult } from "#/types/gathering";
 import { twJoin } from "tailwind-merge";
-import { Chip } from "#/components/chip";
-import { CrownIcon } from "#/icons/crownIcon";
 import { ProgressBar } from "#/components/progressBar";
 import { CircleIcon } from "#/icons/circleIcon";
 import { XIcon } from "#/icons/xIcon";
