@@ -1,6 +1,6 @@
 "use client";
 
-import { useController, useFormContext } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
 
 import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
@@ -8,7 +8,7 @@ import { Button } from "#/components/button/Button";
 import { DotsLoader } from "#/components/dotsLoader";
 import { REGION_OPTIONS } from "#/constants/gathering/opinion";
 import { RegionChip } from "./RegionChip";
-import type { CreateMeetingForm } from "#/types/gathering";
+import type { CreateMeetingFormSchema } from "#/schemas/gathering";
 import { isNil } from "es-toolkit";
 
 export const RegionStepContent = () => {
@@ -34,15 +34,12 @@ interface RegionStepFooterProps {
 }
 
 export const RegionStepFooter = ({ isPending }: RegionStepFooterProps) => {
-	const { control } = useFormContext<CreateMeetingForm>();
-
-	const { field } = useController({
+	const { control } = useFormContext<CreateMeetingFormSchema>();
+	const isValid = useWatch({
 		control,
 		name: "region",
-		rules: { required: true },
+		compute: (region) => !isNil(region),
 	});
-
-	const isValid = !isNil(field.value);
 
 	return (
 		<Layout.Footer>
