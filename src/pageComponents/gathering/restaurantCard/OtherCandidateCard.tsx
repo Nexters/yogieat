@@ -28,7 +28,7 @@ export const OtherCandidateCard = ({
 			className="ygi:flex ygi:items-start ygi:overflow-hidden"
 			aria-label={`${ranking}위 추천 음식점: ${restaurant.restaurantName}`}
 		>
-			<div className="ygi:relative ygi:h-20 ygi:w-20 ygi:shrink-0 ygi:overflow-hidden ygi:rounded ygi:bg-gray-200">
+			<div className="ygi:relative ygi:h-20 ygi:w-20 ygi:shrink-0 ygi:overflow-clip ygi:rounded ygi:border ygi:border-border-default ygi:bg-gray-200">
 				{restaurant.imageUrl ? (
 					<Image
 						src={restaurant.imageUrl}
