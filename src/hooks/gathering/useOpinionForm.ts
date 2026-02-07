@@ -75,7 +75,7 @@ export function useOpinionForm() {
 					});
 					return;
 				}
-				
+
 				toast.warning(error.message);
 				return;
 			}
