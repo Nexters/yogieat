@@ -1,4 +1,5 @@
 import type { Options as KyOptions } from "ky";
+import type { ErrorCode } from "./errorCodes";
 
 /**
  * API 응답 및 에러 타입 정의
@@ -18,7 +19,7 @@ export interface ApiResponse<T> {
  * 에러 응답 데이터 형식
  */
 export interface ErrorData {
-	errorCode: string;
+	errorCode: ErrorCode;
 	message: string;
 }
 
