@@ -9,7 +9,7 @@ import {
 } from "#/schemas/gathering";
 import { useCreateParticipant } from "../apis/participant";
 import { useParams, useRouter } from "next/navigation";
-import { isApiError } from "#/utils/api";
+import { ERROR_CODES, isApiError } from "#/utils/api";
 import { toast } from "#/utils/toast";
 import { compact } from "es-toolkit";
 import { createElement } from "react";
@@ -51,27 +51,32 @@ export function useOpinionForm() {
 			router.replace(`/gathering/${accessKey}/opinion/pending`);
 		} catch (error) {
 			if (isApiError(error)) {
-				toast.warning(error.message, {
-					action: createElement(
-						"button",
-						{
-							type: "button",
-							className:
-								"ygi:flex ygi:ml-auto ygi:items-center ygi:gap-0.5 ygi:justify-center ygi:cursor-pointer ygi:text-palette-primary-500 ygi:body-14-sb",
-							onClick: () => {
-								router.push(
-									`/gathering/${accessKey}/opinion/result`,
-								);
+				if (error.errorCode === ERROR_CODES.GATHERING_FULL) {
+					toast.warning(error.message, {
+						action: createElement(
+							"button",
+							{
+								type: "button",
+								className:
+									"ygi:flex ygi:ml-auto ygi:items-center ygi:gap-0.5 ygi:justify-center ygi:cursor-pointer ygi:text-palette-primary-500 ygi:body-14-sb",
+								onClick: () => {
+									router.push(
+										`/gathering/${accessKey}/opinion/result`,
+									);
+								},
 							},
-						},
-						"추천 결과 보기",
-						createElement(ArrowLeftIcon, {
-							size: 20,
-							className:
-								"ygi:text-palette-primary-500 ygi:rotate-180",
-						}),
-					),
-				});
+							"추천 결과 보기",
+							createElement(ArrowLeftIcon, {
+								size: 20,
+								className:
+									"ygi:text-palette-primary-500 ygi:rotate-180",
+							}),
+						),
+					});
+					return;
+				}
+				
+				toast.warning(error.message);
 				return;
 			}
 			toast.warning("모임 참여에 실패했습니다. 다시 시도해주세요.");
