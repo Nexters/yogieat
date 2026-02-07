@@ -17,7 +17,8 @@ export interface TopRecommendCardProps {
 
 export const TopRecommendCard = ({ restaurant }: TopRecommendCardProps) => {
 	const handleImageError = (event: SyntheticEvent<HTMLImageElement>) => {
-		event.currentTarget.src = "/public/images/placeholder/restaurant.png";
+		event.currentTarget.src =
+			"/images/result/restaurant-image-placeholder.png";
 	};
 
 	const handleMapClick = () => {
@@ -29,16 +30,21 @@ export const TopRecommendCard = ({ restaurant }: TopRecommendCardProps) => {
 			className="ygi:flex ygi:flex-col ygi:items-start"
 			aria-label={`1위 추천 음식점: ${restaurant.restaurantName}`}
 		>
-			<div className="ygi:relative ygi:h-46.5 ygi:w-full ygi:overflow-hidden ygi:rounded-t-xl ygi:bg-gray-200">
-				{restaurant.imageUrl && (
-					<Image
-						src={restaurant.imageUrl}
-						alt={restaurant.restaurantName}
-						fill
-						className="ygi:object-cover"
-						onError={handleImageError}
-					/>
-				)}
+			<div className="ygi:relative ygi:h-46.5 ygi:w-full ygi:overflow-hidden ygi:rounded-t-xl ygi:bg-surface-lightgray">
+				<Image
+					src={
+						restaurant.imageUrl ??
+						"/images/result/restaurant-image-placeholder.png"
+					}
+					alt={restaurant.restaurantName ?? "준비 중"}
+					fill
+					className={
+						restaurant.imageUrl
+							? "ygi:object-cover"
+							: "ygi:object-contain"
+					}
+					onError={handleImageError}
+				/>
 			</div>
 
 			<div className="ygi:flex ygi:w-full ygi:flex-col ygi:gap-3 ygi:rounded-b-xl ygi:bg-surface-white ygi:p-5">
