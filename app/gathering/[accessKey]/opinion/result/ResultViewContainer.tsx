@@ -7,6 +7,7 @@ import { useParams, redirect } from "next/navigation";
 import { BackwardButton } from "#/components/backwardButton";
 import { useGetGatheringCapacity } from "#/hooks/apis/gathering";
 import { useGetRecommendResult } from "#/hooks/apis/recommendResult";
+import { Toaster } from "#/components/toast";
 
 export function ResultViewContainer() {
 	const { accessKey } = useParams<{ accessKey: string }>();
@@ -36,6 +37,8 @@ export function ResultViewContainer() {
 					<ShareButton />
 				</div>
 			</Layout.Footer>
+
+			<Toaster offset={{ bottom: 96 }} mobileOffset={{ bottom: 96 }} />
 		</Layout.Root>
 	);
 }

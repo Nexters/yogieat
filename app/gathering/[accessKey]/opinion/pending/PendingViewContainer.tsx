@@ -9,6 +9,7 @@ import {
 import { useParams, redirect } from "next/navigation";
 import { useGetGatheringCapacity } from "#/hooks/apis/gathering";
 import { share } from "#/utils/share";
+import { Toaster } from "#/components/toast";
 
 export function PendingViewContainer() {
 	const { accessKey } = useParams<{ accessKey: string }>();
@@ -52,6 +53,8 @@ export function PendingViewContainer() {
 					</Button>
 				</div>
 			</Layout.Footer>
+
+			<Toaster offset={{ bottom: 96 }} mobileOffset={{ bottom: 96 }} />
 		</Layout.Root>
 	);
 }
