@@ -62,3 +62,18 @@ export const trackCtaClick = (params: {
 }) => {
 	trackEvent("cta_click", params);
 };
+
+/**
+ * 퍼널 단계 완료 이벤트
+ *
+ * @example
+ * trackStepComplete({ page_id: "create_step_1", step_name: "people", step_value: "4명" });
+ */
+export const trackStepComplete = (params: {
+	page_id: string;
+	step_name: string;
+	step_value: string;
+	duration?: number;
+}) => {
+	trackEvent("step_complete", params);
+};

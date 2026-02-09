@@ -3,6 +3,7 @@
 import { useFormContext, useController, useWatch } from "react-hook-form";
 import { isNil } from "es-toolkit";
 
+import { trackStepComplete } from "#/components/analytics";
 import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
 import { Button } from "#/components/button";
@@ -38,12 +39,22 @@ interface PeopleStepFooterProps {
 }
 
 export const PeopleStepFooter = ({ onNext }: PeopleStepFooterProps) => {
-	const { control } = useFormContext<CreateMeetingFormSchema>();
+	const { control, getValues } = useFormContext<CreateMeetingFormSchema>();
 	const isValid = useWatch({
 		control,
 		name: "peopleCount",
 		compute: (peopleCount) => !isNil(peopleCount),
 	});
+
+	const handleNext = () => {
+		const peopleCount = getValues("peopleCount");
+		trackStepComplete({
+			page_id: "모임생성_인원수",
+			step_name: "인원수",
+			step_value: `${peopleCount}명`,
+		});
+		onNext();
+	};
 
 	return (
 		<Layout.Footer>
@@ -53,7 +64,7 @@ export const PeopleStepFooter = ({ onNext }: PeopleStepFooterProps) => {
 					variant="primary"
 					width="full"
 					disabled={!isValid}
-					onClick={onNext}
+					onClick={handleNext}
 				>
 					다음
 				</Button>

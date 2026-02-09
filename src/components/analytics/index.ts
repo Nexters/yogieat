@@ -1,2 +1,7 @@
 export { Analytics } from "./Analytics";
-export { trackEvent, trackPageView, trackCtaClick } from "./events";
+export {
+	trackEvent,
+	trackPageView,
+	trackCtaClick,
+	trackStepComplete,
+} from "./events";
