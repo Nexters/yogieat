@@ -44,7 +44,9 @@ export const RegionStepFooter = ({ isPending }: RegionStepFooterProps) => {
 
 	const handleClick = () => {
 		const region = getValues("region");
-		const regionLabel = REGION_OPTIONS.find((r) => r.value === region)?.label;
+		const regionLabel = REGION_OPTIONS.find(
+			(r) => r.value === region,
+		)?.label;
 		trackStepComplete({
 			page_id: "모임생성_장소",
 			step_name: "장소",

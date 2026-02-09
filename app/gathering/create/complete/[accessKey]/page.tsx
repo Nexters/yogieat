@@ -1,14 +1,18 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 import { twJoin } from "tailwind-merge";
 
+import { trackCtaClick, trackPageView } from "#/components/analytics";
 import { Layout } from "#/components/layout";
 import { Button } from "#/components/button";
 import { MeetingCompleteIllustration } from "#/components/illustrations";
 import { Toaster } from "#/components/toast";
 import { HomeIcon } from "#/icons/homeIcon";
+
+const PAGE_ID = "모임생성_완료";
 
 export default function GatheringCreateCompletePage() {
 	const params = useParams<{ accessKey: string }>();
@@ -19,8 +23,18 @@ export default function GatheringCreateCompletePage() {
 	};
 
 	const handlePreferenceInput = () => {
+		trackCtaClick({ page_id: PAGE_ID, button_name: "내 취향 입력" });
 		router.push(`/gathering/${params.accessKey}/opinion`);
 	};
+
+	useEffect(() => {
+		if (!params.accessKey) return;
+
+		trackPageView("view_gathering_create_complete_page", {
+			page_id: PAGE_ID,
+			group_id: params.accessKey,
+		});
+	}, [params.accessKey]);
 
 	return (
 		<Layout.Root>
