@@ -34,11 +34,10 @@ export function ResultViewContainer() {
 	};
 
 	useEffect(() => {
-		if (isComplete && recommendationResult) {
+		if (isComplete && recommendationResult && accessKey) {
 			trackPageView("view_page", {
 				page_id: PAGE_ID,
 				group_id: accessKey,
-				agreement_rate: Math.round(recommendationResult.agreementRate),
 			});
 		}
 	}, [isComplete, recommendationResult, accessKey]);
@@ -53,7 +52,7 @@ export function ResultViewContainer() {
 
 			<Layout.Footer background="gray">
 				<div className="ygi:px-6">
-					<ShareButton onBeforeShare={handleShare} />
+					<ShareButton onShare={handleShare} />
 				</div>
 			</Layout.Footer>
 

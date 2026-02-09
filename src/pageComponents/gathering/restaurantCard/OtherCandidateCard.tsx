@@ -24,7 +24,7 @@ export const OtherCandidateCard = ({
 		trackRestaurantClick({
 			page_id: "추천_결과",
 			restaurant_name: restaurant.restaurantName,
-			rank: ranking,
+			rank_type: "other",
 		});
 		window.open(restaurant.mapUrl, "_blank", "noopener,noreferrer");
 	};

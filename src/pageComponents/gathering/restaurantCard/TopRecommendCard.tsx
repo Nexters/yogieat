@@ -27,7 +27,7 @@ export const TopRecommendCard = ({ restaurant }: TopRecommendCardProps) => {
 		trackRestaurantClick({
 			page_id: "추천_결과",
 			restaurant_name: restaurant.restaurantName,
-			rank: 1,
+			rank_type: "top",
 		});
 		window.open(restaurant.mapUrl, "_blank", "noopener,noreferrer");
 	};

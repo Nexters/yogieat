@@ -5,18 +5,18 @@ import { share } from "#/utils/share";
 import { useParams } from "next/navigation";
 
 export type ShareButtonProps = Omit<ButtonProps, "onClick"> & {
-	onBeforeShare?: () => void;
+	onShare?: () => void;
 };
 
 export const ShareButton = ({
 	disabled,
-	onBeforeShare,
+	onShare,
 	...props
 }: ShareButtonProps) => {
 	const { accessKey } = useParams<{ accessKey: string }>();
 
 	const handleShare = async () => {
-		onBeforeShare?.();
+		onShare?.();
 		const url = `${window.location.origin}/gathering/${accessKey}/opinion/result`;
 		await share({
 			title: "요기잇 맛집 추천 결과",
