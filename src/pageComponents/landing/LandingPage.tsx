@@ -2,18 +2,25 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { motion } from "motion/react";
 
-import { trackButtonClick } from "#/components/analytics";
+import { trackCtaClick, trackPageView } from "#/components/analytics";
 import { Layout } from "#/components/layout";
+
+const PAGE_ID = "랜딩페이지";
 
 export const LandingPage = () => {
 	const router = useRouter();
 
 	const handleStartClick = () => {
-		trackButtonClick("모임 링크 생성 시작", { page: "랜딩 페이지" });
+		trackCtaClick({ page_id: PAGE_ID, button_name: "모임 링크 생성 시작" });
 		router.replace("/gathering/create");
 	};
+
+	useEffect(() => {
+		trackPageView("view_landing_page", { page_id: PAGE_ID });
+	}, []);
 
 	return (
 		<Layout.Root>

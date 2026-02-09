@@ -1,9 +1,6 @@
 "use client";
 
-import {
-	GoogleAnalytics,
-	GoogleTagManager,
-} from "@next/third-parties/google";
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
