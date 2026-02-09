@@ -1,0 +1,150 @@
+name: Production Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-image:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Detect changed files
+        uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          filters: |
+            client:
+              - 'app/**'
+              - 'src/**'
+              - 'public/**'
+              - 'package.json'
+              - 'pnpm-lock.yaml'
+              - 'docker/client/**'
+              - 'next.config.js'
+            nginx:
+              - 'docker/nginx/**'
+
+      - name: Login to DockerHub
+        if: steps.changes.outputs.client == 'true' || steps.changes.outputs.nginx == 'true'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Set up Docker Buildx
+        if: steps.changes.outputs.client == 'true' || steps.changes.outputs.nginx == 'true'
+        uses: docker/setup-buildx-action@v3
+
+      - name: Create .env.production
+        if: steps.changes.outputs.client == 'true'
+        run: |
+          echo "NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL_PROD }}" > .env.production
+          echo "NEXT_PUBLIC_AWS_S3=${{ secrets.NEXT_PUBLIC_AWS_S3 }}" >> .env.production
+          echo "NEXT_PUBLIC_GTM_ID=${{ secrets.NEXT_PUBLIC_GTM_ID_PROD || secrets.NEXT_PUBLIC_GTM_ID }}" >> .env.production
+
+      - name: Build and Push Client image
+        if: steps.changes.outputs.client == 'true'
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          context: .
+          file: ./docker/client/Dockerfile
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/yogieat-client:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Build and Push Nginx image
+        if: steps.changes.outputs.nginx == 'true'
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          file: ./docker/nginx/Dockerfile
+          context: ./docker/nginx
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/yogieat-nginx:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  deploy-application:
+    needs: build-image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v5
+
+      - name: Copy docker-compose.prod.yml to Server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_PRIVATE_KEY }}
+          source: "docker-compose.prod.yml"
+          target: "~/yogieat"
+
+      - name: Deploy Project to Gabia Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_PRIVATE_KEY }}
+          script: |
+            cd ~/yogieat
+
+            sudo docker compose -f ./docker-compose.prod.yml down
+            # Clean up unused images only (preserve volumes with SSL certificates)
+            sudo docker image prune -a -f
+
+            sudo docker compose -f ./docker-compose.prod.yml pull
+            sudo docker compose -f ./docker-compose.prod.yml up -d
+            sudo docker compose -f ./docker-compose.prod.yml ps
+
+      - name: Health Check
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_PRIVATE_KEY }}
+          script: |
+            cd ~/yogieat
+
+            echo "Waiting for services to be healthy..."
+            sleep 10
+
+            # Check container status
+            sudo docker compose -f ./docker-compose.prod.yml ps
+
+            # Check if client is healthy
+            CLIENT_STATUS=$(sudo docker inspect --format='{{.State.Health.Status}}' yogieat-client-prod 2>/dev/null || echo "no-healthcheck")
+            echo "Client health status: $CLIENT_STATUS"
+
+            if [ "$CLIENT_STATUS" != "healthy" ] && [ "$CLIENT_STATUS" != "no-healthcheck" ]; then
+              echo "Client container is not healthy"
+              sudo docker compose -f ./docker-compose.prod.yml logs client-prod
+              exit 1
+            fi
+
+      - name: Extract commit info
+        id: commit
+        run: |
+          COMMIT_MSG=$(echo "${{ github.event.head_commit.message }}" | head -n 1)
+          SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
+          echo "message=$COMMIT_MSG" >> $GITHUB_OUTPUT
+          echo "sha=$SHORT_SHA" >> $GITHUB_OUTPUT
+
+      - name: Discord notification
+        if: always()
+        uses: sarisia/actions-status-discord@v1
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK_PROD || secrets.DISCORD_WEBHOOK }}
+          title: "🚀 Production 배포"
+          description: |
+            **상태**: ${{ job.status }}
+            **커밋**: [`${{ steps.commit.outputs.sha }}`](https://github.com/${{ github.repository }}/commit/${{ github.sha }})
+            **메시지**: ${{ steps.commit.outputs.message }}
+            **URL**: https://yogieat.com
+          color: ${{ job.status == 'success' && '0x57F287' || '0xED4245' }}
+          username: GitHub Actions
