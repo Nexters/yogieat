@@ -21,7 +21,6 @@ export function PendingViewContainer() {
 	const { data: capacity } = useGetGatheringCapacity(accessKey);
 
 	const isComplete = capacity.currentCount >= capacity.maxCount;
-	
 
 	if (isComplete) {
 		redirect(`/gathering/${accessKey}/opinion/complete`);
@@ -38,19 +37,18 @@ export function PendingViewContainer() {
 		});
 	};
 
-		useEffect(() => {
+	useEffect(() => {
 		if (!isComplete && capacity?.currentCount && capacity?.maxCount) {
 			const progress = Math.round(
-		(capacity.currentCount / capacity.maxCount) * 100,
-	);
+				(capacity.currentCount / capacity.maxCount) * 100,
+			);
 
-			trackPageView("view_waiting", {
+			trackPageView("view_page", {
 				page_id: PAGE_ID,
 				submit_progress: progress,
 			});
 		}
 	}, [isComplete, capacity?.currentCount, capacity?.maxCount]);
-
 
 	return (
 		<Layout.Root>

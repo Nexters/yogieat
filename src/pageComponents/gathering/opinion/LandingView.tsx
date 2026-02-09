@@ -34,7 +34,7 @@ export function LandingView() {
 
 	useEffect(() => {
 		if (!isComplete && gathering?.accessKey) {
-			trackPageView("view_landing", {
+			trackPageView("view_page", {
 				page_id: PAGE_ID,
 				group_id: gathering.accessKey,
 			});

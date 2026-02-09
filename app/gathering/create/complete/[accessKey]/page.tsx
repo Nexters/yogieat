@@ -30,7 +30,7 @@ export default function GatheringCreateCompletePage() {
 	useEffect(() => {
 		if (!params.accessKey) return;
 
-		trackPageView("view_gathering_create_complete_page", {
+		trackPageView("view_page", {
 			page_id: PAGE_ID,
 			group_id: params.accessKey,
 		});

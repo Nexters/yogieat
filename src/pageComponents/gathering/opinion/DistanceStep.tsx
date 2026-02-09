@@ -59,7 +59,8 @@ export const DistanceStepFooter = ({ onNext }: DistanceStepFooterProps) => {
 	const handleNext = () => {
 		const distanceRange = getValues("distanceRange");
 		const distanceLabel =
-			DISTANCE_OPTIONS.find((d) => d.value === distanceRange)?.label ?? "";
+			DISTANCE_OPTIONS.find((d) => d.value === distanceRange)?.label ??
+			"";
 		trackStepComplete({
 			page_id: "의견수합_퍼널",
 			step_name: "거리",
