@@ -29,7 +29,7 @@ export function PendingViewContainer() {
 	const handleShare = () => {
 		trackShareClick({ page_id: PAGE_ID, share_location: "Footer" });
 
-		const opinionUrl = `${window.location.origin}/gathering/${accessKey}/opinion`;
+		const opinionUrl = `${window.location.origin}/gathering/${accessKey}/landing`;
 		share({
 			title: "함께 갈 맛집, 같이 정해요!",
 			text: "[요기잇] 다인원을 위한 맛집 서비스",
