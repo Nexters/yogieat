@@ -8,7 +8,7 @@ import { motion } from "motion/react";
 import { trackCtaClick, trackPageView } from "#/components/analytics";
 import { Layout } from "#/components/layout";
 
-const PAGE_ID = "랜딩페이지";
+const PAGE_ID = "모임생성_랜딩";
 
 export const LandingPage = () => {
 	const router = useRouter();
@@ -19,7 +19,7 @@ export const LandingPage = () => {
 	};
 
 	useEffect(() => {
-		trackPageView("view_landing_page", { page_id: PAGE_ID });
+		trackPageView("view_landing", { page_id: PAGE_ID });
 	}, []);
 
 	return (
