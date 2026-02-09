@@ -4,12 +4,14 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
 
+import { trackButtonClick } from "#/components/analytics";
 import { Layout } from "#/components/layout";
 
 export const LandingPage = () => {
 	const router = useRouter();
 
 	const handleStartClick = () => {
+		trackButtonClick("모임 링크 생성 시작", { page: "랜딩 페이지" });
 		router.replace("/gathering/create");
 	};
 
