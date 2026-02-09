@@ -46,11 +46,11 @@ export const RegionStepFooter = ({ isPending }: RegionStepFooterProps) => {
 		const region = getValues("region");
 		const regionLabel = REGION_OPTIONS.find(
 			(r) => r.value === region,
-		)?.label;
+		)?.label ?? "-";
 		trackStepComplete({
-			page_id: "모임생성_장소",
+			page_id: "모임생성_퍼널",
 			step_name: "장소",
-			step_value: regionLabel ?? "",
+			step_value: regionLabel,
 		});
 	};
 

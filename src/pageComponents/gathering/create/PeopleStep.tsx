@@ -48,10 +48,11 @@ export const PeopleStepFooter = ({ onNext }: PeopleStepFooterProps) => {
 
 	const handleNext = () => {
 		const peopleCount = getValues("peopleCount");
+		const peopleCountLabel = peopleCount ? `${peopleCount}명` : "-";
 		trackStepComplete({
-			page_id: "모임생성_인원수",
+			page_id: "모임생성_퍼널",
 			step_name: "인원수",
-			step_value: `${peopleCount}명`,
+			step_value: peopleCountLabel,
 		});
 		onNext();
 	};

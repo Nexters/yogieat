@@ -110,7 +110,7 @@ export const DateStepFooter = ({ onNext }: DateStepFooterProps) => {
 		const timeSlot = getValues("timeSlot");
 		const timeSlotLabel = timeSlot ? TIME_SLOT_LABEL[timeSlot] : "";
 		trackStepComplete({
-			page_id: "모임생성_날짜",
+			page_id: "모임생성_퍼널",
 			step_name: "시간대",
 			step_value: timeSlotLabel,
 		});
