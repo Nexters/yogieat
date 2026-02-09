@@ -77,3 +77,16 @@ export const trackStepComplete = (params: {
 }) => {
 	trackEvent("step_complete", params);
 };
+
+/**
+ * 공유 버튼 클릭 이벤트
+ *
+ * @example
+ * trackShareClick({ page_id: "의견수합_대기", share_location: "waiting_page" });
+ */
+export const trackShareClick = (params: {
+	page_id: string;
+	share_location: string;
+}) => {
+	trackEvent("click_share", params);
+};

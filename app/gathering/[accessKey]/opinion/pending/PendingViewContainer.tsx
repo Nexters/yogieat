@@ -1,27 +1,35 @@
 "use client";
 
+import { useEffect } from "react";
+import { useParams, redirect } from "next/navigation";
+
+import { trackPageView, trackShareClick } from "#/components/analytics";
 import { Button } from "#/components/button";
 import { Layout } from "#/components/layout";
 import {
 	PendingView,
 	SubmissionBottomSheet,
 } from "#/pageComponents/gathering/opinion";
-import { useParams, redirect } from "next/navigation";
 import { useGetGatheringCapacity } from "#/hooks/apis/gathering";
 import { share } from "#/utils/share";
 import { Toaster } from "#/components/toast";
+
+const PAGE_ID = "의견수합_대기";
 
 export function PendingViewContainer() {
 	const { accessKey } = useParams<{ accessKey: string }>();
 	const { data: capacity } = useGetGatheringCapacity(accessKey);
 
 	const isComplete = capacity.currentCount >= capacity.maxCount;
+	
 
 	if (isComplete) {
 		redirect(`/gathering/${accessKey}/opinion/complete`);
 	}
 
 	const handleShare = () => {
+		trackShareClick({ page_id: PAGE_ID, share_location: "Footer" });
+
 		const opinionUrl = `${window.location.origin}/gathering/${accessKey}/opinion`;
 		share({
 			title: "함께 갈 맛집, 같이 정해요!",
@@ -29,6 +37,20 @@ export function PendingViewContainer() {
 			url: opinionUrl,
 		});
 	};
+
+		useEffect(() => {
+		if (!isComplete && capacity?.currentCount && capacity?.maxCount) {
+			const progress = Math.round(
+		(capacity.currentCount / capacity.maxCount) * 100,
+	);
+
+			trackPageView("view_waiting", {
+				page_id: PAGE_ID,
+				submit_progress: progress,
+			});
+		}
+	}, [isComplete, capacity?.currentCount, capacity?.maxCount]);
+
 
 	return (
 		<Layout.Root>

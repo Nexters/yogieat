@@ -4,4 +4,5 @@ export {
 	trackPageView,
 	trackCtaClick,
 	trackStepComplete,
+	trackShareClick,
 } from "./events";
