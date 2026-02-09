@@ -90,3 +90,17 @@ export const trackShareClick = (params: {
 }) => {
 	trackEvent("click_share", params);
 };
+
+/**
+ * 맛집 클릭 이벤트
+ *
+ * @example
+ * trackRestaurantClick({ page_id: "추천_결과", restaurant_name: "맛집이름", rank: 1 });
+ */
+export const trackRestaurantClick = (params: {
+	page_id: string;
+	restaurant_name: string;
+	rank: number;
+}) => {
+	trackEvent("click_restaurant", params);
+};

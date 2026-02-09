@@ -5,4 +5,5 @@ export {
 	trackCtaClick,
 	trackStepComplete,
 	trackShareClick,
+	trackRestaurantClick,
 } from "./events";
