@@ -55,6 +55,10 @@ jobs:
           ls -la .env.production
           echo "=== Variable names in .env.production ==="
           cut -d'=' -f1 .env.production
+          echo "=== Check value lengths ==="
+          while IFS='=' read -r key value; do
+            echo "$key length: ${#value}"
+          done < .env.production
 
       - name: Build and Push Client image
         if: steps.changes.outputs.client == 'true'
