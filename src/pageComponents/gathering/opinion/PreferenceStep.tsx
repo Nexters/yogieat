@@ -4,16 +4,11 @@ import { useEffect } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 import { omit } from "es-toolkit";
 
-import { trackStepComplete } from "#/components/analytics";
 import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
 import { StepHeader } from "#/components/stepHeader";
 import { Button } from "#/components/button";
-import {
-	RANKS,
-	OPINION_TOTAL_STEPS,
-	FOOD_CATEGORIES,
-} from "#/constants/gathering/opinion";
+import { RANKS, OPINION_TOTAL_STEPS } from "#/constants/gathering/opinion";
 import { RankSection } from "./RankSection";
 import type { OpinionFormSchema } from "#/schemas/gathering";
 import type { RankKey } from "#/types/gathering";
@@ -72,30 +67,13 @@ export const PreferenceStepContent = () => {
 };
 
 export const PreferenceStepFooter = () => {
-	const { control, getValues } = useFormContext<OpinionFormSchema>();
+	const { control } = useFormContext<OpinionFormSchema>();
 
 	const disabled = useWatch({
 		control,
 		name: "preferredMenus",
 		compute: ({ first }) => !first,
 	});
-
-	const handleClick = () => {
-		const preferredMenus = getValues("preferredMenus");
-		const preferredLabels = RANKS.map((rank) => {
-			const value = preferredMenus?.[rank];
-			if (!value) return null;
-			if (value === "ANY") return "상관없음";
-			return FOOD_CATEGORIES.find((c) => c.value === value)?.label;
-		})
-			.filter(Boolean)
-			.join(", ");
-		trackStepComplete({
-			page_id: "의견수합_퍼널",
-			step_name: "선호음식",
-			step_value: preferredLabels,
-		});
-	};
 
 	return (
 		<Layout.Footer>
@@ -105,7 +83,6 @@ export const PreferenceStepFooter = () => {
 					variant="primary"
 					width="full"
 					disabled={disabled}
-					onClick={handleClick}
 				>
 					완료
 				</Button>

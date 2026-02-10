@@ -1,9 +1,7 @@
 "use client";
 
 import { redirect, useParams, useRouter } from "next/navigation";
-import { useEffect } from "react";
 
-import { trackCtaClick, trackViewPage } from "#/components/analytics";
 import { IntroStep } from "#/pageComponents/gathering/opinion";
 import { Button } from "#/components/button";
 import { Layout } from "#/components/layout";
@@ -11,8 +9,6 @@ import {
 	useGetGathering,
 	useGetGatheringCapacity,
 } from "#/hooks/apis/gathering";
-
-const PAGE_ID = "의견수합_랜딩";
 
 export function LandingView() {
 	const { accessKey } = useParams<{ accessKey: string }>();
@@ -28,18 +24,8 @@ export function LandingView() {
 	}
 
 	const handleStartOpinion = () => {
-		trackCtaClick({ page_id: PAGE_ID, button_name: "내 취향 입력" });
 		router.push(`/gathering/${accessKey}/opinion`);
 	};
-
-	useEffect(() => {
-		if (!isComplete && gathering) {
-			trackViewPage({
-				page_id: PAGE_ID,
-				group_id: gathering.accessKey,
-			});
-		}
-	}, [isComplete, gathering]);
 
 	return (
 		<>

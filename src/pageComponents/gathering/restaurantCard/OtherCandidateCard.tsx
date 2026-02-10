@@ -1,6 +1,5 @@
 "use client";
 
-import { trackRestaurantClick } from "#/components/analytics";
 import { StarIcon } from "#/icons/starIcon";
 import { ChevronRightIcon } from "#/icons/chevronRightIcon";
 import type { Restaurant } from "#/types/gathering";
@@ -21,11 +20,6 @@ export const OtherCandidateCard = ({
 	ranking,
 }: OtherCandidateCardProps) => {
 	const handleMapClick = () => {
-		trackRestaurantClick({
-			page_id: "추천_결과",
-			restaurant_name: restaurant.restaurantName,
-			rank_type: "other",
-		});
 		window.open(restaurant.mapUrl, "_blank", "noopener,noreferrer");
 	};
 

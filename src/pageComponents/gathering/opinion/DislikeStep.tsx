@@ -2,7 +2,6 @@
 
 import { useFormContext, useWatch } from "react-hook-form";
 
-import { trackStepComplete } from "#/components/analytics";
 import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
 import { StepHeader } from "#/components/stepHeader";
@@ -49,26 +48,12 @@ interface DislikeStepFooterProps {
 }
 
 export const DislikeStepFooter = ({ onNext }: DislikeStepFooterProps) => {
-	const { control, getValues } = useFormContext<OpinionFormSchema>();
+	const { control } = useFormContext<OpinionFormSchema>();
 	const disabled = useWatch({
 		control,
 		name: "dislikedFoods",
 		compute: (value) => !value || value.length === 0,
 	});
-
-	const handleNext = () => {
-		const dislikedFoods = getValues("dislikedFoods") ?? [];
-		const dislikedLabels = dislikedFoods
-			.map((food) => FOOD_CATEGORIES.find((c) => c.value === food)?.label)
-			.filter(Boolean)
-			.join(", ");
-		trackStepComplete({
-			page_id: "의견수합_퍼널",
-			step_name: "비선호음식",
-			step_value: dislikedLabels,
-		});
-		onNext();
-	};
 
 	return (
 		<Layout.Footer>
@@ -77,7 +62,7 @@ export const DislikeStepFooter = ({ onNext }: DislikeStepFooterProps) => {
 					variant="primary"
 					width="full"
 					disabled={disabled}
-					onClick={handleNext}
+					onClick={onNext}
 				>
 					다음
 				</Button>
