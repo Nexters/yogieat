@@ -1,7 +1,9 @@
 "use client";
 
 import { useFormContext, useWatch } from "react-hook-form";
+import { isNil } from "es-toolkit";
 
+import { trackStepComplete } from "#/components/analytics";
 import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
 import { Button } from "#/components/button/Button";
@@ -9,7 +11,6 @@ import { DotsLoader } from "#/components/dotsLoader";
 import { REGION_OPTIONS } from "#/constants/gathering/opinion";
 import { RegionChip } from "./RegionChip";
 import type { CreateMeetingFormSchema } from "#/schemas/gathering";
-import { isNil } from "es-toolkit";
 
 export const RegionStepContent = () => {
 	return (
@@ -34,12 +35,23 @@ interface RegionStepFooterProps {
 }
 
 export const RegionStepFooter = ({ isPending }: RegionStepFooterProps) => {
-	const { control } = useFormContext<CreateMeetingFormSchema>();
+	const { control, getValues } = useFormContext<CreateMeetingFormSchema>();
 	const isValid = useWatch({
 		control,
 		name: "region",
 		compute: (region) => !isNil(region),
 	});
+
+	const handleClick = () => {
+		const region = getValues("region");
+		const regionLabel =
+			REGION_OPTIONS.find((r) => r.value === region)?.label ?? "-";
+		trackStepComplete({
+			page_id: "모임생성_퍼널",
+			step_name: "장소",
+			step_value: regionLabel,
+		});
+	};
 
 	return (
 		<Layout.Footer>
@@ -49,6 +61,7 @@ export const RegionStepFooter = ({ isPending }: RegionStepFooterProps) => {
 					variant="primary"
 					width="full"
 					disabled={!isValid || isPending}
+					onClick={handleClick}
 				>
 					{isPending ? <DotsLoader /> : "완료"}
 				</Button>

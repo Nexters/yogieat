@@ -1,8 +1,10 @@
 "use client";
 
+import type { SyntheticEvent } from "react";
+
+import { trackRestaurantClick } from "#/components/analytics";
 import { StarIcon } from "#/icons/starIcon";
 import { ChevronRightIcon } from "#/icons/chevronRightIcon";
-import type { SyntheticEvent } from "react";
 import type { Restaurant } from "#/types/gathering";
 import {
 	FOOD_CATEGORY_LABEL,
@@ -22,6 +24,11 @@ export const TopRecommendCard = ({ restaurant }: TopRecommendCardProps) => {
 	};
 
 	const handleMapClick = () => {
+		trackRestaurantClick({
+			page_id: "추천_결과",
+			restaurant_name: restaurant.restaurantName,
+			rank_type: "top",
+		});
 		window.open(restaurant.mapUrl, "_blank", "noopener,noreferrer");
 	};
 
