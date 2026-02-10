@@ -1,19 +1,14 @@
 "use client";
 
-import { useEffect } from "react";
-import { useParams, redirect } from "next/navigation";
-
-import { trackCtaClick, trackViewPage } from "#/components/analytics";
 import { Button } from "#/components/button";
 import { Layout } from "#/components/layout";
 import {
 	CompleteView,
 	SubmissionBottomSheet,
 } from "#/pageComponents/gathering/opinion";
+import { useParams, redirect } from "next/navigation";
 import { useGetGatheringCapacity } from "#/hooks/apis/gathering";
 import { Toaster } from "#/components/toast";
-
-const PAGE_ID = "의견수합_완료";
 
 export function CompleteViewContainer() {
 	const { accessKey } = useParams<{ accessKey: string }>();
@@ -26,20 +21,8 @@ export function CompleteViewContainer() {
 	}
 
 	const handleRedirectResult = () => {
-		trackCtaClick({ page_id: PAGE_ID, button_name: "추천 결과 보기" });
 		redirect(`/gathering/${accessKey}/opinion/result`);
 	};
-
-	useEffect(() => {
-		if (!isPending && capacity) {
-			trackViewPage({
-				page_id: PAGE_ID,
-				submit_progress: Math.round(
-					(capacity.currentCount / capacity.maxCount) * 100,
-				),
-			});
-		}
-	}, [capacity, isPending]);
 
 	return (
 		<Layout.Root>

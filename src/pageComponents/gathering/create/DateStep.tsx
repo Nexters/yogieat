@@ -3,7 +3,6 @@
 import { useFormContext, useController, useWatch } from "react-hook-form";
 import { isNil } from "es-toolkit";
 
-import { trackStepComplete } from "#/components/analytics";
 import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
 import { Button } from "#/components/button";
@@ -12,11 +11,6 @@ import { Chip } from "#/components/chip";
 import { formatDateInput, isValidDateFormat } from "#/utils/gathering/create";
 import type { CreateMeetingFormSchema } from "#/schemas/gathering";
 import type { TimeSlot } from "#/types/gathering";
-
-const TIME_SLOT_LABEL: Record<TimeSlot, string> = {
-	LUNCH: "점심",
-	DINNER: "저녁",
-};
 
 export const DateStepContent = () => {
 	const { control } = useFormContext<CreateMeetingFormSchema>();
@@ -96,7 +90,7 @@ interface DateStepFooterProps {
 }
 
 export const DateStepFooter = ({ onNext }: DateStepFooterProps) => {
-	const { control, getValues } = useFormContext<CreateMeetingFormSchema>();
+	const { control } = useFormContext<CreateMeetingFormSchema>();
 	const isValid = useWatch({
 		control,
 		name: ["scheduledDate", "timeSlot"],
@@ -106,17 +100,6 @@ export const DateStepFooter = ({ onNext }: DateStepFooterProps) => {
 			isValidDateFormat(scheduledDate),
 	});
 
-	const handleNext = () => {
-		const timeSlot = getValues("timeSlot");
-		const timeSlotLabel = timeSlot ? TIME_SLOT_LABEL[timeSlot] : "";
-		trackStepComplete({
-			page_id: "모임생성_퍼널",
-			step_name: "시간대",
-			step_value: timeSlotLabel,
-		});
-		onNext();
-	};
-
 	return (
 		<Layout.Footer>
 			<div className="ygi:px-6">
@@ -125,7 +108,7 @@ export const DateStepFooter = ({ onNext }: DateStepFooterProps) => {
 					variant="primary"
 					width="full"
 					disabled={!isValid}
-					onClick={handleNext}
+					onClick={onNext}
 				>
 					다음
 				</Button>

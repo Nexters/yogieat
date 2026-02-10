@@ -1,18 +1,13 @@
 "use client";
 
-import { useEffect } from "react";
-import { useParams, redirect } from "next/navigation";
-
-import { trackViewPage, trackShareClick } from "#/components/analytics";
 import { Layout } from "#/components/layout";
 import { ShareButton } from "#/components/shareButton";
 import { ResultView } from "#/pageComponents/gathering/opinion";
+import { useParams, redirect } from "next/navigation";
 import { BackwardButton } from "#/components/backwardButton";
 import { useGetGatheringCapacity } from "#/hooks/apis/gathering";
 import { useGetRecommendResult } from "#/hooks/apis/recommendResult";
 import { Toaster } from "#/components/toast";
-
-const PAGE_ID = "추천_결과";
 
 export function ResultViewContainer() {
 	const { accessKey } = useParams<{ accessKey: string }>();
@@ -29,19 +24,6 @@ export function ResultViewContainer() {
 		redirect(`/gathering/${accessKey}/opinion/complete`);
 	};
 
-	const handleShare = () => {
-		trackShareClick({ page_id: PAGE_ID, share_location: "Footer" });
-	};
-
-	useEffect(() => {
-		if (isComplete && recommendationResult && accessKey) {
-			trackViewPage({
-				page_id: PAGE_ID,
-				group_id: accessKey,
-			});
-		}
-	}, [isComplete, recommendationResult, accessKey]);
-
 	return (
 		<Layout.Root>
 			<Layout.Header background="gray">
@@ -52,7 +34,7 @@ export function ResultViewContainer() {
 
 			<Layout.Footer background="gray">
 				<div className="ygi:px-6">
-					<ShareButton onShare={handleShare} />
+					<ShareButton />
 				</div>
 			</Layout.Footer>
 

@@ -3,13 +3,11 @@
 import { useFormContext, useWatch } from "react-hook-form";
 import { isUndefined } from "es-toolkit/predicate";
 
-import { trackStepComplete } from "#/components/analytics";
 import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
 import { StepHeader } from "#/components/stepHeader";
 import { Button } from "#/components/button";
 import {
-	DISTANCE_OPTIONS,
 	OPINION_TOTAL_STEPS,
 	REGION_OPTIONS,
 } from "#/constants/gathering/opinion";
@@ -49,25 +47,12 @@ interface DistanceStepFooterProps {
 }
 
 export const DistanceStepFooter = ({ onNext }: DistanceStepFooterProps) => {
-	const { control, getValues } = useFormContext<OpinionFormSchema>();
+	const { control } = useFormContext<OpinionFormSchema>();
 	const disabled = useWatch({
 		control,
 		name: "distanceRange",
 		compute: (value) => isUndefined(value),
 	});
-
-	const handleNext = () => {
-		const distanceRange = getValues("distanceRange");
-		const distanceLabel =
-			DISTANCE_OPTIONS.find((d) => d.value === distanceRange)?.label ??
-			"";
-		trackStepComplete({
-			page_id: "의견수합_퍼널",
-			step_name: "거리",
-			step_value: distanceLabel,
-		});
-		onNext();
-	};
 
 	return (
 		<Layout.Footer>
@@ -76,7 +61,7 @@ export const DistanceStepFooter = ({ onNext }: DistanceStepFooterProps) => {
 					variant="primary"
 					width="full"
 					disabled={disabled}
-					onClick={handleNext}
+					onClick={onNext}
 				>
 					다음
 				</Button>
