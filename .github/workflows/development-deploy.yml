@@ -91,13 +91,18 @@ jobs:
           script: |
             cd ~/yogieat
 
-            sudo docker compose -f ./docker-compose.dev.yml down
+            sudo docker compose -f ./docker-compose.dev.yml down --remove-orphans
             # Clean up unused images only (preserve volumes with SSL certificates)
             sudo docker image prune -a -f
 
-            sudo docker compose -f ./docker-compose.dev.yml pull
-            sudo docker compose -f ./docker-compose.dev.yml up -d
+            # Force pull latest images
+            sudo docker compose -f ./docker-compose.dev.yml pull --policy always
+            sudo docker compose -f ./docker-compose.dev.yml up -d --force-recreate
             sudo docker compose -f ./docker-compose.dev.yml ps
+
+            # Verify image digest
+            echo "=== Client image digest ==="
+            sudo docker images --digests | grep yogieat-client
 
       - name: Extract commit info
         id: commit
