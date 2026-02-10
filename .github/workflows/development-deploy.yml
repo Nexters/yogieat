@@ -48,6 +48,14 @@ jobs:
           echo "NEXT_PUBLIC_GTM_ID=${{ secrets.NEXT_PUBLIC_GTM_ID }}" >> .env.production
           echo "NEXT_PUBLIC_GA_ID=${{ secrets.NEXT_PUBLIC_GA_ID }}" >> .env.production
 
+      - name: Debug .env.production
+        if: steps.changes.outputs.client == 'true'
+        run: |
+          echo "=== .env.production file exists ==="
+          ls -la .env.production
+          echo "=== Variable names in .env.production ==="
+          cut -d'=' -f1 .env.production
+
       - name: Build and Push Client image
         if: steps.changes.outputs.client == 'true'
         uses: docker/build-push-action@v5
@@ -56,8 +64,7 @@ jobs:
           context: .
           file: ./docker/client/Dockerfile
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/yogieat-client:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          no-cache: true
 
       - name: Build and Push Nginx image
         if: steps.changes.outputs.nginx == 'true'
