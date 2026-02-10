@@ -40,26 +40,6 @@ jobs:
         if: steps.changes.outputs.client == 'true' || steps.changes.outputs.nginx == 'true'
         uses: docker/setup-buildx-action@v3
 
-      - name: Create .env.production
-        if: steps.changes.outputs.client == 'true'
-        run: |
-          echo "NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}" > .env.production
-          echo "NEXT_PUBLIC_AWS_S3=${{ secrets.NEXT_PUBLIC_AWS_S3 }}" >> .env.production
-          echo "NEXT_PUBLIC_GTM_ID=${{ secrets.NEXT_PUBLIC_GTM_ID }}" >> .env.production
-          echo "NEXT_PUBLIC_GA_ID=${{ secrets.NEXT_PUBLIC_GA_ID }}" >> .env.production
-
-      - name: Debug .env.production
-        if: steps.changes.outputs.client == 'true'
-        run: |
-          echo "=== .env.production file exists ==="
-          ls -la .env.production
-          echo "=== Variable names in .env.production ==="
-          cut -d'=' -f1 .env.production
-          echo "=== Check value lengths ==="
-          while IFS='=' read -r key value; do
-            echo "$key length: ${#value}"
-          done < .env.production
-
       - name: Build and Push Client image
         if: steps.changes.outputs.client == 'true'
         uses: docker/build-push-action@v5
@@ -69,6 +49,11 @@ jobs:
           file: ./docker/client/Dockerfile
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/yogieat-client:latest
           no-cache: true
+          build-args: |
+            NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
+            NEXT_PUBLIC_AWS_S3=${{ secrets.NEXT_PUBLIC_AWS_S3 }}
+            NEXT_PUBLIC_GTM_ID=${{ secrets.NEXT_PUBLIC_GTM_ID }}
+            NEXT_PUBLIC_GA_ID=${{ secrets.NEXT_PUBLIC_GA_ID }}
 
       - name: Build and Push Nginx image
         if: steps.changes.outputs.nginx == 'true'
