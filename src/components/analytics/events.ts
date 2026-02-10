@@ -40,14 +40,13 @@ export const trackEvent = (
  * 페이지 진입 이벤트
  *
  * @example
- * trackPageView("view_onboarding", { page_id: "onboarding" });
- * trackPageView("view_complete", { page_id: "create_complete", group_id: "abc123" });
+ * trackViewPage({ page_id: "onboarding" });
+ * trackViewPage({ page_id: "create_complete", group_id: "abc123" });
  */
-export const trackPageView = (
-	eventName: string,
+export const trackViewPage = (
 	params: { page_id: string } & Record<string, string | number | boolean>,
 ) => {
-	trackEvent(eventName, params);
+	trackEvent("view_page", params);
 };
 
 /**

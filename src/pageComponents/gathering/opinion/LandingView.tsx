@@ -3,7 +3,7 @@
 import { redirect, useParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-import { trackCtaClick, trackPageView } from "#/components/analytics";
+import { trackCtaClick, trackViewPage } from "#/components/analytics";
 import { IntroStep } from "#/pageComponents/gathering/opinion";
 import { Button } from "#/components/button";
 import { Layout } from "#/components/layout";
@@ -33,13 +33,13 @@ export function LandingView() {
 	};
 
 	useEffect(() => {
-		if (!isComplete && gathering?.accessKey) {
-			trackPageView("view_page", {
+		if (!isComplete && gathering) {
+			trackViewPage({
 				page_id: PAGE_ID,
 				group_id: gathering.accessKey,
 			});
 		}
-	}, [isComplete, gathering?.accessKey]);
+	}, [isComplete, gathering]);
 
 	return (
 		<>

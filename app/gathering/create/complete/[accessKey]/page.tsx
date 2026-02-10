@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 import { twJoin } from "tailwind-merge";
 
-import { trackCtaClick, trackPageView } from "#/components/analytics";
+import { trackCtaClick, trackViewPage } from "#/components/analytics";
 import { Layout } from "#/components/layout";
 import { Button } from "#/components/button";
 import { MeetingCompleteIllustration } from "#/components/illustrations";
@@ -30,7 +30,7 @@ export default function GatheringCreateCompletePage() {
 	useEffect(() => {
 		if (!params.accessKey) return;
 
-		trackPageView("view_page", {
+		trackViewPage({
 			page_id: PAGE_ID,
 			group_id: params.accessKey,
 		});

@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useParams, redirect } from "next/navigation";
 
-import { trackCtaClick, trackPageView } from "#/components/analytics";
+import { trackCtaClick, trackViewPage } from "#/components/analytics";
 import { Button } from "#/components/button";
 import { Layout } from "#/components/layout";
 import {
@@ -31,15 +31,15 @@ export function CompleteViewContainer() {
 	};
 
 	useEffect(() => {
-		if (!isPending && capacity?.currentCount && capacity?.maxCount) {
-			trackPageView("view_page", {
+		if (!isPending && capacity) {
+			trackViewPage({
 				page_id: PAGE_ID,
 				submit_progress: Math.round(
 					(capacity.currentCount / capacity.maxCount) * 100,
 				),
 			});
 		}
-	}, [isPending, capacity?.currentCount, capacity?.maxCount]);
+	}, [capacity, isPending]);
 
 	return (
 		<Layout.Root>

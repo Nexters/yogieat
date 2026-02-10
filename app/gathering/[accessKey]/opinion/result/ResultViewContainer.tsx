@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useParams, redirect } from "next/navigation";
 
-import { trackPageView, trackShareClick } from "#/components/analytics";
+import { trackViewPage, trackShareClick } from "#/components/analytics";
 import { Layout } from "#/components/layout";
 import { ShareButton } from "#/components/shareButton";
 import { ResultView } from "#/pageComponents/gathering/opinion";
@@ -35,7 +35,7 @@ export function ResultViewContainer() {
 
 	useEffect(() => {
 		if (isComplete && recommendationResult && accessKey) {
-			trackPageView("view_page", {
+			trackViewPage({
 				page_id: PAGE_ID,
 				group_id: accessKey,
 			});

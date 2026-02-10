@@ -1,7 +1,7 @@
 export { Analytics } from "./Analytics";
 export {
 	trackEvent,
-	trackPageView,
+	trackViewPage,
 	trackCtaClick,
 	trackStepComplete,
 	trackShareClick,

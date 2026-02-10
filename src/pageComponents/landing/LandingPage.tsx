@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { motion } from "motion/react";
 
-import { trackCtaClick, trackPageView } from "#/components/analytics";
+import { trackCtaClick, trackViewPage } from "#/components/analytics";
 import { Layout } from "#/components/layout";
 
 const PAGE_ID = "모임생성_랜딩";
@@ -19,7 +19,7 @@ export const LandingPage = () => {
 	};
 
 	useEffect(() => {
-		trackPageView("view_page", { page_id: PAGE_ID });
+		trackViewPage({ page_id: PAGE_ID });
 	}, []);
 
 	return (

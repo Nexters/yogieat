@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useParams, redirect } from "next/navigation";
 
-import { trackPageView, trackShareClick } from "#/components/analytics";
+import { trackViewPage, trackShareClick } from "#/components/analytics";
 import { Button } from "#/components/button";
 import { Layout } from "#/components/layout";
 import {
@@ -38,17 +38,17 @@ export function PendingViewContainer() {
 	};
 
 	useEffect(() => {
-		if (!isComplete && capacity?.currentCount && capacity?.maxCount) {
+		if (!isComplete && capacity) {
 			const progress = Math.round(
 				(capacity.currentCount / capacity.maxCount) * 100,
 			);
 
-			trackPageView("view_page", {
+			trackViewPage({
 				page_id: PAGE_ID,
 				submit_progress: progress,
 			});
 		}
-	}, [isComplete, capacity?.currentCount, capacity?.maxCount]);
+	}, [capacity, isComplete]);
 
 	return (
 		<Layout.Root>
