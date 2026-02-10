@@ -1,5 +1,6 @@
 "use client";
 
+// GA4 & GTM Analytics Integration
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
