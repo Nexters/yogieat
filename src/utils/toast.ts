@@ -1,10 +1,10 @@
-import { toast as sonnerToast } from "sonner";
+import {
+	toast as sonnerToast,
+	type ExternalToast as SonnerToastOptions,
+} from "sonner";
 import { AlertCircleIcon } from "#/icons/alertCircleIcon";
 
-interface ToastOptions {
-	duration?: number;
-	className?: string;
-}
+type ToastOptions = Omit<SonnerToastOptions, "icon" | "classNames">;
 
 export const toast = {
 	success: (message: string, options?: ToastOptions) => {
@@ -13,6 +13,7 @@ export const toast = {
 				toast: "ygi:bg-button-primary! ygi:text-text-inverse! ygi:body-14-md! ygi:rounded-sm! ygi:py-3! ygi:px-5! ygi:flex! ygi:items-center! ygi:justify-center! ygi:border-none!",
 			},
 			duration: options?.duration,
+			...options,
 		});
 	},
 	warning: (message: string, options?: ToastOptions) => {
@@ -25,6 +26,7 @@ export const toast = {
 				toast: "ygi:bg-button-primary! ygi:text-text-inverse! ygi:body-14-md! ygi:rounded-sm! ygi:py-3! ygi:pl-4! ygi:pr-5! ygi:gap-2! ygi:flex! ygi:items-center! ygi:border-none!",
 			},
 			duration: options?.duration,
+			...options,
 		});
 	},
 };

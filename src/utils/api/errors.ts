@@ -1,3 +1,4 @@
+import type { ErrorCode } from "./errorCodes";
 import type { ErrorData, ErrorResponse } from "./types";
 
 /**
@@ -8,7 +9,7 @@ export class ApiError extends Error {
 	/** HTTP 상태 코드 */
 	readonly status: number;
 	/** 에러 코드 (ex. "U001") */
-	readonly errorCode: string;
+	readonly errorCode: ErrorCode;
 	/** 에러 발생 시각 */
 	readonly timestamp: string;
 

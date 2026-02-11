@@ -1,14 +1,20 @@
 "use client";
 
+import { useEffect } from "react";
+import { useParams, redirect } from "next/navigation";
+
+import { trackViewPage, trackShareClick } from "#/components/analytics";
 import { Button } from "#/components/button";
 import { Layout } from "#/components/layout";
 import {
 	PendingView,
 	SubmissionBottomSheet,
 } from "#/pageComponents/gathering/opinion";
-import { useParams, redirect } from "next/navigation";
 import { useGetGatheringCapacity } from "#/hooks/apis/gathering";
 import { share } from "#/utils/share";
+import { Toaster } from "#/components/toast";
+
+const PAGE_ID = "의견수합_대기";
 
 export function PendingViewContainer() {
 	const { accessKey } = useParams<{ accessKey: string }>();
@@ -21,13 +27,28 @@ export function PendingViewContainer() {
 	}
 
 	const handleShare = () => {
-		const opinionUrl = `${window.location.origin}/gathering/${accessKey}/opinion`;
+		trackShareClick({ page_id: PAGE_ID, share_location: "Footer" });
+
+		const opinionUrl = `${window.location.origin}/gathering/${accessKey}/landing`;
 		share({
 			title: "함께 갈 맛집, 같이 정해요!",
 			text: "[요기잇] 다인원을 위한 맛집 서비스",
 			url: opinionUrl,
 		});
 	};
+
+	useEffect(() => {
+		if (!isComplete && capacity) {
+			const progress = Math.round(
+				(capacity.currentCount / capacity.maxCount) * 100,
+			);
+
+			trackViewPage({
+				page_id: PAGE_ID,
+				submit_progress: progress,
+			});
+		}
+	}, [capacity, isComplete]);
 
 	return (
 		<Layout.Root>
@@ -52,6 +73,8 @@ export function PendingViewContainer() {
 					</Button>
 				</div>
 			</Layout.Footer>
+
+			<Toaster offset={{ bottom: 96 }} mobileOffset={{ bottom: 96 }} />
 		</Layout.Root>
 	);
 }

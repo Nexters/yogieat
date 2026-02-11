@@ -1,15 +1,15 @@
-name: Development Deployment
+name: Production Deployment
 
 on:
   push:
     branches:
-      - develop
+      - main
 
 jobs:
   build-image:
     runs-on: ubuntu-latest
     environment:
-      name: development
+      name: production
     outputs:
       nginx_changed: ${{ steps.changes.outputs.nginx }}
     steps:
@@ -77,7 +77,7 @@ jobs:
     needs: build-image
     runs-on: ubuntu-latest
     environment:
-      name: development
+      name: production
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v5
@@ -103,8 +103,8 @@ jobs:
             # Pull latest images
             sudo docker compose pull
 
-            # Restart only client-dev (무중단 배포)
-            sudo docker compose up -d --no-deps client-dev
+            # Restart only client-prod (무중단 배포)
+            sudo docker compose up -d --no-deps client-prod
 
             # Clean up unused images only (preserve volumes with SSL certificates)
             sudo docker image prune -a -f
@@ -122,6 +122,31 @@ jobs:
             cd ~/yogieat
             sudo docker compose up -d --no-deps nginx
 
+      - name: Health Check
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_PRIVATE_KEY }}
+          script: |
+            cd ~/yogieat
+
+            echo "Waiting for services to be healthy..."
+            sleep 10
+
+            # Check container status
+            sudo docker compose ps
+
+            # Check if client is healthy
+            CLIENT_STATUS=$(sudo docker inspect --format='{{.State.Health.Status}}' yogieat-client-prod 2>/dev/null || echo "no-healthcheck")
+            echo "Client health status: $CLIENT_STATUS"
+
+            if [ "$CLIENT_STATUS" != "healthy" ] && [ "$CLIENT_STATUS" != "no-healthcheck" ]; then
+              echo "Client container is not healthy"
+              sudo docker compose logs client-prod
+              exit 1
+            fi
+
       - name: Extract commit info
         id: commit
         run: |
@@ -134,11 +159,12 @@ jobs:
         if: always()
         uses: sarisia/actions-status-discord@v1
         with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          title: "🚀 Development 배포"
+          webhook: ${{ secrets.DISCORD_WEBHOOK_PROD || secrets.DISCORD_WEBHOOK }}
+          title: "🚀 Production 배포"
           description: |
             **상태**: ${{ job.status }}
             **커밋**: [`${{ steps.commit.outputs.sha }}`](https://github.com/${{ github.repository }}/commit/${{ github.sha }})
             **메시지**: ${{ steps.commit.outputs.message }}
+            **URL**: https://yogieat.com
           color: ${{ job.status == 'success' && '0x57F287' || '0xED4245' }}
           username: GitHub Actions

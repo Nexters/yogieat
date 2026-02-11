@@ -1,58 +1,38 @@
 "use client";
 
-import { useFormContext, useController } from "react-hook-form";
+import { useFormContext, useController, useWatch } from "react-hook-form";
 import { isNil } from "es-toolkit";
 
+import { trackStepComplete } from "#/components/analytics";
 import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
 import { Button } from "#/components/button";
 import { InputField } from "#/components/inputField";
 import { Chip } from "#/components/chip";
-import {
-	formatDateInput,
-	isValidDateFormat,
-	validateDateInput,
-	type DateValidationError,
-} from "#/utils/gathering/create";
-import type { CreateMeetingForm, TimeSlot } from "#/types/gathering";
+import { formatDateInput, isValidDateFormat } from "#/utils/gathering/create";
+import type { CreateMeetingFormSchema } from "#/schemas/gathering";
+import type { TimeSlot } from "#/types/gathering";
 
-const scheduledDateRules = {
-	validate: (value: string | undefined) =>
-		!isNil(value) && isValidDateFormat(value),
-};
-
-const timeSlotRules = {
-	validate: (value: TimeSlot | undefined) => !isNil(value),
-};
-
-const DATE_ERROR_MESSAGES: Record<
-	Exclude<DateValidationError, null>,
-	string
-> = {
-	INVALID_FORMAT: "날짜 형식을 확인해주세요 (예: 2026.01.31)",
-	INVALID_DATE: "존재하지 않는 날짜예요",
-	PAST_DATE: "이미 지난 날짜예요",
+const TIME_SLOT_LABEL: Record<TimeSlot, string> = {
+	LUNCH: "점심",
+	DINNER: "저녁",
 };
 
 export const DateStepContent = () => {
-	const { control } = useFormContext<CreateMeetingForm>();
+	const { control } = useFormContext<CreateMeetingFormSchema>();
 
-	const { field: scheduledDateField } = useController({
+	const {
+		field: scheduledDateField,
+		fieldState: { error: scheduledDateError },
+	} = useController({
 		control,
 		name: "scheduledDate",
-		rules: scheduledDateRules,
 	});
 
 	const { field: timeSlotField } = useController({
 		control,
 		name: "timeSlot",
-		rules: timeSlotRules,
 	});
-
-	const dateError =
-		scheduledDateField.value?.length === 10
-			? validateDateInput(scheduledDateField.value)
-			: null;
 
 	const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const formatted = formatDateInput(e.target.value);
@@ -64,7 +44,7 @@ export const DateStepContent = () => {
 	};
 
 	const handleTimeSlotChange = (slot: TimeSlot) => {
-		timeSlotField.onChange(slot === timeSlotField.value ? undefined : slot);
+		timeSlotField.onChange(slot === timeSlotField.value ? null : slot);
 	};
 
 	return (
@@ -78,11 +58,7 @@ export const DateStepContent = () => {
 					<InputField
 						placeholder="날짜를 입력해주세요"
 						helperText="예) 2026.01.28"
-						errorText={
-							dateError
-								? DATE_ERROR_MESSAGES[dateError]
-								: undefined
-						}
+						errorText={scheduledDateError?.message}
 						inputMode="numeric"
 						showClearButton
 						value={scheduledDateField.value || ""}
@@ -120,24 +96,26 @@ interface DateStepFooterProps {
 }
 
 export const DateStepFooter = ({ onNext }: DateStepFooterProps) => {
-	const { control } = useFormContext<CreateMeetingForm>();
-
-	const { field: scheduledDateField } = useController({
+	const { control, getValues } = useFormContext<CreateMeetingFormSchema>();
+	const isValid = useWatch({
 		control,
-		name: "scheduledDate",
-		rules: scheduledDateRules,
+		name: ["scheduledDate", "timeSlot"],
+		compute: ([scheduledDate, timeSlot]) =>
+			!isNil(scheduledDate) &&
+			!isNil(timeSlot) &&
+			isValidDateFormat(scheduledDate),
 	});
 
-	const { field: timeSlotField } = useController({
-		control,
-		name: "timeSlot",
-		rules: timeSlotRules,
-	});
-
-	const isValid =
-		!isNil(scheduledDateField.value) &&
-		isValidDateFormat(scheduledDateField.value) &&
-		!isNil(timeSlotField.value);
+	const handleNext = () => {
+		const timeSlot = getValues("timeSlot");
+		const timeSlotLabel = timeSlot ? TIME_SLOT_LABEL[timeSlot] : "";
+		trackStepComplete({
+			page_id: "모임생성_퍼널",
+			step_name: "시간대",
+			step_value: timeSlotLabel,
+		});
+		onNext();
+	};
 
 	return (
 		<Layout.Footer>
@@ -147,7 +125,7 @@ export const DateStepFooter = ({ onNext }: DateStepFooterProps) => {
 					variant="primary"
 					width="full"
 					disabled={!isValid}
-					onClick={onNext}
+					onClick={handleNext}
 				>
 					다음
 				</Button>

@@ -1,5 +1,6 @@
 "use client";
 
+import { trackRestaurantClick } from "#/components/analytics";
 import { StarIcon } from "#/icons/starIcon";
 import { ChevronRightIcon } from "#/icons/chevronRightIcon";
 import type { Restaurant } from "#/types/gathering";
@@ -20,6 +21,11 @@ export const OtherCandidateCard = ({
 	ranking,
 }: OtherCandidateCardProps) => {
 	const handleMapClick = () => {
+		trackRestaurantClick({
+			page_id: "추천_결과",
+			restaurant_name: restaurant.restaurantName,
+			rank_type: "other",
+		});
 		window.open(restaurant.mapUrl, "_blank", "noopener,noreferrer");
 	};
 
@@ -28,21 +34,16 @@ export const OtherCandidateCard = ({
 			className="ygi:flex ygi:items-start ygi:overflow-hidden"
 			aria-label={`${ranking}위 추천 음식점: ${restaurant.restaurantName}`}
 		>
-			<div className="ygi:relative ygi:h-20 ygi:w-20 ygi:shrink-0 ygi:overflow-hidden ygi:rounded ygi:bg-gray-200">
-				{restaurant.imageUrl ? (
-					<Image
-						src={restaurant.imageUrl}
-						alt={restaurant.restaurantName}
-						fill
-						className="ygi:object-cover"
-					/>
-				) : (
-					<div className="ygi:flex ygi:h-full ygi:items-center ygi:justify-center">
-						<span className="ygi:text-text-tertiary ygi:text-xs">
-							준비 중
-						</span>
-					</div>
-				)}
+			<div className="ygi:relative ygi:h-20 ygi:w-20 ygi:shrink-0 ygi:overflow-clip ygi:rounded ygi:border ygi:border-border-default ygi:bg-surface-lightgray">
+				<Image
+					src={
+						restaurant.imageUrl ??
+						"/images/result/restaurant-image-placeholder.png"
+					}
+					alt={restaurant.restaurantName ?? "준비 중"}
+					fill
+					className="ygi:object-cover"
+				/>
 			</div>
 
 			<div className="ygi:flex ygi:flex-1 ygi:flex-col ygi:justify-center ygi:gap-2 ygi:px-5">

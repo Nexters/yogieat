@@ -18,19 +18,13 @@ import {
 	useCreateMeetingForm,
 	useCreateMeetingFunnel,
 } from "#/hooks/gathering";
-import { useCreateGathering } from "#/hooks/apis/gathering";
 import { Toaster } from "#/components/toast";
-import { isApiError } from "#/utils/api";
-import { toast } from "#/utils/toast";
-import type { CreateMeetingForm } from "#/types/gathering";
 
 export default function GatheringCreatePage() {
 	const router = useRouter();
-	const form = useCreateMeetingForm();
+	const { methods, onSubmit, isPending } = useCreateMeetingForm();
 	const { step, direction, next, back, isFirstStep } =
 		useCreateMeetingFunnel();
-
-	const { mutate: createGathering, isPending } = useCreateGathering();
 
 	const handleBackward = () => {
 		if (isFirstStep) {
@@ -38,40 +32,6 @@ export default function GatheringCreatePage() {
 		} else {
 			back();
 		}
-	};
-
-	const handleComplete = (accessKey: string) => {
-		router.push(`/gathering/create/complete/${accessKey}`);
-	};
-
-	const onSubmit = (formData: CreateMeetingForm) => {
-		if (
-			!formData.peopleCount ||
-			!formData.region ||
-			!formData.scheduledDate ||
-			!formData.timeSlot
-		) {
-			return;
-		}
-
-		createGathering(
-			{
-				peopleCount: formData.peopleCount,
-				region: formData.region,
-				scheduledDate: formData.scheduledDate.replace(/\./g, "-"),
-				timeSlot: formData.timeSlot,
-			},
-			{
-				onSuccess: (response) => {
-					handleComplete(response.data.accessKey);
-				},
-				onError: (error) => {
-					if (isApiError(error)) {
-						toast.warning(error.message);
-					}
-				},
-			},
-		);
 	};
 
 	const renderContent = () => {
@@ -101,9 +61,9 @@ export default function GatheringCreatePage() {
 	};
 
 	return (
-		<FormProvider {...form}>
+		<FormProvider {...methods}>
 			<Layout.Root>
-				<form onSubmit={form.handleSubmit(onSubmit)}>
+				<form onSubmit={onSubmit}>
 					<Layout.Header>
 						{step !== "people" && (
 							<BackwardButton onClick={handleBackward} />

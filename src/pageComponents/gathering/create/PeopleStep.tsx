@@ -1,27 +1,23 @@
 "use client";
 
-import { useFormContext, useController } from "react-hook-form";
+import { useFormContext, useController, useWatch } from "react-hook-form";
 import { isNil } from "es-toolkit";
 
+import { trackStepComplete } from "#/components/analytics";
 import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
 import { Button } from "#/components/button";
 import { PeopleCountGrid } from "./PeopleCountGrid";
-import type { CreateMeetingForm } from "#/types/gathering";
-
-const rules = {
-	validate: (value: number | undefined) => !isNil(value),
-};
+import type { CreateMeetingFormSchema } from "#/schemas/gathering";
 
 export const PeopleStepContent = () => {
-	const { control } = useFormContext<CreateMeetingForm>();
+	const { control } = useFormContext<CreateMeetingFormSchema>();
 	const { field } = useController({
 		control,
 		name: "peopleCount",
-		rules,
 	});
 
-	const handleChange = (count?: number) => {
+	const handleChange = (count: number | null) => {
 		field.onChange(count);
 	};
 
@@ -43,14 +39,23 @@ interface PeopleStepFooterProps {
 }
 
 export const PeopleStepFooter = ({ onNext }: PeopleStepFooterProps) => {
-	const { control } = useFormContext<CreateMeetingForm>();
-	const { field } = useController({
+	const { control, getValues } = useFormContext<CreateMeetingFormSchema>();
+	const isValid = useWatch({
 		control,
 		name: "peopleCount",
-		rules,
+		compute: (peopleCount) => !isNil(peopleCount),
 	});
 
-	const isValid = !isNil(field.value);
+	const handleNext = () => {
+		const peopleCount = getValues("peopleCount");
+		const peopleCountLabel = peopleCount ? `${peopleCount}명` : "-";
+		trackStepComplete({
+			page_id: "모임생성_퍼널",
+			step_name: "인원수",
+			step_value: peopleCountLabel,
+		});
+		onNext();
+	};
 
 	return (
 		<Layout.Footer>
@@ -60,7 +65,7 @@ export const PeopleStepFooter = ({ onNext }: PeopleStepFooterProps) => {
 					variant="primary"
 					width="full"
 					disabled={!isValid}
-					onClick={onNext}
+					onClick={handleNext}
 				>
 					다음
 				</Button>

@@ -77,6 +77,15 @@ export type DateValidationError =
 	| "PAST_DATE"
 	| null;
 
+export const DATE_ERROR_MESSAGES: Record<
+	Exclude<DateValidationError, null>,
+	string
+> = {
+	INVALID_FORMAT: "날짜 형식을 확인해주세요 (예: 2026.01.31)",
+	INVALID_DATE: "존재하지 않는 날짜예요",
+	PAST_DATE: "이미 지난 날짜예요",
+};
+
 /**
  * 날짜 문자열의 유효성을 검사하고 에러 타입을 반환합니다.
  * - INVALID_FORMAT: 형식이 올바르지 않음 (yyyy.MM.dd)

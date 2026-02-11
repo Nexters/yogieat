@@ -1,39 +1,56 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
+import { useEffect } from "react";
 
+import { twJoin } from "tailwind-merge";
+
+import { trackCtaClick, trackViewPage } from "#/components/analytics";
 import { Layout } from "#/components/layout";
-import { BackwardButton } from "#/components/backwardButton";
 import { Button } from "#/components/button";
 import { MeetingCompleteIllustration } from "#/components/illustrations";
-import { share } from "#/utils/share";
 import { Toaster } from "#/components/toast";
+import { HomeIcon } from "#/icons/homeIcon";
+
+const PAGE_ID = "모임생성_완료";
 
 export default function GatheringCreateCompletePage() {
 	const params = useParams<{ accessKey: string }>();
 	const router = useRouter();
 
-	const handleBackward = () => {
-		router.push("/gathering/create");
+	const handleHomeButtonClick = () => {
+		router.push("/");
 	};
 
 	const handlePreferenceInput = () => {
+		trackCtaClick({ page_id: PAGE_ID, button_name: "내 취향 입력" });
 		router.push(`/gathering/${params.accessKey}/opinion`);
 	};
 
-	const handleShare = () => {
-		const landingUrl = `${window.location.origin}/gathering/${params.accessKey}/landing`;
-		share({
-			title: "함께 갈 맛집, 같이 정해요!",
-			text: "[요기잇] 다인원을 위한 맛집 서비스",
-			url: landingUrl,
+	useEffect(() => {
+		if (!params.accessKey) return;
+
+		trackViewPage({
+			page_id: PAGE_ID,
+			group_id: params.accessKey,
 		});
-	};
+	}, [params.accessKey]);
 
 	return (
 		<Layout.Root>
 			<Layout.Header>
-				<BackwardButton onClick={handleBackward} />
+				<button
+					type="button"
+					aria-label="홈으로 가기"
+					onClick={handleHomeButtonClick}
+					className={twJoin(
+						"ygi:flex ygi:items-center ygi:justify-center",
+						"ygi:h-12 ygi:w-12 ygi:p-3",
+						"ygi:cursor-pointer ygi:bg-transparent",
+					)}
+				>
+					<HomeIcon size={24} className="ygi:text-icon-default" />
+				</button>
 			</Layout.Header>
 
 			<Layout.Content>
@@ -42,7 +59,7 @@ export default function GatheringCreateCompletePage() {
 						<h1 className="ygi:heading-22-bd ygi:text-text-primary">
 							모임 준비 끝!
 							<br />
-							공유하고 맛집을 정해보세요
+							공유하기 전에 내 취향 먼저 알려주세요
 						</h1>
 					</div>
 
@@ -55,18 +72,11 @@ export default function GatheringCreateCompletePage() {
 			<Layout.Footer>
 				<div className="ygi:flex ygi:gap-3 ygi:px-6">
 					<Button
-						variant="tertiary"
+						variant="secondary"
 						width="full"
 						onClick={handlePreferenceInput}
 					>
 						내 취향 입력
-					</Button>
-					<Button
-						variant="secondary"
-						width="full"
-						onClick={handleShare}
-					>
-						링크 공유
 					</Button>
 				</div>
 			</Layout.Footer>
