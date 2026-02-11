@@ -8,7 +8,10 @@ import { AnimatePresence } from "motion/react";
 import { twJoin } from "tailwind-merge";
 import Image from "next/image";
 
-import { FOOD_CATEGORY_LABEL } from "#/constants/gathering/opinion";
+import {
+	FOOD_CATEGORIES,
+	FOOD_CATEGORY_LABEL,
+} from "#/constants/gathering/opinion";
 import type { FoodCategory } from "#/types/gathering";
 import type { OpinionFormSchema } from "#/schemas/gathering";
 
@@ -65,6 +68,18 @@ export const DislikedFoodButton = ({ category }: DislikedFoodButtonProps) => {
 	const isAny = category === "ANY";
 	const shouldShowXIcon = isSelected && !isAny;
 
+	const handleClickDislikeButton = () => {
+		if (isSelected) {
+			field.onChange(dislikedFoods.filter((food) => food !== category));
+			return;
+		}
+
+		if (dislikedFoods.length < FOOD_CATEGORIES.length - 1) {
+			field.onChange([...dislikedFoods, category]);
+			return;
+		}
+	};
+
 	return (
 		<button
 			type="button"
@@ -73,7 +88,7 @@ export const DislikedFoodButton = ({ category }: DislikedFoodButtonProps) => {
 				isAny,
 				selected: isSelected,
 			})}
-			onClick={() => field.onChange(isSelected ? [] : [category])}
+			onClick={handleClickDislikeButton}
 		>
 			<div className="ygi:relative ygi:size-20">
 				<Image
