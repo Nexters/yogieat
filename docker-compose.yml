@@ -1,4 +1,21 @@
 services:
+  # Development Client
+  client-dev:
+    image: rookieanddocker/yogieat-client:latest
+    container_name: yogieat-client-dev
+    expose:
+      - "3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - HOSTNAME=0.0.0.0
+    networks:
+      - yogieat-dev-network
+    labels:
+      - "name=client-dev"
+      - "mode=development"
+
+  # Production Client
   client-prod:
     image: rookieanddocker/yogieat-client:latest
     container_name: yogieat-client-prod
@@ -20,24 +37,44 @@ services:
       retries: 3
       start_period: 40s
 
-  nginx-prod:
-    image: rookieanddocker/yogieat-nginx-prod:latest
-    container_name: yogieat-nginx-prod
+  # Unified Nginx (양쪽 네트워크 모두 연결)
+  nginx:
+    image: rookieanddocker/yogieat-nginx:latest
+    container_name: yogieat-nginx
     ports:
       - 80:80
       - 443:443
     volumes:
+      - certbot_conf_dev:/etc/letsencrypt-dev
+      - certbot_www_dev:/var/www/certbot-dev
       - certbot_conf_prod:/etc/letsencrypt-prod
       - certbot_www_prod:/var/www/certbot-prod
     depends_on:
+      - client-dev
       - client-prod
     networks:
+      - yogieat-dev-network
       - yogieat-prod-network
     labels:
-      - "name=nginx-prod"
-      - "mode=production"
+      - "name=nginx"
+      - "mode=unified"
     restart: on-failure
 
+  # Development Certbot
+  certbot-dev:
+    image: certbot/certbot:latest
+    container_name: yogieat-certbot-dev
+    volumes:
+      - certbot_conf_dev:/etc/letsencrypt
+      - certbot_www_dev:/var/www/certbot
+    networks:
+      - yogieat-dev-network
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    labels:
+      - "name=certbot-dev"
+      - "mode=development"
+
+  # Production Certbot
   certbot-prod:
     image: certbot/certbot:latest
     container_name: yogieat-certbot-prod
@@ -52,9 +89,13 @@ services:
       - "mode=production"
 
 networks:
+  yogieat-dev-network:
+    driver: bridge
   yogieat-prod-network:
     driver: bridge
 
 volumes:
+  certbot_conf_dev:
+  certbot_www_dev:
   certbot_conf_prod:
   certbot_www_prod:

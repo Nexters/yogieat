@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: production
+    outputs:
+      nginx_changed: ${{ steps.changes.outputs.nginx }}
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -60,14 +62,14 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Build and Push Nginx Prod image
+      - name: Build and Push Nginx image
         if: steps.changes.outputs.nginx == 'true'
         uses: docker/build-push-action@v5
         with:
           push: true
-          file: ./docker/nginx/Dockerfile.prod
+          file: ./docker/nginx/Dockerfile
           context: ./docker/nginx
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/yogieat-nginx-prod:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/yogieat-nginx:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -80,13 +82,13 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v5
 
-      - name: Copy docker-compose.prod.yml to Server
+      - name: Copy docker-compose.yml to Server
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SERVER_PRIVATE_KEY }}
-          source: "docker-compose.prod.yml"
+          source: "docker-compose.yml"
           target: "~/yogieat"
 
       - name: Deploy Project to Gabia Server
@@ -98,13 +100,27 @@ jobs:
           script: |
             cd ~/yogieat
 
-            sudo docker compose -f ./docker-compose.prod.yml down
+            # Pull latest images
+            sudo docker compose pull
+
+            # Restart only client-prod (무중단 배포)
+            sudo docker compose up -d --no-deps client-prod
+
             # Clean up unused images only (preserve volumes with SSL certificates)
             sudo docker image prune -a -f
 
-            sudo docker compose -f ./docker-compose.prod.yml pull
-            sudo docker compose -f ./docker-compose.prod.yml up -d
-            sudo docker compose -f ./docker-compose.prod.yml ps
+            sudo docker compose ps
+
+      - name: Restart Nginx if changed
+        if: needs.build-image.outputs.nginx_changed == 'true'
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_PRIVATE_KEY }}
+          script: |
+            cd ~/yogieat
+            sudo docker compose up -d --no-deps nginx
 
       - name: Health Check
         uses: appleboy/ssh-action@master
@@ -119,7 +135,7 @@ jobs:
             sleep 10
 
             # Check container status
-            sudo docker compose -f ./docker-compose.prod.yml ps
+            sudo docker compose ps
 
             # Check if client is healthy
             CLIENT_STATUS=$(sudo docker inspect --format='{{.State.Health.Status}}' yogieat-client-prod 2>/dev/null || echo "no-healthcheck")
@@ -127,7 +143,7 @@ jobs:
 
             if [ "$CLIENT_STATUS" != "healthy" ] && [ "$CLIENT_STATUS" != "no-healthcheck" ]; then
               echo "Client container is not healthy"
-              sudo docker compose -f ./docker-compose.prod.yml logs client-prod
+              sudo docker compose logs client-prod
               exit 1
             fi
 
