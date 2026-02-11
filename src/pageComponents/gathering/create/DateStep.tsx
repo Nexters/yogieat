@@ -7,9 +7,9 @@ import { trackStepComplete } from "#/components/analytics";
 import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
 import { Button } from "#/components/button";
-import { InputField } from "#/components/inputField";
+import { ScheduledDateDialog } from "#/components/scheduledDateDialog";
 import { Chip } from "#/components/chip";
-import { formatDateInput, isValidDateFormat } from "#/utils/gathering/create";
+import { isValidDateFormat } from "#/utils/gathering/create";
 import type { CreateMeetingFormSchema } from "#/schemas/gathering";
 import type { TimeSlot } from "#/types/gathering";
 
@@ -21,27 +21,10 @@ const TIME_SLOT_LABEL: Record<TimeSlot, string> = {
 export const DateStepContent = () => {
 	const { control } = useFormContext<CreateMeetingFormSchema>();
 
-	const {
-		field: scheduledDateField,
-		fieldState: { error: scheduledDateError },
-	} = useController({
-		control,
-		name: "scheduledDate",
-	});
-
 	const { field: timeSlotField } = useController({
 		control,
 		name: "timeSlot",
 	});
-
-	const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const formatted = formatDateInput(e.target.value);
-		scheduledDateField.onChange(formatted);
-	};
-
-	const handleDateClear = () => {
-		scheduledDateField.onChange("");
-	};
 
 	const handleTimeSlotChange = (slot: TimeSlot) => {
 		timeSlotField.onChange(slot === timeSlotField.value ? null : slot);
@@ -55,16 +38,7 @@ export const DateStepContent = () => {
 					<h1 className="ygi:heading-22-bd ygi:text-text-primary">
 						약속 날짜를 입력해 주세요
 					</h1>
-					<InputField
-						placeholder="날짜를 입력해주세요"
-						helperText="예) 2026.01.28"
-						errorText={scheduledDateError?.message}
-						inputMode="numeric"
-						showClearButton
-						value={scheduledDateField.value || ""}
-						onChange={handleDateChange}
-						onClear={handleDateClear}
-					/>
+					<ScheduledDateDialog />
 				</div>
 
 				<div className="ygi:flex ygi:flex-col ygi:gap-xl ygi:px-6">
