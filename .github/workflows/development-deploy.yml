@@ -8,7 +8,8 @@ on:
 jobs:
   build-image:
     runs-on: ubuntu-latest
-
+    environment:
+      name: development
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -46,6 +47,7 @@ jobs:
           echo "NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}" > .env.production
           echo "NEXT_PUBLIC_AWS_S3=${{ secrets.NEXT_PUBLIC_AWS_S3 }}" >> .env.production
           echo "NEXT_PUBLIC_GTM_ID=${{ secrets.NEXT_PUBLIC_GTM_ID }}" >> .env.production
+          echo "NEXT_PUBLIC_GA_ID=${{ secrets.NEXT_PUBLIC_GA_ID }}" >> .env.production
 
       - name: Build and Push Client image
         if: steps.changes.outputs.client == 'true'
@@ -72,6 +74,8 @@ jobs:
   deploy-application:
     needs: build-image
     runs-on: ubuntu-latest
+    environment:
+      name: development
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v5
