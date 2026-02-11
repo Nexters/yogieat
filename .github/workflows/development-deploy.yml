@@ -8,7 +8,10 @@ on:
 jobs:
   build-image:
     runs-on: ubuntu-latest
-
+    environment:
+      name: development
+    outputs:
+      nginx_changed: ${{ steps.changes.outputs.nginx }}
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -46,6 +49,7 @@ jobs:
           echo "NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}" > .env.production
           echo "NEXT_PUBLIC_AWS_S3=${{ secrets.NEXT_PUBLIC_AWS_S3 }}" >> .env.production
           echo "NEXT_PUBLIC_GTM_ID=${{ secrets.NEXT_PUBLIC_GTM_ID }}" >> .env.production
+          echo "NEXT_PUBLIC_GA_ID=${{ secrets.NEXT_PUBLIC_GA_ID }}" >> .env.production
 
       - name: Build and Push Client image
         if: steps.changes.outputs.client == 'true'
@@ -72,17 +76,19 @@ jobs:
   deploy-application:
     needs: build-image
     runs-on: ubuntu-latest
+    environment:
+      name: development
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v5
 
-      - name: Copy docker-compose.dev.yml to Server
+      - name: Copy docker-compose.yml to Server
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SERVER_PRIVATE_KEY }}
-          source: "docker-compose.dev.yml"
+          source: "docker-compose.yml"
           target: "~/yogieat"
 
       - name: Deploy Project to Gabia Server
@@ -94,13 +100,27 @@ jobs:
           script: |
             cd ~/yogieat
 
-            sudo docker compose -f ./docker-compose.dev.yml down
+            # Pull latest images
+            sudo docker compose pull
+
+            # Restart only client-dev (무중단 배포)
+            sudo docker compose up -d --no-deps client-dev
+
             # Clean up unused images only (preserve volumes with SSL certificates)
             sudo docker image prune -a -f
 
-            sudo docker compose -f ./docker-compose.dev.yml pull
-            sudo docker compose -f ./docker-compose.dev.yml up -d
-            sudo docker compose -f ./docker-compose.dev.yml ps
+            sudo docker compose ps
+
+      - name: Restart Nginx if changed
+        if: needs.build-image.outputs.nginx_changed == 'true'
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_PRIVATE_KEY }}
+          script: |
+            cd ~/yogieat
+            sudo docker compose up -d --no-deps nginx
 
       - name: Extract commit info
         id: commit
