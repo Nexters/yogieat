@@ -21,7 +21,7 @@ services:
       start_period: 40s
 
   nginx-prod:
-    image: rookieanddocker/yogieat-nginx:latest
+    image: rookieanddocker/yogieat-nginx-prod:latest
     container_name: yogieat-nginx-prod
     ports:
       - 80:80

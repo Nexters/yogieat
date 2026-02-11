@@ -15,7 +15,7 @@ services:
       - "mode=development"
 
   nginx-dev:
-    image: rookieanddocker/yogieat-nginx:latest
+    image: rookieanddocker/yogieat-nginx-dev:latest
     container_name: yogieat-nginx-dev
     ports:
       - 8080:80

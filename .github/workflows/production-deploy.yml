@@ -44,9 +44,10 @@ jobs:
       - name: Create .env.production
         if: steps.changes.outputs.client == 'true'
         run: |
-          echo "NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL_PROD }}" > .env.production
+          echo "NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}" > .env.production
           echo "NEXT_PUBLIC_AWS_S3=${{ secrets.NEXT_PUBLIC_AWS_S3 }}" >> .env.production
-          echo "NEXT_PUBLIC_GTM_ID=${{ secrets.NEXT_PUBLIC_GTM_ID_PROD || secrets.NEXT_PUBLIC_GTM_ID }}" >> .env.production
+          echo "NEXT_PUBLIC_GTM_ID=${{ secrets.NEXT_PUBLIC_GTM_ID }}" >> .env.production
+          echo "NEXT_PUBLIC_GA_ID=${{ secrets.NEXT_PUBLIC_GA_ID }}" >> .env.production
 
       - name: Build and Push Client image
         if: steps.changes.outputs.client == 'true'
@@ -59,14 +60,14 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Build and Push Nginx image
+      - name: Build and Push Nginx Prod image
         if: steps.changes.outputs.nginx == 'true'
         uses: docker/build-push-action@v5
         with:
           push: true
-          file: ./docker/nginx/Dockerfile
+          file: ./docker/nginx/Dockerfile.prod
           context: ./docker/nginx
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/yogieat-nginx:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/yogieat-nginx-prod:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
