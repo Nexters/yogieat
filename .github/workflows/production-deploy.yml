@@ -174,9 +174,9 @@ jobs:
 
             echo "🔍 Checking client container health..."
 
-            # Configuration: start_period=40s, interval=30s
-            # Max wait: 80s (40s grace + 30s check + 10s buffer)
-            MAX_WAIT_TIME=80
+            # Configuration: start_period=60s, interval=15s
+            # Max wait: 90s (60s grace + 15s interval * 2)
+            MAX_WAIT_TIME=90
             POLL_INTERVAL=10
             ELAPSED=0
 
