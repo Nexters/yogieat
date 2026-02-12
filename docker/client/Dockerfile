@@ -29,6 +29,9 @@ ENV NEXT_PRIVATE_STANDALONE=true
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
 
+# Install curl for health checks
+RUN apk add --no-cache curl
+
 COPY --from=builder /app/public ./public
 
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
