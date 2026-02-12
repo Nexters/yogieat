@@ -297,6 +297,7 @@ $ /pr-submit
   - 👤 Assignee: @me (현재 GitHub CLI 인증 사용자)
   - 👥 Reviewers: CODEOWNERS 파일 기반 자동 추출 (현재 사용자는 자동 제외)
   - 🏷️ Label: PR 제목의 Conventional Commit 타입 기반 자동 선택
+    - PR 제목은 `pr-create`에서 생성 시 scope가 제거됨 (예: `feat(ci):` → `feat:`)
   - 📝 Base branch: 인자로 지정 또는 main 기본값
 
 - **PR 문서 자동 생성:**

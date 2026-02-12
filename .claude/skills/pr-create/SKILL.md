@@ -99,13 +99,17 @@ git diff
 
 **생성 규칙:**
 1. 첫 번째 커밋 메시지를 기본으로 사용
-2. Conventional Commit 형식 유지 (타입: 내용)
+2. Conventional Commit 형식에서 **scope는 무조건 제거** (타입: 내용)
+   - `feat(ci):` → `feat:`
+   - `fix(api):` → `fix:`
+   - `docs(readme):` → `docs:`
 3. 내용이 길면 핵심만 추출하여 간결하게 작성
 4. 길이 제한: 50자 이내 권장
 
 **예시:**
-- 커밋: `fix: CI/CD health check 타이밍 개선 및 수동 배포 기능 추가`
-- 제목: `fix: CI/CD health check 타이밍 개선 및 수동 배포 기능 추가`
+- 커밋: `fix(ci): CI/CD health check 타이밍 개선 및 수동 배포 기능 추가` → 제목: `fix: CI/CD health check 타이밍 개선 및 수동 배포 기능 추가`
+- 커밋: `feat(component): 새로운 버튼 컴포넌트 추가` → 제목: `feat: 새로운 버튼 컴포넌트 추가`
+- 커밋: `docs: 프로젝트 가이드 추가` → 제목: `docs: 프로젝트 가이드 추가`
 
 ### 6. Markdown 문서 생성
 
@@ -216,6 +220,9 @@ git diff --stat
 
 4. **PR 제목 생성**
    - **커밋이 있는 경우:** 첫 번째 커밋 메시지를 제목으로 사용
+   - **scope 제거:** Conventional Commit의 scope 괄호는 무조건 제거
+     - `feat(ci):` → `feat:`
+     - `fix(api):` → `fix:`
    - **커밋이 없는 경우:** 변경된 파일/내용을 기반으로 제목 생성
      - 예: `chore: CI/CD 워크플로우 개선` (yml 파일 변경 시)
      - 예: `feat: 컴포넌트 추가` (tsx 파일 추가 시)
@@ -367,6 +374,7 @@ ci: GitHub Actions 워크플로우 및 Docker 설정 개선
 - **프로젝트 규칙 준수:**
   - PULL_REQUEST_TEMPLATE.md 형식 준수
   - Conventional Commits: feat, fix, chore, refactor, docs, style, perf, test, build, ci
+  - **중요: PR 제목에서 scope 괄호는 무조건 제거** (예: `feat(ci):` → `feat:`)
   - 커밋 메시지는 한글/영문 혼용 가능
   - PR 제목과 작업 내역은 간결하게 작성
 
