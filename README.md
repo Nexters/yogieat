@@ -1,36 +1,179 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# YogiEat (요기잇)
+
+YogiEat은 다인원 모임에서 함께 먹을 맛집을 추천해주는 서비스입니다.
+
+## Features
+
+- 모임 생성 및 참여자 초대
+- 맛집 의견 수집 및 투표
+- AI 기반 맞춤 맛집 추천
+- 실시간 협업 및 공유
+
+## Tech Stack
+
+- **Framework**: Next.js 16.1.1 (App Router)
+- **Language**: TypeScript 5
+- **Styling**: Tailwind CSS v4
+- **State Management**: TanStack React Query 5
+- **Form Handling**: React Hook Form + Zod
+- **HTTP Client**: Ky
+- **Container**: Docker
+- **CI/CD**: GitHub Actions
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 24.x
+- pnpm 9.x
+- Docker (optional, for local deployment)
+
+### Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+# Clone repository
+git clone https://github.com/Nexters/hereeat.git
+cd yogieat
+
+# Install dependencies
+pnpm install
+
+# Run development server
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Available Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+pnpm dev          # Start development server
+pnpm build        # Build for production
+pnpm start        # Start production server
+pnpm lint         # Run ESLint
+pnpm format       # Format code with Prettier
+pnpm type-check   # Run TypeScript type checking
+```
+
+## Versioning
+
+YogiEat follows [Semantic Versioning](https://semver.org/) with automated release management:
+
+- **Automated Versioning**: Version numbers are automatically determined based on commit messages
+- **CHANGELOG Generation**: Release notes are automatically generated from commit history
+- **GitHub Releases**: Releases are automatically published on GitHub
+
+### Current Version
+
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/Nexters/hereeat)
+
+See all releases at [GitHub Releases](https://github.com/Nexters/hereeat/releases)
+
+### Version Format
+
+- **Major (X.0.0)**: Breaking changes
+- **Minor (1.X.0)**: New features (backward compatible)
+- **Patch (1.0.X)**: Bug fixes (backward compatible)
+- **Beta (1.0.0-beta.X)**: Pre-release versions on develop branch
+
+## Contributing
+
+We welcome contributions! Please follow our guidelines:
+
+1. Read the [Contributing Guide](./CONTRIBUTING.md)
+2. Follow [Conventional Commits](https://www.conventionalcommits.org/) format
+3. Use Git Flow for branch management
+4. Write tests for new features
+5. Update documentation as needed
+
+### Quick Start for Contributors
+
+```bash
+# Start a new feature
+git flow feature start my-feature
+
+# Make changes with conventional commits
+git commit -m "feat(scope): add new feature"
+
+# Push and create PR
+git push origin feature/my-feature
+```
+
+For more details, see:
+- [Contributing Guide](./CONTRIBUTING.md) - Development workflow and guidelines
+- [Release Guide](./docs/RELEASE.md) - Release process and versioning
+- [Developer Cheatsheet](./docs/DEVELOPER_CHEATSHEET.md) - Quick reference for common tasks
+
+## Documentation
+
+- [CLAUDE.md](./CLAUDE.md) - Project architecture and coding conventions
+- [CONTRIBUTING.md](./CONTRIBUTING.md) - Contribution guidelines
+- [docs/RELEASE.md](./docs/RELEASE.md) - Release process documentation
+- [docs/DEVELOPER_CHEATSHEET.md](./docs/DEVELOPER_CHEATSHEET.md) - Developer quick reference
+
+## Deployment
+
+YogiEat uses automated deployment via GitHub Actions:
+
+- **Production**: Deployed on push to `main` branch
+- **Staging**: Deployed on push to `develop` branch
+- **Zero-downtime**: Rolling deployment with health checks
+
+### Manual Deployment
+
+Trigger manual deployment via GitHub Actions `workflow_dispatch`.
+
+## Project Structure
+
+```
+yogieat/
+├── app/                    # Next.js App Router pages
+├── src/
+│   ├── apis/               # API layer (queries, mutations)
+│   ├── components/         # Reusable components
+│   ├── pageComponents/     # Page-level components
+│   ├── hooks/              # Custom React hooks
+│   ├── schemas/            # Zod validation schemas
+│   ├── types/              # TypeScript types
+│   ├── utils/              # Utility functions
+│   └── styles/             # Global styles and tokens
+├── public/                 # Static assets
+├── docker/                 # Docker configurations
+└── .github/workflows/      # CI/CD workflows
+```
+
+## Environment Variables
+
+Required environment variables:
+
+```bash
+NEXT_PUBLIC_API_URL=https://dev-api.yogieat.com
+NEXT_PUBLIC_AWS_S3=https://yogieat-statics.s3.ap-southeast-2.amazonaws.com
+NEXT_PUBLIC_GTM_ID=GTM-M3SWGCR8
+```
+
+## License
+
+This project is private and proprietary.
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+To learn more about the technologies used:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Next.js Documentation](https://nextjs.org/docs)
+- [React Documentation](https://react.dev)
+- [TypeScript Documentation](https://www.typescriptlang.org/docs)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [TanStack Query Documentation](https://tanstack.com/query/latest)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Support
 
-## Deploy on Vercel
+For questions or issues:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Check existing [GitHub Issues](https://github.com/Nexters/hereeat/issues)
+2. Create a new issue with detailed description
+3. Contact the development team
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+Built with ❤️ by the Nexters team
