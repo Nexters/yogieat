@@ -22,7 +22,9 @@ interface DialogTriggerProps {
 }
 
 const DialogTrigger = ({ children, asChild = true }: DialogTriggerProps) => {
-	return <RadixDialog.Trigger asChild={asChild}>{children}</RadixDialog.Trigger>;
+	return (
+		<RadixDialog.Trigger asChild={asChild}>{children}</RadixDialog.Trigger>
+	);
 };
 
 interface DialogContentProps extends ComponentProps<"div"> {

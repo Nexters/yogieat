@@ -92,7 +92,7 @@
 	/* Text */
 	--color-text-primary: var(--ygi-color-palette-gray-900);
 	--color-text-secondary: var(--ygi-color-palette-gray-500);
-	--color-text-tertiary: #848B9C;
+	--color-text-tertiary: #848b9c;
 	--color-text-disabled: var(--ygi-color-palette-gray-300);
 	--color-text-inverse: var(--ygi-color-palette-common-white);
 	--color-text-inverse-secondary: var(--ygi-color-palette-gray-50);
