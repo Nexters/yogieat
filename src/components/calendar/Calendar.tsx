@@ -74,17 +74,17 @@ const CalendarNav: CustomComponents["Nav"] = ({
 	const monthText = `${currentMonth.getFullYear()}년 ${currentMonth.getMonth() + 1}월`;
 
 	return (
-		<nav className="ygi:flex ygi:items-center ygi:justify-between ygi:mb-3 ygi:h-6 ygi:w-full">
+		<nav className="ygi:mb-3 ygi:flex ygi:h-6 ygi:w-full ygi:items-center ygi:justify-between">
 			<button
 				type="button"
 				disabled={!previousMonth}
 				onClick={onPreviousClick}
-				className="ygi:flex ygi:items-center ygi:justify-center ygi:p-1.5 ygi:transition-opacity hover:ygi:opacity-70 disabled:ygi:opacity-40"
+				className="hover:ygi:opacity-70 disabled:ygi:opacity-40 ygi:flex ygi:items-center ygi:justify-center ygi:p-1.5 ygi:transition-opacity"
 			>
 				<ChevronLeftIcon size={24} />
 			</button>
-			<div className="ygi:flex ygi:items-center ygi:justify-center ygi:h-6 ygi:flex-1">
-				<span className="ygi:body-16-bd ygi:text-text-primary ygi:leading-6">
+			<div className="ygi:flex ygi:h-6 ygi:flex-1 ygi:items-center ygi:justify-center">
+				<span className="ygi:body-16-bd ygi:leading-6 ygi:text-text-primary">
 					{monthText}
 				</span>
 			</div>
@@ -92,7 +92,7 @@ const CalendarNav: CustomComponents["Nav"] = ({
 				type="button"
 				disabled={!nextMonth}
 				onClick={onNextClick}
-				className="ygi:flex ygi:items-center ygi:justify-center ygi:p-2.5 ygi:rounded-lg ygi:transition-opacity hover:ygi:opacity-70 disabled:ygi:opacity-40"
+				className="hover:ygi:opacity-70 disabled:ygi:opacity-40 ygi:flex ygi:items-center ygi:justify-center ygi:rounded-lg ygi:p-2.5 ygi:transition-opacity"
 			>
 				<ChevronRightIcon size={24} />
 			</button>
@@ -111,7 +111,7 @@ export const Calendar = ({ className, ...props }: CalendarProps) => {
 			components={{
 				Chevron: CalendarChevron,
 				Nav: CalendarNav,
-				MonthCaption: () => null, // Caption을 Nav 안으로 이동했으므로 숨김
+				MonthCaption: () => <></>, // Caption을 Nav 안으로 이동했으므로 숨김
 			}}
 			{...props}
 		/>
