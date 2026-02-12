@@ -44,16 +44,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: pnpm exec semantic-release
-
-      - name: Discord notification
-        if: success()
-        uses: sarisia/actions-status-discord@v1
-        with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          title: "🎉 New Release Created"
-          description: |
-            **Branch**: ${{ github.ref_name }}
-            **Commit**: [`${{ github.sha }}`](https://github.com/${{ github.repository }}/commit/${{ github.sha }})
-            **Releases**: https://github.com/${{ github.repository }}/releases
-          color: 0x57F287
-          username: GitHub Actions
