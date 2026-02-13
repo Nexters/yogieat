@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useParams, redirect, useRouter } from "next/navigation";
-import { useQueryClient } from "@tanstack/react-query";
 
 import { trackViewPage, trackShareClick } from "#/components/analytics";
 import { Button } from "#/components/button";
@@ -15,14 +14,12 @@ import { useGetGatheringCapacity } from "#/hooks/apis/gathering";
 import { share } from "#/utils/share";
 import { Toaster } from "#/components/toast";
 import { type ParticipantCountEvent, useServerSentEvent } from "#/hooks/sse";
-import { gatheringKeys } from "#/apis/gathering";
 
 const PAGE_ID = "의견수합_대기";
 
 export function PendingViewContainer() {
 	const { accessKey } = useParams<{ accessKey: string }>();
 	const router = useRouter();
-	const queryClient = useQueryClient();
 
 	const [currentCount, setCurrentCount] = useState<number | null>(null);
 	const [maxCount, setMaxCount] = useState<number | null>(null);
@@ -40,13 +37,6 @@ export function PendingViewContainer() {
 
 				setCurrentCount(data.currentCount);
 				setMaxCount(data.maxCount);
-
-				queryClient.setQueryData(gatheringKeys.capacity(accessKey), {
-					data: {
-						currentCount: data.currentCount,
-						maxCount: data.maxCount,
-					},
-				});
 			},
 			"gathering-full": () => {
 				router.push(`/gathering/${accessKey}/opinion/complete`);
