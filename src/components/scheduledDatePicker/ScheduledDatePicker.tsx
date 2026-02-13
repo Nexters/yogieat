@@ -11,7 +11,7 @@ import { Calendar } from "#/components/calendar";
 import { Button } from "#/components/button";
 import type { CreateMeetingFormSchema } from "#/schemas/gathering";
 
-export const ScheduledDateDialog = () => {
+export const ScheduledDatePicker = () => {
 	const { control } = useFormContext<CreateMeetingFormSchema>();
 	const [isOpen, setIsOpen] = useState(false);
 	const [selectedDate, setSelectedDate] = useState<Date | undefined>();

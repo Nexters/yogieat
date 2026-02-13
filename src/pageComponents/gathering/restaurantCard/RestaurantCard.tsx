@@ -51,7 +51,7 @@ export const RestaurantCard = ({
 						/>
 					) : (
 						<div className="ygi:flex ygi:h-full ygi:items-center ygi:justify-center">
-							<span className="ygi:body-14-rg ygi:text-text-tertiary">
+							<span className="ygi:body-14-rg ygi:text-text-disabled">
 								이미지 준비 중
 							</span>
 						</div>
@@ -110,7 +110,7 @@ export const RestaurantCard = ({
 					/>
 				) : (
 					<div className="ygi:flex ygi:h-full ygi:items-center ygi:justify-center">
-						<span className="ygi:text-xs ygi:text-text-tertiary">
+						<span className="ygi:text-text-tertiary ygi:text-xs">
 							준비 중
 						</span>
 					</div>
