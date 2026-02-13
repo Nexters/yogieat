@@ -36,138 +36,138 @@
  */
 
 export const colors = {
-  /**
-   * Palette Colors (기본 색상 팔레트)
-   *
-   * @description
-   * 디자인 시스템의 기본 색상 값입니다.
-   * 가능하면 semantic 토큰을 사용하고, palette는 특수한 경우에만 직접 참조하세요.
-   *
-   * @example
-   * colors.palette.gray[500]    // "#6b7280"
-   * colors.palette.primary[500] // "#ff5a3c"
-   */
-  palette: {
-    common: {
-      black: "#000000",
-      white: "#ffffff",
-    },
-    gray: {
-      "50": "#f9fafb",
-      "100": "#f3f4f6",
-      "200": "#e5e7eb",
-      "300": "#d1d5db",
-      "400": "#9ca3af",
-      "500": "#6b7280",
-      "600": "#4b5563",
-      "700": "#374151",
-      "800": "#1f2933",
-      "900": "#111827",
-    },
-    primary: {
-      "50": "#ffedea",
-      "100": "#ffd1c9",
-      "200": "#ffab9e",
-      "300": "#ff7f6b",
-      "400": "#ff654e",
-      "500": "#ff5a3c",
-      "600": "#f2472a",
-      "700": "#d93a20",
-      "800": "#b82f1a",
-      "900": "#912416",
-    },
-    secondary: {
-      "50": "#ecf6ff",
-      "100": "#d6ecff",
-      "200": "#add9ff",
-      "300": "#7fc3ff",
-      "400": "#66b9ff",
-      "500": "#53b7ff",
-      "600": "#3ca9ff",
-      "700": "#1f94f2",
-      "800": "#1678cc",
-      "900": "#115c99",
-    },
-    green: {
-      "100": "#ddf9ef",
-      "300": "#7eecc4",
-      "500": "#25dc96",
-      "700": "#16b77b",
-      "900": "#0f8a5c",
-    },
-    yellow: {
-      "100": "#fff6bf",
-      "300": "#ffee7d",
-      "500": "#ffe731",
-      "700": "#ffd52f",
-      "900": "#ffbb00",
-    },
-    opacity: {
-      gray: {
-        "2": "rgba(31, 41, 51, 0.02)",
-        "4": "rgba(31, 41, 51, 0.04)",
-        "8": "rgba(31, 41, 51, 0.08)",
-        "16": "rgba(31, 41, 51, 0.16)",
-        "50": "rgba(31, 41, 51, 0.5)",
-        "80": "rgba(31, 41, 51, 0.8)",
-      },
-      primary: {
-        "80": "rgba(255, 90, 60, 0.8)",
-      },
-    },
-  },
-  bg: {
-    white: "#ffffff",
-    gray: "#f3f4f6",
-    website: "#e5e7eb",
-    dim: "rgba(31, 41, 51, 0.16)",
-  },
-  surface: {
-    white: "#ffffff",
-    primary: "#ffedea",
-    secondary: "#ecf6ff",
-    lightgray: "#f9fafb",
-    gray: "#f3f4f6",
-    disabled: "#f9fafb",
-    active: "#ff5a3c",
-    dark: "#1f2933",
-  },
-  text: {
-    primary: "#111827",
-    secondary: "#6b7280",
-    disabled: "#d1d5db",
-    inverse: "#ffffff",
-    inverseSecondary: "#f9fafb",
-    placeholder: "#9ca3af",
-    interactive: "#ff5a3c",
-  },
-  border: {
-    default: "#e5e7eb",
-    primary: "#ff5a3c",
-    primaryOpacity: "rgba(255, 90, 60, 0.8)",
-    secondary: "#53b7ff",
-    inverse: "#ffffff",
-  },
-  icon: {
-    default: "#6b7280",
-    disabled: "#9ca3af",
-    strong: "#1f2933",
-    inverse: "#ffffff",
-  },
-  button: {
-    primary: "#1f2933",
-    primaryHover: "#111827",
-    primaryDisabled: "#9ca3af",
-    secondary: "#ff5a3c",
-    secondaryHover: "#f2472a",
-    secondaryDisabled: "#ffab9e",
-    tertiary: "#f3f4f6",
-    tertiaryHover: "#e5e7eb",
-    tertiaryDisabled: "#f9fafb",
-    inverse: "#ffffff",
-    inverseHover: "#f9fafb",
-    inverseDisabled: "#f3f4f6",
-  },
+	/**
+	 * Palette Colors (기본 색상 팔레트)
+	 *
+	 * @description
+	 * 디자인 시스템의 기본 색상 값입니다.
+	 * 가능하면 semantic 토큰을 사용하고, palette는 특수한 경우에만 직접 참조하세요.
+	 *
+	 * @example
+	 * colors.palette.gray[500]    // "#6b7280"
+	 * colors.palette.primary[500] // "#ff5a3c"
+	 */
+	palette: {
+		common: {
+			black: "#000000",
+			white: "#ffffff",
+		},
+		gray: {
+			"50": "#f9fafb",
+			"100": "#f3f4f6",
+			"200": "#e5e7eb",
+			"300": "#d1d5db",
+			"400": "#9ca3af",
+			"500": "#6b7280",
+			"600": "#4b5563",
+			"700": "#374151",
+			"800": "#1f2933",
+			"900": "#111827",
+		},
+		primary: {
+			"50": "#ffedea",
+			"100": "#ffd1c9",
+			"200": "#ffab9e",
+			"300": "#ff7f6b",
+			"400": "#ff654e",
+			"500": "#ff5a3c",
+			"600": "#f2472a",
+			"700": "#d93a20",
+			"800": "#b82f1a",
+			"900": "#912416",
+		},
+		secondary: {
+			"50": "#ecf6ff",
+			"100": "#d6ecff",
+			"200": "#add9ff",
+			"300": "#7fc3ff",
+			"400": "#66b9ff",
+			"500": "#53b7ff",
+			"600": "#3ca9ff",
+			"700": "#1f94f2",
+			"800": "#1678cc",
+			"900": "#115c99",
+		},
+		green: {
+			"100": "#ddf9ef",
+			"300": "#7eecc4",
+			"500": "#25dc96",
+			"700": "#16b77b",
+			"900": "#0f8a5c",
+		},
+		yellow: {
+			"100": "#fff6bf",
+			"300": "#ffee7d",
+			"500": "#ffe731",
+			"700": "#ffd52f",
+			"900": "#ffbb00",
+		},
+		opacity: {
+			gray: {
+				"2": "rgba(31, 41, 51, 0.02)",
+				"4": "rgba(31, 41, 51, 0.04)",
+				"8": "rgba(31, 41, 51, 0.08)",
+				"16": "rgba(31, 41, 51, 0.16)",
+				"50": "rgba(31, 41, 51, 0.5)",
+				"80": "rgba(31, 41, 51, 0.8)",
+			},
+			primary: {
+				"80": "rgba(255, 90, 60, 0.8)",
+			},
+		},
+	},
+	bg: {
+		white: "#ffffff",
+		gray: "#f3f4f6",
+		website: "#e5e7eb",
+		dim: "rgba(31, 41, 51, 0.16)",
+	},
+	surface: {
+		white: "#ffffff",
+		primary: "#ffedea",
+		secondary: "#ecf6ff",
+		lightgray: "#f9fafb",
+		gray: "#f3f4f6",
+		disabled: "#f9fafb",
+		active: "#ff5a3c",
+		dark: "#1f2933",
+	},
+	text: {
+		primary: "#111827",
+		secondary: "#6b7280",
+		disabled: "#d1d5db",
+		inverse: "#ffffff",
+		inverseSecondary: "#f9fafb",
+		placeholder: "#9ca3af",
+		interactive: "#ff5a3c",
+	},
+	border: {
+		default: "#e5e7eb",
+		primary: "#ff5a3c",
+		primaryOpacity: "rgba(255, 90, 60, 0.8)",
+		secondary: "#53b7ff",
+		inverse: "#ffffff",
+	},
+	icon: {
+		default: "#6b7280",
+		disabled: "#9ca3af",
+		strong: "#1f2933",
+		inverse: "#ffffff",
+	},
+	button: {
+		primary: "#1f2933",
+		primaryHover: "#111827",
+		primaryDisabled: "#9ca3af",
+		secondary: "#ff5a3c",
+		secondaryHover: "#f2472a",
+		secondaryDisabled: "#ffab9e",
+		tertiary: "#f3f4f6",
+		tertiaryHover: "#e5e7eb",
+		tertiaryDisabled: "#f9fafb",
+		inverse: "#ffffff",
+		inverseHover: "#f9fafb",
+		inverseDisabled: "#f3f4f6",
+	},
 } as const;
 
 /** 전체 colors 객체의 타입 */
