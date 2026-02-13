@@ -8,6 +8,7 @@ import {
 export const useGetGatheringCapacity = (accessKey: string) => {
 	return useSuspenseQuery({
 		...gatheringQueryOptions.capacity(accessKey),
-		select: (response: { data: GatheringCapacityResponse }) => response.data,
+		select: (response: { data: GatheringCapacityResponse }) =>
+			response.data,
 	});
 };

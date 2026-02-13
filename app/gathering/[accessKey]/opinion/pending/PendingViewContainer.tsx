@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, redirect, useRouter } from "next/navigation";
 
 import { trackViewPage, trackShareClick } from "#/components/analytics";
@@ -37,7 +37,9 @@ export function PendingViewContainer() {
 		url,
 		events: {
 			"participant-count": (event: ParticipantCountEvent) => {
-				const data: ParticipantCount = JSON.parse(event.data);
+				const data: ParticipantCount = JSON.parse(
+					event.data as unknown as string,
+				);
 				setCurrentCount(data.currentCount);
 				setMaxCount(data.maxCount);
 			},
@@ -47,13 +49,10 @@ export function PendingViewContainer() {
 		},
 	});
 
-	const capacity = useMemo(
-		() => ({
-			currentCount: currentCount ?? capacityFallback.currentCount,
-			maxCount: maxCount ?? capacityFallback.maxCount,
-		}),
-		[currentCount, maxCount, capacityFallback],
-	);
+	const capacity = {
+		currentCount: currentCount ?? capacityFallback.currentCount,
+		maxCount: maxCount ?? capacityFallback.maxCount,
+	};
 
 	const isComplete = capacity.currentCount >= capacity.maxCount;
 
