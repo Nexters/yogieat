@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
-import { useParams, redirect } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
+import { useParams, redirect, useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { trackViewPage, trackShareClick } from "#/components/analytics";
 import { Button } from "#/components/button";
@@ -13,12 +14,53 @@ import {
 import { useGetGatheringCapacity } from "#/hooks/apis/gathering";
 import { share } from "#/utils/share";
 import { Toaster } from "#/components/toast";
+import { type ParticipantCountEvent, useServerSentEvent } from "#/hooks/sse";
+import { gatheringKeys } from "#/apis/gathering";
 
 const PAGE_ID = "의견수합_대기";
 
 export function PendingViewContainer() {
 	const { accessKey } = useParams<{ accessKey: string }>();
-	const { data: capacity } = useGetGatheringCapacity(accessKey);
+	const router = useRouter();
+	const queryClient = useQueryClient();
+
+	const [currentCount, setCurrentCount] = useState<number | null>(null);
+	const [maxCount, setMaxCount] = useState<number | null>(null);
+
+	const { data: capacityFallback } = useGetGatheringCapacity(accessKey);
+
+	const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+	const url = `${baseUrl}/api/v1/gatherings/${accessKey}/subscribe`;
+
+	useServerSentEvent({
+		url,
+		events: {
+			"participant-count": (e: MessageEvent) => {
+				const data: ParticipantCountEvent = JSON.parse(e.data);
+
+				setCurrentCount(data.currentCount);
+				setMaxCount(data.maxCount);
+
+				queryClient.setQueryData(gatheringKeys.capacity(accessKey), {
+					data: {
+						currentCount: data.currentCount,
+						maxCount: data.maxCount,
+					},
+				});
+			},
+			"gathering-full": () => {
+				router.push(`/gathering/${accessKey}/opinion/complete`);
+			},
+		},
+	});
+
+	const capacity = useMemo(
+		() => ({
+			currentCount: currentCount ?? capacityFallback.currentCount,
+			maxCount: maxCount ?? capacityFallback.maxCount,
+		}),
+		[currentCount, maxCount, capacityFallback],
+	);
 
 	const isComplete = capacity.currentCount >= capacity.maxCount;
 
