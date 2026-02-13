@@ -22,7 +22,10 @@ export default function GatheringCreateCompletePage() {
 	};
 
 	const handleRecreateLink = () => {
-		trackCtaClick({ page_id: PAGE_ID, button_name: "모임 링크 다시 만들기" });
+		trackCtaClick({
+			page_id: PAGE_ID,
+			button_name: "모임 링크 다시 만들기",
+		});
 		router.push("/gathering/create");
 	};
 
