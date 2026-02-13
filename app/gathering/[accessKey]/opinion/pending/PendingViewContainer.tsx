@@ -1,64 +1,62 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useParams, redirect, useRouter } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
+import { redirect, useParams } from "next/navigation";
+import { isNil } from "es-toolkit";
 
 import { trackViewPage, trackShareClick } from "#/components/analytics";
 import { Button } from "#/components/button";
 import { Layout } from "#/components/layout";
+import { Toaster } from "#/components/toast";
+import { type ParticipantCountMessage, useServerSentEvent } from "#/hooks/sse";
 import {
 	PendingView,
 	SubmissionBottomSheet,
 } from "#/pageComponents/gathering/opinion";
 import { useGetGatheringCapacity } from "#/hooks/apis/gathering";
 import { share } from "#/utils/share";
-import { Toaster } from "#/components/toast";
-import {
-	type ParticipantCount,
-	type ParticipantCountEvent,
-	useServerSentEvent,
-} from "#/hooks/sse";
 
 const PAGE_ID = "의견수합_대기";
 
 export function PendingViewContainer() {
 	const { accessKey } = useParams<{ accessKey: string }>();
-	const router = useRouter();
 
 	const [currentCount, setCurrentCount] = useState<number | null>(null);
 	const [maxCount, setMaxCount] = useState<number | null>(null);
 
-	const { data: capacityFallback } = useGetGatheringCapacity(accessKey);
-
-	const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-	const url = `${baseUrl}/api/v1/gatherings/${accessKey}/subscribe`;
-
 	useServerSentEvent({
-		url,
+		url: `/gatherings/${accessKey}/subscribe`,
 		events: {
-			"participant-count": (event: ParticipantCountEvent) => {
-				const data: ParticipantCount = JSON.parse(
-					event.data as unknown as string,
-				);
-				setCurrentCount(data.currentCount);
-				setMaxCount(data.maxCount);
+			"participant-count": (event: MessageEvent) => {
+				const message = JSON.parse(
+					event.data,
+				) as ParticipantCountMessage;
+				setCurrentCount(message.currentCount);
+				setMaxCount(message.maxCount);
 			},
 			"gathering-full": () => {
-				router.push(`/gathering/${accessKey}/opinion/complete`);
+				redirect(`/gathering/${accessKey}/opinion/complete`);
 			},
 		},
 	});
 
-	const capacity = {
-		currentCount: currentCount ?? capacityFallback.currentCount,
-		maxCount: maxCount ?? capacityFallback.maxCount,
-	};
+	const { data: capacityFallback } = useGetGatheringCapacity({
+		accessKey,
+		enabled: isNil(currentCount) || isNil(maxCount),
+	});
 
-	const isComplete = capacity.currentCount >= capacity.maxCount;
-
-	if (isComplete) {
-		redirect(`/gathering/${accessKey}/opinion/complete`);
-	}
+	const capacity = useMemo(
+		() => ({
+			currentCount: currentCount ?? capacityFallback?.currentCount ?? 0,
+			maxCount: maxCount ?? capacityFallback?.maxCount ?? 0,
+		}),
+		[
+			capacityFallback?.currentCount,
+			capacityFallback?.maxCount,
+			currentCount,
+			maxCount,
+		],
+	);
 
 	const handleShare = () => {
 		trackShareClick({ page_id: PAGE_ID, share_location: "Footer" });
@@ -72,7 +70,7 @@ export function PendingViewContainer() {
 	};
 
 	useEffect(() => {
-		if (!isComplete && capacity) {
+		if (capacity) {
 			const progress = Math.round(
 				(capacity.currentCount / capacity.maxCount) * 100,
 			);
@@ -82,7 +80,7 @@ export function PendingViewContainer() {
 				submit_progress: progress,
 			});
 		}
-	}, [capacity, isComplete]);
+	}, [capacity]);
 
 	return (
 		<Layout.Root>

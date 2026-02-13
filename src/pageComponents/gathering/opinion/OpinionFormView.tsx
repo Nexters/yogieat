@@ -28,11 +28,8 @@ export function OpinionFormView() {
 
 	const { data: gathering } = useGetGathering(accessKey);
 
-	const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-	const url = `${baseUrl}/api/v1/gatherings/${accessKey}/subscribe`;
-
 	useServerSentEvent({
-		url,
+		url: `/gatherings/${accessKey}/subscribe`,
 		events: {
 			"gathering-full": () => {
 				router.push(`/gathering/${accessKey}/opinion/result`);

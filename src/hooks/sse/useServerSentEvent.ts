@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export interface ServerSentEventOptions {
 	url: string;
@@ -10,61 +10,43 @@ export interface ServerSentEventOptions {
 	onError?: (error: Event) => void;
 	onMessage?: (event: MessageEvent) => void;
 	events?: Record<string, (event: MessageEvent) => void>;
+	autoReconnect?: boolean;
+	reconnectInterval?: number;
 }
 
-export interface ServerSentEventReturn {
-	readyState: number;
-	close: () => void;
-	reconnect: () => void;
-}
-
-export const useServerSentEvent = (
-	options: ServerSentEventOptions,
-): ServerSentEventReturn => {
-	const {
-		url,
-		enabled = true,
-		withCredentials = false,
-		onOpen,
-		onError,
-		onMessage,
-		events = {},
-	} = options;
-
+export const useServerSentEvent = ({
+	url,
+	enabled = true,
+	withCredentials = false,
+	onOpen,
+	onError,
+	onMessage,
+	events = {},
+}: ServerSentEventOptions) => {
 	const eventSourceRef = useRef<EventSource | null>(null);
-	const [readyState, setReadyState] = useState<number>(
-		EventSource.CONNECTING,
-	);
-	const [reconnectTrigger, setReconnectTrigger] = useState(0);
 
-	const close = useCallback(() => {
-		if (eventSourceRef.current) {
-			eventSourceRef.current.close();
-			eventSourceRef.current = null;
-			setReadyState(EventSource.CLOSED);
-		}
-	}, []);
-
-	const reconnect = useCallback(() => {
-		close();
-		setReconnectTrigger((prev) => prev + 1);
-	}, [close]);
+	const [readyState, setReadyState] = useState<number>(0);
 
 	useEffect(() => {
-		if (!enabled) {
-			return;
-		}
+		if (!enabled) return;
 
-		const eventSource = new EventSource(url, { withCredentials });
+		const baseUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/v1`;
+		const fullUrl = `${baseUrl}${url}`;
+
+		console.log("[SSE] Connecting to:", fullUrl);
+
+		const eventSource = new EventSource(fullUrl, { withCredentials });
+
 		eventSourceRef.current = eventSource;
 
 		eventSource.addEventListener("open", () => {
-			setReadyState(EventSource.OPEN);
+			console.log("[SSE] Connection opened");
+			setReadyState(1);
 			onOpen?.();
 		});
 
 		eventSource.addEventListener("error", (error) => {
-			setReadyState(EventSource.CLOSED);
+			setReadyState(2);
 			onError?.(error);
 		});
 
@@ -79,21 +61,14 @@ export const useServerSentEvent = (
 		return () => {
 			eventSource.close();
 			eventSourceRef.current = null;
+			setReadyState(2);
 		};
-	}, [
-		url,
-		enabled,
-		withCredentials,
-		onOpen,
-		onError,
-		onMessage,
-		events,
-		reconnectTrigger,
-	]);
+		// NOTE : events, onMessage, onOpen, onError는 의도적으로 의존성에서 제외
+		// 재연결이 필요한 경우(url, enabled, withCredentials 변경)에만 재연결
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [url, enabled, withCredentials]);
 
 	return {
 		readyState,
-		close,
-		reconnect,
 	};
 };
