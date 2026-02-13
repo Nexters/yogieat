@@ -9,7 +9,7 @@ export interface ServerSentEventOptions {
 	onOpen?: () => void;
 	onError?: (error: Event) => void;
 	onMessage?: (event: MessageEvent) => void;
-	events?: Record<string, (data: unknown) => void>;
+	events?: Record<string, (event: MessageEvent) => void>;
 }
 
 export interface ServerSentEventReturn {
@@ -73,14 +73,7 @@ export const useServerSentEvent = (
 		}
 
 		Object.entries(events).forEach(([eventType, handler]) => {
-			eventSource.addEventListener(eventType, (e: MessageEvent) => {
-				try {
-					const data = JSON.parse(e.data);
-					handler(data);
-				} catch (error) {
-					console.error(`Failed to parse SSE event: ${eventType}`, error);
-				}
-			});
+			eventSource.addEventListener(eventType, handler);
 		});
 
 		return () => {
