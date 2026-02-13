@@ -31,15 +31,16 @@ export function CompleteViewContainer() {
 	};
 
 	useEffect(() => {
-		if (!isPending && capacity) {
+		if (!isPending && capacity && accessKey) {
 			trackViewPage({
 				page_id: PAGE_ID,
+				group_id: accessKey,
 				submit_progress: Math.round(
 					(capacity.currentCount / capacity.maxCount) * 100,
 				),
 			});
 		}
-	}, [capacity, isPending]);
+	}, [capacity, isPending, accessKey]);
 
 	return (
 		<Layout.Root>
