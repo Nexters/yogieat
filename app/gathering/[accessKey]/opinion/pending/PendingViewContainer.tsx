@@ -32,9 +32,7 @@ export function PendingViewContainer() {
 	useServerSentEvent({
 		url,
 		events: {
-			"participant-count": (e: MessageEvent) => {
-				const data: ParticipantCountEvent = JSON.parse(e.data);
-
+			"participant-count": (data: ParticipantCountEvent) => {
 				setCurrentCount(data.currentCount);
 				setMaxCount(data.maxCount);
 			},
