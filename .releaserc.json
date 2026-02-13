@@ -6,7 +6,7 @@
       "prerelease": "beta"
     }
   ],
-  "repositoryUrl": "https://github.com/Nexters/hereeat.git",
+  "repositoryUrl": "https://github.com/Nexters/yogieat.git",
   "plugins": [
     [
       "@semantic-release/commit-analyzer",

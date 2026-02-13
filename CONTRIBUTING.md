@@ -27,7 +27,7 @@ YogiEat uses a structured development workflow based on Git Flow with automated 
 
 1. Clone the repository and install dependencies:
 ```bash
-git clone https://github.com/Nexters/hereeat.git
+git clone https://github.com/Nexters/yogieat.git
 cd yogieat
 pnpm install
 ```

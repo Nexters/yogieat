@@ -32,7 +32,7 @@ YogiEat은 다인원 모임에서 함께 먹을 맛집을 추천해주는 서비
 
 ```bash
 # Clone repository
-git clone https://github.com/Nexters/hereeat.git
+git clone https://github.com/Nexters/yogieat.git
 cd yogieat
 
 # Install dependencies
@@ -65,9 +65,9 @@ YogiEat follows [Semantic Versioning](https://semver.org/) with automated releas
 
 ### Current Version
 
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/Nexters/hereeat)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/Nexters/yogieat)
 
-See all releases at [GitHub Releases](https://github.com/Nexters/hereeat/releases)
+See all releases at [GitHub Releases](https://github.com/Nexters/yogieat/releases)
 
 ### Version Format
 
