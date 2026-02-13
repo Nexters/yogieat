@@ -1,12 +1,9 @@
-export interface ParticipantCount {
+export interface ParticipantCountMessage {
 	currentCount: number;
 	maxCount: number;
 }
 
-export interface GatheringFull {
+export interface GatheringFullMessage {
 	message: string;
 	finalCount: number;
 }
-
-export type ParticipantCountEvent = MessageEvent<ParticipantCount>;
-export type GatheringFullEvent = MessageEvent<GatheringFull>;
