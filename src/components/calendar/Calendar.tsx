@@ -39,12 +39,6 @@ const CALENDAR_CLASS_NAMES = {
 	disabled: "ygi:cursor-not-allowed",
 };
 
-const CalendarChevron: CustomComponents["Chevron"] = ({ orientation }) => {
-	const ChevronIcon =
-		orientation === "left" ? ChevronLeftIcon : ChevronRightIcon;
-	return <ChevronIcon size={24} />;
-};
-
 const CalendarDayButton: CustomComponents["DayButton"] = ({
 	day,
 	modifiers,
@@ -113,7 +107,6 @@ export const Calendar = ({ className, ...props }: CalendarProps) => {
 			className={twMerge("ygi:w-full", className)}
 			classNames={CALENDAR_CLASS_NAMES}
 			components={{
-				Chevron: CalendarChevron,
 				Nav: CalendarNav,
 				DayButton: CalendarDayButton,
 				MonthCaption: () => <></>, // NOTE : Caption을 Nav 안으로 이동했으므로 숨김

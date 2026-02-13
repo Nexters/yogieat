@@ -7,7 +7,7 @@ import { trackStepComplete } from "#/components/analytics";
 import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
 import { Button } from "#/components/button";
-import { ScheduledDateDialog } from "#/components/scheduledDateDialog";
+import { ScheduledDatePicker } from "#/components/scheduledDatePicker";
 import { Chip } from "#/components/chip";
 import { isValidDateFormat } from "#/utils/gathering/create";
 import type { CreateMeetingFormSchema } from "#/schemas/gathering";
@@ -38,7 +38,7 @@ export const DateStepContent = () => {
 					<h1 className="ygi:heading-22-bd ygi:text-text-primary">
 						약속 날짜를 입력해 주세요
 					</h1>
-					<ScheduledDateDialog />
+					<ScheduledDatePicker />
 				</div>
 
 				<div className="ygi:flex ygi:flex-col ygi:gap-xl ygi:px-6">

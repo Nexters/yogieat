@@ -1,11 +1,11 @@
 import { IconBase, type IconBaseProps } from "../iconBase";
 
-export type ChevronRightIconProps = Omit<IconBaseProps, "children">;
+export type ChevronLeftIconProps = Omit<IconBaseProps, "children">;
 
 export const ChevronLeftIcon = ({
 	size = 16,
 	...props
-}: ChevronRightIconProps) => {
+}: ChevronLeftIconProps) => {
 	return (
 		<IconBase size={size} viewBox="0 0 16 16" {...props}>
 			<path

@@ -58,7 +58,7 @@ const BottomSheetContent = ({
 							animate={{ opacity: 1 }}
 							exit={{ opacity: 0 }}
 							transition={{ duration: 0.2 }}
-							className="ygi:fixed ygi:inset-0 ygi:z-50 ygi:bg-black/50"
+							className="ygi:fixed ygi:inset-0 ygi:z-50 ygi:bg-bg-dim"
 						/>
 					</RadixDialog.Overlay>
 					<RadixDialog.Content asChild forceMount>
