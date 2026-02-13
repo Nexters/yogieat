@@ -73,7 +73,7 @@ const BottomSheetContent = ({
 							}}
 							className={twJoin(
 								"ygi:fixed ygi:right-0 ygi:bottom-0 ygi:left-0 ygi:z-50",
-								"ygi:rounded-t-[20px] ygi:bg-white ygi:shadow-lg",
+								"ygi:rounded-t-xl ygi:bg-surface-white ygi:shadow-lg",
 								"ygi:mx-auto ygi:w-full ygi:max-w-root-layout ygi:overflow-y-auto",
 								"focus:ygi:outline-none",
 							)}
@@ -81,12 +81,9 @@ const BottomSheetContent = ({
 							<RadixDialog.Title className="ygi:sr-only">
 								{title}
 							</RadixDialog.Title>
-
-							<div className="ygi:flex ygi:justify-center ygi:px-5 ygi:py-3">
-								<div className="ygi:h-1 ygi:w-10 ygi:rounded-full ygi:bg-[#D1D5DB]" />
+							<div className="ygi:flex ygi:flex-col ygi:gap-5 ygi:px-6 ygi:pt-9">
+								{children}
 							</div>
-
-							{children}
 						</motion.div>
 					</RadixDialog.Content>
 				</RadixDialog.Portal>
