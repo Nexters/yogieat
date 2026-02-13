@@ -21,7 +21,8 @@ export const opinionFormSchema = z.object({
 	distanceRange: distanceRangeSchema,
 	dislikedFoods: z
 		.array(foodCategorySchema)
-		.min(1, "싫어하는 음식을 선택해주세요"),
+		.min(1, "싫어하는 음식을 선택해주세요")
+		.max(2, "최대 2개까지 선택 가능합니다"),
 	preferredMenus: z.object({
 		first: foodCategorySchema.optional(),
 		second: foodCategorySchema.optional(),

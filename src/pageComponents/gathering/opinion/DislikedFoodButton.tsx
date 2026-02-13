@@ -8,10 +8,7 @@ import { AnimatePresence } from "motion/react";
 import { twJoin } from "tailwind-merge";
 import Image from "next/image";
 
-import {
-	FOOD_CATEGORIES,
-	FOOD_CATEGORY_LABEL,
-} from "#/constants/gathering/opinion";
+import { FOOD_CATEGORY_LABEL } from "#/constants/gathering/opinion";
 import type { FoodCategory } from "#/types/gathering";
 import type { OpinionFormSchema } from "#/schemas/gathering";
 
@@ -74,8 +71,17 @@ export const DislikedFoodButton = ({ category }: DislikedFoodButtonProps) => {
 			return;
 		}
 
-		if (dislikedFoods.length < FOOD_CATEGORIES.length - 1) {
-			field.onChange([...dislikedFoods, category]);
+		// "상관없음" 선택 시 다른 모든 선택 해제하고 "상관없음"만 선택
+		if (isAny) {
+			field.onChange(["ANY"]);
+			return;
+		}
+
+		// 일반 음식 선택 시 "상관없음"이 있으면 제거
+		const filteredFoods = dislikedFoods.filter((food) => food !== "ANY");
+
+		if (filteredFoods.length < 2) {
+			field.onChange([...filteredFoods, category]);
 			return;
 		}
 	};
