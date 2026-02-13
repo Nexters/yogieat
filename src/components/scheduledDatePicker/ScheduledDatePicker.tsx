@@ -54,11 +54,6 @@ export const ScheduledDatePicker = () => {
 		}
 	};
 
-	const handleDateClear = () => {
-		scheduledDateField.onChange("");
-		setSelectedDate(undefined);
-	};
-
 	const today = new Date();
 	today.setHours(0, 0, 0, 0);
 
@@ -70,9 +65,7 @@ export const ScheduledDatePicker = () => {
 						placeholder="YYYY.MM.DD."
 						errorText={scheduledDateError?.message}
 						readOnly
-						showClearButton
 						value={scheduledDateField.value || ""}
-						onClear={handleDateClear}
 						onClick={() => setIsOpen(true)}
 					/>
 				</div>
