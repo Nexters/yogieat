@@ -71,13 +71,11 @@ export const DislikedFoodButton = ({ category }: DislikedFoodButtonProps) => {
 			return;
 		}
 
-		// "상관없음" 선택 시 다른 모든 선택 해제하고 "상관없음"만 선택
 		if (isAny) {
 			field.onChange(["ANY"]);
 			return;
 		}
 
-		// 일반 음식 선택 시 "상관없음"이 있으면 제거
 		const filteredFoods = dislikedFoods.filter((food) => food !== "ANY");
 
 		if (filteredFoods.length < 2) {
