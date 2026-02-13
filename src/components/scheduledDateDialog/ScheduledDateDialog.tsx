@@ -4,11 +4,11 @@ import { useState, useMemo } from "react";
 import { useFormContext, useController } from "react-hook-form";
 import { format, parse } from "date-fns";
 import { ko } from "date-fns/locale";
-import { twJoin } from "tailwind-merge";
 
 import { InputField } from "#/components/inputField";
 import { BottomSheet } from "#/components/bottomSheet";
 import { Calendar } from "#/components/calendar";
+import { Button } from "#/components/button";
 import type { CreateMeetingFormSchema } from "#/schemas/gathering";
 
 export const ScheduledDateDialog = () => {
@@ -78,37 +78,28 @@ export const ScheduledDateDialog = () => {
 				</div>
 			</BottomSheet.Trigger>
 			<BottomSheet.Content open={isOpen} title="약속 날짜 선택">
-				<div className="ygi:flex ygi:flex-col ygi:gap-6 ygi:pb-6">
-					<div className="ygi:px-5">
-						<Calendar
-							mode="single"
-							selected={selectedDate}
-							onSelect={handleDateSelect}
-							locale={ko}
-							disabled={(date) => date < today}
-							formatters={{
-								formatCaption: (date) => {
-									return `${date.getFullYear()}년 ${date.getMonth() + 1}월`;
-								},
-							}}
-						/>
-					</div>
-
-					<div className="ygi:px-5">
-						<button
-							type="button"
-							onClick={handleDateConfirm}
-							disabled={!selectedDate}
-							className={twJoin(
-								"ygi:h-14 ygi:w-full",
-								"ygi:rounded-xl ygi:bg-button-primary ygi:text-text-inverse",
-								"ygi:heading-18-bd",
-								"disabled:ygi:cursor-not-allowed disabled:ygi:opacity-40",
-							)}
-						>
-							입력
-						</button>
-					</div>
+				<div className="ygi:flex ygi:flex-col ygi:gap-13.5">
+					<Calendar
+						mode="single"
+						selected={selectedDate}
+						onSelect={handleDateSelect}
+						locale={ko}
+						disabled={(date) => date < today}
+						formatters={{
+							formatCaption: (date) => {
+								return `${date.getFullYear()}년 ${date.getMonth() + 1}월`;
+							},
+						}}
+					/>
+					<Button
+						type="button"
+						onClick={handleDateConfirm}
+						disabled={!selectedDate}
+						variant="primary"
+						width="full"
+					>
+						입력
+					</Button>
 				</div>
 			</BottomSheet.Content>
 		</BottomSheet>
