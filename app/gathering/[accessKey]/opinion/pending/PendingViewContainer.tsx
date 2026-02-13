@@ -13,7 +13,11 @@ import {
 import { useGetGatheringCapacity } from "#/hooks/apis/gathering";
 import { share } from "#/utils/share";
 import { Toaster } from "#/components/toast";
-import { type ParticipantCountEvent, useServerSentEvent } from "#/hooks/sse";
+import {
+	type ParticipantCount,
+	type ParticipantCountEvent,
+	useServerSentEvent,
+} from "#/hooks/sse";
 
 const PAGE_ID = "의견수합_대기";
 
@@ -32,8 +36,8 @@ export function PendingViewContainer() {
 	useServerSentEvent({
 		url,
 		events: {
-			"participant-count": (event: MessageEvent<ParticipantCountEvent>) => {
-				const data: ParticipantCountEvent = JSON.parse(event.data);
+			"participant-count": (event: ParticipantCountEvent) => {
+				const data: ParticipantCount = JSON.parse(event.data);
 				setCurrentCount(data.currentCount);
 				setMaxCount(data.maxCount);
 			},
