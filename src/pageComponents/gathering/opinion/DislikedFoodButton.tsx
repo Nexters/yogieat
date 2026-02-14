@@ -65,6 +65,25 @@ export const DislikedFoodButton = ({ category }: DislikedFoodButtonProps) => {
 	const isAny = category === "ANY";
 	const shouldShowXIcon = isSelected && !isAny;
 
+	const handleClickDislikeButton = () => {
+		if (isSelected) {
+			field.onChange(dislikedFoods.filter((food) => food !== category));
+			return;
+		}
+
+		if (isAny) {
+			field.onChange(["ANY"]);
+			return;
+		}
+
+		const filteredFoods = dislikedFoods.filter((food) => food !== "ANY");
+
+		if (filteredFoods.length < 2) {
+			field.onChange([...filteredFoods, category]);
+			return;
+		}
+	};
+
 	return (
 		<button
 			type="button"
@@ -73,7 +92,7 @@ export const DislikedFoodButton = ({ category }: DislikedFoodButtonProps) => {
 				isAny,
 				selected: isSelected,
 			})}
-			onClick={() => field.onChange(isSelected ? [] : [category])}
+			onClick={handleClickDislikeButton}
 		>
 			<div className="ygi:relative ygi:size-20">
 				<Image
