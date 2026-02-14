@@ -19,7 +19,9 @@ export const LandingPage = () => {
 	};
 
 	useEffect(() => {
-		trackViewPage({ page_id: PAGE_ID });
+		trackViewPage({
+			page_id: PAGE_ID,
+		});
 	}, []);
 
 	return (
