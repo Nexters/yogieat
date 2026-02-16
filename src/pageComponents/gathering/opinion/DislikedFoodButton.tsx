@@ -15,8 +15,7 @@ import type { OpinionFormSchema } from "#/schemas/gathering";
 const dislikedFoodButtonVariants = cva(
 	[
 		"ygi:flex ygi:flex-col ygi:items-center ygi:justify-center",
-		"ygi:size-[156px] ygi:rounded-full",
-		"ygi:gap-1 ygi:p-6",
+		"ygi:size-[156px] ygi:gap-1 ygi:rounded-full ygi:p-6",
 		"ygi:cursor-pointer ygi:transition",
 		"ygi:border ygi:border-solid ygi:bg-surface-lightgray",
 	],
@@ -52,25 +51,23 @@ const dislikedFoodButtonVariants = cva(
 );
 
 interface DislikedFoodButtonProps {
-	category: FoodCategory;
+	food: FoodCategory;
 }
 
-export const DislikedFoodButton = ({ category }: DislikedFoodButtonProps) => {
+export const DislikedFoodButton = ({ food }: DislikedFoodButtonProps) => {
 	const { control } = useFormContext<OpinionFormSchema>();
 	const { field } = useController({ name: "dislikedFoods", control });
 
-	const dislikeCategoryList = field.value || [];
+	const dislikeFoodList = field.value || [];
 
-	const isSelected = dislikeCategoryList.includes(category);
-	const isAny = category === "ANY";
+	const isSelected = dislikeFoodList.includes(food);
+	const isAny = food === "ANY";
 	const shouldShowXIcon = isSelected && !isAny;
 
 	const handleClickDislikeButton = () => {
 		if (isSelected) {
 			field.onChange(
-				dislikeCategoryList.filter(
-					(currentCategory) => currentCategory !== category,
-				),
+				dislikeFoodList.filter((dislikeFood) => dislikeFood !== food),
 			);
 			return;
 		}
@@ -80,12 +77,12 @@ export const DislikedFoodButton = ({ category }: DislikedFoodButtonProps) => {
 			return;
 		}
 
-		const filteredFoods = dislikeCategoryList.filter(
-			(category) => category !== "ANY",
+		const filteredFoods = dislikeFoodList.filter(
+			(dislikeFood) => dislikeFood !== "ANY",
 		);
 
 		if (filteredFoods.length < 2) {
-			field.onChange([...filteredFoods, category]);
+			field.onChange([...filteredFoods, food]);
 			return;
 		}
 	};
@@ -102,8 +99,8 @@ export const DislikedFoodButton = ({ category }: DislikedFoodButtonProps) => {
 		>
 			<div className="ygi:relative ygi:size-20">
 				<Image
-					src={`/images/foodCategory/${category.toLowerCase()}.svg`}
-					alt={FOOD_CATEGORY_LABEL[category]}
+					src={`/images/foodCategory/${food.toLowerCase()}.svg`}
+					alt={FOOD_CATEGORY_LABEL[food]}
 					fill
 					className="ygi:object-contain"
 					priority
@@ -134,7 +131,7 @@ export const DislikedFoodButton = ({ category }: DislikedFoodButtonProps) => {
 						: "ygi:text-text-secondary",
 				)}
 			>
-				{FOOD_CATEGORY_LABEL[category]}
+				{FOOD_CATEGORY_LABEL[food]}
 			</span>
 		</button>
 	);

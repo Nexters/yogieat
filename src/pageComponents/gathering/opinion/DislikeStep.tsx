@@ -36,7 +36,7 @@ export const DislikeStepContent = () => {
 				{FOOD_CATEGORIES.map((category) => (
 					<DislikedFoodButton
 						key={category.value}
-						category={category.value}
+						food={category.value}
 					/>
 				))}
 			</div>
