@@ -62,6 +62,7 @@ export const ScheduledDatePicker = () => {
 			<BottomSheet.Trigger>
 				<div>
 					<InputField
+						className="ygi:cursor-pointer"
 						placeholder="YYYY.MM.DD."
 						errorText={scheduledDateError?.message}
 						readOnly
@@ -71,7 +72,7 @@ export const ScheduledDatePicker = () => {
 				</div>
 			</BottomSheet.Trigger>
 			<BottomSheet.Content open={isOpen} title="약속 날짜 선택">
-				<div className="ygi:flex ygi:flex-col ygi:gap-13.5">
+				<div className="ygi:flex ygi:flex-col ygi:gap-9">
 					<Calendar
 						mode="single"
 						selected={selectedDate}

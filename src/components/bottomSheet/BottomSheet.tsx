@@ -70,8 +70,9 @@ const BottomSheetContent = ({
 							exit={{ y: "100%" }}
 							transition={{
 								type: "spring",
-								damping: 30,
+								damping: 40,
 								stiffness: 300,
+								restDelta: 0.001,
 							}}
 							className={twJoin(
 								"ygi:fixed ygi:right-0 ygi:bottom-0 ygi:left-0 ygi:z-50",
@@ -86,7 +87,7 @@ const BottomSheetContent = ({
 							<RadixDialog.Description className="ygi:sr-only">
 								{description}
 							</RadixDialog.Description>
-							<div className="ygi:flex ygi:flex-col ygi:gap-5 ygi:px-6 ygi:pt-9">
+							<div className="ygi:flex ygi:flex-col ygi:gap-5 ygi:px-6 ygi:pt-9 ygi:pb-4">
 								{children}
 							</div>
 						</motion.div>
