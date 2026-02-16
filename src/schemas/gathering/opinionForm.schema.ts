@@ -18,6 +18,11 @@ export const foodCategorySchema = z.enum([
 ] satisfies readonly FoodCategory[]);
 
 export const opinionFormSchema = z.object({
+	nickname: z
+		.string()
+		.min(1, "닉네임을 입력해주세요")
+		.max(8, "닉네임은 8자 이내로 입력해주세요")
+		.regex(/^[가-힣a-zA-Z\s]+$/, "닉네임은 한글, 영문만 입력 가능합니다"),
 	distanceRange: distanceRangeSchema,
 	dislikedFoods: z
 		.array(foodCategorySchema)
