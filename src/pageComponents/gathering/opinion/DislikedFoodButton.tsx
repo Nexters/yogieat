@@ -59,15 +59,19 @@ export const DislikedFoodButton = ({ category }: DislikedFoodButtonProps) => {
 	const { control } = useFormContext<OpinionFormSchema>();
 	const { field } = useController({ name: "dislikedFoods", control });
 
-	const dislikedFoods = field.value || [];
+	const dislikeCategoryList = field.value || [];
 
-	const isSelected = dislikedFoods.includes(category);
+	const isSelected = dislikeCategoryList.includes(category);
 	const isAny = category === "ANY";
 	const shouldShowXIcon = isSelected && !isAny;
 
 	const handleClickDislikeButton = () => {
 		if (isSelected) {
-			field.onChange(dislikedFoods.filter((food) => food !== category));
+			field.onChange(
+				dislikeCategoryList.filter(
+					(currentCategory) => currentCategory !== category,
+				),
+			);
 			return;
 		}
 
@@ -76,7 +80,9 @@ export const DislikedFoodButton = ({ category }: DislikedFoodButtonProps) => {
 			return;
 		}
 
-		const filteredFoods = dislikedFoods.filter((food) => food !== "ANY");
+		const filteredFoods = dislikeCategoryList.filter(
+			(category) => category !== "ANY",
+		);
 
 		if (filteredFoods.length < 2) {
 			field.onChange([...filteredFoods, category]);
