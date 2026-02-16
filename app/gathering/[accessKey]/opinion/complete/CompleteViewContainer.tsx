@@ -31,7 +31,7 @@ export function CompleteViewContainer() {
 	};
 
 	useEffect(() => {
-		if (!isPending && capacity && accessKey) {
+		if (capacity && accessKey) {
 			trackViewPage({
 				page_id: PAGE_ID,
 				group_id: accessKey,
@@ -40,7 +40,7 @@ export function CompleteViewContainer() {
 				),
 			});
 		}
-	}, [capacity, isPending, accessKey]);
+	}, [capacity, accessKey]);
 
 	return (
 		<Layout.Root>

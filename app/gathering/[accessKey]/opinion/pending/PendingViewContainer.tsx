@@ -38,7 +38,7 @@ export function PendingViewContainer() {
 	};
 
 	useEffect(() => {
-		if (!isComplete && capacity && accessKey) {
+		if (capacity && accessKey) {
 			const progress = Math.round(
 				(capacity.currentCount / capacity.maxCount) * 100,
 			);
@@ -49,7 +49,7 @@ export function PendingViewContainer() {
 				submit_progress: progress,
 			});
 		}
-	}, [capacity, isComplete, accessKey]);
+	}, [capacity, accessKey]);
 
 	return (
 		<Layout.Root>
