@@ -24,7 +24,7 @@ export const NicknameStepContent = () => {
 				<StepHeader.Title>
 					모임 방크에 입장하기 위해
 					<br />
-					닉네임을 입력해주세요
+					이름을 입력해주세요
 				</StepHeader.Title>
 				<StepHeader.Description>
 					모임원을 식별하는 용도예요
@@ -32,7 +32,7 @@ export const NicknameStepContent = () => {
 			</StepHeader.Root>
 			<InputField
 				{...register("nickname")}
-				placeholder="닉네임을 입력해주세요"
+				placeholder="이름을 입력해주세요"
 				errorText={errors.nickname?.message}
 			/>
 		</div>
@@ -55,7 +55,7 @@ export const NicknameStepFooter = ({ onNext }: NicknameStepFooterProps) => {
 		const nickname = getValues("nickname");
 		trackStepComplete({
 			page_id: "의견수합_퍼널",
-			step_name: "닉네임",
+			step_name: "이름",
 			step_value: nickname,
 		});
 		onNext();

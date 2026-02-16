@@ -12,7 +12,7 @@ export interface CreateParticipantRequest {
 	dislikes: string[];
 	/** 선호하는 음식 목록 */
 	preferences: string[];
-	/** 닉네임 */
+	/** 이름 */
 	nickname: string;
 }
 
