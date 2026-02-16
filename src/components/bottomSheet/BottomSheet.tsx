@@ -41,12 +41,14 @@ interface BottomSheetContentProps {
 	children: ReactNode;
 	open?: boolean;
 	title?: string;
+	description?: string;
 }
 
 const BottomSheetContent = ({
 	children,
 	open,
 	title = "Bottom Sheet",
+	description = "Bottom Sheet Description",
 }: BottomSheetContentProps) => {
 	return (
 		<AnimatePresence>
@@ -81,6 +83,9 @@ const BottomSheetContent = ({
 							<RadixDialog.Title className="ygi:sr-only">
 								{title}
 							</RadixDialog.Title>
+							<RadixDialog.Description className="ygi:sr-only">
+								{description}
+							</RadixDialog.Description>
 							<div className="ygi:flex ygi:flex-col ygi:gap-5 ygi:px-6 ygi:pt-9">
 								{children}
 							</div>
