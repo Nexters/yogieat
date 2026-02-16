@@ -7,11 +7,12 @@ import { trackStepComplete } from "#/components/analytics";
 import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
 import { Button } from "#/components/button";
-import { ScheduledDatePicker } from "#/components/scheduledDatePicker";
 import { Chip } from "#/components/chip";
 import { isValidDateFormat } from "#/utils/gathering/create";
 import type { CreateMeetingFormSchema } from "#/schemas/gathering";
 import type { TimeSlot } from "#/types/gathering";
+
+import { ScheduledDatePicker } from "./ScheduledDatePicker";
 
 const TIME_SLOT_LABEL: Record<TimeSlot, string> = {
 	LUNCH: "점심",
