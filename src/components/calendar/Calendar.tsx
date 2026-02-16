@@ -84,7 +84,7 @@ const CalendarNav: CustomComponents["Nav"] = ({
 				<ChevronLeftIcon size={24} />
 			</button>
 			<div className="ygi:flex ygi:items-center ygi:justify-center">
-				<span className="ygi:heading-18-sb ygi:text-center ygi:leading-normal ygi:text-text-primary">
+				<span className="ygi:text-center ygi:heading-18-bd ygi:leading-normal ygi:text-text-primary">
 					{monthText}
 				</span>
 			</div>
