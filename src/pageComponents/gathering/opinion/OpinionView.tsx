@@ -4,6 +4,8 @@ import { redirect, useParams, useRouter } from "next/navigation";
 import { FormProvider } from "react-hook-form";
 
 import {
+	NicknameStepContent,
+	NicknameStepFooter,
 	DistanceStepContent,
 	DistanceStepFooter,
 	DislikeStepContent,
@@ -47,6 +49,8 @@ export function OpinionView() {
 
 	const renderContent = () => {
 		switch (step) {
+			case "nickname":
+				return <NicknameStepContent />;
 			case "distance":
 				return <DistanceStepContent region={gathering.region} />;
 			case "dislike":
@@ -60,6 +64,8 @@ export function OpinionView() {
 
 	const renderFooter = () => {
 		switch (step) {
+			case "nickname":
+				return <NicknameStepFooter onNext={next} />;
 			case "distance":
 				return <DistanceStepFooter onNext={next} />;
 			case "dislike":
