@@ -5,6 +5,13 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0-beta.2](https://github.com/Nexters/yogieat/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2026-02-16)
+
+### Features
+
+* analytics 개선 및 네이버 서치 어드바이저 등록 ([#88](https://github.com/Nexters/yogieat/issues/88)) ([4372aa5](https://github.com/Nexters/yogieat/commit/4372aa5daaf21939fd85d58521edc16f403ac8ea))
+* 모임 생성 완료 페이지 UI 리뉴얼 ([#89](https://github.com/Nexters/yogieat/issues/89)) ([17a3fc1](https://github.com/Nexters/yogieat/commit/17a3fc1b55c09593e63d771644c68e05e19d3c30))
+
 ## 1.0.0-beta.1 (2026-02-16)
 
 ### Features
