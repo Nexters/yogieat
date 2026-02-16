@@ -22,7 +22,7 @@ export const NicknameStepContent = () => {
 			<StepIndicator currentStep={1} totalSteps={OPINION_TOTAL_STEPS} />
 			<StepHeader.Root>
 				<StepHeader.Title>
-					모임 방크에 입장하기 위해
+					모임 링크에 입장하기 위해
 					<br />
 					이름을 입력해주세요
 				</StepHeader.Title>
