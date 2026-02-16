@@ -10,8 +10,6 @@ export interface ServerSentEventOptions {
 	onError?: (error: Event) => void;
 	onMessage?: (event: MessageEvent) => void;
 	events?: Record<string, (event: MessageEvent) => void>;
-	autoReconnect?: boolean;
-	reconnectInterval?: number;
 }
 
 export const useServerSentEvent = ({
@@ -32,21 +30,17 @@ export const useServerSentEvent = ({
 
 		const baseUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/v1`;
 		const fullUrl = `${baseUrl}${url}`;
-
-		console.log("[SSE] Connecting to:", fullUrl);
-
 		const eventSource = new EventSource(fullUrl, { withCredentials });
 
 		eventSourceRef.current = eventSource;
 
 		eventSource.addEventListener("open", () => {
-			console.log("[SSE] Connection opened");
 			setReadyState(1);
 			onOpen?.();
 		});
 
 		eventSource.addEventListener("error", (error) => {
-			setReadyState(2);
+			setReadyState(eventSource.readyState);
 			onError?.(error);
 		});
 
@@ -59,6 +53,10 @@ export const useServerSentEvent = ({
 		});
 
 		return () => {
+			Object.entries(events).forEach(([eventType, handler]) => {
+				eventSource.removeEventListener(eventType, handler);
+			});
+
 			eventSource.close();
 			eventSourceRef.current = null;
 			setReadyState(2);

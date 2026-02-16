@@ -1,20 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
 import { gatheringQueryOptions } from "#/apis/gathering";
 
-interface UseGetGatheringCapacityProps {
-	accessKey: string;
-	enabled?: boolean;
-}
-
-export const useGetGatheringCapacity = ({
-	accessKey,
-	enabled = true,
-}: UseGetGatheringCapacityProps) => {
-	return useQuery({
+export const useGetGatheringCapacity = (accessKey: string) => {
+	return useSuspenseQuery({
 		...gatheringQueryOptions.capacity(accessKey),
 		select: (response) => response.data,
-		throwOnError: true,
-		enabled,
 	});
 };

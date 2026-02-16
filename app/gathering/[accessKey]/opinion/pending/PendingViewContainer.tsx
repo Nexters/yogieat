@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { redirect, useParams } from "next/navigation";
-import { isNil } from "es-toolkit";
+import { redirect } from "next/navigation";
 
 import { trackViewPage, trackShareClick } from "#/components/analytics";
 import { Button } from "#/components/button";
@@ -13,20 +12,26 @@ import {
 	PendingView,
 	SubmissionBottomSheet,
 } from "#/pageComponents/gathering/opinion";
-import { useGetGatheringCapacity } from "#/hooks/apis/gathering";
 import { share } from "#/utils/share";
 
 const PAGE_ID = "의견수합_대기";
 
-export function PendingViewContainer() {
-	const { accessKey } = useParams<{ accessKey: string }>();
+interface PendingViewContainerProps {
+	accessKey: string;
+	initialMaxCount: number;
+	initialCurrentCount: number;
+}
 
-	const [currentCount, setCurrentCount] = useState<number | null>(null);
-	const [maxCount, setMaxCount] = useState<number | null>(null);
+export function PendingViewContainer({
+	accessKey,
+	initialMaxCount,
+	initialCurrentCount,
+}: PendingViewContainerProps) {
+	const [currentCount, setCurrentCount] = useState<number>(initialCurrentCount);
+	const [maxCount, setMaxCount] = useState<number>(initialMaxCount);
 
-	useServerSentEvent({
-		url: `/gatherings/${accessKey}/subscribe`,
-		events: {
+	const eventHandlers = useMemo(
+		() => ({
 			"participant-count": (event: MessageEvent) => {
 				const message = JSON.parse(
 					event.data,
@@ -37,25 +42,21 @@ export function PendingViewContainer() {
 			"gathering-full": () => {
 				redirect(`/gathering/${accessKey}/opinion/complete`);
 			},
-		},
-	});
+		}),
+		[accessKey],
+	);
 
-	const { data: capacityFallback } = useGetGatheringCapacity({
-		accessKey,
-		enabled: isNil(currentCount) || isNil(maxCount),
+	useServerSentEvent({
+		url: `/gatherings/${accessKey}/subscribe`,
+		events: eventHandlers,
 	});
 
 	const capacity = useMemo(
 		() => ({
-			currentCount: currentCount ?? capacityFallback?.currentCount ?? 0,
-			maxCount: maxCount ?? capacityFallback?.maxCount ?? 0,
-		}),
-		[
-			capacityFallback?.currentCount,
-			capacityFallback?.maxCount,
 			currentCount,
 			maxCount,
-		],
+		}),
+		[currentCount, maxCount],
 	);
 
 	const handleShare = () => {
