@@ -16,6 +16,12 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
 	title: "요기잇",
 	description: "다인원을 위한 맛집 추천 서비스",
+	verification: {
+		other: {
+			"naver-site-verification":
+				"dca905378a4e205448cc02fa95930206096ac4aa",
+		},
+	},
 	openGraph: {
 		title: "요기잇",
 		description: "다인원을 위한 맛집 추천 서비스",
