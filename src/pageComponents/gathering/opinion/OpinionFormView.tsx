@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { FormProvider } from "react-hook-form";
 
@@ -28,13 +29,18 @@ export function OpinionFormView() {
 
 	const { data: gathering } = useGetGathering(accessKey);
 
-	useServerSentEvent({
-		url: `/gatherings/${accessKey}/subscribe`,
-		events: {
+	const eventHandlers = useMemo(
+		() => ({
 			"gathering-full": () => {
 				router.push(`/gathering/${accessKey}/opinion/result`);
 			},
-		},
+		}),
+		[accessKey, router],
+	);
+
+	useServerSentEvent({
+		url: `/gatherings/${accessKey}/subscribe`,
+		events: eventHandlers,
 	});
 
 	const handleBackward = () => {
