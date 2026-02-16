@@ -27,7 +27,8 @@ export function PendingViewContainer({
 	initialMaxCount,
 	initialCurrentCount,
 }: PendingViewContainerProps) {
-	const [currentCount, setCurrentCount] = useState<number>(initialCurrentCount);
+	const [currentCount, setCurrentCount] =
+		useState<number>(initialCurrentCount);
 	const [maxCount, setMaxCount] = useState<number>(initialMaxCount);
 
 	const eventHandlers = useMemo(
