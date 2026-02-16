@@ -1,6 +1,7 @@
 "use client";
 
-import { addMonths } from "date-fns";
+import { useState } from "react";
+import { addMonths, isSameMonth, startOfMonth } from "date-fns";
 import { type CustomComponents, DayPicker } from "react-day-picker";
 import { twJoin, twMerge } from "tailwind-merge";
 
@@ -28,15 +29,15 @@ const CALENDAR_CLASS_NAMES = {
 	week: "ygi:grid ygi:grid-cols-7 ygi:gap-3",
 	day: twJoin(
 		"ygi:flex ygi:flex-col ygi:items-center ygi:justify-center",
-		"ygi:size-[34px] ygi:min-w-[34px] ygi:px-2",
+		"ygi:mx-auto ygi:size-[34px] ygi:min-w-[34px] ygi:px-2",
 	),
 	day_button: twJoin(
 		"ygi:flex ygi:size-[34px] ygi:items-center ygi:justify-center ygi:px-2 ygi:py-1",
 		"ygi:heading-18-sb ygi:rounded-full ygi:text-text-primary ygi:transition-colors",
 	),
 	selected: "ygi:bg-surface-active ygi:text-text-inverse ygi:rounded-xl",
-	outside: "ygi:text-text-disabled ygi:cursor-not-allowed",
-	disabled: "ygi:cursor-not-allowed",
+	outside: "ygi:text-text-disabled",
+	disabled: "ygi:cursor-not-allowed ygi:text-text-disabled",
 };
 
 const CalendarDayButton: CustomComponents["DayButton"] = ({
@@ -44,6 +45,7 @@ const CalendarDayButton: CustomComponents["DayButton"] = ({
 	modifiers,
 	...props
 }) => {
+	// NOTE : react-day-picker 에서는 className 병합에 대한 tailwindCSS 예외 처리가 없어 수동 병합
 	const buttonClasses = twMerge(
 		CALENDAR_CLASS_NAMES.day_button,
 		modifiers.selected && CALENDAR_CLASS_NAMES.selected,
@@ -82,7 +84,7 @@ const CalendarNav: CustomComponents["Nav"] = ({
 				<ChevronLeftIcon size={24} />
 			</button>
 			<div className="ygi:flex ygi:items-center ygi:justify-center">
-				<span className="ygi:heading-18-sb ygi:text-center ygi:leading-normal ygi:tracking-[-0.27px] ygi:text-text-primary">
+				<span className="ygi:heading-18-sb ygi:text-center ygi:leading-normal ygi:text-text-primary">
 					{monthText}
 				</span>
 			</div>
@@ -98,12 +100,46 @@ const CalendarNav: CustomComponents["Nav"] = ({
 	);
 };
 
-export const Calendar = ({ className, ...props }: CalendarProps) => {
+export const Calendar = ({
+	className,
+	month: controlledMonth,
+	onMonthChange,
+	onDayClick,
+	...props
+}: CalendarProps) => {
+	const [internalMonth, setInternalMonth] = useState<Date>(
+		controlledMonth ?? new Date(),
+	);
+
+	// Controlled vs Uncontrolled
+	const isControlled = controlledMonth !== undefined;
+	const currentMonth = isControlled ? controlledMonth : internalMonth;
+
+	const handleMonthChange = (newMonth: Date) => {
+		if (!isControlled) {
+			setInternalMonth(newMonth);
+		}
+		onMonthChange?.(newMonth);
+	};
+
+	const handleDayClick: typeof onDayClick = (day, modifiers, e) => {
+		// 다음 달 또는 이전 달의 날짜를 클릭한 경우
+		if (modifiers.outside && !isSameMonth(day, currentMonth)) {
+			handleMonthChange(startOfMonth(day));
+		}
+
+		// 원래의 onDayClick 핸들러 호출
+		onDayClick?.(day, modifiers, e);
+	};
+
 	return (
 		<DayPicker
 			showOutsideDays
 			fixedWeeks
 			mode="single"
+			month={currentMonth}
+			onMonthChange={handleMonthChange}
+			onDayClick={handleDayClick}
 			className={twMerge("ygi:w-full", className)}
 			classNames={CALENDAR_CLASS_NAMES}
 			components={{
