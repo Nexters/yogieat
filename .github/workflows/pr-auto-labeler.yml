@@ -110,7 +110,10 @@ jobs:
 
   manage-status-labels:
     name: Manage Status Labels
-    if: startsWith(github.head_ref, 'feature/')
+    needs: add-type-label
+    if: |
+      always() &&
+      startsWith(github.head_ref, 'feature/')
     runs-on: ubuntu-latest
     timeout-minutes: 5
     concurrency:
