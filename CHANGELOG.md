@@ -5,6 +5,12 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0-beta.3](https://github.com/Nexters/yogieat/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2026-02-17)
+
+### Features
+
+* 의견 수렴 퍼널에 닉네임 입력 단계 추가 ([#90](https://github.com/Nexters/yogieat/issues/90)) ([e62b44a](https://github.com/Nexters/yogieat/commit/e62b44a91c0624c28fd6b4778d40d1ce11d806be))
+
 ## [1.0.0-beta.2](https://github.com/Nexters/yogieat/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2026-02-16)
 
 ### Features
