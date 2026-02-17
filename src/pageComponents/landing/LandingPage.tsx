@@ -7,7 +7,9 @@ import Image from "next/image";
 
 const Player = dynamic(
 	() =>
-		import("@lottiefiles/react-lottie-player").then((module) => module.Player),
+		import("@lottiefiles/react-lottie-player").then(
+			(module) => module.Player,
+		),
 	{
 		ssr: false,
 		loading: () => <div className="ygi:h-82 ygi:w-full" />,
