@@ -59,7 +59,11 @@ const BottomSheetContent = ({
 							initial={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
 							exit={{ opacity: 0 }}
-							transition={{ duration: 0.2 }}
+							transition={{
+								type: "tween",
+								duration: 0.2,
+								ease: "easeInOut",
+							}}
 							className="ygi:fixed ygi:inset-0 ygi:z-50 ygi:bg-bg-dim"
 						/>
 					</RadixDialog.Overlay>
@@ -69,10 +73,9 @@ const BottomSheetContent = ({
 							animate={{ y: 0 }}
 							exit={{ y: "100%" }}
 							transition={{
-								type: "spring",
-								damping: 40,
-								stiffness: 300,
-								restDelta: 0.001,
+								type: "tween",
+								duration: 0.2,
+								ease: "easeInOut",
 							}}
 							className={twJoin(
 								"ygi:fixed ygi:right-0 ygi:bottom-0 ygi:left-0 ygi:z-50",
