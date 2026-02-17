@@ -10,6 +10,8 @@ import {
 	DislikeStepFooter,
 	PreferenceStepContent,
 	PreferenceStepFooter,
+	NicknameStepContent,
+	NicknameStepFooter,
 } from "#/pageComponents/gathering/opinion";
 import { StepTransition } from "#/components/stepTransition";
 import { useOpinionForm, useOpinionFunnel } from "#/hooks/gathering";
@@ -37,6 +39,8 @@ export function OpinionFormView() {
 
 	const renderContent = () => {
 		switch (step) {
+			case "nickname":
+				return <NicknameStepContent />;
 			case "distance":
 				return <DistanceStepContent region={gathering.region} />;
 			case "dislike":
@@ -50,6 +54,8 @@ export function OpinionFormView() {
 
 	const renderFooter = () => {
 		switch (step) {
+			case "nickname":
+				return <NicknameStepFooter onNext={next} />;
 			case "distance":
 				return <DistanceStepFooter onNext={next} />;
 			case "dislike":

@@ -24,6 +24,7 @@ export function useOpinionForm() {
 		mode: "onChange",
 		resolver: zodResolver(opinionFormSchema),
 		defaultValues: {
+			nickname: "",
 			distanceRange: undefined,
 			dislikedFoods: [],
 			preferredMenus: {
@@ -45,6 +46,7 @@ export function useOpinionForm() {
 			await createParticipant({
 				accessKey,
 				preferences,
+				nickname: data.nickname,
 				dislikes: data.dislikedFoods,
 				distance: distanceRangeToKm(data.distanceRange),
 			});
