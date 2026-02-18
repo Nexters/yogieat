@@ -3,8 +3,9 @@
 import { useFormContext, useWatch } from "react-hook-form";
 
 import {
+	Category,
 	RANK_LABELS,
-	FOOD_CATEGORIES,
+	CATEGORY_LIST,
 	RANKS,
 } from "#/constants/gathering/opinion";
 import type { RankKey } from "#/types/gathering";
@@ -21,22 +22,21 @@ export const RankSection = ({ rank }: RankSectionProps) => {
 
 	const disabled = useWatch({
 		control,
-		name: "preferredMenus",
+		name: "preferredCategories",
 		compute: (data) =>
 			RANKS.slice(0, RANKS.indexOf(rank)).some(
-				(prevRank) => data[prevRank] === "ANY",
+				(prevRank) => data[prevRank] === Category.ANY,
 			),
 	});
 
-	const dislikedFoods = useWatch({
+	const dislikedCategories = useWatch({
 		control,
-		name: "dislikedFoods",
+		name: "dislikedCategories",
 	});
 
-	const availableCategories = FOOD_CATEGORIES.filter(
+	const availableCategories = CATEGORY_LIST.filter(
 		(category) =>
-			category.value === "ANY" ||
-			!dislikedFoods?.includes(category.value),
+			category === Category.ANY || !dislikedCategories?.includes(category),
 	);
 
 	return (
@@ -49,9 +49,9 @@ export const RankSection = ({ rank }: RankSectionProps) => {
 			<div className={twJoin("ygi:flex ygi:flex-wrap ygi:gap-3")}>
 				{availableCategories.map((category) => (
 					<RankChip
-						key={category.value}
+						key={category}
 						rank={rank}
-						category={category.value}
+						category={category}
 						disabled={disabled}
 					/>
 				))}

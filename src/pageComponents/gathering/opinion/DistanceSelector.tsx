@@ -3,7 +3,7 @@
 import { useFormContext, useController } from "react-hook-form";
 
 import { Chip } from "#/components/chip";
-import { DISTANCE_OPTIONS } from "#/constants/gathering/opinion";
+import { DISTANCE_LIST, DISTANCE_RANGE_LABEL } from "#/constants/gathering/opinion";
 import type { OpinionFormSchema } from "#/schemas/gathering";
 
 export const DistanceSelector = () => {
@@ -12,15 +12,15 @@ export const DistanceSelector = () => {
 
 	return (
 		<div className="ygi:flex ygi:gap-3">
-			{DISTANCE_OPTIONS.map((option) => (
+			{DISTANCE_LIST.map((distance) => (
 				<Chip
-					key={option.value}
-					selected={field.value === option.value}
+					key={distance}
+					selected={field.value === distance}
 					onClick={() => {
-						field.onChange(option.value);
+						field.onChange(distance);
 					}}
 				>
-					{option.label}
+					{DISTANCE_RANGE_LABEL[distance]}
 				</Chip>
 			))}
 		</div>
