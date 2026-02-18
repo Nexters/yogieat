@@ -4,7 +4,7 @@ import { useFormContext, useController } from "react-hook-form";
 
 import { Chip } from "#/components/chip";
 import type { CreateMeetingFormSchema } from "#/schemas/gathering";
-import type { Region } from "#/types/gathering";
+import { Region } from "#/constants/gathering/opinion";
 
 interface RegionChipProps {
 	value: Region;

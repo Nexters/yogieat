@@ -8,7 +8,7 @@ import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
 import { Button } from "#/components/button/Button";
 import { DotsLoader } from "#/components/dotsLoader";
-import { REGION_OPTIONS } from "#/constants/gathering/opinion";
+import { REGION_LIST, REGION_LABEL } from "#/constants/gathering/opinion";
 import { RegionChip } from "./RegionChip";
 import type { CreateMeetingFormSchema } from "#/schemas/gathering";
 
@@ -21,8 +21,12 @@ export const RegionStepContent = () => {
 					장소를 선택해 주세요
 				</h1>
 				<div className="ygi:flex ygi:gap-3">
-					{REGION_OPTIONS.map(({ value, label }) => (
-						<RegionChip key={value} value={value} label={label} />
+					{REGION_LIST.map((region) => (
+						<RegionChip
+							key={region}
+							value={region}
+							label={REGION_LABEL[region]}
+						/>
 					))}
 				</div>
 			</div>
@@ -44,8 +48,7 @@ export const RegionStepFooter = ({ isPending }: RegionStepFooterProps) => {
 
 	const handleClick = () => {
 		const region = getValues("region");
-		const regionLabel =
-			REGION_OPTIONS.find((r) => r.value === region)?.label ?? "-";
+		const regionLabel = region ? REGION_LABEL[region] : "-";
 		trackStepComplete({
 			page_id: "모임생성_퍼널",
 			step_name: "장소",
