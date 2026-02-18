@@ -1,17 +1,12 @@
 export { OPINION_STEP_ORDER, OPINION_TOTAL_STEPS } from "./funnel";
 export {
-	DISTANCE_RANGE,
+	DistanceRange,
 	DISTANCE_RANGE_LABEL,
-	DISTANCE_OPTIONS,
-	type DistanceRange,
+	DISTANCE_RANGE_KM,
+	DISTANCE_LIST,
 } from "./distance";
-export {
-	FOOD_CATEGORY_LABEL,
-	FOOD_CATEGORIES,
-	FOOD_CATEGORY_VALUES,
-	type FoodCategory,
-} from "./food";
+export { Category, CATEGORY_LABEL, CATEGORY_LIST } from "./food";
 export { RANKS, RANK_LABELS } from "./rank";
-export { REGION, REGION_LABEL, REGION_OPTIONS, type Region } from "./region";
+export { Region, REGION_LABEL, REGION_LIST } from "./region";
 export { UI_TEXT } from "./ui-text";
 export { MOCK_MEETING_DATA } from "./meeting";

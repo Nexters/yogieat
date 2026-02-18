@@ -1,31 +1,26 @@
-export const FOOD_CATEGORY_LABEL = {
-	KOREAN: "한식",
-	JAPANESE: "일식",
-	CHINESE: "중식",
-	WESTERN: "양식",
-	ASIAN: "아시안",
-	ANY: "상관없음",
-} as const;
+export enum Category {
+	KOREAN = "KOREAN",
+	JAPANESE = "JAPANESE",
+	CHINESE = "CHINESE",
+	WESTERN = "WESTERN",
+	ASIAN = "ASIAN",
+	ANY = "ANY",
+}
 
-export type FoodCategory = keyof typeof FOOD_CATEGORY_LABEL;
+export const CATEGORY_LABEL = {
+	[Category.KOREAN]: "한식",
+	[Category.JAPANESE]: "일식",
+	[Category.CHINESE]: "중식",
+	[Category.WESTERN]: "양식",
+	[Category.ASIAN]: "아시안",
+	[Category.ANY]: "상관없음",
+};
 
-export const FOOD_CATEGORIES: ReadonlyArray<{
-	value: FoodCategory;
-	label: string;
-}> = [
-	{ value: "KOREAN", label: "한식" },
-	{ value: "JAPANESE", label: "일식" },
-	{ value: "CHINESE", label: "중식" },
-	{ value: "WESTERN", label: "양식" },
-	{ value: "ASIAN", label: "아시안" },
-	{ value: "ANY", label: "상관없음" },
-];
-
-export const FOOD_CATEGORY_VALUES: ReadonlyArray<FoodCategory> = [
-	"KOREAN",
-	"JAPANESE",
-	"CHINESE",
-	"WESTERN",
-	"ASIAN",
-	"ANY",
+export const CATEGORY_LIST = [
+	Category.KOREAN,
+	Category.JAPANESE,
+	Category.CHINESE,
+	Category.WESTERN,
+	Category.ASIAN,
+	Category.ANY,
 ];
