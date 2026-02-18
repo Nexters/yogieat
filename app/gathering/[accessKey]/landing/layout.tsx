@@ -14,6 +14,8 @@ export const metadata: Metadata = {
 		title: "함께 갈 맛집, 같이 정해요!",
 		description: "[요기잇] 다인원을 위한 맛집 서비스",
 		type: "website",
+		locale: "ko_KR",
+		siteName: "요기잇",
 		images: [
 			{
 				url: "https://yogieat-statics.s3.ap-southeast-2.amazonaws.com/images/opengraph/opinion-landing-og-image.png",
