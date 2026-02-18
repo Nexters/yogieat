@@ -2,7 +2,8 @@
  * 모임 API 요청/응답 타입
  */
 
-import type { Region, TimeSlot } from "#/types/gathering";
+import type { TimeSlot } from "#/types/gathering";
+import { Region } from "#/constants/gathering/opinion";
 
 /** 모임 생성 요청 */
 export interface CreateGatheringRequest {

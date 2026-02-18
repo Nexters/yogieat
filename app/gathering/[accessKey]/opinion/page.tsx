@@ -13,16 +13,10 @@ interface OpinionPageProps {
 	}>;
 }
 
-/**
- * 의견 수렴 폼 페이지 (서버 컴포넌트)
- * - 실제 의견 입력 (distance -> dislike -> preference)
- * - gathering 데이터를 서버에서 prefetch하여 무한 렌더링 방지
- */
 export default async function OpinionPage({ params }: OpinionPageProps) {
 	const { accessKey } = await params;
 	const queryClient = new QueryClient();
 
-	// 서버에서 gathering 데이터 미리 가져오기
 	await Promise.all([
 		queryClient.prefetchQuery(gatheringQueryOptions.detail(accessKey)),
 		queryClient.prefetchQuery(gatheringQueryOptions.capacity(accessKey)),
