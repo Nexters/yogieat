@@ -1,6 +1,5 @@
 import { z } from "zod";
-import type { DistanceRange, FoodCategory } from "#/types/gathering";
-import { DISTANCE_RANGE } from "#/constants/gathering/opinion";
+import { Category, DistanceRange, DISTANCE_RANGE_KM } from "#/constants/gathering/opinion";
 
 const distanceRangeSchema = z.enum([
 	"RANGE_500M",
@@ -8,14 +7,14 @@ const distanceRangeSchema = z.enum([
 	"ANY",
 ] satisfies readonly DistanceRange[]);
 
-export const foodCategorySchema = z.enum([
+export const categorySchema = z.enum([
 	"KOREAN",
 	"JAPANESE",
 	"CHINESE",
 	"WESTERN",
 	"ASIAN",
 	"ANY",
-] satisfies readonly FoodCategory[]);
+] satisfies readonly Category[]);
 
 export const opinionFormSchema = z.object({
 	nickname: z
@@ -27,17 +26,20 @@ export const opinionFormSchema = z.object({
 			"이름은 한글, 영문만 입력 가능합니다",
 		),
 	distanceRange: distanceRangeSchema,
-	dislikedFoods: z
-		.array(foodCategorySchema)
+	dislikedCategories: z
+		.array(categorySchema)
 		.min(1, "싫어하는 음식을 선택해주세요")
 		.max(2, "최대 2개까지 선택 가능합니다")
-		.refine((foods) => !foods.includes("ANY") || foods.length === 1, {
-			message: '"상관없음"은 다른 음식과 함께 선택할 수 없습니다.',
-		}),
-	preferredMenus: z.object({
-		first: foodCategorySchema.optional(),
-		second: foodCategorySchema.optional(),
-		third: foodCategorySchema.optional(),
+		.refine(
+			(categories) => !categories.includes("ANY") || categories.length === 1,
+			{
+				message: '"상관없음"은 다른 음식과 함께 선택할 수 없습니다.',
+			},
+		),
+	preferredCategories: z.object({
+		first: categorySchema.optional(),
+		second: categorySchema.optional(),
+		third: categorySchema.optional(),
 	}),
 });
 
@@ -47,5 +49,5 @@ export type OpinionFormSchema = z.infer<typeof opinionFormSchema>;
  * DistanceRange를 실제 거리(km)로 변환하는 헬퍼 함수
  */
 export function distanceRangeToKm(range: DistanceRange): number | null {
-	return DISTANCE_RANGE[range];
+	return DISTANCE_RANGE_KM[range];
 }

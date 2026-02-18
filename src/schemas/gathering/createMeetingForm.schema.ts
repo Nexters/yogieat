@@ -1,5 +1,6 @@
 import { z } from "zod";
-import type { TimeSlot, Region } from "#/types/gathering";
+import type { TimeSlot } from "#/types/gathering";
+import { Region } from "#/constants/gathering/opinion";
 import {
 	validateDateInput,
 	DATE_ERROR_MESSAGES,
