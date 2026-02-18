@@ -10,6 +10,7 @@ import { Button } from "#/components/button";
 import { InputField } from "#/components/inputField";
 import { OPINION_TOTAL_STEPS } from "#/constants/gathering/opinion";
 import type { OpinionFormSchema } from "#/schemas/gathering";
+import { isUndefined } from "es-toolkit";
 
 export const NicknameStepContent = () => {
 	const {
@@ -44,15 +45,19 @@ interface NicknameStepFooterProps {
 }
 
 export const NicknameStepFooter = ({ onNext }: NicknameStepFooterProps) => {
-	const { control, getValues } = useFormContext<OpinionFormSchema>();
-	const disabled = useWatch({
+	const {
+		control,
+		formState: { errors },
+	} = useFormContext<OpinionFormSchema>();
+
+	const nickname = useWatch({
 		control,
 		name: "nickname",
-		compute: (value) => !value || value.trim().length === 0,
 	});
 
+	const disabled = !isUndefined(errors.nickname);
+
 	const handleNext = () => {
-		const nickname = getValues("nickname");
 		trackStepComplete({
 			page_id: "의견수합_퍼널",
 			step_name: "이름",
