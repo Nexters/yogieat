@@ -5,6 +5,12 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0-beta.1](https://github.com/Nexters/yogieat/compare/v1.1.1-beta.1...v1.2.0-beta.1) (2026-02-18)
+
+### Features
+
+* SEO 크롤링/인덱싱 및 소셜 공유 메타데이터 강화 ([#93](https://github.com/Nexters/yogieat/issues/93)) ([fe88b97](https://github.com/Nexters/yogieat/commit/fe88b9752722be8e658562403fb52410efce502d))
+
 ## [1.1.1-beta.1](https://github.com/Nexters/yogieat/compare/v1.1.0...v1.1.1-beta.1) (2026-02-18)
 
 ### Bug Fixes
