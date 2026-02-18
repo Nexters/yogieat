@@ -5,6 +5,12 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.1](https://github.com/Nexters/yogieat/compare/v1.1.0...v1.1.1) (2026-02-18)
+
+### Bug Fixes
+
+* nickname step에서 Zod 유효성 검사 적용 ([7aec153](https://github.com/Nexters/yogieat/commit/7aec153e19d8c9a0590ca988e5621486054faa69))
+
 ## [1.1.0](https://github.com/Nexters/yogieat/compare/v1.0.0...v1.1.0) (2026-02-18)
 
 ### Features
