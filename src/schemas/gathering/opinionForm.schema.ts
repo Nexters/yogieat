@@ -18,10 +18,19 @@ export const foodCategorySchema = z.enum([
 ] satisfies readonly FoodCategory[]);
 
 export const opinionFormSchema = z.object({
+	nickname: z
+		.string()
+		.min(1, "이름을 입력해주세요")
+		.max(8, "이름은은 8자 이내로 입력해주세요")
+		.regex(/^[가-힣a-zA-Z\s]+$/, "이름은 한글, 영문만 입력 가능합니다"),
 	distanceRange: distanceRangeSchema,
 	dislikedFoods: z
 		.array(foodCategorySchema)
-		.min(1, "싫어하는 음식을 선택해주세요"),
+		.min(1, "싫어하는 음식을 선택해주세요")
+		.max(2, "최대 2개까지 선택 가능합니다")
+		.refine((foods) => !foods.includes("ANY") || foods.length === 1, {
+			message: '"상관없음"은 다른 음식과 함께 선택할 수 없습니다.',
+		}),
 	preferredMenus: z.object({
 		first: foodCategorySchema.optional(),
 		second: foodCategorySchema.optional(),

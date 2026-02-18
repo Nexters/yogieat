@@ -1,4 +1,5 @@
 export { IntroStep } from "./IntroStep";
+export { NicknameStepContent, NicknameStepFooter } from "./NicknameStep";
 export { DistanceStepContent, DistanceStepFooter } from "./DistanceStep";
 export { DislikeStepContent, DislikeStepFooter } from "./DislikeStep";
 export { PreferenceStepContent, PreferenceStepFooter } from "./PreferenceStep";
