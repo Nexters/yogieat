@@ -3,7 +3,10 @@
 import { useFormContext, useController } from "react-hook-form";
 
 import { Chip } from "#/components/chip";
-import { DISTANCE_LIST, DISTANCE_RANGE_LABEL } from "#/constants/gathering/opinion";
+import {
+	DISTANCE_LIST,
+	DISTANCE_RANGE_LABEL,
+} from "#/constants/gathering/opinion";
 import type { OpinionFormSchema } from "#/schemas/gathering";
 
 export const DistanceSelector = () => {

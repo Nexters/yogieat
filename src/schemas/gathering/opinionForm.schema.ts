@@ -1,5 +1,9 @@
 import { z } from "zod";
-import { Category, DistanceRange, DISTANCE_RANGE_KM } from "#/constants/gathering/opinion";
+import {
+	Category,
+	DistanceRange,
+	DISTANCE_RANGE_KM,
+} from "#/constants/gathering/opinion";
 
 const distanceRangeSchema = z.enum([
 	"RANGE_500M",
@@ -31,7 +35,8 @@ export const opinionFormSchema = z.object({
 		.min(1, "싫어하는 음식을 선택해주세요")
 		.max(2, "최대 2개까지 선택 가능합니다")
 		.refine(
-			(categories) => !categories.includes("ANY") || categories.length === 1,
+			(categories) =>
+				!categories.includes("ANY") || categories.length === 1,
 			{
 				message: '"상관없음"은 다른 음식과 함께 선택할 수 없습니다.',
 			},

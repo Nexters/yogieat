@@ -35,7 +35,10 @@ export const DislikeStepContent = () => {
 
 			<div className="ygi:flex ygi:flex-wrap ygi:justify-center ygi:gap-3 ygi:px-6 ygi:pt-6 ygi:pb-9">
 				{CATEGORY_LIST.map((category) => (
-					<DislikedCategoryButton key={category} category={category} />
+					<DislikedCategoryButton
+						key={category}
+						category={category}
+					/>
 				))}
 			</div>
 		</div>

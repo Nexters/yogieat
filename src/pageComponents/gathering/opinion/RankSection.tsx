@@ -36,7 +36,8 @@ export const RankSection = ({ rank }: RankSectionProps) => {
 
 	const availableCategories = CATEGORY_LIST.filter(
 		(category) =>
-			category === Category.ANY || !dislikedCategories?.includes(category),
+			category === Category.ANY ||
+			!dislikedCategories?.includes(category),
 	);
 
 	return (
