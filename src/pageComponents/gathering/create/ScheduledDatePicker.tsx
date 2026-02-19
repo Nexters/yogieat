@@ -12,23 +12,6 @@ import { Button } from "#/components/button";
 import type { CreateMeetingFormSchema } from "#/schemas/gathering";
 
 const DATE_FORMAT = "yyyy.MM.dd";
-const today = startOfDay(new Date());
-
-const parseDate = (value: string | undefined): Date | undefined => {
-	if (!value) return undefined;
-	try {
-		return parse(value, DATE_FORMAT, new Date());
-	} catch {
-		return undefined;
-	}
-};
-
-const formatDate = (date: Date): string => format(date, DATE_FORMAT, { locale: ko });
-
-const formatCaption = (date: Date): string =>
-	`${date.getFullYear()}년 ${date.getMonth() + 1}월`;
-
-const isBeforeToday = (date: Date): boolean => date < today;
 
 export const ScheduledDatePicker = () => {
 	const { control } = useFormContext<CreateMeetingFormSchema>();
@@ -47,7 +30,9 @@ export const ScheduledDatePicker = () => {
 	const handleOpenChange = (open: boolean) => {
 		setIsOpen(open);
 		if (open) {
-			const initialDate = parseDate(value);
+			const initialDate = value
+				? parse(value, DATE_FORMAT, new Date())
+				: undefined;
 			setPendingDate(initialDate);
 			setCalendarMonth(initialDate ?? new Date());
 		}
@@ -55,9 +40,11 @@ export const ScheduledDatePicker = () => {
 
 	const handleDateConfirm = () => {
 		if (!pendingDate) return;
-		onChange(formatDate(pendingDate));
+		onChange(format(pendingDate, DATE_FORMAT, { locale: ko }));
 		setIsOpen(false);
 	};
+
+	const isBeforeToday = (date: Date) => date < startOfDay(new Date());
 
 	return (
 		<BottomSheet open={isOpen} onOpenChange={handleOpenChange}>
@@ -83,7 +70,10 @@ export const ScheduledDatePicker = () => {
 						onSelect={setPendingDate}
 						locale={ko}
 						disabled={isBeforeToday}
-						formatters={{ formatCaption }}
+						formatters={{
+							formatCaption: (date) =>
+								`${date.getFullYear()}년 ${date.getMonth() + 1}월`,
+						}}
 					/>
 					<Button
 						type="button"
