@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { useFormContext, useController } from "react-hook-form";
-import { format, parse } from "date-fns";
+import { format, parse, startOfDay } from "date-fns";
 import { ko } from "date-fns/locale";
 
 import { InputField } from "#/components/inputField";
@@ -11,51 +11,53 @@ import { Calendar } from "#/components/calendar";
 import { Button } from "#/components/button";
 import type { CreateMeetingFormSchema } from "#/schemas/gathering";
 
+const DATE_FORMAT = "yyyy.MM.dd";
+const today = startOfDay(new Date());
+
+const parseDate = (value: string | undefined): Date | undefined => {
+	if (!value) return undefined;
+	try {
+		return parse(value, DATE_FORMAT, new Date());
+	} catch {
+		return undefined;
+	}
+};
+
+const formatDate = (date: Date): string => format(date, DATE_FORMAT, { locale: ko });
+
+const formatCaption = (date: Date): string =>
+	`${date.getFullYear()}년 ${date.getMonth() + 1}월`;
+
+const isBeforeToday = (date: Date): boolean => date < today;
+
 export const ScheduledDatePicker = () => {
 	const { control } = useFormContext<CreateMeetingFormSchema>();
 	const [isOpen, setIsOpen] = useState(false);
-	const [selectedDate, setSelectedDate] = useState<Date | undefined>();
+	const [pendingDate, setPendingDate] = useState<Date | undefined>();
+	const [calendarMonth, setCalendarMonth] = useState<Date>(new Date());
 
 	const {
-		field: scheduledDateField,
-		fieldState: { error: scheduledDateError },
+		field: { value, onChange },
+		fieldState: { error },
 	} = useController({
 		control,
 		name: "scheduledDate",
 	});
 
-	const initialDate = useMemo(() => {
-		if (!scheduledDateField.value) return undefined;
-		try {
-			return parse(scheduledDateField.value, "yyyy.MM.dd", new Date());
-		} catch {
-			return undefined;
-		}
-	}, [scheduledDateField.value]);
-
 	const handleOpenChange = (open: boolean) => {
 		setIsOpen(open);
-		if (open && initialDate) {
-			setSelectedDate(initialDate);
+		if (open) {
+			const initialDate = parseDate(value);
+			setPendingDate(initialDate);
+			setCalendarMonth(initialDate ?? new Date());
 		}
-	};
-
-	const handleDateSelect = (date: Date | undefined) => {
-		setSelectedDate(date);
 	};
 
 	const handleDateConfirm = () => {
-		if (selectedDate) {
-			const formatted = format(selectedDate, "yyyy.MM.dd", {
-				locale: ko,
-			});
-			scheduledDateField.onChange(formatted);
-			setIsOpen(false);
-		}
+		if (!pendingDate) return;
+		onChange(formatDate(pendingDate));
+		setIsOpen(false);
 	};
-
-	const today = new Date();
-	today.setHours(0, 0, 0, 0);
 
 	return (
 		<BottomSheet open={isOpen} onOpenChange={handleOpenChange}>
@@ -64,9 +66,9 @@ export const ScheduledDatePicker = () => {
 					<InputField
 						className="ygi:cursor-pointer"
 						placeholder="YYYY.MM.DD."
-						errorText={scheduledDateError?.message}
+						errorText={error?.message}
 						readOnly
-						value={scheduledDateField.value || ""}
+						value={value || ""}
 						onClick={() => setIsOpen(true)}
 					/>
 				</div>
@@ -75,20 +77,18 @@ export const ScheduledDatePicker = () => {
 				<div className="ygi:flex ygi:flex-col ygi:gap-9">
 					<Calendar
 						mode="single"
-						selected={selectedDate}
-						onSelect={handleDateSelect}
+						month={calendarMonth}
+						onMonthChange={setCalendarMonth}
+						selected={pendingDate}
+						onSelect={setPendingDate}
 						locale={ko}
-						disabled={(date) => date < today}
-						formatters={{
-							formatCaption: (date) => {
-								return `${date.getFullYear()}년 ${date.getMonth() + 1}월`;
-							},
-						}}
+						disabled={isBeforeToday}
+						formatters={{ formatCaption }}
 					/>
 					<Button
 						type="button"
 						onClick={handleDateConfirm}
-						disabled={!selectedDate}
+						disabled={!pendingDate}
 						variant="primary"
 						width="full"
 					>
