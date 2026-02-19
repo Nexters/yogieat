@@ -5,6 +5,13 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0](https://github.com/Nexters/yogieat/compare/v1.2.0...v1.3.0) (2026-02-19)
+
+### Features
+
+* Calendar 및 BottomSheet 컴포넌트 구현 ([#85](https://github.com/Nexters/yogieat/issues/85)) ([afd5007](https://github.com/Nexters/yogieat/commit/afd5007375455496f5e0c726a8b7708bb3a0d1ba)), closes [#848B9C](https://github.com/Nexters/yogieat/issues/848B9C)
+* 랜딩 페이지 일러스트레이션을 Lottie 애니메이션으로 교체 ([#92](https://github.com/Nexters/yogieat/issues/92)) ([11d70f2](https://github.com/Nexters/yogieat/commit/11d70f215ee314b91db54a347a96ea77c566bb4a))
+
 ## [1.2.0-beta.3](https://github.com/Nexters/yogieat/compare/v1.2.0-beta.2...v1.2.0-beta.3) (2026-02-19)
 
 ### Features
