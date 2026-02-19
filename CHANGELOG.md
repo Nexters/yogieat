@@ -5,6 +5,12 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0-beta.2](https://github.com/Nexters/yogieat/compare/v1.2.0-beta.1...v1.2.0-beta.2) (2026-02-19)
+
+### Features
+
+* 랜딩 페이지 일러스트레이션을 Lottie 애니메이션으로 교체 ([#92](https://github.com/Nexters/yogieat/issues/92)) ([11d70f2](https://github.com/Nexters/yogieat/commit/11d70f215ee314b91db54a347a96ea77c566bb4a))
+
 ## [1.2.0-beta.1](https://github.com/Nexters/yogieat/compare/v1.1.1-beta.1...v1.2.0-beta.1) (2026-02-18)
 
 ### Features
