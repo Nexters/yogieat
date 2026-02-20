@@ -7,6 +7,7 @@ import { AnimatePresence } from "motion/react";
 import type { ComponentPropsWithoutRef } from "react";
 import { twJoin } from "tailwind-merge";
 import Image from "next/image";
+import { Category } from "#/constants/gathering/opinion";
 
 const categoryButtonVariants = cva(
 	[
@@ -52,7 +53,7 @@ export type CategoryButtonProps = Omit<
 	"className"
 > &
 	VariantProps<typeof categoryButtonVariants> & {
-		category: string;
+		category: Category;
 		label: string;
 	};
 
@@ -62,7 +63,7 @@ export const CategoryButton = ({
 	label,
 	...props
 }: CategoryButtonProps) => {
-	const isAny = category === "ANY";
+	const isAny = category === Category.ANY;
 	const shouldShowXIcon = selected && !isAny;
 	const imageSrc = `/images/foodCategory/${category.toLowerCase()}.svg`;
 
