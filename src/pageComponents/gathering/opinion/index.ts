@@ -6,7 +6,6 @@ export { PreferenceStepContent, PreferenceStepFooter } from "./PreferenceStep";
 export { PendingView } from "./PendingView";
 export { ResultView } from "./ResultView";
 export { CompleteView } from "./CompleteView";
-export { OpinionView } from "./OpinionView";
 export { LandingView } from "./LandingView";
 export { OpinionFormView } from "./OpinionFormView";
 export { SubmissionBottomSheet } from "./SubmissionBottomSheet";
