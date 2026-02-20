@@ -1,9 +1,16 @@
-import type { RankKey } from "#/types/gathering";
-
-export const RANKS: RankKey[] = ["first", "second", "third"];
-
-export const RANK_LABELS: Record<RankKey, string> = {
-	first: "1순위",
-	second: "2순위",
-	third: "3순위",
+export enum RankKey {
+	FIRST = "first",
+	SECOND = "second",
+	THIRD = "third",
+}
+export const RANK_LABEL = {
+	[RankKey.FIRST]: "1순위",
+	[RankKey.SECOND]: "2순위",
+	[RankKey.THIRD]: "3순위",
 };
+
+export const RANK_LIST: RankKey[] = [
+	RankKey.FIRST,
+	RankKey.SECOND,
+	RankKey.THIRD,
+];
