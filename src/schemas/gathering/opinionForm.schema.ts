@@ -1,6 +1,7 @@
 import { z } from "zod";
 import type { DistanceRange, FoodCategory } from "#/types/gathering";
 import { DISTANCE_RANGE } from "#/constants/gathering/opinion";
+import { isUndefined } from "es-toolkit";
 
 export const distanceRangeSchema = z.enum([
 	"RANGE_500M",
@@ -41,7 +42,7 @@ export const preferredMenusSchema = z
 		second: foodCategorySchema.optional(),
 		third: foodCategorySchema.optional(),
 	})
-	.refine((data) => data.first !== undefined, {
+	.refine((data) => !isUndefined(data.first), {
 		message: "최소 1개의 음식을 선택해주세요",
 		path: ["first"],
 	});
