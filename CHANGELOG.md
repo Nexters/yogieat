@@ -14,6 +14,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Bug Fixes
 
 * 의견 수합 폼 스키마 검증 로직 개선 ([#96](https://github.com/Nexters/yogieat/issues/96)) ([447cc7f](https://github.com/Nexters/yogieat/commit/447cc7fca61c28bcf2dbf9a46e25ec7ef0afdfac))
+## [1.3.0-beta.3](https://github.com/Nexters/yogieat/compare/v1.3.0-beta.2...v1.3.0-beta.3) (2026-02-20)
+
+### Features
+
+* 랜딩 페이지 header section Figma 시안 반영 ([#98](https://github.com/Nexters/yogieat/issues/98)) ([1ccef44](https://github.com/Nexters/yogieat/commit/1ccef4473f31f56285ba39b297c04fa94ed93225))
 
 ## [1.3.0-beta.2](https://github.com/Nexters/yogieat/compare/v1.3.0-beta.1...v1.3.0-beta.2) (2026-02-20)
 
