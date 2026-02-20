@@ -10,14 +10,9 @@ import { Button } from "#/components/button";
 import { Chip } from "#/components/chip";
 import { isValidDateFormat } from "#/utils/gathering/create";
 import type { CreateMeetingFormSchema } from "#/schemas/gathering";
-import type { TimeSlot } from "#/types/gathering";
+import { TimeSlot, TIME_SLOT_LABEL } from "#/constants/gathering/create";
 
 import { ScheduledDatePicker } from "./ScheduledDatePicker";
-
-const TIME_SLOT_LABEL: Record<TimeSlot, string> = {
-	LUNCH: "점심",
-	DINNER: "저녁",
-};
 
 export const DateStepContent = () => {
 	const { control } = useFormContext<CreateMeetingFormSchema>();
@@ -48,14 +43,14 @@ export const DateStepContent = () => {
 					</h2>
 					<div className="ygi:flex ygi:gap-3">
 						<Chip
-							selected={timeSlotField.value === "LUNCH"}
-							onClick={() => handleTimeSlotChange("LUNCH")}
+							selected={timeSlotField.value === TimeSlot.LUNCH}
+							onClick={() => handleTimeSlotChange(TimeSlot.LUNCH)}
 						>
 							점심
 						</Chip>
 						<Chip
-							selected={timeSlotField.value === "DINNER"}
-							onClick={() => handleTimeSlotChange("DINNER")}
+							selected={timeSlotField.value === TimeSlot.DINNER}
+							onClick={() => handleTimeSlotChange(TimeSlot.DINNER)}
 						>
 							저녁
 						</Chip>
