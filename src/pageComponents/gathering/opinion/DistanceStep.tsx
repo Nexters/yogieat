@@ -9,22 +9,20 @@ import { StepIndicator } from "#/components/stepIndicator";
 import { StepHeader } from "#/components/stepHeader";
 import { Button } from "#/components/button";
 import {
-	DISTANCE_OPTIONS,
+	DISTANCE_RANGE_LABEL,
 	OPINION_TOTAL_STEPS,
-	REGION_OPTIONS,
+	Region,
+	REGION_LABEL,
 } from "#/constants/gathering/opinion";
 import type { OpinionFormSchema } from "#/schemas/gathering";
-import type { GetGatheringResponse } from "#/apis/gathering";
 import { DistanceSelector } from "./DistanceSelector";
 
 interface DistanceStepContentProps {
-	region: GetGatheringResponse["region"];
+	region: Region;
 }
 
 export const DistanceStepContent = ({ region }: DistanceStepContentProps) => {
-	const stationName =
-		REGION_OPTIONS.find((currentRegion) => currentRegion.value === region)
-			?.label ?? "";
+	const stationName = REGION_LABEL[region];
 
 	return (
 		<div className="ygi:flex ygi:flex-col ygi:gap-xl ygi:px-6 ygi:pt-3">
@@ -58,13 +56,10 @@ export const DistanceStepFooter = ({ onNext }: DistanceStepFooterProps) => {
 
 	const handleNext = () => {
 		const distanceRange = getValues("distanceRange");
-		const distanceLabel =
-			DISTANCE_OPTIONS.find((d) => d.value === distanceRange)?.label ??
-			"";
 		trackStepComplete({
 			page_id: "의견수합_퍼널",
 			step_name: "거리",
-			step_value: distanceLabel,
+			step_value: DISTANCE_RANGE_LABEL[distanceRange],
 		});
 		onNext();
 	};
