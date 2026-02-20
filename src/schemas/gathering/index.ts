@@ -1,6 +1,7 @@
 export {
 	opinionFormSchema,
 	foodCategorySchema,
+	nicknameSchema,
 	distanceRangeToKm,
 	type OpinionFormSchema,
 } from "./opinionForm.schema";

@@ -9,7 +9,7 @@ import { StepHeader } from "#/components/stepHeader";
 import { Button } from "#/components/button";
 import { InputField } from "#/components/inputField";
 import { OPINION_TOTAL_STEPS } from "#/constants/gathering/opinion";
-import type { OpinionFormSchema } from "#/schemas/gathering";
+import { nicknameSchema, type OpinionFormSchema } from "#/schemas/gathering";
 import { isUndefined } from "es-toolkit";
 
 export const NicknameStepContent = () => {
@@ -45,17 +45,16 @@ interface NicknameStepFooterProps {
 }
 
 export const NicknameStepFooter = ({ onNext }: NicknameStepFooterProps) => {
-	const {
-		control,
-		formState: { errors },
-	} = useFormContext<OpinionFormSchema>();
+	const { control } = useFormContext<OpinionFormSchema>();
 
-	const nickname = useWatch({
+	const { nickname, disabled } = useWatch({
 		control,
 		name: "nickname",
+		compute: (nickname) => ({
+			nickname,
+			disabled: !nicknameSchema.safeParse(nickname).success,
+		}),
 	});
-
-	const disabled = !isUndefined(errors.nickname);
 
 	const handleNext = () => {
 		trackStepComplete({
