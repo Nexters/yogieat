@@ -2,11 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-	opinionFormSchema,
-	distanceRangeToKm,
-	type OpinionFormSchema,
-} from "#/schemas/gathering";
+import { opinionFormSchema, type OpinionFormSchema } from "#/schemas/gathering";
 import { useCreateParticipant } from "../apis/participant";
 import { useParams, useRouter } from "next/navigation";
 import { ERROR_CODES, isApiError } from "#/utils/api";
@@ -14,6 +10,7 @@ import { toast } from "#/utils/toast";
 import { compact } from "es-toolkit";
 import { createElement } from "react";
 import { ArrowLeftIcon } from "#/icons/arrowLeftIcon";
+import { DISTANCE_RANGE_KM } from "#/constants/gathering/opinion";
 
 export function useOpinionForm() {
 	const router = useRouter();
@@ -48,7 +45,7 @@ export function useOpinionForm() {
 				preferences,
 				nickname: data.nickname,
 				dislikes: data.dislikedCategories,
-				distance: distanceRangeToKm(data.distanceRange),
+				distance: DISTANCE_RANGE_KM[data.distanceRange],
 			});
 			router.replace(`/gathering/${accessKey}/opinion/pending`);
 		} catch (error) {
