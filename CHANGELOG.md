@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.3.0](https://github.com/Nexters/yogieat/compare/v1.2.0...v1.3.0) (2026-02-19)
 ## [1.3.0-beta.1](https://github.com/Nexters/yogieat/compare/v1.2.0...v1.3.0-beta.1) (2026-02-19)
+## [1.3.0](https://github.com/Nexters/yogieat/compare/v1.2.0...v1.3.0) (2026-02-19)
 
 ### Features
 
