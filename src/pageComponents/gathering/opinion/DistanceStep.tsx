@@ -1,8 +1,6 @@
 "use client";
 
 import { useFormContext, useWatch } from "react-hook-form";
-import { isUndefined } from "es-toolkit/predicate";
-
 import { trackStepComplete } from "#/components/analytics";
 import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
@@ -13,7 +11,10 @@ import {
 	OPINION_TOTAL_STEPS,
 	REGION_OPTIONS,
 } from "#/constants/gathering/opinion";
-import type { OpinionFormSchema } from "#/schemas/gathering";
+import {
+	distanceRangeSchema,
+	type OpinionFormSchema,
+} from "#/schemas/gathering";
 import type { GetGatheringResponse } from "#/apis/gathering";
 import { DistanceSelector } from "./DistanceSelector";
 
@@ -49,15 +50,17 @@ interface DistanceStepFooterProps {
 }
 
 export const DistanceStepFooter = ({ onNext }: DistanceStepFooterProps) => {
-	const { control, getValues } = useFormContext<OpinionFormSchema>();
-	const disabled = useWatch({
+	const { control } = useFormContext<OpinionFormSchema>();
+	const { distanceRange, disabled } = useWatch({
 		control,
 		name: "distanceRange",
-		compute: (value) => isUndefined(value),
+		compute: (distanceRange) => ({
+			distanceRange,
+			disabled: !distanceRangeSchema.safeParse(distanceRange).success,
+		}),
 	});
 
 	const handleNext = () => {
-		const distanceRange = getValues("distanceRange");
 		const distanceLabel =
 			DISTANCE_OPTIONS.find((d) => d.value === distanceRange)?.label ??
 			"";

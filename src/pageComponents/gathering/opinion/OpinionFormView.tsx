@@ -71,7 +71,9 @@ export function OpinionFormView() {
 		<FormProvider {...methods}>
 			<form onSubmit={onSubmit}>
 				<Layout.Header>
-					<BackwardButton onClick={handleBackward} />
+					{step !== "nickname" && (
+						<BackwardButton onClick={handleBackward} />
+					)}
 				</Layout.Header>
 				<Layout.Content>
 					<StepTransition step={step} direction={direction}>
