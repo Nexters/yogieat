@@ -39,15 +39,19 @@ export const LandingPage = () => {
 		<Layout.Root>
 			<div className="ygi:relative ygi:min-h-screen-dynamic ygi:w-full ygi:overflow-hidden ygi:bg-button-secondary">
 				{/* Header Section */}
-				<div className="ygi:flex ygi:flex-col ygi:items-center ygi:gap-5 ygi:px-6 ygi:pt-20">
-					<p className="ygi:text-center ygi:heading-22-bd ygi:text-text-inverse">
-						다인원을 위한 맛집 서비스
-					</p>
+				<div className="ygi:flex ygi:flex-col ygi:items-center ygi:gap-6 ygi:px-6 ygi:pt-31">
+					<Image
+						src="/images/landing/subtitle.svg"
+						alt="다인원을 위한 맛집 추천 서비스"
+						width={246}
+						height={17}
+						priority
+					/>
 					<Image
 						src="/images/landing/logo.svg"
 						alt="요기잇"
-						width={184}
-						height={58}
+						width={170}
+						height={54}
 						priority
 					/>
 				</div>
