@@ -6,13 +6,6 @@ import {
 	DATE_ERROR_MESSAGES,
 } from "#/utils/gathering/create";
 
-const timeSlotSchema = z.enum([
-	TimeSlot.LUNCH,
-	TimeSlot.DINNER,
-] as const);
-
-const regionSchema = z.enum(Region);
-
 const scheduledDateSchema = z.string().check((ctx) => {
 	// 10자리(yyyy.MM.dd) 입력 완료 시에만 validation 수행
 	// 빈 문자열이거나 입력 중일 때는 에러 표시하지 않음
@@ -34,8 +27,8 @@ const scheduledDateSchema = z.string().check((ctx) => {
 export const createMeetingFormSchema = z.object({
 	peopleCount: z.number().nullable(),
 	scheduledDate: scheduledDateSchema,
-	timeSlot: timeSlotSchema.nullable(),
-	region: regionSchema.nullable(),
+	timeSlot: z.enum(TimeSlot).nullable(),
+	region: z.enum(Region).nullable(),
 });
 
 export type CreateMeetingFormSchema = z.infer<typeof createMeetingFormSchema>;

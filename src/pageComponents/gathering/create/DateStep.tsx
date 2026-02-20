@@ -50,7 +50,9 @@ export const DateStepContent = () => {
 						</Chip>
 						<Chip
 							selected={timeSlotField.value === TimeSlot.DINNER}
-							onClick={() => handleTimeSlotChange(TimeSlot.DINNER)}
+							onClick={() =>
+								handleTimeSlotChange(TimeSlot.DINNER)
+							}
 						>
 							저녁
 						</Chip>
