@@ -8,9 +8,9 @@ import {
 
 export const peopleCountSchema = z.number().nullable();
 
-export const timeSlotSchema = z.enum(TimeSlot);
+export const timeSlotSchema = z.enum(TimeSlot).nullable();
 
-export const regionSchema = z.enum(Region);
+export const regionSchema = z.enum(Region).nullable();
 
 export const scheduledDateSchema = z.string().check((ctx) => {
 	// 10자리(yyyy.MM.dd) 입력 완료 시에만 validation 수행
