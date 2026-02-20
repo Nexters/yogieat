@@ -10,7 +10,6 @@ import { Button } from "#/components/button";
 import { InputField } from "#/components/inputField";
 import { OPINION_TOTAL_STEPS } from "#/constants/gathering/opinion";
 import { nicknameSchema, type OpinionFormSchema } from "#/schemas/gathering";
-import { isUndefined } from "es-toolkit";
 
 export const NicknameStepContent = () => {
 	const {
