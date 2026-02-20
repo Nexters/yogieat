@@ -6,4 +6,3 @@ export type {
 	RecommendationResult,
 } from "./recommendationResult";
 export type { Restaurant } from "./restaurant";
-export type { TimeSlot } from "./timeSlot";

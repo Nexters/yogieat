@@ -1,21 +1,17 @@
 import { z } from "zod";
-import type { TimeSlot } from "#/types/gathering";
 import { Region } from "#/constants/gathering/opinion";
+import { TimeSlot, TIME_SLOT_LIST } from "#/constants/gathering/create";
 import {
 	validateDateInput,
 	DATE_ERROR_MESSAGES,
 } from "#/utils/gathering/create";
 
 const timeSlotSchema = z.enum([
-	"LUNCH",
-	"DINNER",
-] satisfies readonly TimeSlot[]);
+	TimeSlot.LUNCH,
+	TimeSlot.DINNER,
+] as const);
 
-const regionSchema = z.enum([
-	"HONGDAE",
-	"GANGNAM",
-	"GONGDEOK",
-] satisfies readonly Region[]);
+const regionSchema = z.enum(Region);
 
 const scheduledDateSchema = z.string().check((ctx) => {
 	// 10자리(yyyy.MM.dd) 입력 완료 시에만 validation 수행
