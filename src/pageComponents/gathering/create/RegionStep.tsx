@@ -6,6 +6,7 @@ import { isNil } from "es-toolkit";
 import { trackStepComplete } from "#/components/analytics";
 import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
+import { StepHeader } from "#/components/stepHeader";
 import { Button } from "#/components/button/Button";
 import { DotsLoader } from "#/components/dotsLoader";
 import { REGION_OPTIONS } from "#/constants/gathering/opinion";
@@ -17,10 +18,13 @@ export const RegionStepContent = () => {
 		<section className="ygi:pt-3">
 			<div className="ygi:flex ygi:flex-col ygi:gap-xl ygi:px-6">
 				<StepIndicator currentStep={3} totalSteps={3} />
-				<h1 className="ygi:heading-22-bd ygi:text-text-primary">
-					장소를 선택해 주세요
-				</h1>
-				<div className="ygi:flex ygi:gap-3">
+				<StepHeader.Root>
+					<StepHeader.Title>장소를 선택해 주세요</StepHeader.Title>
+					<StepHeader.Description>
+						선택 가능한 장소는 계속해서 추가될 예정이에요
+					</StepHeader.Description>
+				</StepHeader.Root>
+				<div className="ygi:flex ygi:flex-wrap ygi:gap-3">
 					{REGION_OPTIONS.map(({ value, label }) => (
 						<RegionChip key={value} value={value} label={label} />
 					))}
