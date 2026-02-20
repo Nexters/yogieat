@@ -11,13 +11,13 @@ import { StepHeader } from "#/components/stepHeader";
 import { Button } from "#/components/button";
 import {
 	Category,
-	RANKS,
+	RankKey,
+	RANK_LIST,
 	OPINION_TOTAL_STEPS,
 	CATEGORY_LABEL,
 } from "#/constants/gathering/opinion";
 import { RankSection } from "./RankSection";
 import type { OpinionFormSchema } from "#/schemas/gathering";
-import type { RankKey } from "#/types/gathering";
 
 export const PreferenceStepContent = () => {
 	const { control, setValue } = useFormContext<OpinionFormSchema>();
@@ -32,7 +32,7 @@ export const PreferenceStepContent = () => {
 
 		const ranksToRemove: RankKey[] = [];
 
-		RANKS.forEach((rank) => {
+		RANK_LIST.forEach((rank) => {
 			const selectedCategory = preferredCategories[rank];
 			if (
 				selectedCategory &&
@@ -64,7 +64,7 @@ export const PreferenceStepContent = () => {
 			</div>
 
 			<div className="ygi:flex ygi:flex-col ">
-				{RANKS.map((rank) => (
+				{RANK_LIST.map((rank) => (
 					<RankSection key={rank} rank={rank} />
 				))}
 			</div>
@@ -83,8 +83,8 @@ export const PreferenceStepFooter = () => {
 
 	const handleClick = () => {
 		const preferredCategories = getValues("preferredCategories");
-		const preferredLabels = RANKS.map((rank) => {
-			const value = preferredCategories?.[rank];
+		const preferredLabels = RANK_LIST.map((rank) => {
+			const value = preferredCategories[rank];
 			if (!value) return null;
 			return CATEGORY_LABEL[value];
 		})

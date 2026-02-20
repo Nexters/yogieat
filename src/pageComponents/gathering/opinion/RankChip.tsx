@@ -5,8 +5,12 @@ import { useFormContext, useController } from "react-hook-form";
 import { omit, drop } from "es-toolkit";
 
 import { Chip } from "#/components/chip";
-import { Category, CATEGORY_LABEL, RANKS } from "#/constants/gathering/opinion";
-import type { RankKey } from "#/types/gathering";
+import {
+	Category,
+	CATEGORY_LABEL,
+	RANK_LIST,
+	RankKey,
+} from "#/constants/gathering/opinion";
 import type { OpinionFormSchema } from "#/schemas/gathering";
 import { toast } from "#/utils/toast";
 
@@ -22,7 +26,7 @@ export const RankChip = ({ rank, category, disabled }: RankChipProps) => {
 
 	const preferredCategories = field.value;
 
-	const isSelected = preferredCategories[rank] === category;
+	const isSelected = preferredCategories?.[rank] === category;
 
 	const handleClick = useCallback(() => {
 		if (preferredCategories[rank] === category) {
@@ -32,7 +36,7 @@ export const RankChip = ({ rank, category, disabled }: RankChipProps) => {
 		}
 
 		if (category !== Category.ANY) {
-			const existingRank = RANKS.find(
+			const existingRank = RANK_LIST.find(
 				(r) => r !== rank && preferredCategories[r] === category,
 			);
 
@@ -48,7 +52,7 @@ export const RankChip = ({ rank, category, disabled }: RankChipProps) => {
 		} satisfies OpinionFormSchema["preferredCategories"];
 
 		if (category === Category.ANY) {
-			const ranksToRemove = drop(RANKS, RANKS.indexOf(rank) + 1);
+			const ranksToRemove = drop(RANK_LIST, RANK_LIST.indexOf(rank) + 1);
 			newCategories = omit(newCategories, ranksToRemove);
 		}
 
