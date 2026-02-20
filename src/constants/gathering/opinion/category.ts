@@ -14,7 +14,7 @@ export const CATEGORY_LABEL = {
 	[Category.WESTERN]: "양식",
 	[Category.ASIAN]: "아시안",
 	[Category.ANY]: "상관없음",
-};
+} as const;
 
 export const CATEGORY_LIST = [
 	Category.KOREAN,

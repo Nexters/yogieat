@@ -6,6 +6,6 @@ export enum TimeSlot {
 export const TIME_SLOT_LABEL = {
 	[TimeSlot.LUNCH]: "점심",
 	[TimeSlot.DINNER]: "저녁",
-};
+} as const;
 
 export const TIME_SLOT_LIST: TimeSlot[] = [TimeSlot.LUNCH, TimeSlot.DINNER];
