@@ -1,6 +1,6 @@
 export type { CreateMeetingStep } from "./createMeetingForm";
 export type { OpinionForm, OpinionStep } from "./createOpinionForm";
-export type { RankKey, PreferredCategory } from "./preferredCategory";
+export type { PreferredCategory } from "./preferredCategory";
 export type {
 	VoteStatistics,
 	RecommendationResult,
