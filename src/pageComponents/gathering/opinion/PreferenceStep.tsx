@@ -17,7 +17,10 @@ import {
 	CATEGORY_LABEL,
 } from "#/constants/gathering/opinion";
 import { RankSection } from "./RankSection";
-import type { OpinionFormSchema } from "#/schemas/gathering";
+import {
+	preferredCategoriesSchema,
+	type OpinionFormSchema,
+} from "#/schemas/gathering";
 
 export const PreferenceStepContent = () => {
 	const { control, setValue } = useFormContext<OpinionFormSchema>();
@@ -73,16 +76,20 @@ export const PreferenceStepContent = () => {
 };
 
 export const PreferenceStepFooter = () => {
-	const { control, getValues } = useFormContext<OpinionFormSchema>();
+	const { control } = useFormContext<OpinionFormSchema>();
 
-	const disabled = useWatch({
+	const { preferredCategories, disabled } = useWatch({
 		control,
 		name: "preferredCategories",
-		compute: ({ first }) => !first,
+		compute: (preferredCategories) => ({
+			preferredCategories,
+			disabled:
+				!preferredCategoriesSchema.safeParse(preferredCategories)
+					.success,
+		}),
 	});
 
 	const handleClick = () => {
-		const preferredCategories = getValues("preferredCategories");
 		const preferredLabels = RANK_LIST.map((rank) => {
 			const value = preferredCategories[rank];
 			if (!value) return null;

@@ -13,7 +13,10 @@ import {
 	CATEGORY_LABEL,
 	OPINION_TOTAL_STEPS,
 } from "#/constants/gathering/opinion";
-import type { OpinionFormSchema } from "#/schemas/gathering";
+import {
+	dislikedCategoriesSchema,
+	type OpinionFormSchema,
+} from "#/schemas/gathering";
 
 export const DislikeStepContent = () => {
 	return (
@@ -50,17 +53,22 @@ interface DislikeStepFooterProps {
 }
 
 export const DislikeStepFooter = ({ onNext }: DislikeStepFooterProps) => {
-	const { control, getValues } = useFormContext<OpinionFormSchema>();
-	const disabled = useWatch({
+	const { control } = useFormContext<OpinionFormSchema>();
+
+	const { dislikedCategories = [], disabled } = useWatch({
 		control,
 		name: "dislikedCategories",
-		compute: (value) => !value || value.length === 0,
+		compute: (dislikedCategories) => ({
+			dislikedCategories,
+			disabled:
+				!dislikedCategoriesSchema.safeParse(dislikedCategories).success,
+		}),
 	});
 
 	const handleNext = () => {
-		const dislikedCategories = getValues("dislikedCategories") ?? [];
 		const dislikedLabels = dislikedCategories
 			.map((category) => CATEGORY_LABEL[category])
+
 			.filter(Boolean)
 			.join(", ");
 		trackStepComplete({

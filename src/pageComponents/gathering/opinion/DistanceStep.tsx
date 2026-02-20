@@ -1,20 +1,22 @@
 "use client";
 
 import { useFormContext, useWatch } from "react-hook-form";
-import { isUndefined } from "es-toolkit/predicate";
-
 import { trackStepComplete } from "#/components/analytics";
 import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
 import { StepHeader } from "#/components/stepHeader";
 import { Button } from "#/components/button";
 import {
+	DISTANCE_LIST,
 	DISTANCE_RANGE_LABEL,
 	OPINION_TOTAL_STEPS,
 	Region,
 	REGION_LABEL,
 } from "#/constants/gathering/opinion";
-import type { OpinionFormSchema } from "#/schemas/gathering";
+import {
+	distanceRangeSchema,
+	type OpinionFormSchema,
+} from "#/schemas/gathering";
 import { DistanceSelector } from "./DistanceSelector";
 
 interface DistanceStepContentProps {
@@ -47,15 +49,17 @@ interface DistanceStepFooterProps {
 }
 
 export const DistanceStepFooter = ({ onNext }: DistanceStepFooterProps) => {
-	const { control, getValues } = useFormContext<OpinionFormSchema>();
-	const disabled = useWatch({
+	const { control } = useFormContext<OpinionFormSchema>();
+	const { distanceRange, disabled } = useWatch({
 		control,
 		name: "distanceRange",
-		compute: (value) => isUndefined(value),
+		compute: (distanceRange) => ({
+			distanceRange,
+			disabled: !distanceRangeSchema.safeParse(distanceRange).success,
+		}),
 	});
 
 	const handleNext = () => {
-		const distanceRange = getValues("distanceRange");
 		trackStepComplete({
 			page_id: "의견수합_퍼널",
 			step_name: "거리",
