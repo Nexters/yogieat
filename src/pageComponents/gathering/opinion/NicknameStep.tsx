@@ -4,11 +4,9 @@ import { useFormContext, useWatch } from "react-hook-form";
 
 import { trackStepComplete } from "#/components/analytics";
 import { Layout } from "#/components/layout";
-import { StepIndicator } from "#/components/stepIndicator";
 import { StepHeader } from "#/components/stepHeader";
 import { Button } from "#/components/button";
 import { InputField } from "#/components/inputField";
-import { OPINION_TOTAL_STEPS } from "#/constants/gathering/opinion";
 import { nicknameSchema, type OpinionFormSchema } from "#/schemas/gathering";
 
 export const NicknameStepContent = () => {
@@ -19,7 +17,6 @@ export const NicknameStepContent = () => {
 
 	return (
 		<div className="ygi:flex ygi:flex-col ygi:gap-xl ygi:px-6 ygi:pt-3">
-			<StepIndicator currentStep={1} totalSteps={OPINION_TOTAL_STEPS} />
 			<StepHeader.Root>
 				<StepHeader.Title>
 					모임 링크에 입장하기 위해
