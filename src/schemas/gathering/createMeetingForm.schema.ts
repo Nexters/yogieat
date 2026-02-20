@@ -14,6 +14,11 @@ const regionSchema = z.enum([
 	"HONGDAE",
 	"GANGNAM",
 	"GONGDEOK",
+	"EULJIRO3GA",
+	"SADANG",
+	"JONGNO3GA",
+	"JAMSIL",
+	"SAMGAKJI",
 ] satisfies readonly Region[]);
 
 const scheduledDateSchema = z.string().check((ctx) => {
