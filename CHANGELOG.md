@@ -5,6 +5,16 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0-beta.2](https://github.com/Nexters/yogieat/compare/v1.3.0-beta.1...v1.3.0-beta.2) (2026-02-20)
+
+### Features
+
+* 지역 선택 스텝 신규 지역 chip 5개 추가 ([#97](https://github.com/Nexters/yogieat/issues/97)) ([98d2575](https://github.com/Nexters/yogieat/commit/98d2575cbab481970502cfcdc5dd27710595d6dc))
+
+### Bug Fixes
+
+* 의견 수합 폼 스키마 검증 로직 개선 ([#96](https://github.com/Nexters/yogieat/issues/96)) ([447cc7f](https://github.com/Nexters/yogieat/commit/447cc7fca61c28bcf2dbf9a46e25ec7ef0afdfac))
+
 ## [1.3.0](https://github.com/Nexters/yogieat/compare/v1.2.0...v1.3.0) (2026-02-19)
 ## [1.3.0-beta.1](https://github.com/Nexters/yogieat/compare/v1.2.0...v1.3.0-beta.1) (2026-02-19)
 
