@@ -77,7 +77,7 @@ export const ResultView = ({ recommendationResult }: ResultViewProps) => {
 					<h2 className="ygi:heading-18-bd ygi:text-text-primary">
 						약속 장소는 여기 어때요?
 					</h2>
-					<div className="ygi:rounded-xl ygi:bg-surface-white ygi:px-4 ygi:pt-4 ygi:pb-4">
+					<div className="ygi:rounded-xl ygi:bg-surface-white ygi:p-4">
 						<span className="ygi:caption-12-sb ygi:text-text-secondary">
 							요기잇 추천 맛집
 						</span>
