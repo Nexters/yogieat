@@ -85,26 +85,26 @@ export const ResultView = ({ recommendationResult }: ResultViewProps) => {
 
 				{/* Restaurant List Section */}
 				<section className="ygi:flex ygi:flex-col ygi:gap-3">
-					<h2 className="ygi:heading-18-bd ygi:text-text-primary">
+					<h2 className="ygi:heading-22-bd ygi:text-text-primary">
 						약속 장소는 여기 어때요?
 					</h2>
-					<div className="ygi:rounded-xl ygi:bg-surface-white ygi:p-4">
-						<span className="ygi:caption-12-sb ygi:text-text-secondary">
+					<div className="ygi:space-y-4 ygi:rounded-md ygi:bg-surface-white ygi:p-4">
+						<p className="ygi:body-16-bd ygi:text-text-primary">
 							요기잇 추천 맛집
-						</span>
-						<div className="ygi:mt-3 ygi:flex ygi:flex-col">
+						</p>
+						<div className="ygi:flex ygi:flex-col ygi:gap-4 ygi:divide-y ygi:divide-dashed ygi:divide-border-default">
 							{[
 								recommendationResult.topRecommendation,
 								...recommendationResult.otherCandidates,
-							].map((restaurant, index, arr) => (
-								<div key={restaurant.restaurantId}>
+							].map((restaurant, index) => (
+								<div
+									key={restaurant.restaurantId}
+									className="ygi:not-last:pb-4"
+								>
 									<OtherCandidateCard
 										restaurant={restaurant}
 										ranking={index + 1}
 									/>
-									{index < arr.length - 1 && (
-										<div className="ygi:my-4 ygi:h-px ygi:bg-border-default" />
-									)}
 								</div>
 							))}
 						</div>

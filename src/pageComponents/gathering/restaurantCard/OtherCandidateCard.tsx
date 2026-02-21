@@ -31,10 +31,11 @@ export const OtherCandidateCard = ({
 
 	return (
 		<article
-			className="ygi:flex ygi:items-start ygi:overflow-hidden"
+			className="ygi:flex ygi:cursor-pointer ygi:items-start ygi:gap-5 ygi:overflow-hidden"
 			aria-label={`${ranking}위 추천 음식점: ${restaurant.restaurantName}`}
+			onClick={handleMapClick}
 		>
-			<div className="ygi:relative ygi:h-20 ygi:w-20 ygi:shrink-0 ygi:overflow-clip ygi:rounded ygi:border ygi:border-border-default ygi:bg-surface-lightgray">
+			<div className="ygi:relative ygi:h-20 ygi:w-20 ygi:shrink-0 ygi:overflow-clip ygi:rounded-xs ygi:bg-surface-lightgray ygi:inset-ring-1 ygi:inset-ring-border-default">
 				<Image
 					src={
 						restaurant.imageUrl ??
@@ -46,36 +47,28 @@ export const OtherCandidateCard = ({
 				/>
 			</div>
 
-			<div className="ygi:flex ygi:flex-1 ygi:flex-col ygi:justify-center ygi:gap-2 ygi:px-5">
-				<button
-					onClick={handleMapClick}
-					className="ygi:flex ygi:cursor-pointer ygi:items-center ygi:text-left"
-				>
-					<h3 className="ygi:body-14-bd ygi:text-text-primary">
-						{restaurant.restaurantName}
-					</h3>
-					<ChevronRightIcon
-						size={24}
-						className="ygi:text-text-primary"
-					/>
-				</button>
+			<div className="ygi:flex ygi:flex-1 ygi:flex-col ygi:justify-center">
+				<h3 className="ygi:mb-1 ygi:body-14-bd ygi:text-text-primary">
+					{restaurant.restaurantName}
+				</h3>
 
-				<div className="ygi:flex ygi:items-center ygi:gap-1">
+				<div className="ygi:mb-2 ygi:flex ygi:items-center ygi:gap-1">
 					<StarIcon size={14} color="#FF5A3C" />
 					<span className="ygi:body-14-bd ygi:text-text-secondary">
-						{restaurant.rating.toFixed(1)} ({restaurant.reviewCount})
+						{restaurant.rating.toFixed(1)} ({restaurant.reviewCount}
+						)
 					</span>
 				</div>
 
 				<div className="ygi:flex ygi:flex-wrap ygi:gap-2">
+					<Tag size="medium" theme="secondary">
+						{FOOD_CATEGORY_LABEL[restaurant.largeCategory]}
+					</Tag>
 					{restaurant.majorityDistanceRange !== "ANY" && (
-						<Tag size="medium">
+						<Tag size="medium" theme="secondary">
 							{`역에서 도보 ${DISTANCE_RANGE_WALKING_MINUTES[restaurant.majorityDistanceRange]}분`}
 						</Tag>
 					)}
-					<Tag size="medium">
-						{FOOD_CATEGORY_LABEL[restaurant.largeCategory]}
-					</Tag>
 				</div>
 			</div>
 		</article>
