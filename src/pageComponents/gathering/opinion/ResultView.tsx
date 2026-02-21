@@ -1,10 +1,7 @@
 "use client";
 
 import { Layout } from "#/components/layout";
-import {
-	TopRecommendCard,
-	OtherCandidateCard,
-} from "#/pageComponents/gathering/restaurantCard";
+import { OtherCandidateCard } from "#/pageComponents/gathering/restaurantCard";
 import type { RecommendationResult } from "#/types/gathering";
 import { twJoin } from "tailwind-merge";
 import { ProgressBar } from "#/components/progressBar";
@@ -59,8 +56,12 @@ const VoteList = ({ votes }: VoteListProps) => {
 };
 
 const formatScheduledDate = (dateStr: string): string => {
-	const date = parse(dateStr, "yyyy-MM-dd", new Date());
-	return format(date, "M월 d일");
+	try {
+		const date = parse(dateStr, "yyyy-MM-dd", new Date());
+		return format(date, "M월 d일");
+	} catch {
+		return "";
+	}
 };
 
 export const ResultView = ({ recommendationResult }: ResultViewProps) => {
@@ -86,10 +87,33 @@ export const ResultView = ({ recommendationResult }: ResultViewProps) => {
 					</h1>
 				</div>
 
-				{/* Top Recommendation */}
-				<TopRecommendCard
-					restaurant={recommendationResult.topRecommendation}
-				/>
+				{/* Restaurant List Section */}
+				<section className="ygi:flex ygi:flex-col ygi:gap-3">
+					<h2 className="ygi:heading-22-bd ygi:text-text-primary">
+						약속 장소는 여기 어때요?
+					</h2>
+					<div className="ygi:space-y-4 ygi:rounded-md ygi:bg-surface-white ygi:p-4">
+						<p className="ygi:body-16-bd ygi:text-text-primary">
+							요기잇 추천 맛집
+						</p>
+						<div className="ygi:flex ygi:flex-col ygi:gap-4 ygi:divide-y ygi:divide-dashed ygi:divide-border-default">
+							{[
+								recommendationResult.topRecommendation,
+								...recommendationResult.otherCandidates,
+							].map((restaurant, index) => (
+								<div
+									key={restaurant.restaurantId}
+									className="ygi:not-last:pb-4"
+								>
+									<OtherCandidateCard
+										restaurant={restaurant}
+										ranking={index + 1}
+									/>
+								</div>
+							))}
+						</div>
+					</div>
+				</section>
 
 				{/* Vote Summary Section */}
 				<section
@@ -158,31 +182,6 @@ export const ResultView = ({ recommendationResult }: ResultViewProps) => {
 						<VoteList votes={recommendationResult.dislikes} />
 					</div>
 				</section>
-
-				{/* Other Candidates */}
-				{recommendationResult.otherCandidates.length > 0 && (
-					<section
-						className={twJoin(
-							"ygi:flex ygi:flex-col ygi:gap-4",
-							"ygi:rounded-xl ygi:bg-surface-white ygi:p-4",
-						)}
-					>
-						<h3 className="ygi:body-14-bd ygi:text-text-primary">
-							다른 후보 보기
-						</h3>
-						<div className="ygi:flex ygi:flex-col ygi:gap-5">
-							{recommendationResult.otherCandidates.map(
-								(restaurant, index) => (
-									<OtherCandidateCard
-										key={restaurant.restaurantId}
-										restaurant={restaurant}
-										ranking={index + 2}
-									/>
-								),
-							)}
-						</div>
-					</section>
-				)}
 			</div>
 		</Layout.Content>
 	);
