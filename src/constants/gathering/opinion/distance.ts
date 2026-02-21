@@ -12,6 +12,12 @@ export const DISTANCE_RANGE_LABEL = {
 	ANY: "상관없음",
 } as const;
 
+/** RANGE_500M → 7분, RANGE_1KM → 15분 (도보 평균 속도 기준) */
+export const DISTANCE_RANGE_WALKING_MINUTES = {
+	RANGE_500M: 7,
+	RANGE_1KM: 15,
+} as const;
+
 export const DISTANCE_OPTIONS: ReadonlyArray<{
 	value: DistanceRange;
 	label: string;
