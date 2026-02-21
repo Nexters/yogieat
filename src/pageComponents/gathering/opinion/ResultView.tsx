@@ -56,8 +56,12 @@ const VoteList = ({ votes }: VoteListProps) => {
 };
 
 const formatScheduledDate = (dateStr: string): string => {
-	const date = parse(dateStr, "yyyy-MM-dd", new Date());
-	return format(date, "M월 d일");
+	try {
+		const date = parse(dateStr, "yyyy-MM-dd", new Date());
+		return format(date, "M월 d일");
+	} catch {
+		return "";
+	}
 };
 
 export const ResultView = ({ recommendationResult }: ResultViewProps) => {
