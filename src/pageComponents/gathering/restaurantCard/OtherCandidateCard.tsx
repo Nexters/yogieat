@@ -6,7 +6,7 @@ import { ChevronRightIcon } from "#/icons/chevronRightIcon";
 import type { Restaurant } from "#/types/gathering";
 import {
 	FOOD_CATEGORY_LABEL,
-	DISTANCE_RANGE_LABEL,
+	DISTANCE_RANGE_WALKING_MINUTES,
 } from "#/constants/gathering/opinion";
 import Image from "next/image";
 import { Tag } from "#/components/tag";
@@ -63,14 +63,16 @@ export const OtherCandidateCard = ({
 				<div className="ygi:flex ygi:items-center ygi:gap-1">
 					<StarIcon size={14} color="#FF5A3C" />
 					<span className="ygi:body-14-bd ygi:text-text-secondary">
-						{restaurant.rating.toFixed(1)}
+						{restaurant.rating.toFixed(1)} ({restaurant.reviewCount})
 					</span>
 				</div>
 
 				<div className="ygi:flex ygi:flex-wrap ygi:gap-2">
-					<Tag size="medium">
-						{`역에서 ${DISTANCE_RANGE_LABEL[restaurant.majorityDistanceRange]}`}
-					</Tag>
+					{restaurant.majorityDistanceRange !== "ANY" && (
+						<Tag size="medium">
+							{`역에서 도보 ${DISTANCE_RANGE_WALKING_MINUTES[restaurant.majorityDistanceRange]}분`}
+						</Tag>
+					)}
 					<Tag size="medium">
 						{FOOD_CATEGORY_LABEL[restaurant.largeCategory]}
 					</Tag>

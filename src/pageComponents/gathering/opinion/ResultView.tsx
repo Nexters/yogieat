@@ -1,10 +1,7 @@
 "use client";
 
 import { Layout } from "#/components/layout";
-import {
-	TopRecommendCard,
-	OtherCandidateCard,
-} from "#/pageComponents/gathering/restaurantCard";
+import { OtherCandidateCard } from "#/pageComponents/gathering/restaurantCard";
 import type { RecommendationResult } from "#/types/gathering";
 import { twJoin } from "tailwind-merge";
 import { ProgressBar } from "#/components/progressBar";
@@ -75,10 +72,33 @@ export const ResultView = ({ recommendationResult }: ResultViewProps) => {
 					</h1>
 				</div>
 
-				{/* Top Recommendation */}
-				<TopRecommendCard
-					restaurant={recommendationResult.topRecommendation}
-				/>
+				{/* Restaurant List Section */}
+				<section className="ygi:flex ygi:flex-col ygi:gap-3">
+					<h2 className="ygi:heading-18-bd ygi:text-text-primary">
+						약속 장소는 여기 어때요?
+					</h2>
+					<div className="ygi:rounded-xl ygi:bg-surface-white ygi:px-4 ygi:pt-4 ygi:pb-4">
+						<span className="ygi:caption-12-sb ygi:text-text-secondary">
+							요기잇 추천 맛집
+						</span>
+						<div className="ygi:mt-3 ygi:flex ygi:flex-col">
+							{[
+								recommendationResult.topRecommendation,
+								...recommendationResult.otherCandidates,
+							].map((restaurant, index, arr) => (
+								<div key={restaurant.restaurantId}>
+									<OtherCandidateCard
+										restaurant={restaurant}
+										ranking={index + 1}
+									/>
+									{index < arr.length - 1 && (
+										<div className="ygi:my-4 ygi:h-px ygi:bg-border-default" />
+									)}
+								</div>
+							))}
+						</div>
+					</div>
+				</section>
 
 				{/* Vote Summary Section */}
 				<section
@@ -147,31 +167,6 @@ export const ResultView = ({ recommendationResult }: ResultViewProps) => {
 						<VoteList votes={recommendationResult.dislikes} />
 					</div>
 				</section>
-
-				{/* Other Candidates */}
-				{recommendationResult.otherCandidates.length > 0 && (
-					<section
-						className={twJoin(
-							"ygi:flex ygi:flex-col ygi:gap-4",
-							"ygi:rounded-xl ygi:bg-surface-white ygi:p-4",
-						)}
-					>
-						<h3 className="ygi:body-14-bd ygi:text-text-primary">
-							다른 후보 보기
-						</h3>
-						<div className="ygi:flex ygi:flex-col ygi:gap-5">
-							{recommendationResult.otherCandidates.map(
-								(restaurant, index) => (
-									<OtherCandidateCard
-										key={restaurant.restaurantId}
-										restaurant={restaurant}
-										ranking={index + 2}
-									/>
-								),
-							)}
-						</div>
-					</section>
-				)}
 			</div>
 		</Layout.Content>
 	);
