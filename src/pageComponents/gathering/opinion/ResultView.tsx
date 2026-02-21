@@ -10,7 +10,11 @@ import { twJoin } from "tailwind-merge";
 import { ProgressBar } from "#/components/progressBar";
 import { CircleIcon } from "#/icons/circleIcon";
 import { XIcon } from "#/icons/xIcon";
-import { FOOD_CATEGORY_LABEL, REGION_LABEL, TIME_SLOT_LABEL } from "#/constants/gathering/opinion";
+import {
+	FOOD_CATEGORY_LABEL,
+	REGION_LABEL,
+	TIME_SLOT_LABEL,
+} from "#/constants/gathering/opinion";
 import type { FoodCategory } from "#/types/gathering";
 import { parse, format } from "date-fns";
 
@@ -64,11 +68,18 @@ export const ResultView = ({ recommendationResult }: ResultViewProps) => {
 		<Layout.Content background="gray">
 			<div className="ygi:flex ygi:flex-col ygi:gap-3 ygi:px-6 ygi:pb-8">
 				{/* Head Section */}
-				<div className="ygi:flex ygi:flex-col ygi:gap-2 ygi:py-6">
-					<span className="ygi:caption-12-rg ygi:text-text-secondary">
-						{formatScheduledDate(recommendationResult.gathering.scheduledDate)}{" "}
+				<div className="ygi:flex ygi:flex-col ygi:gap-2 ygi:pt-3 ygi:pb-6">
+					<span className="ygi:body-16-md ygi:text-text-secondary">
+						{formatScheduledDate(
+							recommendationResult.gathering.scheduledDate,
+						)}{" "}
 						{REGION_LABEL[recommendationResult.gathering.region]}{" "}
-						{TIME_SLOT_LABEL[recommendationResult.gathering.timeSlot]} 약속
+						{
+							TIME_SLOT_LABEL[
+								recommendationResult.gathering.timeSlot
+							]
+						}{" "}
+						약속
 					</span>
 					<h1 className="ygi:heading-22-bd ygi:text-text-primary">
 						여러분의 취향을 조합해보니...
