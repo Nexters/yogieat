@@ -33,6 +33,7 @@ export function OpinionFormView() {
 
 	const eventHandlers = useMemo(
 		() => ({
+			"participant-count": (event: MessageEvent) => {},
 			"gathering-full": () => {
 				router.push(`/gathering/${accessKey}/opinion/result`);
 			},
