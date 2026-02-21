@@ -1,11 +1,11 @@
 export { IntroStep } from "./IntroStep";
+export { NicknameStepContent, NicknameStepFooter } from "./NicknameStep";
 export { DistanceStepContent, DistanceStepFooter } from "./DistanceStep";
 export { DislikeStepContent, DislikeStepFooter } from "./DislikeStep";
 export { PreferenceStepContent, PreferenceStepFooter } from "./PreferenceStep";
 export { PendingView } from "./PendingView";
 export { ResultView } from "./ResultView";
 export { CompleteView } from "./CompleteView";
-export { OpinionView } from "./OpinionView";
 export { LandingView } from "./LandingView";
 export { OpinionFormView } from "./OpinionFormView";
 export { SubmissionBottomSheet } from "./SubmissionBottomSheet";

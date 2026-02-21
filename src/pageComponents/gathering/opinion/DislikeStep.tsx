@@ -12,7 +12,10 @@ import {
 	FOOD_CATEGORIES,
 	OPINION_TOTAL_STEPS,
 } from "#/constants/gathering/opinion";
-import type { OpinionFormSchema } from "#/schemas/gathering";
+import {
+	dislikedFoodSchema,
+	type OpinionFormSchema,
+} from "#/schemas/gathering";
 
 export const DislikeStepContent = () => {
 	return (
@@ -36,7 +39,7 @@ export const DislikeStepContent = () => {
 				{FOOD_CATEGORIES.map((category) => (
 					<DislikedFoodButton
 						key={category.value}
-						category={category.value}
+						food={category.value}
 					/>
 				))}
 			</div>
@@ -49,15 +52,18 @@ interface DislikeStepFooterProps {
 }
 
 export const DislikeStepFooter = ({ onNext }: DislikeStepFooterProps) => {
-	const { control, getValues } = useFormContext<OpinionFormSchema>();
-	const disabled = useWatch({
+	const { control } = useFormContext<OpinionFormSchema>();
+
+	const { dislikedFoods = [], disabled } = useWatch({
 		control,
 		name: "dislikedFoods",
-		compute: (value) => !value || value.length === 0,
+		compute: (dislikedFoods) => ({
+			dislikedFoods,
+			disabled: !dislikedFoodSchema.safeParse(dislikedFoods).success,
+		}),
 	});
 
 	const handleNext = () => {
-		const dislikedFoods = getValues("dislikedFoods") ?? [];
 		const dislikedLabels = dislikedFoods
 			.map((food) => FOOD_CATEGORIES.find((c) => c.value === food)?.label)
 			.filter(Boolean)

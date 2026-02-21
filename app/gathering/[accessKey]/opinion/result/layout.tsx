@@ -8,6 +8,8 @@ export const metadata: Metadata = {
 		title: "메뉴 추천이 완료 되었어요",
 		description: "[요기잇] 추천 결과를 확인해 보세요",
 		type: "website",
+		locale: "ko_KR",
+		siteName: "요기잇",
 		images: [
 			{
 				url: "https://yogieat-statics.s3.ap-southeast-2.amazonaws.com/images/opengraph/opinion-result-og-image.png",

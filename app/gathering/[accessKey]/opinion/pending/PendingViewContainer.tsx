@@ -72,17 +72,18 @@ export function PendingViewContainer({
 	};
 
 	useEffect(() => {
-		if (capacity) {
+		if (capacity && accessKey) {
 			const progress = Math.round(
 				(capacity.currentCount / capacity.maxCount) * 100,
 			);
 
 			trackViewPage({
 				page_id: PAGE_ID,
+				group_id: accessKey,
 				submit_progress: progress,
 			});
 		}
-	}, [capacity]);
+	}, [capacity, accessKey]);
 
 	return (
 		<Layout.Root>
