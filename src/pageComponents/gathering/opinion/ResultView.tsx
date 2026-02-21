@@ -10,8 +10,7 @@ import { twJoin } from "tailwind-merge";
 import { ProgressBar } from "#/components/progressBar";
 import { CircleIcon } from "#/icons/circleIcon";
 import { XIcon } from "#/icons/xIcon";
-import { FOOD_CATEGORY_LABEL } from "#/constants/gathering/opinion";
-import type { FoodCategory } from "#/types/gathering";
+import { Category, CATEGORY_LABEL } from "#/constants/gathering/opinion";
 
 export interface ResultViewProps {
 	recommendationResult: RecommendationResult;
@@ -24,7 +23,7 @@ interface VoteListProps {
 const VoteList = ({ votes }: VoteListProps) => {
 	const sortedVotes = Object.entries(votes)
 		.map(([category, count]) => ({
-			category: category as FoodCategory,
+			category: category as Category,
 			count,
 		}))
 		.sort((a, b) => b.count - a.count);
@@ -37,7 +36,7 @@ const VoteList = ({ votes }: VoteListProps) => {
 					className="ygi:flex ygi:items-center ygi:gap-1"
 				>
 					<span className="ygi:body-14-md ygi:text-text-secondary">
-						{FOOD_CATEGORY_LABEL[vote.category]}
+						{CATEGORY_LABEL[vote.category]}
 					</span>
 					<span
 						className={twJoin(

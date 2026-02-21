@@ -1,18 +1,20 @@
 "use client";
 
+import { useFormContext, useController } from "react-hook-form";
 import { motion } from "motion/react";
 import { XIcon } from "#/icons/xIcon";
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
 import { AnimatePresence } from "motion/react";
-import type { ComponentPropsWithoutRef } from "react";
 import { twJoin } from "tailwind-merge";
 import Image from "next/image";
 
-const foodCategoryButtonVariants = cva(
+import { Category, CATEGORY_LABEL } from "#/constants/gathering/opinion";
+import type { OpinionFormSchema } from "#/schemas/gathering";
+
+const dislikedCategoryButtonVariants = cva(
 	[
 		"ygi:flex ygi:flex-col ygi:items-center ygi:justify-center",
-		"ygi:size-[156px] ygi:rounded-full",
-		"ygi:gap-1 ygi:p-6",
+		"ygi:size-[156px] ygi:gap-1 ygi:rounded-full ygi:p-6",
 		"ygi:cursor-pointer ygi:transition",
 		"ygi:border ygi:border-solid ygi:bg-surface-lightgray",
 	],
@@ -47,36 +49,61 @@ const foodCategoryButtonVariants = cva(
 	},
 );
 
-export type FoodCategoryButtonProps = Omit<
-	ComponentPropsWithoutRef<"button">,
-	"className"
-> &
-	VariantProps<typeof foodCategoryButtonVariants> & {
-		category: string;
-		label: string;
-	};
+interface DislikedCategoryButtonProps {
+	category: Category;
+}
 
-export const FoodCategoryButton = ({
+export const DislikedCategoryButton = ({
 	category,
-	selected,
-	label,
-	...props
-}: FoodCategoryButtonProps) => {
-	const isAny = category === "ANY";
-	const shouldShowXIcon = selected && !isAny;
-	const imageSrc = `/images/foodCategory/${category.toLowerCase()}.svg`;
+}: DislikedCategoryButtonProps) => {
+	const { control } = useFormContext<OpinionFormSchema>();
+	const { field } = useController({ name: "dislikedCategories", control });
+
+	const dislikedCategoryList = field.value || [];
+
+	const isSelected = dislikedCategoryList.includes(category);
+	const isAny = category === Category.ANY;
+	const shouldShowXIcon = isSelected && !isAny;
+
+	const handleClickDislikeButton = () => {
+		if (isSelected) {
+			field.onChange(
+				dislikedCategoryList.filter(
+					(dislikedCategory) => dislikedCategory !== category,
+				),
+			);
+			return;
+		}
+
+		if (isAny) {
+			field.onChange([Category.ANY]);
+			return;
+		}
+
+		const filteredCategories = dislikedCategoryList.filter(
+			(dislikedCategory) => dislikedCategory !== Category.ANY,
+		);
+
+		if (filteredCategories.length < 2) {
+			field.onChange([...filteredCategories, category]);
+			return;
+		}
+	};
 
 	return (
 		<button
 			type="button"
-			aria-pressed={selected ?? false}
-			className={foodCategoryButtonVariants({ isAny, selected })}
-			{...props}
+			aria-pressed={isSelected}
+			className={dislikedCategoryButtonVariants({
+				isAny,
+				selected: isSelected,
+			})}
+			onClick={handleClickDislikeButton}
 		>
 			<div className="ygi:relative ygi:size-20">
 				<Image
-					src={imageSrc}
-					alt={label}
+					src={`/images/foodCategory/${category.toLowerCase()}.svg`}
+					alt={CATEGORY_LABEL[category]}
 					fill
 					className="ygi:object-contain"
 					priority
@@ -102,12 +129,12 @@ export const FoodCategoryButton = ({
 			<span
 				className={twJoin(
 					"ygi:text-center ygi:heading-18-bd",
-					selected
+					isSelected
 						? "ygi:text-text-primary"
 						: "ygi:text-text-secondary",
 				)}
 			>
-				{label}
+				{CATEGORY_LABEL[category]}
 			</span>
 		</button>
 	);

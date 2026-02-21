@@ -2,14 +2,17 @@ export {
 	opinionFormSchema,
 	foodCategorySchema,
 	nicknameSchema,
-	dislikedFoodSchema,
 	distanceRangeSchema,
-	preferredMenusSchema,
-	distanceRangeToKm,
+	dislikedCategoriesSchema,
+	preferredCategoriesSchema,
 	type OpinionFormSchema,
 } from "./opinionForm.schema";
 
 export {
+	peopleCountSchema,
+	timeSlotSchema,
+	regionSchema,
+	scheduledDateSchema,
 	createMeetingFormSchema,
 	type CreateMeetingFormSchema,
 } from "./createMeetingForm.schema";

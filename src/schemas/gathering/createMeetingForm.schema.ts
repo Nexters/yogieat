@@ -1,27 +1,18 @@
 import { z } from "zod";
-import type { TimeSlot, Region } from "#/types/gathering";
+import { Region } from "#/constants/gathering/opinion";
+import { TimeSlot } from "#/constants/gathering/create";
 import {
 	validateDateInput,
 	DATE_ERROR_MESSAGES,
 } from "#/utils/gathering/create";
 
-const timeSlotSchema = z.enum([
-	"LUNCH",
-	"DINNER",
-] satisfies readonly TimeSlot[]);
+export const peopleCountSchema = z.number().nullable();
 
-const regionSchema = z.enum([
-	"HONGDAE",
-	"GANGNAM",
-	"GONGDEOK",
-	"EULJIRO3GA",
-	"SADANG",
-	"JONGNO3GA",
-	"JAMSIL",
-	"SAMGAKJI",
-] satisfies readonly Region[]);
+export const timeSlotSchema = z.enum(TimeSlot).nullable();
 
-const scheduledDateSchema = z.string().check((ctx) => {
+export const regionSchema = z.enum(Region).nullable();
+
+export const scheduledDateSchema = z.string().check((ctx) => {
 	// 10자리(yyyy.MM.dd) 입력 완료 시에만 validation 수행
 	// 빈 문자열이거나 입력 중일 때는 에러 표시하지 않음
 	if (ctx.value.length < 10) {
@@ -40,10 +31,10 @@ const scheduledDateSchema = z.string().check((ctx) => {
 });
 
 export const createMeetingFormSchema = z.object({
-	peopleCount: z.number().nullable(),
+	peopleCount: peopleCountSchema,
 	scheduledDate: scheduledDateSchema,
-	timeSlot: timeSlotSchema.nullable(),
-	region: regionSchema.nullable(),
+	timeSlot: timeSlotSchema,
+	region: regionSchema,
 });
 
 export type CreateMeetingFormSchema = z.infer<typeof createMeetingFormSchema>;

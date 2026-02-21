@@ -1,12 +1,11 @@
-import { DistanceRange } from "./distance";
-import { PreferredMenu } from "./preferredMenu";
-import { FoodCategory } from "./foodCategory";
+import { Category, DistanceRange } from "#/constants/gathering/opinion";
+import { PreferredCategory } from "./preferredCategory";
 
 export interface OpinionForm {
 	nickname: string;
 	distanceRange: DistanceRange;
-	dislikedFoods: FoodCategory[];
-	preferredMenus: PreferredMenu;
+	dislikedCategories: Category[];
+	preferredCategories: PreferredCategory;
 }
 
 export type OpinionStep = "nickname" | "distance" | "dislike" | "preference";

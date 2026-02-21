@@ -10,46 +10,47 @@ import { StepIndicator } from "#/components/stepIndicator";
 import { StepHeader } from "#/components/stepHeader";
 import { Button } from "#/components/button";
 import {
-	RANKS,
+	Category,
+	RankKey,
+	RANK_LIST,
 	OPINION_TOTAL_STEPS,
-	FOOD_CATEGORIES,
+	CATEGORY_LABEL,
 } from "#/constants/gathering/opinion";
 import { RankSection } from "./RankSection";
 import {
-	preferredMenusSchema,
+	preferredCategoriesSchema,
 	type OpinionFormSchema,
 } from "#/schemas/gathering";
-import type { RankKey } from "#/types/gathering";
 
 export const PreferenceStepContent = () => {
 	const { control, setValue } = useFormContext<OpinionFormSchema>();
 
-	const [dislikedFoods, preferredMenus] = useWatch({
+	const [dislikedCategories, preferredCategories] = useWatch({
 		control,
-		name: ["dislikedFoods", "preferredMenus"],
+		name: ["dislikedCategories", "preferredCategories"],
 	});
 
 	useEffect(() => {
-		if (!dislikedFoods || !preferredMenus) return;
+		if (!dislikedCategories || !preferredCategories) return;
 
 		const ranksToRemove: RankKey[] = [];
 
-		RANKS.forEach((rank) => {
-			const selectedCategory = preferredMenus[rank];
+		RANK_LIST.forEach((rank) => {
+			const selectedCategory = preferredCategories[rank];
 			if (
 				selectedCategory &&
-				selectedCategory !== "ANY" &&
-				dislikedFoods.includes(selectedCategory)
+				selectedCategory !== Category.ANY &&
+				dislikedCategories.includes(selectedCategory)
 			) {
 				ranksToRemove.push(rank);
 			}
 		});
 
 		if (ranksToRemove.length > 0) {
-			const cleanedMenus = omit(preferredMenus, ranksToRemove);
-			setValue("preferredMenus", cleanedMenus);
+			const cleanedCategories = omit(preferredCategories, ranksToRemove);
+			setValue("preferredCategories", cleanedCategories);
 		}
-	}, [dislikedFoods, preferredMenus, setValue]);
+	}, [dislikedCategories, preferredCategories, setValue]);
 
 	return (
 		<div className="ygi:flex ygi:flex-col ygi:gap-8 ygi:px-6 ygi:pt-3 ygi:pb-6">
@@ -66,7 +67,7 @@ export const PreferenceStepContent = () => {
 			</div>
 
 			<div className="ygi:flex ygi:flex-col ">
-				{RANKS.map((rank) => (
+				{RANK_LIST.map((rank) => (
 					<RankSection key={rank} rank={rank} />
 				))}
 			</div>
@@ -77,21 +78,22 @@ export const PreferenceStepContent = () => {
 export const PreferenceStepFooter = () => {
 	const { control } = useFormContext<OpinionFormSchema>();
 
-	const { preferredMenus, disabled } = useWatch({
+	const { preferredCategories, disabled } = useWatch({
 		control,
-		name: "preferredMenus",
-		compute: (preferredMenus) => ({
-			preferredMenus,
-			disabled: !preferredMenusSchema.safeParse(preferredMenus).success,
+		name: "preferredCategories",
+		compute: (preferredCategories) => ({
+			preferredCategories,
+			disabled:
+				!preferredCategoriesSchema.safeParse(preferredCategories)
+					.success,
 		}),
 	});
 
 	const handleClick = () => {
-		const preferredLabels = RANKS.map((rank) => {
-			const value = preferredMenus?.[rank];
+		const preferredLabels = RANK_LIST.map((rank) => {
+			const value = preferredCategories[rank];
 			if (!value) return null;
-			if (value === "ANY") return "상관없음";
-			return FOOD_CATEGORIES.find((c) => c.value === value)?.label;
+			return CATEGORY_LABEL[value];
 		})
 			.filter(Boolean)
 			.join(", ");

@@ -7,13 +7,14 @@ import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
 import { StepHeader } from "#/components/stepHeader";
 import { Button } from "#/components/button/Button";
-import { DislikedFoodButton } from "./DislikedFoodButton";
+import { DislikedCategoryButton } from "./DislikedCategoryButton";
 import {
-	FOOD_CATEGORIES,
+	CATEGORY_LIST,
+	CATEGORY_LABEL,
 	OPINION_TOTAL_STEPS,
 } from "#/constants/gathering/opinion";
 import {
-	dislikedFoodSchema,
+	dislikedCategoriesSchema,
 	type OpinionFormSchema,
 } from "#/schemas/gathering";
 
@@ -36,10 +37,10 @@ export const DislikeStepContent = () => {
 			</div>
 
 			<div className="ygi:flex ygi:flex-wrap ygi:justify-center ygi:gap-3 ygi:px-6 ygi:pt-6 ygi:pb-9">
-				{FOOD_CATEGORIES.map((category) => (
-					<DislikedFoodButton
-						key={category.value}
-						food={category.value}
+				{CATEGORY_LIST.map((category) => (
+					<DislikedCategoryButton
+						key={category}
+						category={category}
 					/>
 				))}
 			</div>
@@ -54,18 +55,20 @@ interface DislikeStepFooterProps {
 export const DislikeStepFooter = ({ onNext }: DislikeStepFooterProps) => {
 	const { control } = useFormContext<OpinionFormSchema>();
 
-	const { dislikedFoods = [], disabled } = useWatch({
+	const { dislikedCategories = [], disabled } = useWatch({
 		control,
-		name: "dislikedFoods",
-		compute: (dislikedFoods) => ({
-			dislikedFoods,
-			disabled: !dislikedFoodSchema.safeParse(dislikedFoods).success,
+		name: "dislikedCategories",
+		compute: (dislikedCategories) => ({
+			dislikedCategories,
+			disabled:
+				!dislikedCategoriesSchema.safeParse(dislikedCategories).success,
 		}),
 	});
 
 	const handleNext = () => {
-		const dislikedLabels = dislikedFoods
-			.map((food) => FOOD_CATEGORIES.find((c) => c.value === food)?.label)
+		const dislikedLabels = dislikedCategories
+			.map((category) => CATEGORY_LABEL[category])
+
 			.filter(Boolean)
 			.join(", ");
 		trackStepComplete({

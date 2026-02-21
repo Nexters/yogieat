@@ -2,11 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-	opinionFormSchema,
-	distanceRangeToKm,
-	type OpinionFormSchema,
-} from "#/schemas/gathering";
+import { opinionFormSchema, type OpinionFormSchema } from "#/schemas/gathering";
 import { useCreateParticipant } from "../apis/participant";
 import { useParams, useRouter } from "next/navigation";
 import { ERROR_CODES, isApiError } from "#/utils/api";
@@ -14,6 +10,7 @@ import { toast } from "#/utils/toast";
 import { compact } from "es-toolkit";
 import { createElement } from "react";
 import { ArrowLeftIcon } from "#/icons/arrowLeftIcon";
+import { DISTANCE_RANGE_KM } from "#/constants/gathering/opinion";
 
 export function useOpinionForm() {
 	const router = useRouter();
@@ -26,8 +23,8 @@ export function useOpinionForm() {
 		defaultValues: {
 			nickname: "",
 			distanceRange: undefined,
-			dislikedFoods: [],
-			preferredMenus: {
+			dislikedCategories: [],
+			preferredCategories: {
 				first: undefined,
 				second: undefined,
 				third: undefined,
@@ -38,17 +35,17 @@ export function useOpinionForm() {
 	const handleSubmit = methods.handleSubmit(async (data) => {
 		try {
 			const preferences = compact([
-				data.preferredMenus.first,
-				data.preferredMenus.second,
-				data.preferredMenus.third,
+				data.preferredCategories.first,
+				data.preferredCategories.second,
+				data.preferredCategories.third,
 			]);
 
 			await createParticipant({
 				accessKey,
 				preferences,
 				nickname: data.nickname,
-				dislikes: data.dislikedFoods,
-				distance: distanceRangeToKm(data.distanceRange),
+				dislikes: data.dislikedCategories,
+				distance: DISTANCE_RANGE_KM[data.distanceRange],
 			});
 			router.replace(`/gathering/${accessKey}/opinion/pending`);
 		} catch (error) {

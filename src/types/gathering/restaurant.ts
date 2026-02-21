@@ -1,5 +1,4 @@
-import { DistanceRange } from "#/constants/gathering/opinion";
-import { FoodCategory } from "./foodCategory";
+import { Category, DistanceRange } from "#/constants/gathering/opinion";
 
 export interface Restaurant {
 	rank: number;
@@ -16,7 +15,7 @@ export interface Restaurant {
 		type: string;
 		coordinates: [number, number];
 	};
-	largeCategory: FoodCategory;
+	largeCategory: Category;
 	mediumCategory: string;
 	majorityDistanceRange: DistanceRange;
 }

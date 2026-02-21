@@ -2,7 +2,7 @@
 
 import { Layout } from "#/components/layout";
 import { StepHeader } from "#/components/stepHeader";
-import { FoodCategoryCarousel } from "./FoodCategoryCarousel";
+import { CategoryCarousel } from "./CategoryCarousel";
 
 export const CompleteView = () => {
 	return (
@@ -19,7 +19,7 @@ export const CompleteView = () => {
 					</StepHeader.Root>
 				</div>
 				<div className="ygi:mb-43 ygi:flex ygi:w-full ygi:flex-1 ygi:flex-col ygi:justify-center">
-					<FoodCategoryCarousel />
+					<CategoryCarousel />
 				</div>
 			</div>
 		</Layout.Content>
