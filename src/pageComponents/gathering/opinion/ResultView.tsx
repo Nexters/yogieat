@@ -10,8 +10,9 @@ import { twJoin } from "tailwind-merge";
 import { ProgressBar } from "#/components/progressBar";
 import { CircleIcon } from "#/icons/circleIcon";
 import { XIcon } from "#/icons/xIcon";
-import { FOOD_CATEGORY_LABEL } from "#/constants/gathering/opinion";
+import { FOOD_CATEGORY_LABEL, REGION_LABEL, TIME_SLOT_LABEL } from "#/constants/gathering/opinion";
 import type { FoodCategory } from "#/types/gathering";
+import { parse, format } from "date-fns";
 
 export interface ResultViewProps {
 	recommendationResult: RecommendationResult;
@@ -53,14 +54,26 @@ const VoteList = ({ votes }: VoteListProps) => {
 	);
 };
 
+const formatScheduledDate = (dateStr: string): string => {
+	const date = parse(dateStr, "yyyy-MM-dd", new Date());
+	return format(date, "M월 d일");
+};
+
 export const ResultView = ({ recommendationResult }: ResultViewProps) => {
 	return (
 		<Layout.Content background="gray">
 			<div className="ygi:flex ygi:flex-col ygi:gap-3 ygi:px-6 ygi:pb-8">
-				{/* Header */}
-				<h1 className="ygi:py-6 ygi:heading-22-bd ygi:text-text-primary">
-					요기잇의 추천 맛집
-				</h1>
+				{/* Head Section */}
+				<div className="ygi:flex ygi:flex-col ygi:gap-2 ygi:py-6">
+					<span className="ygi:caption-12-rg ygi:text-text-secondary">
+						{formatScheduledDate(recommendationResult.gathering.scheduledDate)}{" "}
+						{REGION_LABEL[recommendationResult.gathering.region]}{" "}
+						{TIME_SLOT_LABEL[recommendationResult.gathering.timeSlot]} 약속
+					</span>
+					<h1 className="ygi:heading-22-bd ygi:text-text-primary">
+						여러분의 취향을 조합해보니...
+					</h1>
+				</div>
 
 				{/* Top Recommendation */}
 				<TopRecommendCard
