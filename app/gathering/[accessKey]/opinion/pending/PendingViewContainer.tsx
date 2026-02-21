@@ -7,12 +7,13 @@ import { trackViewPage, trackShareClick } from "#/components/analytics";
 import { Button } from "#/components/button";
 import { Layout } from "#/components/layout";
 import { Toaster } from "#/components/toast";
-import { type ParticipantCountMessage, useServerSentEvent } from "#/hooks/sse";
+import { useServerSentEvent } from "#/hooks/sse";
 import {
 	PendingView,
 	SubmissionBottomSheet,
 } from "#/pageComponents/gathering/opinion";
 import { share } from "#/utils/share";
+import { participantCountSchema } from "#/schemas/sse/participantCount.schema";
 
 const PAGE_ID = "의견수합_대기";
 
@@ -34,11 +35,14 @@ export function PendingViewContainer({
 	const eventHandlers = useMemo(
 		() => ({
 			"participant-count": (event: MessageEvent) => {
-				const message = JSON.parse(
-					event.data,
-				) as ParticipantCountMessage;
-				setCurrentCount(message.currentCount);
-				setMaxCount(message.maxCount);
+				const { data, success } =
+					participantCountSchema.safeParse(event);
+
+				// TODO : 응답이 유효하지 않을 경우에 대한 후속 에러 조치 시행 필요
+				if (success) {
+					setCurrentCount(data.currentCount);
+					setMaxCount(data.maxCount);
+				}
 			},
 			"gathering-full": () => {
 				redirect(`/gathering/${accessKey}/opinion/complete`);
