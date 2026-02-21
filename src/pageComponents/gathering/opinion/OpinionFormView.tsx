@@ -20,7 +20,6 @@ import { Layout } from "#/components/layout";
 import { BackwardButton } from "#/components/backwardButton";
 import { Toaster } from "#/components/toast";
 import { useGetGathering } from "#/hooks/apis/gathering";
-import { useServerSentEvent } from "#/hooks/sse";
 
 export function OpinionFormView() {
 	const { accessKey } = useParams<{ accessKey: string }>();
@@ -30,20 +29,6 @@ export function OpinionFormView() {
 	const { step, direction, next, back, isFirstStep } = useOpinionFunnel();
 
 	const { data: gathering } = useGetGathering(accessKey);
-
-	const eventHandlers = useMemo(
-		() => ({
-			"gathering-full": () => {
-				router.push(`/gathering/${accessKey}/opinion/result`);
-			},
-		}),
-		[accessKey, router],
-	);
-
-	useServerSentEvent({
-		url: `/gatherings/${accessKey}/subscribe`,
-		events: eventHandlers,
-	});
 
 	const handleBackward = () => {
 		if (isFirstStep) {
