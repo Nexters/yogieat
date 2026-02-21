@@ -5,6 +5,12 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.0-beta.2](https://github.com/Nexters/yogieat/compare/v1.5.0-beta.1...v1.5.0-beta.2) (2026-02-21)
+
+### Bug Fixes
+
+* GitHub Actions 워크플로우 개선 및 스타일 가이드 업데이트 ([#91](https://github.com/Nexters/yogieat/issues/91)) ([e6c009e](https://github.com/Nexters/yogieat/commit/e6c009e7f27a8c75fbfb49f0dc9fd832c83643a5))
+
 ## [1.5.0-beta.1](https://github.com/Nexters/yogieat/compare/v1.4.0...v1.5.0-beta.1) (2026-02-20)
 
 ### Features
