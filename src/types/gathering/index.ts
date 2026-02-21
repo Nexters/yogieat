@@ -6,6 +6,7 @@ export type { RankKey, PreferredMenu } from "./preferredMenu";
 export type {
 	VoteStatistics,
 	RecommendationResult,
+	GatheringInfo,
 } from "./recommendationResult";
 export type { Region } from "./region";
 export type { Restaurant } from "./restaurant";
