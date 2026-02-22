@@ -22,7 +22,7 @@ export const nicknameSchema = z
 	.string()
 	.trim()
 	.min(1, "이름을 입력해주세요")
-	.max(8, "이름은은 8자 이내로 입력해주세요")
+	.max(8, "이름은 8자 이내로 입력해주세요")
 	.regex(
 		/^[가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z\s]+$/,
 		"이름은 한글, 영문만 입력 가능합니다",

@@ -9,53 +9,56 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Features
 
-* 추천 결과 API response 타입 업데이트 ([#100](https://github.com/Nexters/yogieat/issues/100)) ([1d046ab](https://github.com/Nexters/yogieat/commit/1d046abea2361174e64927d29c92035da2899db5)), closes [#101](https://github.com/Nexters/yogieat/issues/101) [#102](https://github.com/Nexters/yogieat/issues/102)
+- 추천 결과 API response 타입 업데이트 ([#100](https://github.com/Nexters/yogieat/issues/100)) ([1d046ab](https://github.com/Nexters/yogieat/commit/1d046abea2361174e64927d29c92035da2899db5)), closes [#101](https://github.com/Nexters/yogieat/issues/101) [#102](https://github.com/Nexters/yogieat/issues/102)
 
 ## [1.5.0-beta.2](https://github.com/Nexters/yogieat/compare/v1.5.0-beta.1...v1.5.0-beta.2) (2026-02-21)
 
 ### Bug Fixes
 
-* GitHub Actions 워크플로우 개선 및 스타일 가이드 업데이트 ([#91](https://github.com/Nexters/yogieat/issues/91)) ([e6c009e](https://github.com/Nexters/yogieat/commit/e6c009e7f27a8c75fbfb49f0dc9fd832c83643a5))
+- GitHub Actions 워크플로우 개선 및 스타일 가이드 업데이트 ([#91](https://github.com/Nexters/yogieat/issues/91)) ([e6c009e](https://github.com/Nexters/yogieat/commit/e6c009e7f27a8c75fbfb49f0dc9fd832c83643a5))
 
 ## [1.5.0-beta.1](https://github.com/Nexters/yogieat/compare/v1.4.0...v1.5.0-beta.1) (2026-02-20)
 
 ### Features
 
-* 랜딩 페이지 header section Figma 시안 반영 ([#98](https://github.com/Nexters/yogieat/issues/98)) ([1ccef44](https://github.com/Nexters/yogieat/commit/1ccef4473f31f56285ba39b297c04fa94ed93225))
+- 랜딩 페이지 header section Figma 시안 반영 ([#98](https://github.com/Nexters/yogieat/issues/98)) ([1ccef44](https://github.com/Nexters/yogieat/commit/1ccef4473f31f56285ba39b297c04fa94ed93225))
 
 ## [1.4.0](https://github.com/Nexters/yogieat/compare/v1.3.0...v1.4.0) (2026-02-20)
 
 ### Features
 
-* 지역 선택 스텝 신규 지역 chip 5개 추가 ([#97](https://github.com/Nexters/yogieat/issues/97)) ([98d2575](https://github.com/Nexters/yogieat/commit/98d2575cbab481970502cfcdc5dd27710595d6dc))
+- 지역 선택 스텝 신규 지역 chip 5개 추가 ([#97](https://github.com/Nexters/yogieat/issues/97)) ([98d2575](https://github.com/Nexters/yogieat/commit/98d2575cbab481970502cfcdc5dd27710595d6dc))
 
 ### Bug Fixes
 
-* 의견 수합 폼 스키마 검증 로직 개선 ([#96](https://github.com/Nexters/yogieat/issues/96)) ([447cc7f](https://github.com/Nexters/yogieat/commit/447cc7fca61c28bcf2dbf9a46e25ec7ef0afdfac))
+- 의견 수합 폼 스키마 검증 로직 개선 ([#96](https://github.com/Nexters/yogieat/issues/96)) ([447cc7f](https://github.com/Nexters/yogieat/commit/447cc7fca61c28bcf2dbf9a46e25ec7ef0afdfac))
+
 ## [1.3.0-beta.3](https://github.com/Nexters/yogieat/compare/v1.3.0-beta.2...v1.3.0-beta.3) (2026-02-20)
 
 ### Features
 
-* 랜딩 페이지 header section Figma 시안 반영 ([#98](https://github.com/Nexters/yogieat/issues/98)) ([1ccef44](https://github.com/Nexters/yogieat/commit/1ccef4473f31f56285ba39b297c04fa94ed93225))
+- 랜딩 페이지 header section Figma 시안 반영 ([#98](https://github.com/Nexters/yogieat/issues/98)) ([1ccef44](https://github.com/Nexters/yogieat/commit/1ccef4473f31f56285ba39b297c04fa94ed93225))
 
 ## [1.3.0-beta.2](https://github.com/Nexters/yogieat/compare/v1.3.0-beta.1...v1.3.0-beta.2) (2026-02-20)
 
 ### Features
 
-* 지역 선택 스텝 신규 지역 chip 5개 추가 ([#97](https://github.com/Nexters/yogieat/issues/97)) ([98d2575](https://github.com/Nexters/yogieat/commit/98d2575cbab481970502cfcdc5dd27710595d6dc))
+- 지역 선택 스텝 신규 지역 chip 5개 추가 ([#97](https://github.com/Nexters/yogieat/issues/97)) ([98d2575](https://github.com/Nexters/yogieat/commit/98d2575cbab481970502cfcdc5dd27710595d6dc))
 
 ### Bug Fixes
 
-* 의견 수합 폼 스키마 검증 로직 개선 ([#96](https://github.com/Nexters/yogieat/issues/96)) ([447cc7f](https://github.com/Nexters/yogieat/commit/447cc7fca61c28bcf2dbf9a46e25ec7ef0afdfac))
+- 의견 수합 폼 스키마 검증 로직 개선 ([#96](https://github.com/Nexters/yogieat/issues/96)) ([447cc7f](https://github.com/Nexters/yogieat/commit/447cc7fca61c28bcf2dbf9a46e25ec7ef0afdfac))
 
 ## [1.3.0](https://github.com/Nexters/yogieat/compare/v1.2.0...v1.3.0) (2026-02-19)
+
 ## [1.3.0-beta.1](https://github.com/Nexters/yogieat/compare/v1.2.0...v1.3.0-beta.1) (2026-02-19)
+
 ## [1.3.0](https://github.com/Nexters/yogieat/compare/v1.2.0...v1.3.0) (2026-02-19)
 
 ### Features
 
-* Calendar 및 BottomSheet 컴포넌트 구현 ([#85](https://github.com/Nexters/yogieat/issues/85)) ([afd5007](https://github.com/Nexters/yogieat/commit/afd5007375455496f5e0c726a8b7708bb3a0d1ba)), closes [#848B9C](https://github.com/Nexters/yogieat/issues/848B9C)
-* 랜딩 페이지 일러스트레이션을 Lottie 애니메이션으로 교체 ([#92](https://github.com/Nexters/yogieat/issues/92)) ([11d70f2](https://github.com/Nexters/yogieat/commit/11d70f215ee314b91db54a347a96ea77c566bb4a))
+- Calendar 및 BottomSheet 컴포넌트 구현 ([#85](https://github.com/Nexters/yogieat/issues/85)) ([afd5007](https://github.com/Nexters/yogieat/commit/afd5007375455496f5e0c726a8b7708bb3a0d1ba)), closes [#848B9C](https://github.com/Nexters/yogieat/issues/848B9C)
+- 랜딩 페이지 일러스트레이션을 Lottie 애니메이션으로 교체 ([#92](https://github.com/Nexters/yogieat/issues/92)) ([11d70f2](https://github.com/Nexters/yogieat/commit/11d70f215ee314b91db54a347a96ea77c566bb4a))
 
 ## [1.2.0-beta.3](https://github.com/Nexters/yogieat/compare/v1.2.0-beta.2...v1.2.0-beta.3) (2026-02-19)
 
