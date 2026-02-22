@@ -1,2 +1,1 @@
-export * from "./events";
-export * from "./useServerSentEvent";
+export { useServerSentEvent } from "./useServerSentEvent";

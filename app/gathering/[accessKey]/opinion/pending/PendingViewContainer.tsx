@@ -35,8 +35,9 @@ export function PendingViewContainer({
 	const eventHandlers = useMemo(
 		() => ({
 			"participant-count": (event: MessageEvent) => {
-				const { data, success } =
-					participantCountSchema.safeParse(event);
+				const { data, success } = participantCountSchema.safeParse(
+					JSON.parse(event.data),
+				);
 
 				// TODO : 응답이 유효하지 않을 경우에 대한 후속 에러 조치 시행 필요
 				if (success) {
