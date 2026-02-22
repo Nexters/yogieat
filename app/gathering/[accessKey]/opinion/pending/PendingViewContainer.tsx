@@ -1,30 +1,69 @@
 "use client";
 
-import { useEffect } from "react";
-import { useParams, redirect } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
+import { redirect } from "next/navigation";
 
 import { trackViewPage, trackShareClick } from "#/components/analytics";
 import { Button } from "#/components/button";
 import { Layout } from "#/components/layout";
+import { Toaster } from "#/components/toast";
+import { useServerSentEvent } from "#/hooks/sse";
 import {
 	PendingView,
 	SubmissionBottomSheet,
 } from "#/pageComponents/gathering/opinion";
-import { useGetGatheringCapacity } from "#/hooks/apis/gathering";
 import { share } from "#/utils/share";
-import { Toaster } from "#/components/toast";
+import { participantCountSchema } from "#/schemas/sse/participantCount.schema";
 
 const PAGE_ID = "의견수합_대기";
 
-export function PendingViewContainer() {
-	const { accessKey } = useParams<{ accessKey: string }>();
-	const { data: capacity } = useGetGatheringCapacity(accessKey);
+interface PendingViewContainerProps {
+	accessKey: string;
+	initialMaxCount: number;
+	initialCurrentCount: number;
+}
 
-	const isComplete = capacity.currentCount >= capacity.maxCount;
+export function PendingViewContainer({
+	accessKey,
+	initialMaxCount,
+	initialCurrentCount,
+}: PendingViewContainerProps) {
+	const [currentCount, setCurrentCount] =
+		useState<number>(initialCurrentCount);
+	const [maxCount, setMaxCount] = useState<number>(initialMaxCount);
 
-	if (isComplete) {
-		redirect(`/gathering/${accessKey}/opinion/complete`);
-	}
+	const eventHandlers = useMemo(
+		() => ({
+			"participant-count": (event: MessageEvent) => {
+				const { data, success } = participantCountSchema.safeParse(
+					JSON.parse(event.data),
+				);
+
+				// TODO : 응답이 유효하지 않을 경우에 대한 후속 에러 조치 시행 필요
+				if (success) {
+					setCurrentCount(data.currentCount);
+					setMaxCount(data.maxCount);
+				}
+			},
+			"gathering-full": () => {
+				redirect(`/gathering/${accessKey}/opinion/complete`);
+			},
+		}),
+		[accessKey],
+	);
+
+	useServerSentEvent({
+		url: `/gatherings/${accessKey}/subscribe`,
+		events: eventHandlers,
+	});
+
+	const capacity = useMemo(
+		() => ({
+			currentCount,
+			maxCount,
+		}),
+		[currentCount, maxCount],
+	);
 
 	const handleShare = () => {
 		trackShareClick({ page_id: PAGE_ID, share_location: "Footer" });
