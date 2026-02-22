@@ -5,6 +5,12 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.0-beta.2](https://github.com/Nexters/yogieat/compare/v1.6.0-beta.1...v1.6.0-beta.2) (2026-02-22)
+
+### Features
+
+* SSE 기반 실시간 모임 현황 업데이트 구현 ([#87](https://github.com/Nexters/yogieat/issues/87)) ([0d220e0](https://github.com/Nexters/yogieat/commit/0d220e002c11da6cb470c793960d6736909e63a0))
+
 ## [1.6.0-beta.1](https://github.com/Nexters/yogieat/compare/v1.5.0...v1.6.0-beta.1) (2026-02-22)
 
 ### Features
