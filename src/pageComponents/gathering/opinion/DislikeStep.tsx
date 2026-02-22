@@ -30,7 +30,7 @@ export const DislikeStepContent = () => {
 						안 먹고 싶은 음식을 골라주세요
 					</StepHeader.Title>
 					<StepHeader.Description>
-						후보에서 무조건 제외할 수 있어요.
+						2개까지 선택할 수 있어요
 					</StepHeader.Description>
 				</StepHeader.Root>
 			</div>
