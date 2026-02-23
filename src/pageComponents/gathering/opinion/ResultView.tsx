@@ -14,6 +14,7 @@ import {
 } from "#/constants/gathering/opinion";
 import type { FoodCategory } from "#/types/gathering";
 import { parse, format } from "date-fns";
+import { TasteSummaryCard } from "#/pageComponents/gathering/opinion/TasteSummaryCard";
 
 export interface ResultViewProps {
 	recommendationResult: RecommendationResult;
@@ -86,6 +87,12 @@ export const ResultView = ({ recommendationResult }: ResultViewProps) => {
 						여러분의 취향을 조합해보니...
 					</h1>
 				</div>
+
+				{/* Taste Summary Section */}
+				<TasteSummaryCard
+					preferences={recommendationResult.preferences}
+					dislikes={recommendationResult.dislikes}
+				/>
 
 				{/* Restaurant List Section */}
 				<section className="ygi:flex ygi:flex-col ygi:gap-3">
