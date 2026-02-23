@@ -4,6 +4,7 @@ export { DistanceStepContent, DistanceStepFooter } from "./DistanceStep";
 export { DislikeStepContent, DislikeStepFooter } from "./DislikeStep";
 export { PreferenceStepContent, PreferenceStepFooter } from "./PreferenceStep";
 export { PendingView } from "./PendingView";
+export { TasteSummaryCard } from "./TasteSummaryCard";
 export { ResultView } from "./ResultView";
 export { CompleteView } from "./CompleteView";
 export { LandingView } from "./LandingView";
