@@ -4,7 +4,7 @@ import { CircleIcon } from "#/icons/circleIcon";
 import { XIcon } from "#/icons/xIcon";
 import { FOOD_CATEGORY_LABEL } from "#/constants/gathering/opinion";
 import type { FoodCategory } from "#/types/gathering";
-import { twJoin } from "tailwind-merge";
+import Image from "next/image";
 
 // "ANY"를 제외한 구체적 카테고리 목록
 const ALL_FOOD_CATEGORIES: FoodCategory[] = [
@@ -126,57 +126,43 @@ export const TasteSummaryCard = ({
 	} = computeTasteSummary(preferences, dislikes);
 
 	return (
-		<div
-			className={twJoin(
-				"ygi:rounded-xl ygi:bg-surface-white",
-				"ygi:flex ygi:flex-col ygi:gap-5 ygi:p-5",
-			)}
-		>
+		<div className="ygi:flex ygi:flex-col ygi:gap-5 ygi:rounded-md ygi:bg-surface-white ygi:p-5">
 			{/* 캐릭터 일러스트 */}
-			<div className="ygi:relative ygi:h-[121px] ygi:w-full ygi:overflow-hidden ygi:rounded-xl ygi:bg-surface-gray">
-				<img
-					src="/images/result/taste-characters.png"
-					alt=""
-					className="ygi:absolute ygi:bottom-[-11px] ygi:left-1/2 ygi:h-[106px] ygi:w-[211px] ygi:-translate-x-1/2"
-				/>
+			<div className="ygi:relative ygi:h-30.25 ygi:w-full ygi:overflow-hidden ygi:rounded-md ygi:bg-surface-gray">
+				<div className="ygi:absolute ygi:-bottom-6.75 ygi:left-1/2 ygi:h-26.5 ygi:w-52.75 ygi:-translate-x-1/2">
+					<Image
+						src="/images/result/taste-characters.png"
+						alt="캐릭터 일러스트"
+						priority
+						fill
+					/>
+				</div>
 			</div>
 
 			{/* 텍스트 요약 */}
 			<div className="ygi:flex ygi:w-full ygi:flex-col ygi:gap-2">
 				{/* 불호 행 */}
-				<div className="ygi:flex ygi:w-full ygi:items-center ygi:gap-1">
-					<div
-						className={twJoin(
-							"ygi:flex ygi:shrink-0 ygi:items-center ygi:justify-center",
-							"ygi:h-5 ygi:w-5 ygi:rounded",
-							"ygi:bg-palette-primary-500",
-						)}
-					>
+				<div className="ygi:flex ygi:w-full ygi:items-center">
+					<div className="ygi:flex ygi:h-5 ygi:w-5 ygi:shrink-0 ygi:items-center ygi:justify-center ygi:rounded ygi:bg-palette-primary-500">
 						<XIcon size={11} className="ygi:text-white" />
 					</div>
-					<span className="ygi:body-16-sb ygi:shrink-0 ygi:text-text-interactive">
+					<span className="ygi:ml-1.5 ygi:shrink-0 ygi:body-16-sb ygi:text-text-interactive">
 						{dislikeHighlight}
 					</span>
-					<span className="ygi:body-16-sb ygi:text-text-primary">
+					<span className="ygi:ml-1 ygi:body-16-sb ygi:text-text-primary">
 						{dislikeSuffix}
 					</span>
 				</div>
 
 				{/* 선호 행 */}
-				<div className="ygi:flex ygi:w-full ygi:items-center ygi:gap-1">
-					<div
-						className={twJoin(
-							"ygi:flex ygi:shrink-0 ygi:items-center ygi:justify-center",
-							"ygi:h-5 ygi:w-5 ygi:rounded",
-							"ygi:bg-palette-secondary-500",
-						)}
-					>
+				<div className="ygi:flex ygi:w-full ygi:items-center">
+					<div className="ygi:flex ygi:h-5 ygi:w-5 ygi:shrink-0 ygi:items-center ygi:justify-center ygi:rounded ygi:bg-palette-secondary-500">
 						<CircleIcon size={11} className="ygi:text-white" />
 					</div>
-					<span className="ygi:body-16-sb ygi:shrink-0 ygi:text-palette-secondary-700">
+					<span className="ygi:ml-1.5 ygi:shrink-0 ygi:body-16-sb ygi:text-palette-secondary-700">
 						{preferenceHighlight}
 					</span>
-					<span className="ygi:body-16-sb ygi:text-text-primary">
+					<span className="ygi:ml-1 ygi:body-16-sb ygi:text-text-primary">
 						{preferenceSuffix}
 					</span>
 				</div>
