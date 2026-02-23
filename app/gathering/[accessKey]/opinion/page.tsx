@@ -3,8 +3,12 @@ import {
 	QueryClient,
 	dehydrate,
 } from "@tanstack/react-query";
+import { notFound } from "next/navigation";
 
 import { gatheringQueryOptions } from "#/apis/gathering";
+import { recommendResultOptions } from "#/apis/recommendResult";
+import { ERROR_CODES, isApiError } from "#/utils/api";
+
 import { OpinionFormView } from "#/pageComponents/gathering/opinion";
 
 interface OpinionPageProps {
@@ -13,20 +17,34 @@ interface OpinionPageProps {
 	}>;
 }
 
-/**
- * 의견 수렴 폼 페이지 (서버 컴포넌트)
- * - 실제 의견 입력 (distance -> dislike -> preference)
- * - gathering 데이터를 서버에서 prefetch하여 무한 렌더링 방지
- */
 export default async function OpinionPage({ params }: OpinionPageProps) {
 	const { accessKey } = await params;
-	const queryClient = new QueryClient();
+	const queryClient = new QueryClient({
+		defaultOptions: {
+			queries: {
+				retry: 0,
+			},
+		},
+	});
 
-	// 서버에서 gathering 데이터 미리 가져오기
-	await Promise.all([
-		queryClient.prefetchQuery(gatheringQueryOptions.detail(accessKey)),
-		queryClient.prefetchQuery(gatheringQueryOptions.capacity(accessKey)),
-	]);
+	try {
+		await Promise.all([
+			queryClient.fetchQuery(recommendResultOptions.detail(accessKey)),
+			queryClient.fetchQuery(gatheringQueryOptions.detail(accessKey)),
+			queryClient.fetchQuery(gatheringQueryOptions.capacity(accessKey)),
+		]);
+	} catch (error) {
+		if (isApiError(error)) {
+			switch (error.errorCode) {
+				case ERROR_CODES.GATHERING_NOT_FOUND:
+				case ERROR_CODES.GATHERING_DELETED: {
+					notFound();
+				}
+			}
+		}
+
+		throw error;
+	}
 
 	return (
 		<HydrationBoundary state={dehydrate(queryClient)}>
