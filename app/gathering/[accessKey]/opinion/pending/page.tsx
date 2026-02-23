@@ -1,4 +1,12 @@
-import { getGatheringCapacity } from "#/apis/gathering";
+import {
+	dehydrate,
+	HydrationBoundary,
+	QueryClient,
+} from "@tanstack/react-query";
+
+import { gatheringQueryOptions } from "#/apis/gathering";
+import { recommendResultOptions } from "#/apis/recommendResult";
+
 import { PendingViewContainer } from "./PendingViewContainer";
 
 interface OpinionPendingPageProps {
@@ -7,21 +15,26 @@ interface OpinionPendingPageProps {
 	}>;
 }
 
-/**
- * 의견 수렴 대기 페이지 (서버 컴포넌트)
- */
 export default async function OpinionPendingPage({
 	params,
 }: OpinionPendingPageProps) {
 	const { accessKey } = await params;
+	const queryClient = new QueryClient({
+		defaultOptions: {
+			queries: {
+				retry: 0,
+			},
+		},
+	});
 
-	const { data: initialCapacity } = await getGatheringCapacity(accessKey);
+	await Promise.all([
+		queryClient.prefetchQuery(recommendResultOptions.detail(accessKey)),
+		queryClient.prefetchQuery(gatheringQueryOptions.capacity(accessKey)),
+	]);
 
 	return (
-		<PendingViewContainer
-			accessKey={accessKey}
-			initialMaxCount={initialCapacity.maxCount}
-			initialCurrentCount={initialCapacity.currentCount}
-		/>
+		<HydrationBoundary state={dehydrate(queryClient)}>
+			<PendingViewContainer />
+		</HydrationBoundary>
 	);
 }
