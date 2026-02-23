@@ -23,7 +23,6 @@ export interface RecommendationResult {
 	preferences: Record<string, number>;
 	dislikes: Record<string, number>;
 	agreementRate: number;
-	status: "PENDING" | "COMPLETED" | "FAILED";
 	gathering: GatheringInfo;
 	distances: Record<string, number>;
 }
