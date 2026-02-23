@@ -7,10 +7,9 @@ import { notFound, redirect } from "next/navigation";
 
 import { gatheringQueryOptions } from "#/apis/gathering";
 import { recommendResultOptions } from "#/apis/recommendResult";
-
+import { RecommendationResultStatus } from "#/constants/gathering/opinion";
 import { OpinionFormView } from "#/pageComponents/gathering/opinion";
 import { ERROR_CODES, isApiError } from "#/utils/api";
-import { RecommendationResultStatus } from "#/constants/gathering/opinion";
 
 interface OpinionPageProps {
 	params: Promise<{
@@ -50,14 +49,10 @@ export default async function OpinionPage({ params }: OpinionPageProps) {
 	} catch (error) {
 		if (isApiError(error)) {
 			switch (error.errorCode) {
-				case ERROR_CODES.RECOMMEND_ALREADY_PROCEEDED:
-					redirect(`/gathering/${accessKey}/opinion/result`);
-
-				case ERROR_CODES.RESTAURANT_NOT_FOUND:
-				case ERROR_CODES.CATEGORY_NOT_FOUND:
 				case ERROR_CODES.GATHERING_NOT_FOUND:
-				case ERROR_CODES.GATHERING_DELETED:
+				case ERROR_CODES.GATHERING_DELETED: {
 					notFound();
+				}
 			}
 		}
 
