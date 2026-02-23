@@ -2,7 +2,6 @@
 
 import { trackRestaurantClick } from "#/components/analytics";
 import { StarIcon } from "#/icons/starIcon";
-import { ChevronRightIcon } from "#/icons/chevronRightIcon";
 import type { Restaurant } from "#/types/gathering";
 import {
 	FOOD_CATEGORY_LABEL,
@@ -35,7 +34,7 @@ export const OtherCandidateCard = ({
 			aria-label={`${ranking}위 추천 음식점: ${restaurant.restaurantName}`}
 			onClick={handleMapClick}
 		>
-			<div className="ygi:relative ygi:h-20 ygi:w-20 ygi:shrink-0 ygi:overflow-clip ygi:rounded-xs ygi:bg-surface-lightgray ygi:inset-ring-1 ygi:inset-ring-border-default">
+			<div className="ygi:relative ygi:h-20 ygi:w-20 ygi:shrink-0 ygi:overflow-clip ygi:rounded-xs  ygi:border ygi:border-solid ygi:border-border-default ygi:bg-surface-lightgray">
 				<Image
 					src={
 						restaurant.imageUrl ??

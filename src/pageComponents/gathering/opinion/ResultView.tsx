@@ -14,6 +14,7 @@ import {
 } from "#/constants/gathering/opinion";
 import type { FoodCategory } from "#/types/gathering";
 import { parse, format } from "date-fns";
+import { TasteSummaryCard } from "#/pageComponents/gathering/opinion/TasteSummaryCard";
 
 export interface ResultViewProps {
 	recommendationResult: RecommendationResult;
@@ -67,9 +68,9 @@ const formatScheduledDate = (dateStr: string): string => {
 export const ResultView = ({ recommendationResult }: ResultViewProps) => {
 	return (
 		<Layout.Content background="gray">
-			<div className="ygi:flex ygi:flex-col ygi:gap-3 ygi:px-6 ygi:pb-8">
+			<div className="ygi:flex ygi:flex-col ygi:gap-7 ygi:px-6 ygi:pb-8">
 				{/* Head Section */}
-				<div className="ygi:flex ygi:flex-col ygi:gap-2 ygi:pt-3 ygi:pb-6">
+				<div className="ygi:flex ygi:flex-col ygi:gap-2 ygi:pt-3">
 					<span className="ygi:body-16-md ygi:text-text-secondary">
 						{formatScheduledDate(
 							recommendationResult.gathering.scheduledDate,
@@ -86,6 +87,12 @@ export const ResultView = ({ recommendationResult }: ResultViewProps) => {
 						여러분의 취향을 조합해보니...
 					</h1>
 				</div>
+
+				{/* Taste Summary Section */}
+				<TasteSummaryCard
+					preferences={recommendationResult.preferences}
+					dislikes={recommendationResult.dislikes}
+				/>
 
 				{/* Restaurant List Section */}
 				<section className="ygi:flex ygi:flex-col ygi:gap-3">
