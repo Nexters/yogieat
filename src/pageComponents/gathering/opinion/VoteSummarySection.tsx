@@ -81,20 +81,20 @@ const computePreferenceSubtitle = (
 };
 
 const computeDislikeSubtitle = (dislikes: Record<string, number>): string => {
-	const voted = NON_ANY_CATEGORIES.filter((c) => (dislikes[c] ?? 0) >= 1);
+	const voted = FOOD_CATEGORY_ORDER.filter((c) => (dislikes[c] ?? 0) >= 1);
 
 	// 우선순위 1: 5개 전부 투표됨
-	if (voted.length === NON_ANY_CATEGORIES.length) {
-		return "모두 달라서 한 명이 양보해줬...";
+	if (voted.filter((c) => c !== "ANY").length === NON_ANY_CATEGORIES.length) {
+		return "모두 달라서 한 명이 양보해줘...";
 	}
 
 	// 우선순위 2: 투표 없음
-	if (voted.length === 0) {
+	if (voted.every((c) => c === "ANY")) {
 		return "의견을 내주면 안될까...";
 	}
 
 	// 우선순위 3: 1개만 선택
-	if (voted.length === 1) {
+	if (voted.every((c) => c !== "ANY") && voted.length === 1) {
 		return `"${FOOD_CATEGORY_LABEL[voted[0]]}"으로 만장일치`;
 	}
 
@@ -240,7 +240,7 @@ const PreferenceVoteBlock = ({
 
 			{/* 카테고리 dot 목록 */}
 			{listCategories.length > 0 && (
-				<div className="ygi:rounded-md ygi:bg-surface-gray ygi:p-[12px_16px]">
+				<div className="ygi:rounded-md ygi:bg-surface-lightgray ygi:p-[12px_16px]">
 					<div className="ygi:grid ygi:grid-cols-2 ygi:gap-x-3 ygi:gap-y-2">
 						{listCategories.map((cat) => (
 							<div
@@ -273,7 +273,7 @@ const DislikeVoteBlock = ({
 	const subtitle = computeDislikeSubtitle(dislikes);
 
 	const votedCategories = FOOD_CATEGORY_ORDER.filter(
-		(c) => c !== "ANY" && (dislikes[c] ?? 0) >= 1,
+		(c) => (dislikes[c] ?? 0) >= 1,
 	);
 
 	return (
@@ -302,7 +302,7 @@ const DislikeVoteBlock = ({
 					{votedCategories.map((cat) => (
 						<div
 							key={cat}
-							className={`ygi:flex ygi:flex-col ygi:items-center ygi:gap-2 ygi:rounded-lg ygi:bg-surface-gray ygi:p-3 ${votedCategories.length >= 3 && "ygi:aspect-square ygi:justify-center"}`}
+							className={`ygi:flex ygi:flex-col ygi:items-center ygi:gap-2 ygi:rounded-lg ygi:bg-surface-lightgray ygi:p-3 ${votedCategories.length >= 3 && "ygi:aspect-square ygi:justify-center"}`}
 						>
 							<div className="ygi:relative ygi:size-10 ygi:overflow-hidden">
 								<Image
