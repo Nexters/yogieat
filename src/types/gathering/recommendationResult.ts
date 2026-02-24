@@ -1,3 +1,4 @@
+import type { RecommendationResultStatus } from "#/constants/gathering/opinion";
 import type { Restaurant } from "./restaurant";
 import type { Region } from "./region";
 import type { TimeSlot } from "./timeSlot";
@@ -16,12 +17,12 @@ export interface GatheringInfo {
 }
 
 export interface RecommendationResult {
+	status: RecommendationResultStatus;
 	topRecommendation: Restaurant;
 	otherCandidates: Restaurant[];
 	preferences: Record<string, number>;
 	dislikes: Record<string, number>;
 	agreementRate: number;
-	status: "PENDING" | "COMPLETED" | "FAILED";
 	gathering: GatheringInfo;
 	distances: Record<string, number>;
 }

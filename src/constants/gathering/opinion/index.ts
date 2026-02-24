@@ -17,3 +17,4 @@ export { REGION, REGION_LABEL, REGION_OPTIONS, type Region } from "./region";
 export { UI_TEXT } from "./ui-text";
 export { MOCK_MEETING_DATA } from "./meeting";
 export { TIME_SLOT_LABEL } from "./timeSlot";
+export { RecommendationResultStatus } from "./recommendationResultStatus";
