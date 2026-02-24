@@ -82,7 +82,6 @@ export const ResultView = ({ recommendationResult }: ResultViewProps) => {
 					preferences={recommendationResult.preferences}
 					dislikes={recommendationResult.dislikes}
 					distances={recommendationResult.distances}
-					peopleCount={recommendationResult.gathering.peopleCount}
 				/>
 			</div>
 		</Layout.Content>

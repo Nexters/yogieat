@@ -40,30 +40,25 @@ export interface VoteSummarySectionProps {
 	preferences: Record<string, number>;
 	dislikes: Record<string, number>;
 	distances: Record<string, number>;
-	peopleCount: number;
 }
 
 const computePreferenceSubtitle = (
 	preferences: Record<string, number>,
-	peopleCount: number,
 ): string => {
-	const voted = NON_ANY_CATEGORIES.filter((c) => (preferences[c] ?? 0) >= 1);
+	const voted = FOOD_CATEGORY_ORDER.filter((c) => (preferences[c] ?? 0) >= 1);
 
 	// 우선순위 1: 5개 전부 투표됨
-	if (voted.length === NON_ANY_CATEGORIES.length) {
+	if (voted.filter((c) => c !== "ANY").length === NON_ANY_CATEGORIES.length) {
 		return "각자 좋아하는게 달라";
 	}
 
 	// 우선순위 2: 만장일치 (특정 카테고리 count == peopleCount)
-	const unanimous = NON_ANY_CATEGORIES.find(
-		(c) => (preferences[c] ?? 0) === peopleCount,
-	);
-	if (unanimous) {
-		return `"${FOOD_CATEGORY_LABEL[unanimous]}"으로 만장일치`;
+	if (voted.every((c) => c !== "ANY") && voted.length === 1) {
+		return `"${FOOD_CATEGORY_LABEL[voted[0]]}"으로 만장일치`;
 	}
 
 	// 우선순위 3: non-ANY 투표 없음
-	if (voted.length === 0) {
+	if (voted.every((c) => c === "ANY")) {
 		return "아무거나 상관없어";
 	}
 
@@ -124,60 +119,87 @@ const computeDistanceSubtitle = (distances: Record<string, number>): string => {
 	return `모임원 모두가 "어디든 상관없어"`;
 };
 
-// 여러 카테고리 이미지를 무한 자동 슬라이딩
+// 여러 카테고리 이미지를 단방향 무한 캐러셀
 const AutoSlideImage = ({ categories }: { categories: FoodCategory[] }) => {
 	const [idx, setIdx] = useState(0);
+	const [sliding, setSliding] = useState(false);
 
 	useEffect(() => {
 		if (categories.length <= 1) return;
+		let slideTimeout: ReturnType<typeof setTimeout>;
 		const timer = setInterval(() => {
-			setIdx((prev) => (prev + 1) % categories.length);
-		}, 2500);
-		return () => clearInterval(timer);
+			setSliding(true);
+			slideTimeout = setTimeout(() => {
+				setIdx((prev) => (prev + 1) % categories.length);
+				setSliding(false);
+			}, 500);
+		}, 1500);
+		return () => {
+			clearInterval(timer);
+			clearTimeout(slideTimeout);
+		};
 	}, [categories.length]);
 
+	const nextIdx = (idx + 1) % categories.length;
+
 	return (
-		<div className="ygi:relative ygi:size-20 ygi:shrink-0">
-			{categories.map((cat, i) => (
-				<div
-					key={cat}
-					className="ygi:absolute ygi:inset-0 ygi:top-1/2 ygi:left-1/2 ygi:size-15 ygi:-translate-x-1/2 ygi:-translate-y-1/2 ygi:transition-opacity ygi:duration-500"
-					style={{ opacity: i === idx ? 1 : 0 }}
-				>
+		<div className="ygi:relative ygi:size-20 ygi:shrink-0 ygi:overflow-hidden">
+			{/* 현재 이미지 */}
+			<div
+				className="ygi:absolute ygi:inset-0 ygi:flex ygi:items-center ygi:justify-center"
+				style={{
+					transform: sliding ? "translateX(-100%)" : "translateX(0)",
+					transition: sliding ? "transform 500ms ease-in-out" : "none",
+				}}
+			>
+				<div className="ygi:relative ygi:size-15">
 					<Image
-						src={`/images/foodCategory/${cat.toLowerCase()}.svg`}
-						alt={FOOD_CATEGORY_LABEL[cat]}
+						src={`/images/foodCategory/${categories[idx].toLowerCase()}.svg`}
+						alt={FOOD_CATEGORY_LABEL[categories[idx]]}
 						fill
 						className="ygi:object-contain"
 					/>
 				</div>
-			))}
+			</div>
+			{/* 다음 이미지 */}
+			{categories.length > 1 && (
+				<div
+					className="ygi:absolute ygi:inset-0 ygi:flex ygi:items-center ygi:justify-center"
+					style={{
+						transform: sliding ? "translateX(0)" : "translateX(100%)",
+						transition: sliding ? "transform 500ms ease-in-out" : "none",
+					}}
+				>
+					<div className="ygi:relative ygi:size-15">
+						<Image
+							src={`/images/foodCategory/${categories[nextIdx].toLowerCase()}.svg`}
+							alt={FOOD_CATEGORY_LABEL[categories[nextIdx]]}
+							fill
+							className="ygi:object-contain"
+						/>
+					</div>
+				</div>
+			)}
 		</div>
 	);
 };
 
 const PreferenceVoteBlock = ({
 	preferences,
-	peopleCount,
 }: {
 	preferences: Record<string, number>;
-	peopleCount: number;
 }) => {
-	const subtitle = computePreferenceSubtitle(preferences, peopleCount);
-	const voted = NON_ANY_CATEGORIES.filter((c) => (preferences[c] ?? 0) >= 1);
+	const subtitle = computePreferenceSubtitle(preferences);
+	const voted = FOOD_CATEGORY_ORDER.filter((c) => (preferences[c] ?? 0) >= 1);
 
 	// food image 결정
-	const isAllAny = voted.length === 0;
-	const unanimousCategory = NON_ANY_CATEGORIES.find(
-		(c) => (preferences[c] ?? 0) === peopleCount,
-	);
+	const isAllAny = voted.every((c) => c === "ANY");
+	const unanimousCategory = voted.every((c) => c !== "ANY") && voted.length === 1 ? voted[0] : null;
 	const imageCategories: FoodCategory[] = isAllAny
 		? ["ANY"]
 		: unanimousCategory
 			? [unanimousCategory]
-			: FOOD_CATEGORY_ORDER.filter(
-					(c) => c !== "ANY" && (preferences[c] ?? 0) >= 1,
-				);
+			: voted.filter((c) => c !== "ANY");
 
 	// progress bar 세그먼트 (노출 순서 기준, votes 있는 것만)
 	const barCategories = FOOD_CATEGORY_ORDER.filter(
@@ -481,7 +503,6 @@ export const VoteSummarySection = ({
 	preferences,
 	dislikes,
 	distances,
-	peopleCount,
 }: VoteSummarySectionProps) => {
 	return (
 		<section className="ygi:flex ygi:flex-col ygi:gap-3">
@@ -490,7 +511,6 @@ export const VoteSummarySection = ({
 			</h2>
 			<PreferenceVoteBlock
 				preferences={preferences}
-				peopleCount={peopleCount}
 			/>
 			<DislikeVoteBlock dislikes={dislikes} />
 			<DistanceVoteBlock distances={distances} />
