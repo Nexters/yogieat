@@ -141,7 +141,7 @@ const AutoSlideImage = ({ categories }: { categories: FoodCategory[] }) => {
 			{categories.map((cat, i) => (
 				<div
 					key={cat}
-					className="ygi:absolute ygi:inset-0 ygi:size-15 ygi:left-1/2 ygi:-translate-x-1/2 ygi:top-1/2 ygi:-translate-y-1/2 ygi:transition-opacity ygi:duration-500"
+					className="ygi:absolute ygi:inset-0 ygi:top-1/2 ygi:left-1/2 ygi:size-15 ygi:-translate-x-1/2 ygi:-translate-y-1/2 ygi:transition-opacity ygi:duration-500"
 					style={{ opacity: i === idx ? 1 : 0 }}
 				>
 					<Image
@@ -265,7 +265,11 @@ const PreferenceVoteBlock = ({
 	);
 };
 
-const DislikeVoteBlock = ({ dislikes }: { dislikes: Record<string, number> }) => {
+const DislikeVoteBlock = ({
+	dislikes,
+}: {
+	dislikes: Record<string, number>;
+}) => {
 	const subtitle = computeDislikeSubtitle(dislikes);
 
 	const votedCategories = FOOD_CATEGORY_ORDER.filter(
@@ -308,8 +312,12 @@ const DislikeVoteBlock = ({ dislikes }: { dislikes: Record<string, number> }) =>
 								/>
 							</div>
 							<p className="ygi:flex ygi:items-center ygi:gap-1">
-								<span className="ygi:caption-12-bd ygi:text-text-primary">{FOOD_CATEGORY_LABEL[cat]}</span>
-								<span className="ygi:caption-12-md ygi:text-text-primary">{dislikes[cat]}표</span>
+								<span className="ygi:caption-12-bd ygi:text-text-primary">
+									{FOOD_CATEGORY_LABEL[cat]}
+								</span>
+								<span className="ygi:caption-12-md ygi:text-text-primary">
+									{dislikes[cat]}표
+								</span>
 							</p>
 						</div>
 					))}
@@ -336,7 +344,7 @@ const DistanceVoteBlock = ({
 	return (
 		<div className="ygi:flex ygi:flex-col ygi:rounded-md ygi:bg-surface-white ygi:p-5">
 			{/* 타이틀 + subtitle */}
-			<div className="ygi:flex ygi:flex-col ygi:gap-1 ygi:mb-5">
+			<div className="ygi:mb-5 ygi:flex ygi:flex-col ygi:gap-1">
 				<span className="ygi:body-14-md ygi:text-text-secondary">
 					맛집의 거리는
 				</span>
@@ -346,7 +354,7 @@ const DistanceVoteBlock = ({
 			</div>
 
 			{/* VS 행 */}
-			<div className="ygi:flex ygi:items-center ygi:justify-between ygi:mb-2">
+			<div className="ygi:mb-2 ygi:flex ygi:items-center ygi:justify-between">
 				{/* 걷기 싫어 */}
 				<div className="ygi:flex ygi:items-center ygi:gap-1">
 					<div className="ygi:relative ygi:flex ygi:size-7 ygi:items-center ygi:justify-center ygi:rounded-full ygi:bg-surface-gray">
@@ -388,16 +396,18 @@ const DistanceVoteBlock = ({
 			</div>
 
 			{/* 게이지 바 */}
-			<div className="ygi:relative ygi:h-6 ygi:w-full ygi:overflow-hidden ygi:rounded-sm ygi:mb-2">
+			<div className="ygi:relative ygi:mb-2 ygi:h-6 ygi:w-full ygi:overflow-hidden ygi:rounded-sm">
 				{isAllAny ? (
 					// 전원 상관없음: linear-gradient
 					<div
-						className="ygi:size-full ygi:flex ygi:items-center ygi:justify-center"
+						className="ygi:flex ygi:size-full ygi:items-center ygi:justify-center"
 						style={{
 							background: `linear-gradient(to right, ${colors.palette.primary[500]}, ${colors.palette.secondary[300]})`,
 						}}
 					>
-						<span className="ygi:caption-12-bd ygi:text-text-inverse">100%</span>
+						<span className="ygi:caption-12-bd ygi:text-text-inverse">
+							100%
+						</span>
 					</div>
 				) : (
 					// 배경: far 색상 (전체)
