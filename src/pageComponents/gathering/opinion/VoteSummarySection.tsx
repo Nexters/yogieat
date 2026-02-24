@@ -365,9 +365,20 @@ const DistanceVoteBlock = ({
 							height={26}
 						/>
 					</div>
-					<span className="ygi:rounded-md ygi:bg-surface-primary ygi:px-2 ygi:py-1 ygi:caption-12-sb ygi:text-text-interactive">
-						걷기 싫어
-					</span>
+					<div className="ygi:flex ygi:items-center">
+						<div
+							style={{
+								width: 0,
+								height: 0,
+								borderTop: "5px solid transparent",
+								borderBottom: "5px solid transparent",
+								borderRight: `6px solid ${colors.surface.primary}`,
+							}}
+						/>
+						<span className="ygi:rounded-xs ygi:bg-surface-primary ygi:px-2 ygi:py-1 ygi:caption-12-sb ygi:text-text-interactive">
+							걷기 싫어
+						</span>
+					</div>
 				</div>
 
 				{/* VS */}
@@ -377,9 +388,20 @@ const DistanceVoteBlock = ({
 
 				{/* 멀어도 감수 */}
 				<div className="ygi:flex ygi:items-center ygi:gap-1">
-					<span className="ygi:rounded-md ygi:bg-surface-secondary ygi:px-2 ygi:py-1 ygi:caption-12-sb ygi:text-palette-secondary-700">
-						멀어도 감수
-					</span>
+					<div className="ygi:flex ygi:items-center">
+						<span className="ygi:rounded-xs ygi:bg-surface-secondary ygi:px-2 ygi:py-1 ygi:caption-12-sb ygi:text-palette-secondary-700">
+							멀어도 감수
+						</span>
+						<div
+							style={{
+								width: 0,
+								height: 0,
+								borderTop: "5px solid transparent",
+								borderBottom: "5px solid transparent",
+								borderLeft: `6px solid ${colors.surface.secondary}`,
+							}}
+						/>
+					</div>
 					<div className="ygi:flex ygi:size-7 ygi:items-center ygi:justify-center ygi:rounded-full ygi:bg-surface-gray">
 						<Image
 							src="/images/result/distance-far.svg"
