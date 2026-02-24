@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { FOOD_CATEGORY_LABEL } from "#/constants/gathering/opinion";
 import { colors } from "#/constants/color";
 import type { FoodCategory } from "#/types/gathering";
+import { XIcon } from "#/icons/xIcon";
 
 // 카테고리 노출 순서 (고정)
 const FOOD_CATEGORY_ORDER: FoodCategory[] = [
@@ -166,18 +167,16 @@ function PreferenceVoteBlock({
 
 	// food image 결정
 	const isAllAny = voted.length === 0;
-	const isUnanimous = NON_ANY_CATEGORIES.some(
+	const unanimousCategory = NON_ANY_CATEGORIES.find(
 		(c) => (preferences[c] ?? 0) === peopleCount,
 	);
 	const imageCategories: FoodCategory[] = isAllAny
 		? ["ANY"]
-		: isUnanimous
-			? ([NON_ANY_CATEGORIES.find(
-					(c) => (preferences[c] ?? 0) === peopleCount,
-				)] as FoodCategory[])
-			: (FOOD_CATEGORY_ORDER.filter(
+		: unanimousCategory
+			? [unanimousCategory]
+			: FOOD_CATEGORY_ORDER.filter(
 					(c) => c !== "ANY" && (preferences[c] ?? 0) >= 1,
-				) as FoodCategory[]);
+				);
 
 	// progress bar 세그먼트 (노출 순서 기준, votes 있는 것만)
 	const barCategories = FOOD_CATEGORY_ORDER.filter(
@@ -266,20 +265,7 @@ function DislikeVoteBlock({ dislikes }: { dislikes: Record<string, number> }) {
 			<div className="ygi:flex ygi:flex-col ygi:gap-2">
 				<div className="ygi:flex ygi:items-center ygi:gap-1.5">
 					<div className="ygi:flex ygi:h-5 ygi:w-5 ygi:shrink-0 ygi:items-center ygi:justify-center ygi:rounded ygi:bg-palette-primary-500">
-						<svg
-							width="11"
-							height="11"
-							viewBox="0 0 11 11"
-							fill="none"
-							xmlns="http://www.w3.org/2000/svg"
-						>
-							<path
-								d="M1 1L10 10M10 1L1 10"
-								stroke="white"
-								strokeWidth="1.8"
-								strokeLinecap="round"
-							/>
-						</svg>
+						<XIcon size={11} className="ygi:text-white" />
 					</div>
 					<span className="ygi:body-14-sb ygi:text-text-secondary">
 						우리가 먹기 싫은 건
