@@ -10,3 +10,4 @@ export { CompleteView } from "./CompleteView";
 export { LandingView } from "./LandingView";
 export { OpinionFormView } from "./OpinionFormView";
 export { SubmissionBottomSheet } from "./SubmissionBottomSheet";
+export { VoteSummarySection } from "./VoteSummarySection";
