@@ -3,12 +3,13 @@ import {
 	QueryClient,
 	dehydrate,
 } from "@tanstack/react-query";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 import { gatheringQueryOptions } from "#/apis/gathering";
 import { recommendResultOptions } from "#/apis/recommendResult";
 
 import { CompleteViewContainer } from "./CompleteViewContainer";
+import { ERROR_CODES, isApiError } from "#/utils/api";
 
 interface OpinionCompletePageProps {
 	params: Promise<{
@@ -28,13 +29,30 @@ export default async function OpinionCompletePage({
 		},
 	});
 
-	const [, { data: capacity }] = await Promise.all([
-		queryClient.fetchQuery(recommendResultOptions.detail(accessKey)),
-		queryClient.fetchQuery(gatheringQueryOptions.capacity(accessKey)),
-	]);
+	try {
+		const [, { data: capacity }] = await Promise.all([
+			queryClient.fetchQuery(recommendResultOptions.detail(accessKey)),
+			queryClient.fetchQuery(gatheringQueryOptions.capacity(accessKey)),
+		]);
 
-	if (capacity.maxCount > capacity.currentCount) {
-		redirect(`/gathering/${accessKey}/opinion/pending`);
+		if (capacity.maxCount > capacity.currentCount) {
+			redirect(`/gathering/${accessKey}/opinion/pending`);
+		}
+	} catch (error) {
+		if (isApiError(error)) {
+			switch (error.errorCode) {
+				case ERROR_CODES.RECOMMEND_ALREADY_PROCEEDED:
+					redirect(`/gathering/${accessKey}/opinion/result`);
+
+				case ERROR_CODES.RESTAURANT_NOT_FOUND:
+				case ERROR_CODES.CATEGORY_NOT_FOUND:
+				case ERROR_CODES.GATHERING_NOT_FOUND:
+				case ERROR_CODES.GATHERING_DELETED:
+					notFound();
+			}
+		}
+
+		throw error;
 	}
 
 	return (

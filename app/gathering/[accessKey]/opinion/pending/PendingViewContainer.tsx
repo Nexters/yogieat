@@ -8,6 +8,7 @@ import { gatheringKeys } from "#/apis/gathering";
 import { trackViewPage } from "#/components/analytics";
 import { Layout } from "#/components/layout";
 import { useGetGatheringCapacity } from "#/hooks/apis/gathering";
+import { useProceedRecommendResult } from "#/hooks/gathering";
 import { useServerSentEvent } from "#/hooks/sse";
 import {
 	PendingView,
@@ -24,6 +25,8 @@ export function PendingViewContainer() {
 	const router = useRouter();
 	const queryClient = useQueryClient();
 	const { accessKey } = useParams<{ accessKey: string }>();
+
+	const { proceed, isPending } = useProceedRecommendResult();
 
 	const {
 		data: { currentCount, maxCount },
@@ -77,7 +80,10 @@ export function PendingViewContainer() {
 			<Layout.Footer>
 				<div className="ygi:flex ygi:gap-3 ygi:px-6">
 					<PendingViewShareButton pageId={PAGE_ID} />
-					<PendingViewShowResultButton />
+					<PendingViewShowResultButton
+						onProceed={proceed}
+						isPending={isPending}
+					/>
 				</div>
 			</Layout.Footer>
 

@@ -51,16 +51,11 @@ export default async function OpinionResultPage({
 	} catch (error) {
 		if (isApiError(error)) {
 			switch (error.errorCode) {
-				case ERROR_CODES.PARTICIPANT_MAJORITY_NOT_REACHED: {
-					redirect(`/gathering/${accessKey}/opinion/pending`);
-				}
-				// FIXME : 서버 데이터의 정합성 이슈의 경우 어떻게 처리할지 논의 필요
 				case ERROR_CODES.RESTAURANT_NOT_FOUND:
 				case ERROR_CODES.CATEGORY_NOT_FOUND:
 				case ERROR_CODES.GATHERING_NOT_FOUND:
-				case ERROR_CODES.GATHERING_DELETED: {
+				case ERROR_CODES.GATHERING_DELETED:
 					notFound();
-				}
 			}
 		}
 
