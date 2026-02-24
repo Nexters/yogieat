@@ -1,55 +1,57 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { redirect } from "next/navigation";
+import { useEffect, useMemo } from "react";
+import { useParams, useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 
-import { trackViewPage, trackShareClick } from "#/components/analytics";
-import { Button } from "#/components/button";
+import { gatheringKeys } from "#/apis/gathering";
+import { trackViewPage } from "#/components/analytics";
 import { Layout } from "#/components/layout";
-import { Toaster } from "#/components/toast";
+import { useGetGatheringCapacity } from "#/hooks/apis/gathering";
+import { useProceedRecommendResult } from "#/hooks/gathering";
 import { useServerSentEvent } from "#/hooks/sse";
 import {
 	PendingView,
+	PendingViewShareButton,
+	PendingViewShowResultButton,
 	SubmissionBottomSheet,
 } from "#/pageComponents/gathering/opinion";
-import { share } from "#/utils/share";
-import { participantCountSchema } from "#/schemas/sse/participantCount.schema";
+import { participantCountSchema } from "#/schemas/sse";
+import { Toaster } from "#/components/toast";
 
 const PAGE_ID = "의견수합_대기";
 
-interface PendingViewContainerProps {
-	accessKey: string;
-	initialMaxCount: number;
-	initialCurrentCount: number;
-}
+export function PendingViewContainer() {
+	const router = useRouter();
+	const queryClient = useQueryClient();
+	const { accessKey } = useParams<{ accessKey: string }>();
 
-export function PendingViewContainer({
-	accessKey,
-	initialMaxCount,
-	initialCurrentCount,
-}: PendingViewContainerProps) {
-	const [currentCount, setCurrentCount] =
-		useState<number>(initialCurrentCount);
-	const [maxCount, setMaxCount] = useState<number>(initialMaxCount);
+	const { proceed, isPending } = useProceedRecommendResult();
+
+	const {
+		data: { currentCount, maxCount },
+	} = useGetGatheringCapacity(accessKey);
 
 	const eventHandlers = useMemo(
 		() => ({
 			"participant-count": (event: MessageEvent) => {
-				const { data, success } = participantCountSchema.safeParse(
-					JSON.parse(event.data),
-				);
+				const { data: updatedCapacity, success } =
+					participantCountSchema.safeParse(JSON.parse(event.data));
 
-				// TODO : 응답이 유효하지 않을 경우에 대한 후속 에러 조치 시행 필요
 				if (success) {
-					setCurrentCount(data.currentCount);
-					setMaxCount(data.maxCount);
+					queryClient.setQueryData(
+						gatheringKeys.capacity(accessKey),
+						{
+							data: updatedCapacity,
+						},
+					);
 				}
 			},
 			"gathering-full": () => {
-				redirect(`/gathering/${accessKey}/opinion/complete`);
+				router.push(`/gathering/${accessKey}/opinion/complete`);
 			},
 		}),
-		[accessKey],
+		[accessKey, router, queryClient],
 	);
 
 	useServerSentEvent({
@@ -57,30 +59,9 @@ export function PendingViewContainer({
 		events: eventHandlers,
 	});
 
-	const capacity = useMemo(
-		() => ({
-			currentCount,
-			maxCount,
-		}),
-		[currentCount, maxCount],
-	);
-
-	const handleShare = () => {
-		trackShareClick({ page_id: PAGE_ID, share_location: "Footer" });
-
-		const opinionUrl = `${window.location.origin}/gathering/${accessKey}/landing`;
-		share({
-			title: "함께 갈 맛집, 같이 정해요!",
-			text: "[요기잇] 다인원을 위한 맛집 서비스",
-			url: opinionUrl,
-		});
-	};
-
 	useEffect(() => {
-		if (capacity && accessKey) {
-			const progress = Math.round(
-				(capacity.currentCount / capacity.maxCount) * 100,
-			);
+		if (accessKey) {
+			const progress = Math.round((currentCount / maxCount) * 100);
 
 			trackViewPage({
 				page_id: PAGE_ID,
@@ -88,29 +69,21 @@ export function PendingViewContainer({
 				submit_progress: progress,
 			});
 		}
-	}, [capacity, accessKey]);
+	}, [accessKey, currentCount, maxCount]);
 
 	return (
 		<Layout.Root>
 			<PendingView />
 
-			<SubmissionBottomSheet
-				maxCount={capacity.maxCount}
-				currentCount={capacity.currentCount}
-			/>
+			<SubmissionBottomSheet />
 
 			<Layout.Footer>
 				<div className="ygi:flex ygi:gap-3 ygi:px-6">
-					<Button
-						variant="primary"
-						width="full"
-						onClick={handleShare}
-					>
-						링크 공유
-					</Button>
-					<Button variant="primary" width="full" disabled>
-						추천 결과 보기
-					</Button>
+					<PendingViewShareButton pageId={PAGE_ID} />
+					<PendingViewShowResultButton
+						onProceed={proceed}
+						isPending={isPending}
+					/>
 				</div>
 			</Layout.Footer>
 
