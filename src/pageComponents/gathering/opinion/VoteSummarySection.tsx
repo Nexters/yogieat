@@ -6,6 +6,7 @@ import { FOOD_CATEGORY_LABEL } from "#/constants/gathering/opinion";
 import { colors } from "#/constants/color";
 import type { FoodCategory } from "#/types/gathering";
 import { XIcon } from "#/icons/xIcon";
+import { CircleIcon } from "#/icons/circleIcon";
 
 // 카테고리 노출 순서 (고정)
 const FOOD_CATEGORY_ORDER: FoodCategory[] = [
@@ -42,10 +43,10 @@ export interface VoteSummarySectionProps {
 	peopleCount: number;
 }
 
-function computePreferenceSubtitle(
+const computePreferenceSubtitle = (
 	preferences: Record<string, number>,
 	peopleCount: number,
-): string {
+): string => {
 	const voted = NON_ANY_CATEGORIES.filter((c) => (preferences[c] ?? 0) >= 1);
 
 	// 우선순위 1: 5개 전부 투표됨
@@ -77,9 +78,9 @@ function computePreferenceSubtitle(
 		return `"${labels}"`;
 	}
 	return `"${labels}" 좋아`;
-}
+};
 
-function computeDislikeSubtitle(dislikes: Record<string, number>): string {
+const computeDislikeSubtitle = (dislikes: Record<string, number>): string => {
 	const voted = NON_ANY_CATEGORIES.filter((c) => (dislikes[c] ?? 0) >= 1);
 
 	// 우선순위 1: 5개 전부 투표됨
@@ -103,28 +104,28 @@ function computeDislikeSubtitle(dislikes: Record<string, number>): string {
 	);
 	const labels = ordered.map((c) => FOOD_CATEGORY_LABEL[c]).join(", ");
 	return `"${labels}" 싫어`;
-}
+};
 
-function computeDistanceSubtitle(distances: Record<string, number>): string {
+const computeDistanceSubtitle = (distances: Record<string, number>): string => {
 	const near = distances["RANGE_500M"] ?? 0;
 	const far = distances["RANGE_1KM"] ?? 0;
 	const any = distances["ANY"] ?? 0;
 
 	// ANY만 있는 경우
 	if (near === 0 && far === 0 && any > 0) {
-		return "모임원 모두가 '어디든 상관없어'";
+		return `모임원 모두가 "어디든 상관없어"`;
 	}
 
-	if (near > far) return "치열한 고민 끝에 '가까운 맛집'으로";
-	if (far > near) return "치열한 고민 끝에 '멀어도 감수'";
-	if (near === far && near > 0) return "치열한 고민 끝에 '반반'으로";
+	if (near > far) return `치열한 고민 끝에 "가까운 맛집"으로`;
+	if (far > near) return `치열한 고민 끝에 "멀어도 감수"`;
+	if (near === far && near > 0) return `치열한 고민 끝에 "반반"으로`;
 
 	// near == far == 0 (empty 포함) fallback
-	return "모임원 모두가 '어디든 상관없어'";
-}
+	return `모임원 모두가 "어디든 상관없어"`;
+};
 
 // 여러 카테고리 이미지를 무한 자동 슬라이딩
-function AutoSlideImage({ categories }: { categories: FoodCategory[] }) {
+const AutoSlideImage = ({ categories }: { categories: FoodCategory[] }) => {
 	const [idx, setIdx] = useState(0);
 
 	useEffect(() => {
@@ -136,11 +137,11 @@ function AutoSlideImage({ categories }: { categories: FoodCategory[] }) {
 	}, [categories.length]);
 
 	return (
-		<div className="ygi:relative ygi:size-16 ygi:shrink-0">
+		<div className="ygi:relative ygi:size-20 ygi:shrink-0">
 			{categories.map((cat, i) => (
 				<div
 					key={cat}
-					className="ygi:absolute ygi:inset-0 ygi:transition-opacity ygi:duration-500"
+					className="ygi:absolute ygi:inset-0 ygi:size-15 ygi:left-1/2 ygi:-translate-x-1/2 ygi:top-1/2 ygi:-translate-y-1/2 ygi:transition-opacity ygi:duration-500"
 					style={{ opacity: i === idx ? 1 : 0 }}
 				>
 					<Image
@@ -153,15 +154,15 @@ function AutoSlideImage({ categories }: { categories: FoodCategory[] }) {
 			))}
 		</div>
 	);
-}
+};
 
-function PreferenceVoteBlock({
+const PreferenceVoteBlock = ({
 	preferences,
 	peopleCount,
 }: {
 	preferences: Record<string, number>;
 	peopleCount: number;
-}) {
+}) => {
 	const subtitle = computePreferenceSubtitle(preferences, peopleCount);
 	const voted = NON_ANY_CATEGORIES.filter((c) => (preferences[c] ?? 0) >= 1);
 
@@ -193,74 +194,78 @@ function PreferenceVoteBlock({
 	);
 
 	return (
-		<div className="ygi:flex ygi:flex-col ygi:gap-4 ygi:rounded-xl ygi:bg-surface-white ygi:p-5">
+		<div className="ygi:flex ygi:flex-col ygi:gap-4 ygi:rounded-md ygi:bg-surface-white ygi:p-5">
 			{/* 헤더 */}
-			<div className="ygi:flex ygi:items-start ygi:justify-between ygi:gap-3">
-				<div className="ygi:flex ygi:flex-1 ygi:flex-col ygi:gap-2">
+			<div className="ygi:flex ygi:items-center ygi:justify-between ygi:gap-2">
+				<div className="ygi:flex ygi:flex-1 ygi:flex-col">
 					{/* 타이틀 */}
-					<div className="ygi:flex ygi:items-center ygi:gap-1.5">
+					<div className="ygi:mb-2 ygi:flex ygi:items-center ygi:gap-2">
 						<div className="ygi:flex ygi:h-5 ygi:w-5 ygi:shrink-0 ygi:items-center ygi:justify-center ygi:rounded ygi:bg-palette-secondary-500">
-							<div className="ygi:h-2.5 ygi:w-2.5 ygi:rounded-full ygi:bg-white" />
+							<CircleIcon size={11} className="ygi:text-white" />
 						</div>
-						<span className="ygi:body-14-sb ygi:text-text-secondary">
+						<span className="ygi:body-14-md ygi:text-text-secondary">
 							우리가 먹고 싶은 건
 						</span>
 					</div>
 					{/* subtitle */}
-					<p className="ygi:heading-18-bd ygi:text-text-primary">
+					<p className="ygi:mb-4 ygi:body-16-bd ygi:text-text-primary">
 						{subtitle}
 					</p>
+
+					{/* progress bar */}
+					{totalVotes > 0 && (
+						<div className="ygi:flex ygi:h-4 ygi:w-full ygi:overflow-hidden ygi:rounded-xs ygi:bg-palette-gray-200">
+							{barCategories.map((cat) => {
+								const pct =
+									((preferences[cat] ?? 0) / totalVotes) *
+									100;
+								return (
+									<div
+										key={cat}
+										style={{
+											width: `${pct}%`,
+											backgroundColor:
+												FOOD_CATEGORY_COLOR[cat],
+										}}
+										className="ygi:h-full ygi:shrink-0"
+									/>
+								);
+							})}
+						</div>
+					)}
 				</div>
 				{/* food image */}
 				<AutoSlideImage categories={imageCategories} />
 			</div>
 
-			{/* progress bar */}
-			{totalVotes > 0 && (
-				<div className="ygi:flex ygi:h-4 ygi:w-full ygi:overflow-hidden ygi:rounded-sm ygi:bg-palette-gray-200">
-					{barCategories.map((cat) => {
-						const pct =
-							((preferences[cat] ?? 0) / totalVotes) * 100;
-						return (
-							<div
-								key={cat}
-								style={{
-									width: `${pct}%`,
-									backgroundColor: FOOD_CATEGORY_COLOR[cat],
-								}}
-								className="ygi:h-full ygi:shrink-0"
-							/>
-						);
-					})}
-				</div>
-			)}
-
 			{/* 카테고리 dot 목록 */}
 			{listCategories.length > 0 && (
-				<div className="ygi:flex ygi:flex-wrap ygi:gap-x-4 ygi:gap-y-2">
-					{listCategories.map((cat) => (
-						<div
-							key={cat}
-							className="ygi:flex ygi:items-center ygi:gap-1.5"
-						>
+				<div className="ygi:rounded-md ygi:bg-surface-gray ygi:p-[12px_16px]">
+					<div className="ygi:grid ygi:grid-cols-2 ygi:gap-x-3 ygi:gap-y-2">
+						{listCategories.map((cat) => (
 							<div
-								className="ygi:size-2 ygi:shrink-0 ygi:rounded-full"
-								style={{
-									backgroundColor: FOOD_CATEGORY_COLOR[cat],
-								}}
-							/>
-							<span className="ygi:caption-12-md ygi:text-text-secondary">
-								{FOOD_CATEGORY_LABEL[cat]} {preferences[cat]}표
-							</span>
-						</div>
-					))}
+								key={cat}
+								className="ygi:flex ygi:items-center ygi:gap-2 ygi:caption-12-md ygi:text-text-primary"
+							>
+								<div
+									className="ygi:size-2 ygi:shrink-0 ygi:rounded-full"
+									style={{
+										backgroundColor:
+											FOOD_CATEGORY_COLOR[cat],
+									}}
+								/>
+								<span>{FOOD_CATEGORY_LABEL[cat]}</span>
+								<span>{preferences[cat]}표</span>
+							</div>
+						))}
+					</div>
 				</div>
 			)}
 		</div>
 	);
-}
+};
 
-function DislikeVoteBlock({ dislikes }: { dislikes: Record<string, number> }) {
+const DislikeVoteBlock = ({ dislikes }: { dislikes: Record<string, number> }) => {
 	const subtitle = computeDislikeSubtitle(dislikes);
 
 	const votedCategories = FOOD_CATEGORY_ORDER.filter(
@@ -268,10 +273,10 @@ function DislikeVoteBlock({ dislikes }: { dislikes: Record<string, number> }) {
 	);
 
 	return (
-		<div className="ygi:flex ygi:flex-col ygi:gap-4 ygi:rounded-xl ygi:bg-surface-white ygi:p-5">
+		<div className="ygi:flex ygi:flex-col ygi:rounded-md ygi:bg-surface-white ygi:p-5">
 			{/* 헤더 */}
-			<div className="ygi:flex ygi:flex-col ygi:gap-2">
-				<div className="ygi:flex ygi:items-center ygi:gap-1.5">
+			<div className="ygi:flex ygi:flex-col">
+				<div className="ygi:mb-2 ygi:flex ygi:items-center ygi:gap-2">
 					<div className="ygi:flex ygi:h-5 ygi:w-5 ygi:shrink-0 ygi:items-center ygi:justify-center ygi:rounded ygi:bg-palette-primary-500">
 						<XIcon size={11} className="ygi:text-white" />
 					</div>
@@ -279,43 +284,46 @@ function DislikeVoteBlock({ dislikes }: { dislikes: Record<string, number> }) {
 						우리가 먹기 싫은 건
 					</span>
 				</div>
-				<p className="ygi:heading-18-bd ygi:text-text-primary">
+				<p className="ygi:mb-5 ygi:body-16-sb ygi:text-text-primary">
 					{subtitle}
 				</p>
 			</div>
 
 			{/* 카테고리 이미지 그리드 */}
 			{votedCategories.length > 0 && (
-				<div className="ygi:flex ygi:flex-wrap ygi:gap-3">
+				// 한 개면 full, 2개 부터는 2 col, 3개 부터는 3 col
+				<div
+					className={`ygi:grid ygi:gap-1.5 ${votedCategories.length === 1 ? "ygi:grid-cols-1" : votedCategories.length === 2 ? "ygi:grid-cols-2" : "ygi:grid-cols-3"}`}
+				>
 					{votedCategories.map((cat) => (
 						<div
 							key={cat}
-							className="ygi:flex ygi:flex-col ygi:items-center ygi:gap-1"
+							className={`ygi:flex ygi:flex-col ygi:items-center ygi:gap-2 ygi:rounded-lg ygi:bg-surface-gray ygi:p-3 ${votedCategories.length >= 3 && "ygi:aspect-square ygi:justify-center"}`}
 						>
-							<div className="ygi:relative ygi:size-14 ygi:overflow-hidden ygi:rounded-lg ygi:bg-surface-gray">
+							<div className="ygi:relative ygi:size-10 ygi:overflow-hidden">
 								<Image
 									src={`/images/foodCategory/${cat.toLowerCase()}.svg`}
 									alt={FOOD_CATEGORY_LABEL[cat]}
 									fill
-									className="ygi:object-contain ygi:p-2"
 								/>
 							</div>
-							<span className="ygi:caption-12-md ygi:text-text-secondary">
-								{FOOD_CATEGORY_LABEL[cat]} {dislikes[cat]}표
-							</span>
+							<p className="ygi:flex ygi:items-center ygi:gap-1">
+								<span className="ygi:caption-12-bd ygi:text-text-primary">{FOOD_CATEGORY_LABEL[cat]}</span>
+								<span className="ygi:caption-12-md ygi:text-text-primary">{dislikes[cat]}표</span>
+							</p>
 						</div>
 					))}
 				</div>
 			)}
 		</div>
 	);
-}
+};
 
-function DistanceVoteBlock({
+const DistanceVoteBlock = ({
 	distances,
 }: {
 	distances: Record<string, number>;
-}) {
+}) => {
 	const subtitle = computeDistanceSubtitle(distances);
 	const near = distances["RANGE_500M"] ?? 0;
 	const far = distances["RANGE_1KM"] ?? 0;
@@ -326,9 +334,9 @@ function DistanceVoteBlock({
 	const farPct = total === 0 ? 0 : 100 - nearPct;
 
 	return (
-		<div className="ygi:flex ygi:flex-col ygi:gap-4 ygi:rounded-xl ygi:bg-surface-white ygi:p-5">
+		<div className="ygi:flex ygi:flex-col ygi:rounded-md ygi:bg-surface-white ygi:p-5">
 			{/* 타이틀 + subtitle */}
-			<div className="ygi:flex ygi:flex-col ygi:gap-1">
+			<div className="ygi:flex ygi:flex-col ygi:gap-1 ygi:mb-5">
 				<span className="ygi:body-14-md ygi:text-text-secondary">
 					맛집의 거리는
 				</span>
@@ -338,11 +346,11 @@ function DistanceVoteBlock({
 			</div>
 
 			{/* VS 행 */}
-			<div className="ygi:flex ygi:items-center ygi:justify-between">
+			<div className="ygi:flex ygi:items-center ygi:justify-between ygi:mb-2">
 				{/* 걷기 싫어 */}
 				<div className="ygi:flex ygi:items-center ygi:gap-1">
-					<div className="ygi:flex ygi:size-7 ygi:items-center ygi:justify-center ygi:rounded-full ygi:bg-surface-gray">
-						<div className="ygi:relative ygi:size-[26px]">
+					<div className="ygi:relative ygi:flex ygi:size-7 ygi:items-center ygi:justify-center ygi:rounded-full ygi:bg-surface-gray">
+						<div className="ygi:absolute ygi:inset-0 ygi:size-6.5">
 							<Image
 								src="/images/result/distance-near.svg"
 								alt="걷기 싫어"
@@ -366,8 +374,8 @@ function DistanceVoteBlock({
 					<span className="ygi:rounded-md ygi:bg-surface-secondary ygi:px-2 ygi:py-1 ygi:caption-12-sb ygi:text-palette-secondary-700">
 						멀어도 감수
 					</span>
-					<div className="ygi:flex ygi:size-7 ygi:items-center ygi:justify-center ygi:rounded-full ygi:bg-surface-gray">
-						<div className="ygi:relative ygi:size-[26px]">
+					<div className="ygi:relative ygi:flex ygi:size-7 ygi:items-center ygi:justify-center ygi:rounded-full ygi:bg-surface-gray">
+						<div className="ygi:absolute ygi:inset-0 ygi:size-6.5">
 							<Image
 								src="/images/result/distance-far.svg"
 								alt="멀어도 감수"
@@ -380,15 +388,17 @@ function DistanceVoteBlock({
 			</div>
 
 			{/* 게이지 바 */}
-			<div className="ygi:relative ygi:h-6 ygi:w-full ygi:overflow-hidden ygi:rounded-lg">
+			<div className="ygi:relative ygi:h-6 ygi:w-full ygi:overflow-hidden ygi:rounded-sm ygi:mb-2">
 				{isAllAny ? (
 					// 전원 상관없음: linear-gradient
 					<div
-						className="ygi:size-full"
+						className="ygi:size-full ygi:flex ygi:items-center ygi:justify-center"
 						style={{
 							background: `linear-gradient(to right, ${colors.palette.primary[500]}, ${colors.palette.secondary[300]})`,
 						}}
-					/>
+					>
+						<span className="ygi:caption-12-bd ygi:text-text-inverse">100%</span>
+					</div>
 				) : (
 					// 배경: far 색상 (전체)
 					<div
@@ -437,7 +447,7 @@ function DistanceVoteBlock({
 			</div>
 		</div>
 	);
-}
+};
 
 export const VoteSummarySection = ({
 	preferences,
