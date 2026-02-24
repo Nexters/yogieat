@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { toast } from "sonner";
+import { toast } from "#/utils/toast";
 import {
 	usePostProceedRecommendResult,
 	useGetRecommendResult,
@@ -64,7 +64,7 @@ export const useProceedRecommendResult = () => {
 			} catch {
 				isPollingRef.current = false;
 				setManualPollingTrigger(false);
-				toast.error("추천 결과 조회에 실패했습니다.");
+				toast.warning("추천 결과 조회에 실패했습니다.");
 			}
 		};
 
@@ -99,12 +99,12 @@ export const useProceedRecommendResult = () => {
 						return;
 
 					default:
-						toast.error(error.message);
+						toast.warning(error.message);
 						return;
 				}
 			}
 
-			toast.error(
+			toast.warning(
 				"추천 결과 생성 요청에 실패했습니다. 다시 시도해주세요.",
 			);
 		}
