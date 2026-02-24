@@ -11,13 +11,15 @@ import { RecommendationResultStatus } from "#/constants/gathering/opinion";
 import { OpinionFormPage } from "#/pageComponents/gathering/opinion";
 import { ERROR_CODES, isApiError } from "#/utils/api";
 
-interface OpinionPageProps {
+interface GatheringOpinionProps {
 	params: Promise<{
 		accessKey: string;
 	}>;
 }
 
-export default async function OpinionPage({ params }: OpinionPageProps) {
+export default async function GatheringOpinion({
+	params,
+}: GatheringOpinionProps) {
 	const { accessKey } = await params;
 	const queryClient = new QueryClient({
 		defaultOptions: {

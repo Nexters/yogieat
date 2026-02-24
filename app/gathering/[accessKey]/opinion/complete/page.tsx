@@ -8,18 +8,18 @@ import { notFound, redirect } from "next/navigation";
 import { gatheringQueryOptions } from "#/apis/gathering";
 import { recommendResultOptions } from "#/apis/recommendResult";
 
-import { CompleteViewContainer } from "./CompleteViewContainer";
+import { CompletePage } from "#/pageComponents/gathering/opinion/complete";
 import { ERROR_CODES, isApiError } from "#/utils/api";
 
-interface OpinionCompletePageProps {
+interface GatheringOpinionCompleteProps {
 	params: Promise<{
 		accessKey: string;
 	}>;
 }
 
-export default async function OpinionCompletePage({
+export default async function GatheringOpinionComplete({
 	params,
-}: OpinionCompletePageProps) {
+}: GatheringOpinionCompleteProps) {
 	const { accessKey } = await params;
 	const queryClient = new QueryClient({
 		defaultOptions: {
@@ -57,7 +57,7 @@ export default async function OpinionCompletePage({
 
 	return (
 		<HydrationBoundary state={dehydrate(queryClient)}>
-			<CompleteViewContainer />
+			<CompletePage />
 		</HydrationBoundary>
 	);
 }
