@@ -1,9 +1,9 @@
 import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 
 import { getRecommendResult } from "#/apis/recommendResult";
 import { RecommendationResultStatus } from "#/constants/gathering/opinion";
+import { toast } from "#/utils/toast";
 import { isApiError } from "#/types/api/error";
 
 interface UseRecommendResultPollingOptions {
@@ -46,7 +46,7 @@ export const useWaitForRecommendResult = ({
 					case RecommendationResultStatus.FAILED:
 					default: {
 						isPollingRef.current = false;
-						toast.error(
+						toast.warning(
 							"추천 결과 생성에 실패했습니다. 다시 시도해주세요.",
 						);
 						break;
@@ -57,11 +57,11 @@ export const useWaitForRecommendResult = ({
 
 				if (isApiError(error)) {
 					const errorMessage = error.response?.data?.message;
-					toast.error(
+					toast.warning(
 						errorMessage || "추천 결과를 불러오는데 실패했습니다.",
 					);
 				} else {
-					toast.error("추천 결과를 불러오는데 실패했습니다.");
+					toast.warning("추천 결과를 불러오는데 실패했습니다.");
 				}
 			}
 		};
