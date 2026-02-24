@@ -19,6 +19,7 @@ export const useProceedRecommendResult = () => {
 	const router = useRouter();
 	const queryClient = useQueryClient();
 	const { accessKey } = useParams<{ accessKey: string }>();
+
 	const [manualPollingTrigger, setManualPollingTrigger] = useState(false);
 
 	const { data: recommendResult } = useGetRecommendResult(accessKey);
@@ -48,9 +49,10 @@ export const useProceedRecommendResult = () => {
 					case RecommendationResultStatus.COMPLETED:
 						isPollingRef.current = false;
 						setManualPollingTrigger(false);
-						await queryClient.invalidateQueries({
-							queryKey: recommendResultKeys.detail(accessKey),
-						});
+						queryClient.setQueryData(
+							recommendResultKeys.detail(accessKey),
+							response,
+						);
 						router.push(`/gathering/${accessKey}/opinion/result`);
 						break;
 
