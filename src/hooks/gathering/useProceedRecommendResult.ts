@@ -2,17 +2,22 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "#/utils/toast";
 import {
 	usePostProceedRecommendResult,
 	useGetRecommendResult,
 } from "#/hooks/apis";
-import { getRecommendResult } from "#/apis/recommendResult";
+import {
+	getRecommendResult,
+	recommendResultKeys,
+} from "#/apis/recommendResult";
 import { ERROR_CODES, isApiError } from "#/utils/api";
 import { RecommendationResultStatus } from "#/constants/gathering/opinion";
 
 export const useProceedRecommendResult = () => {
 	const router = useRouter();
+	const queryClient = useQueryClient();
 	const { accessKey } = useParams<{ accessKey: string }>();
 	const [manualPollingTrigger, setManualPollingTrigger] = useState(false);
 
@@ -43,6 +48,9 @@ export const useProceedRecommendResult = () => {
 					case RecommendationResultStatus.COMPLETED:
 						isPollingRef.current = false;
 						setManualPollingTrigger(false);
+						await queryClient.invalidateQueries({
+							queryKey: recommendResultKeys.detail(accessKey),
+						});
 						router.push(`/gathering/${accessKey}/opinion/result`);
 						break;
 
@@ -76,7 +84,7 @@ export const useProceedRecommendResult = () => {
 				clearTimeout(timeoutRef.current);
 			}
 		};
-	}, [shouldPoll, accessKey, router]);
+	}, [shouldPoll, accessKey, router, queryClient]);
 
 	const proceed = async () => {
 		if (recommendResult.status === RecommendationResultStatus.COMPLETED) {
