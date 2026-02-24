@@ -34,9 +34,7 @@ export default async function OpinionPage({ params }: OpinionPageProps) {
 				queryClient.fetchQuery(
 					recommendResultOptions.detail(accessKey),
 				),
-				queryClient.fetchQuery(
-					gatheringQueryOptions.detail(accessKey),
-				),
+				queryClient.fetchQuery(gatheringQueryOptions.detail(accessKey)),
 				queryClient.fetchQuery(
 					gatheringQueryOptions.capacity(accessKey),
 				),
@@ -46,10 +44,7 @@ export default async function OpinionPage({ params }: OpinionPageProps) {
 			redirect(`/gathering/${accessKey}/opinion/complete`);
 		}
 
-		if (
-			recommendResult.status ===
-			RecommendationResultStatus.COMPLETED
-		) {
+		if (recommendResult.status === RecommendationResultStatus.COMPLETED) {
 			redirect(`/gathering/${accessKey}/opinion/result`);
 		}
 	} catch (error) {

@@ -28,9 +28,7 @@ export default async function LandingPage({ params }: LandingPageProps) {
 	try {
 		await Promise.all([
 			queryClient.fetchQuery(gatheringQueryOptions.detail(accessKey)),
-			queryClient.fetchQuery(
-				gatheringQueryOptions.capacity(accessKey),
-			),
+			queryClient.fetchQuery(gatheringQueryOptions.capacity(accessKey)),
 		]);
 	} catch (error) {
 		if (isApiError(error)) {

@@ -45,10 +45,7 @@ export default async function OpinionPendingPage({
 			redirect(`/gathering/${accessKey}/opinion/complete`);
 		}
 
-		if (
-			recommendResult.status ===
-			RecommendationResultStatus.COMPLETED
-		) {
+		if (recommendResult.status === RecommendationResultStatus.COMPLETED) {
 			redirect(`/gathering/${accessKey}/opinion/result`);
 		}
 	} catch (error) {
