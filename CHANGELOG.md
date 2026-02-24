@@ -5,6 +5,12 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.0-beta.4](https://github.com/Nexters/yogieat/compare/v1.6.0-beta.3...v1.6.0-beta.4) (2026-02-24)
+
+### Features
+
+* 과반수 이상 의견 제출 시 추천 결과 생성 관련 API, Hook 추가 ([#103](https://github.com/Nexters/yogieat/issues/103)) ([5b31eec](https://github.com/Nexters/yogieat/commit/5b31eec62d2c3009053591d30b635118efdabbce)), closes [#105](https://github.com/Nexters/yogieat/issues/105)
+
 ## [1.6.0-beta.3](https://github.com/Nexters/yogieat/compare/v1.6.0-beta.2...v1.6.0-beta.3) (2026-02-23)
 
 ### Features
