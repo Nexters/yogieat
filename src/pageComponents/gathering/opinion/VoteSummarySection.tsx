@@ -9,7 +9,7 @@ import { XIcon } from "#/icons/xIcon";
 import { CircleIcon } from "#/icons/circleIcon";
 
 // 카테고리 노출 순서 (고정)
-const FOOD_CATEGORY_ORDER: FoodCategory[] = [
+const foodCategoryOrder: FoodCategory[] = [
 	"KOREAN",
 	"JAPANESE",
 	"CHINESE",
@@ -18,7 +18,7 @@ const FOOD_CATEGORY_ORDER: FoodCategory[] = [
 	"ANY",
 ];
 
-const NON_ANY_CATEGORIES: FoodCategory[] = [
+const nonAnyCategories: FoodCategory[] = [
 	"KOREAN",
 	"JAPANESE",
 	"CHINESE",
@@ -27,7 +27,7 @@ const NON_ANY_CATEGORIES: FoodCategory[] = [
 ];
 
 // 카테고리별 그래프 색상 (inline style용)
-const FOOD_CATEGORY_COLOR: Record<FoodCategory, string> = {
+const foodCategoryColorMap: Record<FoodCategory, string> = {
 	KOREAN: colors.palette.primary[500],
 	JAPANESE: colors.palette.yellow[900],
 	CHINESE: colors.palette.primary[900],
@@ -45,10 +45,10 @@ export interface VoteSummarySectionProps {
 const computePreferenceSubtitle = (
 	preferences: Record<string, number>,
 ): string => {
-	const voted = FOOD_CATEGORY_ORDER.filter((c) => (preferences[c] ?? 0) >= 1);
+	const voted = foodCategoryOrder.filter((c) => (preferences[c] ?? 0) >= 1);
 
 	// 우선순위 1: 5개 전부 투표됨
-	if (voted.filter((c) => c !== "ANY").length === NON_ANY_CATEGORIES.length) {
+	if (voted.filter((c) => c !== "ANY").length === nonAnyCategories.length) {
 		return "각자 좋아하는게 달라";
 	}
 
@@ -63,7 +63,7 @@ const computePreferenceSubtitle = (
 	}
 
 	// 우선순위 4 & 5: 카테고리 나열 (노출 순서 기준)
-	const ordered = FOOD_CATEGORY_ORDER.filter(
+	const ordered = foodCategoryOrder.filter(
 		(c) => c !== "ANY" && (preferences[c] ?? 0) >= 1,
 	);
 	const labels = ordered.map((c) => FOOD_CATEGORY_LABEL[c]).join(", ");
@@ -76,10 +76,10 @@ const computePreferenceSubtitle = (
 };
 
 const computeDislikeSubtitle = (dislikes: Record<string, number>): string => {
-	const voted = FOOD_CATEGORY_ORDER.filter((c) => (dislikes[c] ?? 0) >= 1);
+	const voted = foodCategoryOrder.filter((c) => (dislikes[c] ?? 0) >= 1);
 
 	// 우선순위 1: 5개 전부 투표됨
-	if (voted.filter((c) => c !== "ANY").length === NON_ANY_CATEGORIES.length) {
+	if (voted.filter((c) => c !== "ANY").length === nonAnyCategories.length) {
 		return "모두 달라서 한 명이 양보해줘...";
 	}
 
@@ -94,7 +94,7 @@ const computeDislikeSubtitle = (dislikes: Record<string, number>): string => {
 	}
 
 	// 우선순위 4: 2~4개 나열 (노출 순서 기준)
-	const ordered = FOOD_CATEGORY_ORDER.filter(
+	const ordered = foodCategoryOrder.filter(
 		(c) => c !== "ANY" && (dislikes[c] ?? 0) >= 1,
 	);
 	const labels = ordered.map((c) => FOOD_CATEGORY_LABEL[c]).join(", ");
@@ -190,7 +190,7 @@ const PreferenceVoteBlock = ({
 	preferences: Record<string, number>;
 }) => {
 	const subtitle = computePreferenceSubtitle(preferences);
-	const voted = FOOD_CATEGORY_ORDER.filter((c) => (preferences[c] ?? 0) >= 1);
+	const voted = foodCategoryOrder.filter((c) => (preferences[c] ?? 0) >= 1);
 
 	// food image 결정
 	const isAllAny = voted.every((c) => c === "ANY");
@@ -202,7 +202,7 @@ const PreferenceVoteBlock = ({
 			: voted.filter((c) => c !== "ANY");
 
 	// progress bar 세그먼트 (노출 순서 기준, votes 있는 것만)
-	const barCategories = FOOD_CATEGORY_ORDER.filter(
+	const barCategories = foodCategoryOrder.filter(
 		(c) => (preferences[c] ?? 0) >= 1,
 	);
 	const totalVotes = barCategories.reduce(
@@ -211,7 +211,7 @@ const PreferenceVoteBlock = ({
 	);
 
 	// 카테고리 dot 목록 (ANY 포함, 순서 유지, count > 0만)
-	const listCategories = FOOD_CATEGORY_ORDER.filter(
+	const listCategories = foodCategoryOrder.filter(
 		(c) => (preferences[c] ?? 0) >= 1,
 	);
 
@@ -247,7 +247,7 @@ const PreferenceVoteBlock = ({
 										style={{
 											width: `${pct}%`,
 											backgroundColor:
-												FOOD_CATEGORY_COLOR[cat],
+												foodCategoryColorMap[cat],
 										}}
 										className="ygi:h-full ygi:shrink-0"
 									/>
@@ -273,7 +273,7 @@ const PreferenceVoteBlock = ({
 									className="ygi:size-2 ygi:shrink-0 ygi:rounded-full"
 									style={{
 										backgroundColor:
-											FOOD_CATEGORY_COLOR[cat],
+											foodCategoryColorMap[cat],
 									}}
 								/>
 								<span>{FOOD_CATEGORY_LABEL[cat]}</span>
@@ -294,7 +294,7 @@ const DislikeVoteBlock = ({
 }) => {
 	const subtitle = computeDislikeSubtitle(dislikes);
 
-	const votedCategories = FOOD_CATEGORY_ORDER.filter(
+	const votedCategories = foodCategoryOrder.filter(
 		(c) => (dislikes[c] ?? 0) >= 1,
 	);
 
