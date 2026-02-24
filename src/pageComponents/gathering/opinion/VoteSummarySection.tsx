@@ -149,7 +149,9 @@ const AutoSlideImage = ({ categories }: { categories: FoodCategory[] }) => {
 				className="ygi:absolute ygi:inset-0 ygi:flex ygi:items-center ygi:justify-center"
 				style={{
 					transform: sliding ? "translateX(-100%)" : "translateX(0)",
-					transition: sliding ? "transform 500ms ease-in-out" : "none",
+					transition: sliding
+						? "transform 500ms ease-in-out"
+						: "none",
 				}}
 			>
 				<div className="ygi:relative ygi:size-15">
@@ -166,8 +168,12 @@ const AutoSlideImage = ({ categories }: { categories: FoodCategory[] }) => {
 				<div
 					className="ygi:absolute ygi:inset-0 ygi:flex ygi:items-center ygi:justify-center"
 					style={{
-						transform: sliding ? "translateX(0)" : "translateX(100%)",
-						transition: sliding ? "transform 500ms ease-in-out" : "none",
+						transform: sliding
+							? "translateX(0)"
+							: "translateX(100%)",
+						transition: sliding
+							? "transform 500ms ease-in-out"
+							: "none",
 					}}
 				>
 					<div className="ygi:relative ygi:size-15">
@@ -194,7 +200,8 @@ const PreferenceVoteBlock = ({
 
 	// food image 결정
 	const isAllAny = voted.every((c) => c === "ANY");
-	const unanimousCategory = voted.every((c) => c !== "ANY") && voted.length === 1 ? voted[0] : null;
+	const unanimousCategory =
+		voted.every((c) => c !== "ANY") && voted.length === 1 ? voted[0] : null;
 	const imageCategories: FoodCategory[] = isAllAny
 		? ["ANY"]
 		: unanimousCategory
@@ -509,9 +516,7 @@ export const VoteSummarySection = ({
 			<h2 className="ygi:heading-22-bd ygi:text-text-primary">
 				투표 결과
 			</h2>
-			<PreferenceVoteBlock
-				preferences={preferences}
-			/>
+			<PreferenceVoteBlock preferences={preferences} />
 			<DislikeVoteBlock dislikes={dislikes} />
 			<DistanceVoteBlock distances={distances} />
 		</section>
