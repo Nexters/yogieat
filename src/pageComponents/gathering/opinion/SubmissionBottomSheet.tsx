@@ -1,16 +1,17 @@
 "use client";
 
+import { useParams } from "next/navigation";
+
 import { ProgressBar } from "#/components/progressBar";
+import { useGetGatheringCapacity } from "#/hooks/apis/gathering";
 
-interface SubmissionBottomSheetProps {
-	maxCount: number;
-	currentCount: number;
-}
+export const SubmissionBottomSheet = () => {
+	const { accessKey } = useParams<{ accessKey: string }>();
 
-export const SubmissionBottomSheet = ({
-	maxCount,
-	currentCount,
-}: SubmissionBottomSheetProps) => {
+	const {
+		data: { currentCount, maxCount },
+	} = useGetGatheringCapacity(accessKey);
+
 	const percentage =
 		maxCount > 0 ? Math.round((currentCount / maxCount) * 100) : 0;
 

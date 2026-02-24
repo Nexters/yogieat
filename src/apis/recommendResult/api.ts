@@ -1,6 +1,10 @@
 import { apiClient } from "#/utils/api";
 
-import type { GetRecommendResultResponse } from "./type";
+import {
+	PostProcessRecommendResultRequest,
+	PostProcessRecommendResultResponse,
+	type GetRecommendResultResponse,
+} from "./type";
 
 /**
  * 추천 결과 조회 API
@@ -10,4 +14,13 @@ export const getRecommendResult = (accessKey: string) => {
 	return apiClient.get<GetRecommendResultResponse>(
 		`recommend-results/${accessKey}`,
 	);
+};
+
+export const postProcessRecommendResult = (accessKey: string) => {
+	return apiClient.post<
+		PostProcessRecommendResultResponse,
+		PostProcessRecommendResultRequest
+	>(`recommend-results/proceed`, {
+		accessKey,
+	});
 };
