@@ -8,7 +8,7 @@ import { notFound, redirect } from "next/navigation";
 import { gatheringQueryOptions } from "#/apis/gathering";
 import { recommendResultOptions } from "#/apis/recommendResult";
 import { RecommendationResultStatus } from "#/constants/gathering/opinion";
-import { OpinionFormView } from "#/pageComponents/gathering/opinion";
+import { OpinionFormPage } from "#/pageComponents/gathering/opinion";
 import { ERROR_CODES, isApiError } from "#/utils/api";
 
 interface OpinionPageProps {
@@ -65,7 +65,7 @@ export default async function OpinionPage({ params }: OpinionPageProps) {
 
 	return (
 		<HydrationBoundary state={dehydrate(queryClient)}>
-			<OpinionFormView />
+			<OpinionFormPage />
 		</HydrationBoundary>
 	);
 }

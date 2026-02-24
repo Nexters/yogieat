@@ -7,10 +7,9 @@ import { notFound, redirect } from "next/navigation";
 
 import { gatheringQueryOptions } from "#/apis/gathering";
 import { recommendResultOptions } from "#/apis/recommendResult";
-
-import { PendingViewContainer } from "./PendingViewContainer";
-import { ERROR_CODES, isApiError } from "#/utils/api";
 import { RecommendationResultStatus } from "#/constants/gathering/opinion";
+import { PendingPage } from "#/pageComponents/gathering/opinion";
+import { ERROR_CODES, isApiError } from "#/utils/api";
 
 interface OpinionPendingPageProps {
 	params: Promise<{
@@ -67,7 +66,7 @@ export default async function OpinionPendingPage({
 
 	return (
 		<HydrationBoundary state={dehydrate(queryClient)}>
-			<PendingViewContainer />
+			<PendingPage />
 		</HydrationBoundary>
 	);
 }
