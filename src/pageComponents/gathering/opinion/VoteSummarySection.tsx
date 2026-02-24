@@ -207,7 +207,9 @@ function PreferenceVoteBlock({
 						</span>
 					</div>
 					{/* subtitle */}
-					<p className="ygi:heading-18-bd ygi:text-text-primary">{subtitle}</p>
+					<p className="ygi:heading-18-bd ygi:text-text-primary">
+						{subtitle}
+					</p>
 				</div>
 				{/* food image */}
 				<AutoSlideImage categories={imageCategories} />
@@ -217,7 +219,8 @@ function PreferenceVoteBlock({
 			{totalVotes > 0 && (
 				<div className="ygi:flex ygi:h-4 ygi:w-full ygi:overflow-hidden ygi:rounded-sm ygi:bg-palette-gray-200">
 					{barCategories.map((cat) => {
-						const pct = ((preferences[cat] ?? 0) / totalVotes) * 100;
+						const pct =
+							((preferences[cat] ?? 0) / totalVotes) * 100;
 						return (
 							<div
 								key={cat}
@@ -236,10 +239,15 @@ function PreferenceVoteBlock({
 			{listCategories.length > 0 && (
 				<div className="ygi:flex ygi:flex-wrap ygi:gap-x-4 ygi:gap-y-2">
 					{listCategories.map((cat) => (
-						<div key={cat} className="ygi:flex ygi:items-center ygi:gap-1.5">
+						<div
+							key={cat}
+							className="ygi:flex ygi:items-center ygi:gap-1.5"
+						>
 							<div
 								className="ygi:size-2 ygi:shrink-0 ygi:rounded-full"
-								style={{ backgroundColor: FOOD_CATEGORY_COLOR[cat] }}
+								style={{
+									backgroundColor: FOOD_CATEGORY_COLOR[cat],
+								}}
 							/>
 							<span className="ygi:caption-12-md ygi:text-text-secondary">
 								{FOOD_CATEGORY_LABEL[cat]} {preferences[cat]}표
@@ -271,7 +279,9 @@ function DislikeVoteBlock({ dislikes }: { dislikes: Record<string, number> }) {
 						우리가 먹기 싫은 건
 					</span>
 				</div>
-				<p className="ygi:heading-18-bd ygi:text-text-primary">{subtitle}</p>
+				<p className="ygi:heading-18-bd ygi:text-text-primary">
+					{subtitle}
+				</p>
 			</div>
 
 			{/* 카테고리 이미지 그리드 */}
@@ -322,7 +332,9 @@ function DistanceVoteBlock({
 				<span className="ygi:body-14-md ygi:text-text-secondary">
 					맛집의 거리는
 				</span>
-				<p className="ygi:body-16-sb ygi:text-text-primary">{subtitle}</p>
+				<p className="ygi:body-16-sb ygi:text-text-primary">
+					{subtitle}
+				</p>
 			</div>
 
 			{/* VS 행 */}
@@ -339,17 +351,19 @@ function DistanceVoteBlock({
 							/>
 						</div>
 					</div>
-					<span className="ygi:caption-12-sb ygi:rounded-md ygi:bg-surface-primary ygi:px-2 ygi:py-1 ygi:text-text-interactive">
+					<span className="ygi:rounded-md ygi:bg-surface-primary ygi:px-2 ygi:py-1 ygi:caption-12-sb ygi:text-text-interactive">
 						걷기 싫어
 					</span>
 				</div>
 
 				{/* VS */}
-				<span className="ygi:caption-12-bd ygi:text-text-placeholder">VS</span>
+				<span className="ygi:caption-12-bd ygi:text-text-placeholder">
+					VS
+				</span>
 
 				{/* 멀어도 감수 */}
 				<div className="ygi:flex ygi:items-center ygi:gap-1">
-					<span className="ygi:caption-12-sb ygi:rounded-md ygi:bg-surface-secondary ygi:px-2 ygi:py-1 ygi:text-palette-secondary-700">
+					<span className="ygi:rounded-md ygi:bg-surface-secondary ygi:px-2 ygi:py-1 ygi:caption-12-sb ygi:text-palette-secondary-700">
 						멀어도 감수
 					</span>
 					<div className="ygi:flex ygi:size-7 ygi:items-center ygi:justify-center ygi:rounded-full ygi:bg-surface-gray">
@@ -379,7 +393,9 @@ function DistanceVoteBlock({
 					// 배경: far 색상 (전체)
 					<div
 						className="ygi:absolute ygi:inset-0"
-						style={{ backgroundColor: colors.palette.secondary[300] }}
+						style={{
+							backgroundColor: colors.palette.secondary[300],
+						}}
 					>
 						{/* near 오버레이 (왼쪽부터) */}
 						{nearPct > 0 && (
@@ -387,7 +403,8 @@ function DistanceVoteBlock({
 								className="ygi:absolute ygi:inset-y-0 ygi:left-0 ygi:flex ygi:items-center ygi:pl-2"
 								style={{
 									width: `${nearPct}%`,
-									backgroundColor: colors.palette.primary[500],
+									backgroundColor:
+										colors.palette.primary[500],
 								}}
 							>
 								{nearPct >= 15 && (
@@ -430,7 +447,9 @@ export const VoteSummarySection = ({
 }: VoteSummarySectionProps) => {
 	return (
 		<section className="ygi:flex ygi:flex-col ygi:gap-3">
-			<h2 className="ygi:heading-22-bd ygi:text-text-primary">투표 결과</h2>
+			<h2 className="ygi:heading-22-bd ygi:text-text-primary">
+				투표 결과
+			</h2>
 			<PreferenceVoteBlock
 				preferences={preferences}
 				peopleCount={peopleCount}

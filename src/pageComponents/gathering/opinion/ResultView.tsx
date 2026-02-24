@@ -3,10 +3,7 @@
 import { Layout } from "#/components/layout";
 import { OtherCandidateCard } from "#/pageComponents/gathering/restaurantCard";
 import type { RecommendationResult } from "#/types/gathering";
-import {
-	REGION_LABEL,
-	TIME_SLOT_LABEL,
-} from "#/constants/gathering/opinion";
+import { REGION_LABEL, TIME_SLOT_LABEL } from "#/constants/gathering/opinion";
 import { parse, format } from "date-fns";
 import { TasteSummaryCard } from "#/pageComponents/gathering/opinion/TasteSummaryCard";
 import { VoteSummarySection } from "#/pageComponents/gathering/opinion/VoteSummarySection";
