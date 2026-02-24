@@ -16,7 +16,15 @@ type GeminiErrorCode = "G001" | "G002";
 type KakaoErrorCode = "K001" | "K002";
 
 /** Restaurant 에러 코드 */
-type RestaurantErrorCode = "R001" | "R002" | "R003" | "R004" | "R005";
+type RestaurantErrorCode =
+	| "R001"
+	| "R002"
+	| "R003"
+	| "R004"
+	| "R005"
+	| "R006"
+	| "R007"
+	| "R008";
 
 /** Gathering 에러 코드 */
 type GatheringErrorCode =
@@ -29,13 +37,20 @@ type GatheringErrorCode =
 	| "GA007";
 
 /** Participant 에러 코드 */
-type ParticipantErrorCode = "P001" | "P002";
+type ParticipantErrorCode =
+	| "P001"
+	| "P002"
+	| "P003"
+	| "P004"
+	| "P005"
+	| "P006"
+	| "P007";
 
 /** Lock 에러 코드 */
 type LockErrorCode = "L001";
 
 /** Recommend 에러 코드 */
-type RecommendErrorCode = "REC001" | "REC002";
+type RecommendErrorCode = "REC001" | "REC002" | "REC003";
 
 /**
  * 서버에서 반환하는 모든 에러 코드 타입
@@ -78,6 +93,9 @@ export const ERROR_CODES = {
 	INVALID_CATEGORY_NAME: "R003",
 	RESTAURANT_NOT_FOUND: "R004",
 	CATEGORY_NOT_FOUND: "R005",
+	SYNC_JOB_NOT_FOUND: "R006",
+	SYNC_JOB_CONFLICT: "R007",
+	RESTAURANT_SYNC_FAILED: "R008",
 
 	// Gathering
 	GATHERING_NOT_FOUND: "GA001",
@@ -91,6 +109,11 @@ export const ERROR_CODES = {
 	// Participant
 	PARTICIPANT_DISLIKES_EXCEEDED: "P001",
 	PARTICIPANT_PREFERENCES_EXCEEDED: "P002",
+	PARTICIPANT_NICKNAME_REQUIRED: "P003",
+	PARTICIPANT_NICKNAME_TOO_LONG: "P004",
+	PARTICIPANT_NICKNAME_INVALID: "P005",
+	DUPLICATE_NICKNAME: "P006",
+	PARTICIPANT_MAJORITY_NOT_REACHED: "P007",
 
 	// Lock
 	LOCK_TIMEOUT: "L001",
@@ -98,4 +121,5 @@ export const ERROR_CODES = {
 	// Recommend
 	INVALID_CATEGORY_AGGREGATION: "REC001",
 	INVALID_PREFERENCE_SCORE: "REC002",
+	RECOMMEND_ALREADY_PROCEEDED: "REC003",
 } as const satisfies Record<string, ErrorCode>;

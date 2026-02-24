@@ -5,6 +5,30 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.0-beta.6](https://github.com/Nexters/yogieat/compare/v1.6.0-beta.5...v1.6.0-beta.6) (2026-02-24)
+
+### Features
+
+* 결과 페이지 - 투표 결과 섹션 구현 ([#106](https://github.com/Nexters/yogieat/issues/106)) ([c633225](https://github.com/Nexters/yogieat/commit/c6332256a59ef96b079f7ac26705b30c0e9ae02c))
+
+## [1.6.0-beta.5](https://github.com/Nexters/yogieat/compare/v1.6.0-beta.4...v1.6.0-beta.5) (2026-02-24)
+
+### Features
+
+* 404, 500 에러 페이지 추가 ([#107](https://github.com/Nexters/yogieat/issues/107)) ([e9e5772](https://github.com/Nexters/yogieat/commit/e9e57725127ea384c2836c61910488e137801271))
+
+## [1.6.0-beta.4](https://github.com/Nexters/yogieat/compare/v1.6.0-beta.3...v1.6.0-beta.4) (2026-02-24)
+
+### Features
+
+* 과반수 이상 의견 제출 시 추천 결과 생성 관련 API, Hook 추가 ([#103](https://github.com/Nexters/yogieat/issues/103)) ([5b31eec](https://github.com/Nexters/yogieat/commit/5b31eec62d2c3009053591d30b635118efdabbce)), closes [#105](https://github.com/Nexters/yogieat/issues/105)
+
+## [1.6.0-beta.3](https://github.com/Nexters/yogieat/compare/v1.6.0-beta.2...v1.6.0-beta.3) (2026-02-23)
+
+### Features
+
+* 취향 요약 카드 추가 ([#104](https://github.com/Nexters/yogieat/issues/104)) ([816fa96](https://github.com/Nexters/yogieat/commit/816fa96e04460501abfa485bd987c90a70c186da))
+
 ## [1.6.0-beta.2](https://github.com/Nexters/yogieat/compare/v1.6.0-beta.1...v1.6.0-beta.2) (2026-02-22)
 
 ### Features
