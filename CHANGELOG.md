@@ -5,6 +5,12 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.0-beta.7](https://github.com/Nexters/yogieat/compare/v1.6.0-beta.6...v1.6.0-beta.7) (2026-02-24)
+
+### Features
+
+* 인원 수 선택 시 시각적 피드백 추가 ([e9f6de6](https://github.com/Nexters/yogieat/commit/e9f6de6e647cc9825db8b88014ee5e2c6042a38e))
+
 ## [1.6.0-beta.6](https://github.com/Nexters/yogieat/compare/v1.6.0-beta.5...v1.6.0-beta.6) (2026-02-24)
 
 ### Features
