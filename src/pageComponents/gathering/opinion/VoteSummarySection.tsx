@@ -357,15 +357,13 @@ const DistanceVoteBlock = ({
 			<div className="ygi:mb-2 ygi:flex ygi:items-center ygi:justify-between">
 				{/* 걷기 싫어 */}
 				<div className="ygi:flex ygi:items-center ygi:gap-1">
-					<div className="ygi:relative ygi:flex ygi:size-7 ygi:items-center ygi:justify-center ygi:rounded-full ygi:bg-surface-gray">
-						<div className="ygi:absolute ygi:inset-0 ygi:size-6.5">
-							<Image
-								src="/images/result/distance-near.svg"
-								alt="걷기 싫어"
-								fill
-								className="ygi:object-contain"
-							/>
-						</div>
+					<div className="ygi:flex ygi:size-7 ygi:items-center ygi:justify-center ygi:rounded-full ygi:bg-surface-gray">
+						<Image
+							src="/images/result/distance-near.svg"
+							alt="걷기 싫어"
+							width={26}
+							height={26}
+						/>
 					</div>
 					<span className="ygi:rounded-md ygi:bg-surface-primary ygi:px-2 ygi:py-1 ygi:caption-12-sb ygi:text-text-interactive">
 						걷기 싫어
@@ -382,15 +380,13 @@ const DistanceVoteBlock = ({
 					<span className="ygi:rounded-md ygi:bg-surface-secondary ygi:px-2 ygi:py-1 ygi:caption-12-sb ygi:text-palette-secondary-700">
 						멀어도 감수
 					</span>
-					<div className="ygi:relative ygi:flex ygi:size-7 ygi:items-center ygi:justify-center ygi:rounded-full ygi:bg-surface-gray">
-						<div className="ygi:absolute ygi:inset-0 ygi:size-6.5">
-							<Image
-								src="/images/result/distance-far.svg"
-								alt="멀어도 감수"
-								fill
-								className="ygi:object-contain"
-							/>
-						</div>
+					<div className="ygi:flex ygi:size-7 ygi:items-center ygi:justify-center ygi:rounded-full ygi:bg-surface-gray">
+						<Image
+							src="/images/result/distance-far.svg"
+							alt="멀어도 감수"
+							width={26}
+							height={26}
+						/>
 					</div>
 				</div>
 			</div>
