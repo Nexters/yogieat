@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { getRecommendResult } from "#/apis/recommendResult";
 import { RecommendationResultStatus } from "#/constants/gathering/opinion";
 import { toast } from "#/utils/toast";
-import { isApiError } from "#/types/api/error";
+import { isApiError } from "#/utils/api";
 
 interface UseRecommendResultPollingOptions {
 	accessKey: string;
@@ -27,9 +27,9 @@ export const useWaitForRecommendResult = ({
 		const poll = async () => {
 			try {
 				const response = await getRecommendResult(accessKey);
-				const result = response.data;
+				const { status: recommendResultStatus } = response.data;
 
-				switch (result.status) {
+				switch (recommendResultStatus) {
 					case RecommendationResultStatus.COMPLETED: {
 						isPollingRef.current = false;
 						router.push(`/gathering/${accessKey}/opinion/result`);
@@ -56,9 +56,8 @@ export const useWaitForRecommendResult = ({
 				isPollingRef.current = false;
 
 				if (isApiError(error)) {
-					const errorMessage = error.response?.data?.message;
 					toast.warning(
-						errorMessage || "추천 결과를 불러오는데 실패했습니다.",
+						error.message || "추천 결과를 불러오는데 실패했습니다.",
 					);
 				} else {
 					toast.warning("추천 결과를 불러오는데 실패했습니다.");
