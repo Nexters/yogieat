@@ -2,8 +2,8 @@ export const NotFoundIllustration = () => {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
-			width="150"
-			height="199"
+			width="93"
+			height="124"
 			viewBox="0 0 150 199"
 			fill="none"
 		>
