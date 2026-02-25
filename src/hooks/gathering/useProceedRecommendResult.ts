@@ -46,14 +46,14 @@ export const useProceedRecommendResult = () => {
 
 		setTimeout(async () => {
 			const { data: latestResult } = await fetchRecommendResult();
-			isProcessingRef.current = false;
-			setProceedState({ status: PROCEED_STATUS.IDLE });
 
 			if (latestResult?.status === RecommendationResultStatus.COMPLETED) {
 				router.push(`/gathering/${accessKey}/opinion/result`);
 				return;
 			}
 
+			isProcessingRef.current = false;
+			setProceedState({ status: PROCEED_STATUS.IDLE });
 			toast.warning(
 				"추천 결과가 아직 준비되지 않았습니다. 잠시 후 다시 시도해주세요.",
 			);
@@ -81,9 +81,19 @@ export const useProceedRecommendResult = () => {
 			}
 
 			switch (latestResult.status) {
-				case RecommendationResultStatus.COMPLETED:
-					router.push(`/gathering/${accessKey}/opinion/result`);
+				case RecommendationResultStatus.COMPLETED: {
+					isProcessingRef.current = true;
+					const startTime = Date.now();
+					setProceedState({
+						status: PROCEED_STATUS.PROCESSING,
+						startTime,
+					});
+
+					setTimeout(() => {
+						router.push(`/gathering/${accessKey}/opinion/result`);
+					}, NAVIGATION_DELAY);
 					return;
+				}
 
 				case RecommendationResultStatus.FAILED:
 					toast.warning(
@@ -91,7 +101,7 @@ export const useProceedRecommendResult = () => {
 					);
 					return;
 
-				case RecommendationResultStatus.PENDING:
+				case RecommendationResultStatus.PENDING: {
 					isProcessingRef.current = true;
 					const startTime = Date.now();
 					setProceedState({
@@ -99,6 +109,7 @@ export const useProceedRecommendResult = () => {
 						startTime,
 					});
 					return;
+				}
 			}
 		} catch (error) {
 			setProceedState({ status: PROCEED_STATUS.IDLE });
