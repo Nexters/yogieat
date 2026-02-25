@@ -7,7 +7,7 @@ import { trackStepComplete } from "#/components/analytics";
 import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
 import { Button } from "#/components/button";
-import { PeopleIllustration } from "#/components/illustrations";
+import { PeopleGroup } from "./PeopleGroup";
 import { PeopleCountGrid } from "./PeopleCountGrid";
 import type { CreateMeetingFormSchema } from "#/schemas/gathering";
 
@@ -31,10 +31,8 @@ export const PeopleStepContent = () => {
 				</h1>
 				<PeopleCountGrid value={field.value} onChange={handleChange} />
 			</div>
-			<div className="ygi:flex ygi:grow ygi:flex-col ygi:justify-center">
-				<div className="ygi:py-auto ygi:flex ygi:h-45 ygi:w-full ygi:items-center ygi:justify-center">
-					<PeopleIllustration count={field.value} />
-				</div>
+			<div className="ygi:flex ygi:grow ygi:flex-col ygi:items-center ygi:justify-center">
+				<PeopleGroup count={field.value} />
 			</div>
 		</section>
 	);
