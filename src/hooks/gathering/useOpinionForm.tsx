@@ -55,6 +55,7 @@ export function useOpinionForm() {
 			if (isApiError(error)) {
 				switch (error.errorCode) {
 					case ERROR_CODES.GATHERING_FULL:
+					case ERROR_CODES.DUPLICATE_NICKNAME:
 					case ERROR_CODES.RECOMMEND_ALREADY_PROCEEDED: {
 						toast.warning(error.message, {
 							action: (
