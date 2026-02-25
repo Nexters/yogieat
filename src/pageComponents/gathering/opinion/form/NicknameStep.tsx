@@ -9,38 +9,41 @@ import { Button } from "#/components/button";
 import { InputField } from "#/components/inputField";
 import { nicknameSchema, type OpinionFormSchema } from "#/schemas/gathering";
 
-export const NicknameStepContent = () => {
+const Header = () => {
+	return (
+		<StepHeader.Root>
+			<StepHeader.Title>
+				모임 링크에 입장하기 위해
+				<br />
+				이름을 입력해주세요
+			</StepHeader.Title>
+			<StepHeader.Description>
+				모임원을 식별하는 용도예요
+			</StepHeader.Description>
+		</StepHeader.Root>
+	);
+};
+
+const Content = () => {
 	const {
 		register,
 		formState: { errors },
 	} = useFormContext<OpinionFormSchema>();
 
 	return (
-		<div className="ygi:flex ygi:flex-col ygi:gap-xl ygi:px-6 ygi:pt-3">
-			<StepHeader.Root>
-				<StepHeader.Title>
-					모임 링크에 입장하기 위해
-					<br />
-					이름을 입력해주세요
-				</StepHeader.Title>
-				<StepHeader.Description>
-					모임원을 식별하는 용도예요
-				</StepHeader.Description>
-			</StepHeader.Root>
-			<InputField
-				{...register("nickname")}
-				placeholder="이름을 입력해주세요"
-				errorText={errors.nickname?.message}
-			/>
-		</div>
+		<InputField
+			{...register("nickname")}
+			placeholder="이름을 입력해주세요"
+			errorText={errors.nickname?.message}
+		/>
 	);
 };
 
-interface NicknameStepFooterProps {
+interface FooterProps {
 	onNext: () => void;
 }
 
-export const NicknameStepFooter = ({ onNext }: NicknameStepFooterProps) => {
+const Footer = ({ onNext }: FooterProps) => {
 	const { control } = useFormContext<OpinionFormSchema>();
 
 	const { nickname, disabled } = useWatch({
@@ -75,4 +78,10 @@ export const NicknameStepFooter = ({ onNext }: NicknameStepFooterProps) => {
 			</div>
 		</Layout.Footer>
 	);
+};
+
+export const NicknameStep = {
+	Header,
+	Content,
+	Footer,
 };

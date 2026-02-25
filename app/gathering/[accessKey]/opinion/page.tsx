@@ -7,18 +7,19 @@ import { notFound, redirect } from "next/navigation";
 
 import { gatheringQueryOptions } from "#/apis/gathering";
 import { recommendResultOptions } from "#/apis/recommendResult";
-
-import { OpinionFormView } from "#/pageComponents/gathering/opinion";
-import { ERROR_CODES, isApiError } from "#/utils/api";
 import { RecommendationResultStatus } from "#/constants/gathering/opinion";
+import { OpinionFormPage } from "#/pageComponents/gathering/opinion";
+import { ERROR_CODES, isApiError } from "#/utils/api";
 
-interface OpinionPageProps {
+interface GatheringOpinionProps {
 	params: Promise<{
 		accessKey: string;
 	}>;
 }
 
-export default async function OpinionPage({ params }: OpinionPageProps) {
+export default async function GatheringOpinion({
+	params,
+}: GatheringOpinionProps) {
 	const { accessKey } = await params;
 	const queryClient = new QueryClient({
 		defaultOptions: {
@@ -66,7 +67,7 @@ export default async function OpinionPage({ params }: OpinionPageProps) {
 
 	return (
 		<HydrationBoundary state={dehydrate(queryClient)}>
-			<OpinionFormView />
+			<OpinionFormPage />
 		</HydrationBoundary>
 	);
 }

@@ -5,23 +5,84 @@ import { useFormContext, useWatch } from "react-hook-form";
 import { omit } from "es-toolkit";
 
 import { trackStepComplete } from "#/components/analytics";
-import { Layout } from "#/components/layout";
-import { StepIndicator } from "#/components/stepIndicator";
-import { StepHeader } from "#/components/stepHeader";
 import { Button } from "#/components/button";
+import { Layout } from "#/components/layout";
+import { StepHeader } from "#/components/stepHeader";
+import { StepIndicator } from "#/components/stepIndicator";
 import {
-	RANKS,
-	OPINION_TOTAL_STEPS,
 	FOOD_CATEGORIES,
+	OPINION_TOTAL_STEPS,
+	RANK_LABELS,
+	RANKS,
 } from "#/constants/gathering/opinion";
-import { RankSection } from "./RankSection";
 import {
 	preferredMenusSchema,
 	type OpinionFormSchema,
 } from "#/schemas/gathering";
 import type { RankKey } from "#/types/gathering";
 
-export const PreferenceStepContent = () => {
+import { RankChip } from "./RankChip";
+
+interface RankSectionProps {
+	rank: RankKey;
+}
+
+const RankSection = ({ rank }: RankSectionProps) => {
+	const { control } = useFormContext<OpinionFormSchema>();
+
+	const disabled = useWatch({
+		control,
+		name: "preferredMenus",
+		compute: (data) =>
+			RANKS.slice(0, RANKS.indexOf(rank)).some(
+				(prevRank) => data[prevRank] === "ANY",
+			),
+	});
+
+	const dislikedFoods = useWatch({
+		control,
+		name: "dislikedFoods",
+	});
+
+	const availableCategories = FOOD_CATEGORIES.filter(
+		(category) =>
+			category.value === "ANY" ||
+			!dislikedFoods?.includes(category.value),
+	);
+
+	return (
+		<div className="ygi:flex ygi:flex-col ygi:gap-6 ygi:py-6">
+			<div className="ygi:flex ygi:items-center ygi:justify-between">
+				<h2 className="ygi:heading-18-bd ygi:text-text-primary">
+					{RANK_LABELS[rank]}
+				</h2>
+			</div>
+			<div className="ygi:flex ygi:flex-wrap ygi:gap-3">
+				{availableCategories.map((category) => (
+					<RankChip
+						key={category.value}
+						rank={rank}
+						category={category.value}
+						disabled={disabled}
+					/>
+				))}
+			</div>
+		</div>
+	);
+};
+
+const Header = () => {
+	return (
+		<>
+			<StepIndicator currentStep={3} totalSteps={OPINION_TOTAL_STEPS} />
+			<StepHeader.Root>
+				<StepHeader.Title>먹고 싶은 음식을 골라주세요</StepHeader.Title>
+			</StepHeader.Root>
+		</>
+	);
+};
+
+const Content = () => {
 	const { control, setValue } = useFormContext<OpinionFormSchema>();
 
 	const [dislikedFoods, preferredMenus] = useWatch({
@@ -52,29 +113,15 @@ export const PreferenceStepContent = () => {
 	}, [dislikedFoods, preferredMenus, setValue]);
 
 	return (
-		<div className="ygi:flex ygi:flex-col ygi:gap-8 ygi:px-6 ygi:pt-3 ygi:pb-6">
-			<div className="ygi:flex ygi:flex-col ygi:gap-6">
-				<StepIndicator
-					currentStep={3}
-					totalSteps={OPINION_TOTAL_STEPS}
-				/>
-				<StepHeader.Root>
-					<StepHeader.Title>
-						먹고 싶은 음식을 골라주세요
-					</StepHeader.Title>
-				</StepHeader.Root>
-			</div>
-
-			<div className="ygi:flex ygi:flex-col ">
-				{RANKS.map((rank) => (
-					<RankSection key={rank} rank={rank} />
-				))}
-			</div>
+		<div className="ygi:flex ygi:flex-col">
+			{RANKS.map((rank) => (
+				<RankSection key={rank} rank={rank} />
+			))}
 		</div>
 	);
 };
 
-export const PreferenceStepFooter = () => {
+const Footer = () => {
 	const { control } = useFormContext<OpinionFormSchema>();
 
 	const { preferredMenus, disabled } = useWatch({
@@ -117,4 +164,10 @@ export const PreferenceStepFooter = () => {
 			</div>
 		</Layout.Footer>
 	);
+};
+
+export const PreferenceStep = {
+	Header,
+	Content,
+	Footer,
 };

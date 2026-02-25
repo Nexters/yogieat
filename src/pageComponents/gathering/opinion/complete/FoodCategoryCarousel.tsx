@@ -32,10 +32,6 @@ export const FoodCategoryCarousel = () => {
 	useLayoutEffect(() => {
 		x.set(getTargetX(indexRef.current));
 
-		if (containerRef.current) {
-			containerRef.current.style.opacity = "1";
-		}
-
 		const moveToNextStep = async () => {
 			indexRef.current += 1;
 
@@ -59,15 +55,14 @@ export const FoodCategoryCarousel = () => {
 	}, [totalCount, x]);
 
 	return (
-		<div
+		<motion.div
 			ref={containerRef}
 			className="ygi:relative ygi:w-full"
-			style={{ opacity: 0, transition: "opacity 0.3s ease-out" }}
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1 }}
+			transition={{ duration: 0.3, ease: "easeOut" }}
 		>
-			<div
-				className="ygi:pointer-events-none ygi:absolute ygi:z-10"
-				style={{ top: -36, left: "calc(50% - 122px)" }}
-			>
+			<div className="ygi:pointer-events-none ygi:absolute ygi:-top-9 ygi:left-[calc(50%-122px)] ygi:z-10">
 				<Image
 					src="/images/opinion/chopstick.svg"
 					alt=""
@@ -77,10 +72,7 @@ export const FoodCategoryCarousel = () => {
 				/>
 			</div>
 
-			<div
-				className="ygi:pointer-events-none ygi:absolute ygi:z-10"
-				style={{ bottom: -26, left: "calc(50% + 72px)" }}
-			>
+			<div className="ygi:pointer-events-none ygi:absolute ygi:-bottom-6.5 ygi:left-[calc(50%+72px)] ygi:z-10">
 				<Image
 					src="/images/opinion/spoon.svg"
 					alt=""
@@ -100,6 +92,6 @@ export const FoodCategoryCarousel = () => {
 					))}
 				</motion.div>
 			</div>
-		</div>
+		</motion.div>
 	);
 };

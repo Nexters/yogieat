@@ -1,11 +1,12 @@
 "use client";
 
-import { useFormContext, useWatch } from "react-hook-form";
+import { useFormContext, useWatch, useController } from "react-hook-form";
 import { trackStepComplete } from "#/components/analytics";
 import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
 import { StepHeader } from "#/components/stepHeader";
 import { Button } from "#/components/button";
+import { Chip } from "#/components/chip";
 import {
 	DISTANCE_OPTIONS,
 	OPINION_TOTAL_STEPS,
@@ -16,19 +17,18 @@ import {
 	type OpinionFormSchema,
 } from "#/schemas/gathering";
 import type { GetGatheringResponse } from "#/apis/gathering";
-import { DistanceSelector } from "./DistanceSelector";
 
-interface DistanceStepContentProps {
+interface HeaderProps {
 	region: GetGatheringResponse["region"];
 }
 
-export const DistanceStepContent = ({ region }: DistanceStepContentProps) => {
+const Header = ({ region }: HeaderProps) => {
 	const stationName =
 		REGION_OPTIONS.find((currentRegion) => currentRegion.value === region)
 			?.label ?? "";
 
 	return (
-		<div className="ygi:flex ygi:flex-col ygi:gap-xl ygi:px-6 ygi:pt-3">
+		<>
 			<StepIndicator currentStep={1} totalSteps={OPINION_TOTAL_STEPS} />
 			<StepHeader.Root>
 				<StepHeader.Title>
@@ -40,16 +40,36 @@ export const DistanceStepContent = ({ region }: DistanceStepContentProps) => {
 					{`${stationName} 기준으로 추천 범위를 정할게요`}
 				</StepHeader.Description>
 			</StepHeader.Root>
-			<DistanceSelector />
+		</>
+	);
+};
+
+const Content = () => {
+	const { control } = useFormContext<OpinionFormSchema>();
+	const { field } = useController({ name: "distanceRange", control });
+
+	return (
+		<div className="ygi:flex ygi:gap-3">
+			{DISTANCE_OPTIONS.map((option) => (
+				<Chip
+					key={option.value}
+					selected={field.value === option.value}
+					onClick={() => {
+						field.onChange(option.value);
+					}}
+				>
+					{option.label}
+				</Chip>
+			))}
 		</div>
 	);
 };
 
-interface DistanceStepFooterProps {
+interface FooterProps {
 	onNext: () => void;
 }
 
-export const DistanceStepFooter = ({ onNext }: DistanceStepFooterProps) => {
+const Footer = ({ onNext }: FooterProps) => {
 	const { control } = useFormContext<OpinionFormSchema>();
 	const { distanceRange, disabled } = useWatch({
 		control,
@@ -86,4 +106,10 @@ export const DistanceStepFooter = ({ onNext }: DistanceStepFooterProps) => {
 			</div>
 		</Layout.Footer>
 	);
+};
+
+export const DistanceStep = {
+	Header,
+	Content,
+	Footer,
 };

@@ -10,17 +10,17 @@ import { recommendResultOptions } from "#/apis/recommendResult";
 import { ERROR_CODES, isApiError } from "#/utils/api";
 import { RecommendationResultStatus } from "#/constants/gathering/opinion";
 
-import { ResultViewContainer } from "./ResultViewContainer";
+import { ResultPage } from "#/pageComponents/gathering/opinion/result";
 
-interface OpinionResultPageProps {
+interface GatheringOpinionResultProps {
 	params: Promise<{
 		accessKey: string;
 	}>;
 }
 
-export default async function OpinionResultPage({
+export default async function GatheringOpinionResult({
 	params,
-}: OpinionResultPageProps) {
+}: GatheringOpinionResultProps) {
 	const { accessKey } = await params;
 	const queryClient = new QueryClient({
 		defaultOptions: {
@@ -64,7 +64,7 @@ export default async function OpinionResultPage({
 
 	return (
 		<HydrationBoundary state={dehydrate(queryClient)}>
-			<ResultViewContainer />
+			<ResultPage />
 		</HydrationBoundary>
 	);
 }

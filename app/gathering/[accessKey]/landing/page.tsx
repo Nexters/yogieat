@@ -6,16 +6,18 @@ import {
 import { notFound } from "next/navigation";
 
 import { gatheringQueryOptions } from "#/apis/gathering";
-import { LandingView } from "#/pageComponents/gathering/opinion";
+import { LandingPage } from "#/pageComponents/gathering/opinion";
 import { ERROR_CODES, isApiError } from "#/utils/api";
 
-interface LandingPageProps {
+interface GatheringLandingProps {
 	params: Promise<{
 		accessKey: string;
 	}>;
 }
 
-export default async function LandingPage({ params }: LandingPageProps) {
+export default async function GatheringLanding({
+	params,
+}: GatheringLandingProps) {
 	const { accessKey } = await params;
 	const queryClient = new QueryClient({
 		defaultOptions: {
@@ -44,7 +46,7 @@ export default async function LandingPage({ params }: LandingPageProps) {
 
 	return (
 		<HydrationBoundary state={dehydrate(queryClient)}>
-			<LandingView />
+			<LandingPage />
 		</HydrationBoundary>
 	);
 }

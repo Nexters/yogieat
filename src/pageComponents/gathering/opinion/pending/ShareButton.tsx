@@ -1,17 +1,16 @@
 "use client";
 
+import { useParams } from "next/navigation";
+
 import { trackShareClick } from "#/components/analytics";
 import { Button } from "#/components/button";
 import { share } from "#/utils/share";
-import { useParams } from "next/navigation";
 
-interface PendingViewShareButtonProps {
+interface ShareButtonProps {
 	pageId: string;
 }
 
-export const PendingViewShareButton = ({
-	pageId,
-}: PendingViewShareButtonProps) => {
+export const ShareButton = ({ pageId }: ShareButtonProps) => {
 	const { accessKey } = useParams<{ accessKey: string }>();
 
 	const handleShare = () => {

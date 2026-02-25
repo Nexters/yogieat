@@ -10,7 +10,6 @@ import {
 import type { RankKey } from "#/types/gathering";
 import type { OpinionFormSchema } from "#/schemas/gathering";
 import { RankChip } from "./RankChip";
-import { twJoin } from "tailwind-merge";
 
 interface RankSectionProps {
 	rank: RankKey;
@@ -28,16 +27,16 @@ export const RankSection = ({ rank }: RankSectionProps) => {
 			),
 	});
 
-	const dislikedFoods = useWatch({
+	const availableCategories = useWatch({
 		control,
 		name: "dislikedFoods",
+		compute: (dislikedFoods) =>
+			FOOD_CATEGORIES.filter(
+				(category) =>
+					category.value === "ANY" ||
+					!dislikedFoods?.includes(category.value),
+			),
 	});
-
-	const availableCategories = FOOD_CATEGORIES.filter(
-		(category) =>
-			category.value === "ANY" ||
-			!dislikedFoods?.includes(category.value),
-	);
 
 	return (
 		<div className="ygi:flex ygi:flex-col ygi:gap-6 ygi:py-6">
@@ -46,7 +45,7 @@ export const RankSection = ({ rank }: RankSectionProps) => {
 					{RANK_LABELS[rank]}
 				</h2>
 			</div>
-			<div className={twJoin("ygi:flex ygi:flex-wrap ygi:gap-3")}>
+			<div className="ygi:flex ygi:flex-wrap ygi:gap-3">
 				{availableCategories.map((category) => (
 					<RankChip
 						key={category.value}

@@ -8,18 +8,19 @@ import { notFound, redirect } from "next/navigation";
 import { gatheringQueryOptions } from "#/apis/gathering";
 import { recommendResultOptions } from "#/apis/recommendResult";
 
-import { CompleteViewContainer } from "./CompleteViewContainer";
+import { CompletePage } from "#/pageComponents/gathering/opinion";
 import { ERROR_CODES, isApiError } from "#/utils/api";
+import { RecommendationResultStatus } from "#/constants/gathering/opinion";
 
-interface OpinionCompletePageProps {
+interface GatheringOpinionCompleteProps {
 	params: Promise<{
 		accessKey: string;
 	}>;
 }
 
-export default async function OpinionCompletePage({
+export default async function GatheringOpinionComplete({
 	params,
-}: OpinionCompletePageProps) {
+}: GatheringOpinionCompleteProps) {
 	const { accessKey } = await params;
 	const queryClient = new QueryClient({
 		defaultOptions: {
@@ -30,12 +31,20 @@ export default async function OpinionCompletePage({
 	});
 
 	try {
-		const [, { data: capacity }] = await Promise.all([
-			queryClient.fetchQuery(recommendResultOptions.detail(accessKey)),
-			queryClient.fetchQuery(gatheringQueryOptions.capacity(accessKey)),
-		]);
+		const [{ data: recommendResult }, { data: capacity }] =
+			await Promise.all([
+				queryClient.fetchQuery(
+					recommendResultOptions.detail(accessKey),
+				),
+				queryClient.fetchQuery(
+					gatheringQueryOptions.capacity(accessKey),
+				),
+			]);
 
-		if (capacity.maxCount > capacity.currentCount) {
+		if (
+			recommendResult.status !== RecommendationResultStatus.COMPLETED &&
+			capacity.maxCount > capacity.currentCount
+		) {
 			redirect(`/gathering/${accessKey}/opinion/pending`);
 		}
 	} catch (error) {
@@ -57,7 +66,7 @@ export default async function OpinionCompletePage({
 
 	return (
 		<HydrationBoundary state={dehydrate(queryClient)}>
-			<CompleteViewContainer />
+			<CompletePage />
 		</HydrationBoundary>
 	);
 }

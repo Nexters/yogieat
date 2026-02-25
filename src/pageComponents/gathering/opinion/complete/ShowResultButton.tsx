@@ -4,17 +4,17 @@ import { trackCtaClick } from "#/components/analytics";
 import { Button } from "#/components/button";
 import { Spinner } from "#/components/spinner";
 
-interface CompleteViewShowResultButtonProps {
+interface ShowResultButtonProps {
 	pageId: string;
 	onProceed: () => void;
 	isPending: boolean;
 }
 
-export const CompleteViewShowResultButton = ({
+export const ShowResultButton = ({
 	pageId,
 	onProceed,
 	isPending,
-}: CompleteViewShowResultButtonProps) => {
+}: ShowResultButtonProps) => {
 	const handleClickShowResultButton = () => {
 		trackCtaClick({ page_id: pageId, button_name: "추천 결과 보기" });
 		onProceed();

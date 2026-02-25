@@ -1,26 +1,27 @@
 "use client";
 
+import { useParams } from "next/navigation";
+
 import { Button } from "#/components/button";
 import { Spinner } from "#/components/spinner";
-import { useParams } from "next/navigation";
 import { useGetGatheringCapacity } from "#/hooks/apis/gathering";
 
-interface PendingViewShowResultButtonProps {
+interface ShowResultButtonProps {
 	onProceed: () => void;
 	isPending: boolean;
 }
 
-export const PendingViewShowResultButton = ({
+export const ShowResultButton = ({
 	onProceed,
 	isPending,
-}: PendingViewShowResultButtonProps) => {
+}: ShowResultButtonProps) => {
 	const { accessKey } = useParams<{ accessKey: string }>();
 
 	const {
 		data: { currentCount, maxCount },
 	} = useGetGatheringCapacity(accessKey);
 
-	const hasReachedMajority = currentCount * 2 >= maxCount;
+	const hasReachedMajority = currentCount * 2 > maxCount;
 	const disabled = !hasReachedMajority || isPending;
 
 	return (

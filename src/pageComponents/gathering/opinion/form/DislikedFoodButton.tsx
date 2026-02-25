@@ -1,16 +1,15 @@
 "use client";
 
-import { useFormContext, useController } from "react-hook-form";
-import { motion } from "motion/react";
-import { XIcon } from "#/icons/xIcon";
-import { cva } from "class-variance-authority";
-import { AnimatePresence } from "motion/react";
-import { twJoin } from "tailwind-merge";
+import { useController, useFormContext } from "react-hook-form";
 import Image from "next/image";
+import { AnimatePresence, motion } from "motion/react";
+import { cva } from "class-variance-authority";
+import { twJoin } from "tailwind-merge";
 
 import { FOOD_CATEGORY_LABEL } from "#/constants/gathering/opinion";
-import type { FoodCategory } from "#/types/gathering";
+import { XIcon } from "#/icons/xIcon";
 import type { OpinionFormSchema } from "#/schemas/gathering";
+import type { FoodCategory } from "#/types/gathering";
 
 const dislikedFoodButtonVariants = cva(
 	[
