@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useParams } from "next/navigation";
 
 import { trackViewPage } from "#/components/analytics";
@@ -12,13 +12,16 @@ import { useProceedRecommendResult } from "#/hooks/gathering";
 import { SubmissionBottomSheet } from "../SubmissionBottomSheet";
 import { CategoryCarousel } from "./CategoryCarousel";
 import { ShowResultButton } from "./ShowResultButton";
+import { ResultGeneratingPage } from "../result";
+import { useServerSentEvent } from "#/hooks/sse";
 
 const PAGE_ID = "의견수합_완료";
 
 export function CompletePage() {
 	const { accessKey } = useParams<{ accessKey: string }>();
 
-	const { proceed, isPending } = useProceedRecommendResult();
+	const { proceed, isPending, onResultComplete } =
+		useProceedRecommendResult();
 
 	useEffect(() => {
 		if (accessKey) {
@@ -29,6 +32,26 @@ export function CompletePage() {
 			});
 		}
 	}, [accessKey]);
+
+	const eventHandlers = useMemo(
+		() => ({
+			"gathering-full": onResultComplete,
+		}),
+		[onResultComplete],
+	);
+
+	useServerSentEvent({
+		url: `/gatherings/${accessKey}/subscribe`,
+		events: eventHandlers,
+	});
+
+	if (isPending) {
+		return (
+			<Layout.Root>
+				<ResultGeneratingPage />
+			</Layout.Root>
+		);
+	}
 
 	return (
 		<Layout.Root>
