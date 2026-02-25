@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { CATEGORY_LABEL } from "#/constants/gathering/opinion";
+import { CATEGORY, CATEGORY_LABEL } from "#/constants/gathering/opinion";
 import { colors } from "#/constants/color";
 import type { Category } from "#/types/gathering";
 import { XIcon } from "#/icons/xIcon";
@@ -10,20 +10,20 @@ import { CircleIcon } from "#/icons/circleIcon";
 
 // 카테고리 노출 순서 (고정)
 const foodCategoryOrder: Category[] = [
-	"KOREAN",
-	"JAPANESE",
-	"CHINESE",
-	"WESTERN",
-	"ASIAN",
-	"ANY",
+	CATEGORY.KOREAN,
+	CATEGORY.JAPANESE,
+	CATEGORY.CHINESE,
+	CATEGORY.WESTERN,
+	CATEGORY.ASIAN,
+	CATEGORY.ANY,
 ];
 
 const nonAnyCategories: Category[] = [
-	"KOREAN",
-	"JAPANESE",
-	"CHINESE",
-	"WESTERN",
-	"ASIAN",
+	CATEGORY.KOREAN,
+	CATEGORY.JAPANESE,
+	CATEGORY.CHINESE,
+	CATEGORY.WESTERN,
+	CATEGORY.ASIAN,
 ];
 
 // 카테고리별 그래프 색상 (inline style용)
@@ -48,23 +48,23 @@ const computePreferenceSubtitle = (
 	const voted = foodCategoryOrder.filter((c) => (preferences[c] ?? 0) >= 1);
 
 	// 우선순위 1: 5개 전부 투표됨
-	if (voted.filter((c) => c !== "ANY").length === nonAnyCategories.length) {
+	if (voted.filter((c) => c !== CATEGORY.ANY).length === nonAnyCategories.length) {
 		return "각자 좋아하는게 달라";
 	}
 
 	// 우선순위 2: 만장일치 (특정 카테고리 count == peopleCount)
-	if (voted.every((c) => c !== "ANY") && voted.length === 1) {
+	if (voted.every((c) => c !== CATEGORY.ANY) && voted.length === 1) {
 		return `"${CATEGORY_LABEL[voted[0]]}"으로 만장일치`;
 	}
 
 	// 우선순위 3: non-ANY 투표 없음
-	if (voted.every((c) => c === "ANY")) {
+	if (voted.every((c) => c === CATEGORY.ANY)) {
 		return "아무거나 상관없어";
 	}
 
 	// 우선순위 4 & 5: 카테고리 나열 (노출 순서 기준)
 	const ordered = foodCategoryOrder.filter(
-		(c) => c !== "ANY" && (preferences[c] ?? 0) >= 1,
+		(c) => c !== CATEGORY.ANY && (preferences[c] ?? 0) >= 1,
 	);
 	const labels = ordered.map((c) => CATEGORY_LABEL[c]).join(", ");
 
@@ -79,23 +79,23 @@ const computeDislikeSubtitle = (dislikes: Record<string, number>): string => {
 	const voted = foodCategoryOrder.filter((c) => (dislikes[c] ?? 0) >= 1);
 
 	// 우선순위 1: 5개 전부 투표됨
-	if (voted.filter((c) => c !== "ANY").length === nonAnyCategories.length) {
+	if (voted.filter((c) => c !== CATEGORY.ANY).length === nonAnyCategories.length) {
 		return "모두 달라서 한 명이 양보해줘...";
 	}
 
 	// 우선순위 2: 투표 없음
-	if (voted.every((c) => c === "ANY")) {
+	if (voted.every((c) => c === CATEGORY.ANY)) {
 		return "의견을 내주면 안될까...";
 	}
 
 	// 우선순위 3: 1개만 선택
-	if (voted.every((c) => c !== "ANY") && voted.length === 1) {
+	if (voted.every((c) => c !== CATEGORY.ANY) && voted.length === 1) {
 		return `"${CATEGORY_LABEL[voted[0]]}"으로 만장일치`;
 	}
 
 	// 우선순위 4: 2~4개 나열 (노출 순서 기준)
 	const ordered = foodCategoryOrder.filter(
-		(c) => c !== "ANY" && (dislikes[c] ?? 0) >= 1,
+		(c) => c !== CATEGORY.ANY && (dislikes[c] ?? 0) >= 1,
 	);
 	const labels = ordered.map((c) => CATEGORY_LABEL[c]).join(", ");
 	return `"${labels}" 싫어`;
@@ -199,14 +199,14 @@ const PreferenceVoteBlock = ({
 	const voted = foodCategoryOrder.filter((c) => (preferences[c] ?? 0) >= 1);
 
 	// food image 결정
-	const isAllAny = voted.every((c) => c === "ANY");
+	const isAllAny = voted.every((c) => c === CATEGORY.ANY);
 	const unanimousCategory =
-		voted.every((c) => c !== "ANY") && voted.length === 1 ? voted[0] : null;
+		voted.every((c) => c !== CATEGORY.ANY) && voted.length === 1 ? voted[0] : null;
 	const imageCategories: Category[] = isAllAny
-		? ["ANY"]
+		? [CATEGORY.ANY]
 		: unanimousCategory
 			? [unanimousCategory]
-			: voted.filter((c) => c !== "ANY");
+			: voted.filter((c) => c !== CATEGORY.ANY);
 
 	// progress bar 세그먼트 (노출 순서 기준, votes 있는 것만)
 	const barCategories = foodCategoryOrder.filter(
