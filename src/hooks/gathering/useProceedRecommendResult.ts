@@ -1,129 +1,117 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { useQueryClient } from "@tanstack/react-query";
-import { toast } from "#/utils/toast";
+
+import { RecommendationResultStatus } from "#/constants/gathering/opinion";
 import {
 	usePostProceedRecommendResult,
 	useGetRecommendResult,
 } from "#/hooks/apis";
-import {
-	getRecommendResult,
-	recommendResultKeys,
-} from "#/apis/recommendResult";
-import { ERROR_CODES, isApiError } from "#/utils/api";
-import { RecommendationResultStatus } from "#/constants/gathering/opinion";
+import { isApiError } from "#/utils/api";
+import { toast } from "#/utils/toast";
+
+const NAVIGATION_DELAY = 2_500;
+
+const PROCEED_STATUS = {
+	IDLE: "idle",
+	PROCESSING: "processing",
+} as const;
+
+type ProceedState =
+	| { status: typeof PROCEED_STATUS.IDLE }
+	| { status: typeof PROCEED_STATUS.PROCESSING; startTime: number };
 
 export const useProceedRecommendResult = () => {
 	const router = useRouter();
-	const queryClient = useQueryClient();
 	const { accessKey } = useParams<{ accessKey: string }>();
 
-	const [manualPollingTrigger, setManualPollingTrigger] = useState(false);
+	const [proceedState, setProceedState] = useState<ProceedState>({
+		status: PROCEED_STATUS.IDLE,
+	});
 
-	const { data: recommendResult } = useGetRecommendResult(accessKey);
-
-	const { mutateAsync: proceedMutation, isPending: isMutating } =
+	const { refetch: fetchRecommendResult } = useGetRecommendResult(accessKey);
+	const { mutateAsync: proceedMutation } =
 		usePostProceedRecommendResult(accessKey);
 
-	const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-	const isPollingRef = useRef(false);
+	const isProcessingRef = useRef(false);
 
-	// NOTE : 현재 추천 결과가 생성 중이거나 사용자가 명시적으로 생성을 시도한 경우 Polling 을 시작함
-	const shouldPoll =
-		recommendResult.status === RecommendationResultStatus.PENDING ||
-		manualPollingTrigger;
-
-	useEffect(() => {
-		if (!shouldPoll || isPollingRef.current) return;
-
-		isPollingRef.current = true;
-
-		const poll = async () => {
-			try {
-				const response = await getRecommendResult(accessKey);
-				const { status } = response.data;
-
-				switch (status) {
-					case RecommendationResultStatus.COMPLETED:
-						isPollingRef.current = false;
-						setManualPollingTrigger(false);
-						queryClient.setQueryData(
-							recommendResultKeys.detail(accessKey),
-							response,
-						);
-						router.push(`/gathering/${accessKey}/opinion/result`);
-						break;
-
-					case RecommendationResultStatus.PENDING:
-						timeoutRef.current = setTimeout(() => {
-							poll();
-						}, 1000);
-						break;
-
-					case RecommendationResultStatus.FAILED:
-					default:
-						isPollingRef.current = false;
-						setManualPollingTrigger(false);
-						toast.warning(
-							"추천 결과 생성에 실패했습니다. 다시 시도해주세요.",
-						);
-						break;
-				}
-			} catch {
-				isPollingRef.current = false;
-				setManualPollingTrigger(false);
-				toast.warning("추천 결과 조회에 실패했습니다.");
-			}
-		};
-
-		poll();
-
-		return () => {
-			isPollingRef.current = false;
-			if (timeoutRef.current) {
-				clearTimeout(timeoutRef.current);
-			}
-		};
-	}, [shouldPoll, accessKey, router, queryClient]);
-
-	const proceed = async () => {
-		if (recommendResult.status === RecommendationResultStatus.COMPLETED) {
-			router.push(`/gathering/${accessKey}/opinion/result`);
+	const onResultComplete = useCallback(async () => {
+		if (!isProcessingRef.current) {
 			return;
 		}
 
-		if (recommendResult.status === RecommendationResultStatus.PENDING) {
+		const remaining = Math.max(0, NAVIGATION_DELAY);
+
+		setTimeout(async () => {
+			const { data: refetchedResult } = await fetchRecommendResult();
+
+			if (
+				refetchedResult?.status === RecommendationResultStatus.COMPLETED
+			) {
+				isProcessingRef.current = false;
+				setProceedState({ status: PROCEED_STATUS.IDLE });
+				router.push(`/gathering/${accessKey}/opinion/result`);
+			} else {
+				isProcessingRef.current = false;
+				setProceedState({ status: PROCEED_STATUS.IDLE });
+				toast.warning(
+					"추천 결과가 아직 준비되지 않았습니다. 잠시 후 다시 시도해주세요.",
+				);
+			}
+		}, remaining);
+	}, [accessKey, router, fetchRecommendResult]);
+
+	const proceed = async () => {
+		if (isProcessingRef.current) {
 			return;
 		}
 
 		try {
-			await proceedMutation(accessKey);
-			setManualPollingTrigger(true);
-		} catch (error) {
-			if (isApiError(error)) {
-				switch (error.errorCode) {
-					case ERROR_CODES.RECOMMEND_ALREADY_PROCEEDED:
-						setManualPollingTrigger(true);
-						return;
+			const { data: latestResult } = await fetchRecommendResult();
 
-					default:
-						toast.warning(error.message);
-						return;
-				}
+			if (latestResult?.status === RecommendationResultStatus.COMPLETED) {
+				router.push(`/gathering/${accessKey}/opinion/result`);
+				return;
 			}
 
-			toast.warning(
-				"추천 결과 생성 요청에 실패했습니다. 다시 시도해주세요.",
-			);
+			if (latestResult?.status === RecommendationResultStatus.FAILED) {
+				toast.warning(
+					"추천 결과 생성에 실패했습니다. 다시 시도해주세요.",
+				);
+				return;
+			}
+
+			if (latestResult?.status === RecommendationResultStatus.PENDING) {
+				isProcessingRef.current = true;
+				const startTime = Date.now();
+				setProceedState({ status: PROCEED_STATUS.PROCESSING, startTime });
+				return;
+			}
+
+			if (!latestResult?.status) {
+				isProcessingRef.current = true;
+				const startTime = Date.now();
+				setProceedState({ status: PROCEED_STATUS.PROCESSING, startTime });
+
+				await proceedMutation(accessKey);
+				return;
+			}
+		} catch (error) {
+			setProceedState({ status: "idle" });
+			isProcessingRef.current = false;
+
+			const errorMessage = isApiError(error)
+				? error.message
+				: "추천 결과 생성 요청에 실패했습니다. 다시 시도해주세요.";
+
+			toast.warning(errorMessage);
 		}
 	};
 
-	const isPending = isMutating || shouldPoll;
-
 	return {
 		proceed,
-		isPending,
+		isPending: proceedState.status === "processing",
+		onResultComplete,
 	};
 };
