@@ -49,11 +49,13 @@ const dislikedFoodButtonVariants = cva(
 	},
 );
 
-interface DislikedFoodButtonProps {
+interface DislikedCategoryButtonProps {
 	food: FoodCategory;
 }
 
-export const DislikedFoodButton = ({ food }: DislikedFoodButtonProps) => {
+export const DislikedCategoryButton = ({
+	food,
+}: DislikedCategoryButtonProps) => {
 	const { control } = useFormContext<OpinionFormSchema>();
 	const { field } = useController({ name: "dislikedFoods", control });
 

@@ -3,7 +3,7 @@
 import { useLayoutEffect, useRef } from "react";
 import Image from "next/image";
 import { motion, useMotionValue, animate } from "motion/react";
-import { FoodCard } from "./FoodCard";
+import { CategoryCard } from "./CategoryCard";
 import { FOOD_CATEGORY_VALUES } from "#/constants/gathering/opinion";
 
 const CARD_WIDTH = 200;
@@ -12,7 +12,7 @@ const GAP = 16;
 const ANIMATION_DURATION = 0.4;
 const PAUSE_DURATION = 600;
 
-export const FoodCategoryCarousel = () => {
+export const CategoryCarousel = () => {
 	const totalCount = FOOD_CATEGORY_VALUES.length;
 	const items = [
 		...FOOD_CATEGORY_VALUES,
@@ -85,7 +85,7 @@ export const FoodCategoryCarousel = () => {
 			<div className="ygi:w-full ygi:overflow-hidden">
 				<motion.div className="ygi:flex ygi:gap-4" style={{ x }}>
 					{items.map((category, index) => (
-						<FoodCard
+						<CategoryCard
 							key={`${category}-${index}`}
 							category={category}
 						/>

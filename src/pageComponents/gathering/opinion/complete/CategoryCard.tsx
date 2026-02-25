@@ -3,11 +3,11 @@
 import Image from "next/image";
 import type { FoodCategory } from "#/types/gathering";
 
-interface FoodCardProps {
+interface CategoryCardProps {
 	category: FoodCategory;
 }
 
-export const FoodCard = ({ category }: FoodCardProps) => {
+export const CategoryCard = ({ category }: CategoryCardProps) => {
 	const imageSrc = `/images/foodCategory/${category.toLowerCase()}.svg`;
 
 	return (
