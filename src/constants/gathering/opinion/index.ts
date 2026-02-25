@@ -7,12 +7,19 @@ export {
 	type DistanceRange,
 } from "./distance";
 export {
+	CATEGORY,
+	CATEGORY_LABEL,
+	CATEGORY_LIST,
+	CATEGORY_VALUES,
+	type Category,
+} from "./category";
+export {
 	FOOD_CATEGORY_LABEL,
 	FOOD_CATEGORIES,
 	FOOD_CATEGORY_VALUES,
 	type FoodCategory,
 } from "./food";
-export { RANKS, RANK_LABELS } from "./rank";
+export { RANK, RANK_LIST, RANK_LABEL, type RankKey } from "./rank";
 export { REGION, REGION_LABEL, REGION_OPTIONS, type Region } from "./region";
 export { UI_TEXT } from "./ui-text";
 export { MOCK_MEETING_DATA } from "./meeting";

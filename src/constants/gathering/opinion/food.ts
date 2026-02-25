@@ -1,3 +1,7 @@
+/**
+ * @deprecated Use category.ts instead. This file will be removed in the next PR.
+ */
+
 export const FOOD_CATEGORY_LABEL = {
 	KOREAN: "한식",
 	JAPANESE: "일식",
