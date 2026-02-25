@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import type { FoodCategory } from "#/types/gathering";
+import type { Category } from "#/types/gathering";
 
 interface CategoryCardProps {
-	category: FoodCategory;
+	category: Category;
 }
 
 export const CategoryCard = ({ category }: CategoryCardProps) => {

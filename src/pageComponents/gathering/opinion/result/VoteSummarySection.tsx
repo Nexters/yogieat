@@ -2,14 +2,14 @@
 
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { FOOD_CATEGORY_LABEL } from "#/constants/gathering/opinion";
+import { CATEGORY_LABEL } from "#/constants/gathering/opinion";
 import { colors } from "#/constants/color";
-import type { FoodCategory } from "#/types/gathering";
+import type { Category } from "#/types/gathering";
 import { XIcon } from "#/icons/xIcon";
 import { CircleIcon } from "#/icons/circleIcon";
 
 // 카테고리 노출 순서 (고정)
-const foodCategoryOrder: FoodCategory[] = [
+const foodCategoryOrder: Category[] = [
 	"KOREAN",
 	"JAPANESE",
 	"CHINESE",
@@ -18,7 +18,7 @@ const foodCategoryOrder: FoodCategory[] = [
 	"ANY",
 ];
 
-const nonAnyCategories: FoodCategory[] = [
+const nonAnyCategories: Category[] = [
 	"KOREAN",
 	"JAPANESE",
 	"CHINESE",
@@ -27,7 +27,7 @@ const nonAnyCategories: FoodCategory[] = [
 ];
 
 // 카테고리별 그래프 색상 (inline style용)
-const foodCategoryColorMap: Record<FoodCategory, string> = {
+const foodCategoryColorMap: Record<Category, string> = {
 	KOREAN: colors.palette.primary[500],
 	JAPANESE: colors.palette.yellow[900],
 	CHINESE: colors.palette.primary[900],
@@ -54,7 +54,7 @@ const computePreferenceSubtitle = (
 
 	// 우선순위 2: 만장일치 (특정 카테고리 count == peopleCount)
 	if (voted.every((c) => c !== "ANY") && voted.length === 1) {
-		return `"${FOOD_CATEGORY_LABEL[voted[0]]}"으로 만장일치`;
+		return `"${CATEGORY_LABEL[voted[0]]}"으로 만장일치`;
 	}
 
 	// 우선순위 3: non-ANY 투표 없음
@@ -66,7 +66,7 @@ const computePreferenceSubtitle = (
 	const ordered = foodCategoryOrder.filter(
 		(c) => c !== "ANY" && (preferences[c] ?? 0) >= 1,
 	);
-	const labels = ordered.map((c) => FOOD_CATEGORY_LABEL[c]).join(", ");
+	const labels = ordered.map((c) => CATEGORY_LABEL[c]).join(", ");
 
 	// 4개 이상(n-1)이면 "좋아" 없음, 1~3개면 "좋아" 붙임
 	if (ordered.length >= 4) {
@@ -90,14 +90,14 @@ const computeDislikeSubtitle = (dislikes: Record<string, number>): string => {
 
 	// 우선순위 3: 1개만 선택
 	if (voted.every((c) => c !== "ANY") && voted.length === 1) {
-		return `"${FOOD_CATEGORY_LABEL[voted[0]]}"으로 만장일치`;
+		return `"${CATEGORY_LABEL[voted[0]]}"으로 만장일치`;
 	}
 
 	// 우선순위 4: 2~4개 나열 (노출 순서 기준)
 	const ordered = foodCategoryOrder.filter(
 		(c) => c !== "ANY" && (dislikes[c] ?? 0) >= 1,
 	);
-	const labels = ordered.map((c) => FOOD_CATEGORY_LABEL[c]).join(", ");
+	const labels = ordered.map((c) => CATEGORY_LABEL[c]).join(", ");
 	return `"${labels}" 싫어`;
 };
 
@@ -120,7 +120,7 @@ const computeDistanceSubtitle = (distances: Record<string, number>): string => {
 };
 
 // 여러 카테고리 이미지를 단방향 무한 캐러셀
-const AutoSlideImage = ({ categories }: { categories: FoodCategory[] }) => {
+const AutoSlideImage = ({ categories }: { categories: Category[] }) => {
 	const [idx, setIdx] = useState(0);
 	const [sliding, setSliding] = useState(false);
 
@@ -157,7 +157,7 @@ const AutoSlideImage = ({ categories }: { categories: FoodCategory[] }) => {
 				<div className="ygi:relative ygi:size-15">
 					<Image
 						src={`/images/foodCategory/${categories[idx].toLowerCase()}.svg`}
-						alt={FOOD_CATEGORY_LABEL[categories[idx]]}
+						alt={CATEGORY_LABEL[categories[idx]]}
 						fill
 						className="ygi:object-contain"
 					/>
@@ -179,7 +179,7 @@ const AutoSlideImage = ({ categories }: { categories: FoodCategory[] }) => {
 					<div className="ygi:relative ygi:size-15">
 						<Image
 							src={`/images/foodCategory/${categories[nextIdx].toLowerCase()}.svg`}
-							alt={FOOD_CATEGORY_LABEL[categories[nextIdx]]}
+							alt={CATEGORY_LABEL[categories[nextIdx]]}
 							fill
 							className="ygi:object-contain"
 						/>
@@ -202,7 +202,7 @@ const PreferenceVoteBlock = ({
 	const isAllAny = voted.every((c) => c === "ANY");
 	const unanimousCategory =
 		voted.every((c) => c !== "ANY") && voted.length === 1 ? voted[0] : null;
-	const imageCategories: FoodCategory[] = isAllAny
+	const imageCategories: Category[] = isAllAny
 		? ["ANY"]
 		: unanimousCategory
 			? [unanimousCategory]
@@ -283,7 +283,7 @@ const PreferenceVoteBlock = ({
 											foodCategoryColorMap[cat],
 									}}
 								/>
-								<span>{FOOD_CATEGORY_LABEL[cat]}</span>
+								<span>{CATEGORY_LABEL[cat]}</span>
 								<span>{preferences[cat]}표</span>
 							</div>
 						))}
@@ -336,13 +336,13 @@ const DislikeVoteBlock = ({
 							<div className="ygi:relative ygi:size-10 ygi:overflow-hidden">
 								<Image
 									src={`/images/foodCategory/${cat.toLowerCase()}.svg`}
-									alt={FOOD_CATEGORY_LABEL[cat]}
+									alt={CATEGORY_LABEL[cat]}
 									fill
 								/>
 							</div>
 							<p className="ygi:flex ygi:items-center ygi:gap-1">
 								<span className="ygi:caption-12-bd ygi:text-text-primary">
-									{FOOD_CATEGORY_LABEL[cat]}
+									{CATEGORY_LABEL[cat]}
 								</span>
 								<span className="ygi:caption-12-md ygi:text-text-primary">
 									{dislikes[cat]}표

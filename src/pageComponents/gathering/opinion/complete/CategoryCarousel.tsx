@@ -4,7 +4,7 @@ import { useLayoutEffect, useRef } from "react";
 import Image from "next/image";
 import { motion, useMotionValue, animate } from "motion/react";
 import { CategoryCard } from "./CategoryCard";
-import { FOOD_CATEGORY_VALUES } from "#/constants/gathering/opinion";
+import { CATEGORY_VALUES } from "#/constants/gathering/opinion";
 
 const CARD_WIDTH = 200;
 const GAP = 16;
@@ -13,11 +13,11 @@ const ANIMATION_DURATION = 0.4;
 const PAUSE_DURATION = 600;
 
 export const CategoryCarousel = () => {
-	const totalCount = FOOD_CATEGORY_VALUES.length;
+	const totalCount = CATEGORY_VALUES.length;
 	const items = [
-		...FOOD_CATEGORY_VALUES,
-		...FOOD_CATEGORY_VALUES,
-		...FOOD_CATEGORY_VALUES,
+		...CATEGORY_VALUES,
+		...CATEGORY_VALUES,
+		...CATEGORY_VALUES,
 	];
 
 	const x = useMotionValue(0);

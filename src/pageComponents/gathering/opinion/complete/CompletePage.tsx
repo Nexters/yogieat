@@ -10,7 +10,7 @@ import { Toaster } from "#/components/toast";
 import { useProceedRecommendResult } from "#/hooks/gathering";
 
 import { SubmissionBottomSheet } from "../SubmissionBottomSheet";
-import { FoodCategoryCarousel } from "./FoodCategoryCarousel";
+import { CategoryCarousel } from "./CategoryCarousel";
 import { ShowResultButton } from "./ShowResultButton";
 
 const PAGE_ID = "의견수합_완료";
@@ -45,7 +45,7 @@ export function CompletePage() {
 						</StepHeader.Root>
 					</div>
 					<div className="ygi:mb-43 ygi:flex ygi:w-full ygi:flex-1 ygi:flex-col ygi:justify-center">
-						<FoodCategoryCarousel />
+						<CategoryCarousel />
 					</div>
 				</div>
 			</Layout.Content>

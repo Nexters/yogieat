@@ -2,12 +2,12 @@
 
 import { CircleIcon } from "#/icons/circleIcon";
 import { XIcon } from "#/icons/xIcon";
-import { FOOD_CATEGORY_LABEL } from "#/constants/gathering/opinion";
-import type { FoodCategory } from "#/types/gathering";
+import { CATEGORY_LABEL } from "#/constants/gathering/opinion";
+import type { Category } from "#/types/gathering";
 import Image from "next/image";
 
 // "ANY"를 제외한 구체적 카테고리 목록
-const ALL_FOOD_CATEGORIES: FoodCategory[] = [
+const ALL_FOOD_CATEGORIES: Category[] = [
 	"KOREAN",
 	"JAPANESE",
 	"CHINESE",
@@ -24,8 +24,8 @@ function getEulReul(text: string): "을" | "를" {
 	return (code - 0xac00) % 28 !== 0 ? "을" : "를";
 }
 
-function formatFoodList(keys: FoodCategory[]): string {
-	return keys.map((k) => FOOD_CATEGORY_LABEL[k]).join(", ");
+function formatFoodList(keys: Category[]): string {
+	return keys.map((k) => CATEGORY_LABEL[k]).join(", ");
 }
 
 interface TasteSummary {
@@ -64,7 +64,7 @@ function computeTasteSummary(
 		dislikeSuffix = "없고";
 	} else {
 		const lastLabel =
-			FOOD_CATEGORY_LABEL[nonAnyDislikes[nonAnyDislikes.length - 1]];
+			CATEGORY_LABEL[nonAnyDislikes[nonAnyDislikes.length - 1]];
 		dislikeHighlight = formatFoodList(nonAnyDislikes);
 		dislikeSuffix = `${getEulReul(lastLabel)} 빼고`;
 	}
@@ -77,7 +77,7 @@ function computeTasteSummary(
 		preferenceHighlight = "아무 음식";
 		preferenceSuffix = "이나 상관 없어서";
 	} else if (nonAnyPrefs.length === 1) {
-		const foodLabel = FOOD_CATEGORY_LABEL[nonAnyPrefs[0]];
+		const foodLabel = CATEGORY_LABEL[nonAnyPrefs[0]];
 		preferenceHighlight = foodLabel;
 		preferenceSuffix = `${getEulReul(foodLabel)} 먹고 싶어해서`;
 	} else {
@@ -92,7 +92,7 @@ function computeTasteSummary(
 	let conclusion: string;
 
 	if (nonAnyDislikes.length === 0 && nonAnyPrefs.length === 1) {
-		conclusion = `평점 3.5 이상의 ${FOOD_CATEGORY_LABEL[nonAnyPrefs[0]]} 맛집 추천`;
+		conclusion = `평점 3.5 이상의 ${CATEGORY_LABEL[nonAnyPrefs[0]]} 맛집 추천`;
 	} else if (hasConflict && safePrefs.length > 0) {
 		conclusion = `불호가 없는 ${formatFoodList(safePrefs)} 추천`;
 	} else {

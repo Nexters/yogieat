@@ -6,10 +6,10 @@ import { AnimatePresence, motion } from "motion/react";
 import { cva } from "class-variance-authority";
 import { twJoin } from "tailwind-merge";
 
-import { FOOD_CATEGORY_LABEL } from "#/constants/gathering/opinion";
+import { CATEGORY_LABEL } from "#/constants/gathering/opinion";
 import { XIcon } from "#/icons/xIcon";
 import type { OpinionFormSchema } from "#/schemas/gathering";
-import type { FoodCategory } from "#/types/gathering";
+import type { Category } from "#/types/gathering";
 
 const dislikedFoodButtonVariants = cva(
 	[
@@ -50,14 +50,14 @@ const dislikedFoodButtonVariants = cva(
 );
 
 interface DislikedCategoryButtonProps {
-	food: FoodCategory;
+	food: Category;
 }
 
 export const DislikedCategoryButton = ({
 	food,
 }: DislikedCategoryButtonProps) => {
 	const { control } = useFormContext<OpinionFormSchema>();
-	const { field } = useController({ name: "dislikedFoods", control });
+	const { field } = useController({ name: "dislikedCategories", control });
 
 	const dislikeFoodList = field.value || [];
 
@@ -101,7 +101,7 @@ export const DislikedCategoryButton = ({
 			<div className="ygi:relative ygi:size-20">
 				<Image
 					src={`/images/foodCategory/${food.toLowerCase()}.svg`}
-					alt={FOOD_CATEGORY_LABEL[food]}
+					alt={CATEGORY_LABEL[food]}
 					fill
 					className="ygi:object-contain"
 					priority
@@ -132,7 +132,7 @@ export const DislikedCategoryButton = ({
 						: "ygi:text-text-secondary",
 				)}
 			>
-				{FOOD_CATEGORY_LABEL[food]}
+				{CATEGORY_LABEL[food]}
 			</span>
 		</button>
 	);
