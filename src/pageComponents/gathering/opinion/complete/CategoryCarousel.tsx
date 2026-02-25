@@ -14,11 +14,7 @@ const PAUSE_DURATION = 600;
 
 export const CategoryCarousel = () => {
 	const totalCount = CATEGORY_VALUES.length;
-	const items = [
-		...CATEGORY_VALUES,
-		...CATEGORY_VALUES,
-		...CATEGORY_VALUES,
-	];
+	const items = [...CATEGORY_VALUES, ...CATEGORY_VALUES, ...CATEGORY_VALUES];
 
 	const x = useMotionValue(0);
 	const indexRef = useRef(totalCount);

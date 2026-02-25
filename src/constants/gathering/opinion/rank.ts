@@ -4,7 +4,7 @@ export const RANK = {
 	THIRD: "third",
 } as const;
 
-export type RankKey = typeof RANK[keyof typeof RANK];
+export type RankKey = (typeof RANK)[keyof typeof RANK];
 
 export const RANK_LIST: ReadonlyArray<RankKey> = [
 	RANK.FIRST,

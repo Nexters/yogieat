@@ -48,7 +48,10 @@ const computePreferenceSubtitle = (
 	const voted = foodCategoryOrder.filter((c) => (preferences[c] ?? 0) >= 1);
 
 	// 우선순위 1: 5개 전부 투표됨
-	if (voted.filter((c) => c !== CATEGORY.ANY).length === nonAnyCategories.length) {
+	if (
+		voted.filter((c) => c !== CATEGORY.ANY).length ===
+		nonAnyCategories.length
+	) {
 		return "각자 좋아하는게 달라";
 	}
 
@@ -79,7 +82,10 @@ const computeDislikeSubtitle = (dislikes: Record<string, number>): string => {
 	const voted = foodCategoryOrder.filter((c) => (dislikes[c] ?? 0) >= 1);
 
 	// 우선순위 1: 5개 전부 투표됨
-	if (voted.filter((c) => c !== CATEGORY.ANY).length === nonAnyCategories.length) {
+	if (
+		voted.filter((c) => c !== CATEGORY.ANY).length ===
+		nonAnyCategories.length
+	) {
 		return "모두 달라서 한 명이 양보해줘...";
 	}
 
@@ -201,7 +207,9 @@ const PreferenceVoteBlock = ({
 	// food image 결정
 	const isAllAny = voted.every((c) => c === CATEGORY.ANY);
 	const unanimousCategory =
-		voted.every((c) => c !== CATEGORY.ANY) && voted.length === 1 ? voted[0] : null;
+		voted.every((c) => c !== CATEGORY.ANY) && voted.length === 1
+			? voted[0]
+			: null;
 	const imageCategories: Category[] = isAllAny
 		? [CATEGORY.ANY]
 		: unanimousCategory

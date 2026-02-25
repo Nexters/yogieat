@@ -130,7 +130,9 @@ const Footer = () => {
 		name: "preferredCategories",
 		compute: (preferredCategories) => ({
 			preferredCategories,
-			disabled: !preferredCategoriesSchema.safeParse(preferredCategories).success,
+			disabled:
+				!preferredCategoriesSchema.safeParse(preferredCategories)
+					.success,
 		}),
 	});
 

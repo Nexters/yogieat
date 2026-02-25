@@ -7,7 +7,7 @@ export const CATEGORY = {
 	ANY: "ANY",
 } as const;
 
-export type Category = typeof CATEGORY[keyof typeof CATEGORY];
+export type Category = (typeof CATEGORY)[keyof typeof CATEGORY];
 
 export const CATEGORY_LABEL = {
 	KOREAN: "한식",
