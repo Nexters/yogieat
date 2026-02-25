@@ -1,0 +1,37 @@
+export const CATEGORY = {
+	KOREAN: "KOREAN",
+	JAPANESE: "JAPANESE",
+	CHINESE: "CHINESE",
+	WESTERN: "WESTERN",
+	ASIAN: "ASIAN",
+	ANY: "ANY",
+} as const;
+
+export type Category = typeof CATEGORY[keyof typeof CATEGORY];
+
+export const CATEGORY_LABEL = {
+	KOREAN: "한식",
+	JAPANESE: "일식",
+	CHINESE: "중식",
+	WESTERN: "양식",
+	ASIAN: "아시안",
+	ANY: "상관없음",
+} as const;
+
+export const CATEGORY_LIST = [
+	{ value: CATEGORY.KOREAN, label: CATEGORY_LABEL.KOREAN },
+	{ value: CATEGORY.JAPANESE, label: CATEGORY_LABEL.JAPANESE },
+	{ value: CATEGORY.CHINESE, label: CATEGORY_LABEL.CHINESE },
+	{ value: CATEGORY.WESTERN, label: CATEGORY_LABEL.WESTERN },
+	{ value: CATEGORY.ASIAN, label: CATEGORY_LABEL.ASIAN },
+	{ value: CATEGORY.ANY, label: CATEGORY_LABEL.ANY },
+] as const;
+
+export const CATEGORY_VALUES = [
+	CATEGORY.KOREAN,
+	CATEGORY.JAPANESE,
+	CATEGORY.CHINESE,
+	CATEGORY.WESTERN,
+	CATEGORY.ASIAN,
+	CATEGORY.ANY,
+] as const;
