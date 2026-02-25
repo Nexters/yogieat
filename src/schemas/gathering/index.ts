@@ -1,10 +1,10 @@
 export {
 	opinionFormSchema,
-	foodCategorySchema,
+	categorySchema,
 	nicknameSchema,
-	dislikedFoodSchema,
+	dislikedCategoriesSchema,
 	distanceRangeSchema,
-	preferredMenusSchema,
+	preferredCategoriesSchema,
 	distanceRangeToKm,
 	type OpinionFormSchema,
 } from "./opinionForm.schema";
