@@ -6,12 +6,12 @@ import { AnimatePresence, motion } from "motion/react";
 import { cva } from "class-variance-authority";
 import { twJoin } from "tailwind-merge";
 
-import { CATEGORY_LABEL } from "#/constants/gathering/opinion";
+import { CATEGORY, CATEGORY_LABEL } from "#/constants/gathering/opinion";
 import { XIcon } from "#/icons/xIcon";
 import type { OpinionFormSchema } from "#/schemas/gathering";
 import type { Category } from "#/types/gathering";
 
-const dislikedFoodButtonVariants = cva(
+const dislikedCategoryButtonVariants = cva(
 	[
 		"ygi:flex ygi:flex-col ygi:items-center ygi:justify-center",
 		"ygi:size-[156px] ygi:gap-1 ygi:rounded-full ygi:p-6",
@@ -50,40 +50,42 @@ const dislikedFoodButtonVariants = cva(
 );
 
 interface DislikedCategoryButtonProps {
-	food: Category;
+	category: Category;
 }
 
 export const DislikedCategoryButton = ({
-	food,
+	category,
 }: DislikedCategoryButtonProps) => {
 	const { control } = useFormContext<OpinionFormSchema>();
 	const { field } = useController({ name: "dislikedCategories", control });
 
-	const dislikeFoodList = field.value || [];
+	const dislikedCategoryList = field.value || [];
 
-	const isSelected = dislikeFoodList.includes(food);
-	const isAny = food === "ANY";
+	const isSelected = dislikedCategoryList.includes(category);
+	const isAny = category === CATEGORY.ANY;
 	const shouldShowXIcon = isSelected && !isAny;
 
 	const handleClickDislikeButton = () => {
 		if (isSelected) {
 			field.onChange(
-				dislikeFoodList.filter((dislikeFood) => dislikeFood !== food),
+				dislikedCategoryList.filter(
+					(dislikedCategory) => dislikedCategory !== category,
+				),
 			);
 			return;
 		}
 
 		if (isAny) {
-			field.onChange(["ANY"]);
+			field.onChange([CATEGORY.ANY]);
 			return;
 		}
 
-		const filteredFoods = dislikeFoodList.filter(
-			(dislikeFood) => dislikeFood !== "ANY",
+		const filteredCategories = dislikedCategoryList.filter(
+			(dislikedCategory) => dislikedCategory !== CATEGORY.ANY,
 		);
 
-		if (filteredFoods.length < 2) {
-			field.onChange([...filteredFoods, food]);
+		if (filteredCategories.length < 2) {
+			field.onChange([...filteredCategories, category]);
 			return;
 		}
 	};
@@ -92,7 +94,7 @@ export const DislikedCategoryButton = ({
 		<button
 			type="button"
 			aria-pressed={isSelected}
-			className={dislikedFoodButtonVariants({
+			className={dislikedCategoryButtonVariants({
 				isAny,
 				selected: isSelected,
 			})}
@@ -100,8 +102,8 @@ export const DislikedCategoryButton = ({
 		>
 			<div className="ygi:relative ygi:size-20">
 				<Image
-					src={`/images/foodCategory/${food.toLowerCase()}.svg`}
-					alt={CATEGORY_LABEL[food]}
+					src={`/images/foodCategory/${category.toLowerCase()}.svg`}
+					alt={CATEGORY_LABEL[category]}
 					fill
 					className="ygi:object-contain"
 					priority
@@ -132,7 +134,7 @@ export const DislikedCategoryButton = ({
 						: "ygi:text-text-secondary",
 				)}
 			>
-				{CATEGORY_LABEL[food]}
+				{CATEGORY_LABEL[category]}
 			</span>
 		</button>
 	);
