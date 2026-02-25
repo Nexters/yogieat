@@ -49,6 +49,14 @@ export const preferredCategoriesSchema = z
 	.refine((data) => !isUndefined(data.first), {
 		message: "최소 1개의 음식을 선택해주세요",
 		path: ["first"],
+	})
+	.refine((data) => !data.second || data.first, {
+		message: "1순위를 먼저 선택해주세요",
+		path: ["second"],
+	})
+	.refine((data) => !data.third || data.second, {
+		message: "2순위를 먼저 선택해주세요",
+		path: ["third"],
 	});
 
 export const opinionFormSchema = z.object({
