@@ -39,7 +39,7 @@ const Content = () => {
 			{CATEGORY_LIST.map((category) => (
 				<DislikedCategoryButton
 					key={category.value}
-					food={category.value}
+					category={category.value}
 				/>
 			))}
 		</div>

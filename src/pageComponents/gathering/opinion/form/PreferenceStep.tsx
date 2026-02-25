@@ -10,6 +10,7 @@ import { Layout } from "#/components/layout";
 import { StepHeader } from "#/components/stepHeader";
 import { StepIndicator } from "#/components/stepIndicator";
 import {
+	CATEGORY,
 	CATEGORY_LIST,
 	OPINION_TOTAL_STEPS,
 	RANK_LABEL,
@@ -35,7 +36,7 @@ const RankSection = ({ rank }: RankSectionProps) => {
 		name: "preferredCategories",
 		compute: (data) =>
 			RANK_LIST.slice(0, RANK_LIST.indexOf(rank)).some(
-				(prevRank) => data[prevRank] === "ANY",
+				(prevRank) => data[prevRank] === CATEGORY.ANY,
 			),
 	});
 
@@ -46,7 +47,7 @@ const RankSection = ({ rank }: RankSectionProps) => {
 
 	const availableCategories = CATEGORY_LIST.filter(
 		(category) =>
-			category.value === "ANY" ||
+			category.value === CATEGORY.ANY ||
 			!dislikedCategories?.includes(category.value),
 	);
 
@@ -99,7 +100,7 @@ const Content = () => {
 			const selectedCategory = preferredCategories[rank];
 			if (
 				selectedCategory &&
-				selectedCategory !== "ANY" &&
+				selectedCategory !== CATEGORY.ANY &&
 				dislikedCategories.includes(selectedCategory)
 			) {
 				ranksToRemove.push(rank);
@@ -107,8 +108,8 @@ const Content = () => {
 		});
 
 		if (ranksToRemove.length > 0) {
-			const cleanedMenus = omit(preferredCategories, ranksToRemove);
-			setValue("preferredCategories", cleanedMenus);
+			const cleanedCategories = omit(preferredCategories, ranksToRemove);
+			setValue("preferredCategories", cleanedCategories);
 		}
 	}, [dislikedCategories, preferredCategories, setValue]);
 
@@ -139,7 +140,7 @@ const Footer = () => {
 		const preferredLabels = RANK_LIST.map((rank) => {
 			const value = preferredCategories?.[rank];
 			if (!value) return null;
-			if (value === "ANY") return "상관없음";
+			if (value === CATEGORY.ANY) return "상관없음";
 			return CATEGORY_LIST.find((c) => c.value === value)?.label;
 		})
 			.filter(Boolean)
