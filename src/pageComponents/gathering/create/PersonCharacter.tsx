@@ -2,15 +2,16 @@
 
 import Image from "next/image";
 import { motion } from "motion/react";
+
 import {
 	POP_IN_VARIANT,
 	POP_IN_TRANSITION,
 	MOVE_TRANSITION,
 	EXIT_TRANSITION,
 	type Position,
-} from "./PeopleIllustration.constants";
+} from "./PeopleGroup";
 
-interface CharacterProps {
+interface PersonCharacterProps {
 	position: Position;
 	characterId: number;
 	index: number;
@@ -21,13 +22,13 @@ interface CharacterProps {
 const CHARACTER_WIDTH = 84;
 const CHARACTER_HEIGHT = 90;
 
-export const Character = ({
+export const PersonCharacter = ({
 	position,
 	characterId,
 	index,
 	isNew,
 	exitDelay = 0,
-}: CharacterProps) => {
+}: PersonCharacterProps) => {
 	const leftPosition = position.x - CHARACTER_WIDTH / 2;
 	const topPosition = position.y - CHARACTER_HEIGHT / 2;
 
@@ -55,7 +56,7 @@ export const Character = ({
 			}}
 		>
 			<Image
-				src={`/images/people/character_${characterId}.svg`}
+				src={`/images/people/character${characterId}.svg`}
 				alt={`Person ${characterId}`}
 				width={CHARACTER_WIDTH}
 				height={CHARACTER_HEIGHT}
