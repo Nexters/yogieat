@@ -24,7 +24,7 @@ export const ShareButton = ({ pageId }: ShareButtonProps) => {
 	};
 
 	return (
-		<Button variant="primary" width="full" onClick={handleShare}>
+		<Button variant="tertiary" width="full" onClick={handleShare}>
 			링크 공유
 		</Button>
 	);
