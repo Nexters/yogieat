@@ -58,7 +58,8 @@ const Footer = ({ onNext }: FooterProps) => {
 		name: "dislikedCategories",
 		compute: (dislikedCategories) => ({
 			dislikedCategories,
-			disabled: !dislikedCategoriesSchema.safeParse(dislikedCategories).success,
+			disabled:
+				!dislikedCategoriesSchema.safeParse(dislikedCategories).success,
 		}),
 	});
 
