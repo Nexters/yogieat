@@ -10,6 +10,7 @@ import { recommendResultOptions } from "#/apis/recommendResult";
 
 import { CompletePage } from "#/pageComponents/gathering/opinion";
 import { ERROR_CODES, isApiError } from "#/utils/api";
+import { RecommendationResultStatus } from "#/constants/gathering/opinion";
 
 interface GatheringOpinionCompleteProps {
 	params: Promise<{
@@ -30,12 +31,20 @@ export default async function GatheringOpinionComplete({
 	});
 
 	try {
-		const [, { data: capacity }] = await Promise.all([
-			queryClient.fetchQuery(recommendResultOptions.detail(accessKey)),
-			queryClient.fetchQuery(gatheringQueryOptions.capacity(accessKey)),
-		]);
+		const [{ data: recommendResult }, { data: capacity }] =
+			await Promise.all([
+				queryClient.fetchQuery(
+					recommendResultOptions.detail(accessKey),
+				),
+				queryClient.fetchQuery(
+					gatheringQueryOptions.capacity(accessKey),
+				),
+			]);
 
-		if (capacity.maxCount > capacity.currentCount) {
+		if (
+			recommendResult.status !== RecommendationResultStatus.COMPLETED &&
+			capacity.maxCount > capacity.currentCount
+		) {
 			redirect(`/gathering/${accessKey}/opinion/pending`);
 		}
 	} catch (error) {
