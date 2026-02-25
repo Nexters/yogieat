@@ -3,9 +3,10 @@
 import { useFormContext, useWatch } from "react-hook-form";
 
 import {
-	RANK_LABELS,
-	FOOD_CATEGORIES,
-	RANKS,
+	CATEGORY,
+	RANK_LABEL,
+	CATEGORY_LIST,
+	RANK_LIST,
 } from "#/constants/gathering/opinion";
 import type { RankKey } from "#/types/gathering";
 import type { OpinionFormSchema } from "#/schemas/gathering";
@@ -20,21 +21,21 @@ export const RankSection = ({ rank }: RankSectionProps) => {
 
 	const disabled = useWatch({
 		control,
-		name: "preferredMenus",
+		name: "preferredCategories",
 		compute: (data) =>
-			RANKS.slice(0, RANKS.indexOf(rank)).some(
-				(prevRank) => data[prevRank] === "ANY",
+			RANK_LIST.slice(0, RANK_LIST.indexOf(rank)).some(
+				(prevRank) => data[prevRank] === CATEGORY.ANY,
 			),
 	});
 
 	const availableCategories = useWatch({
 		control,
-		name: "dislikedFoods",
-		compute: (dislikedFoods) =>
-			FOOD_CATEGORIES.filter(
+		name: "dislikedCategories",
+		compute: (dislikedCategories) =>
+			CATEGORY_LIST.filter(
 				(category) =>
-					category.value === "ANY" ||
-					!dislikedFoods?.includes(category.value),
+					category.value === CATEGORY.ANY ||
+					!dislikedCategories?.includes(category.value),
 			),
 	});
 
@@ -42,7 +43,7 @@ export const RankSection = ({ rank }: RankSectionProps) => {
 		<div className="ygi:flex ygi:flex-col ygi:gap-6 ygi:py-6">
 			<div className="ygi:flex ygi:items-center ygi:justify-between">
 				<h2 className="ygi:heading-18-bd ygi:text-text-primary">
-					{RANK_LABELS[rank]}
+					{RANK_LABEL[rank]}
 				</h2>
 			</div>
 			<div className="ygi:flex ygi:flex-wrap ygi:gap-3">

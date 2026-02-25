@@ -1,13 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import type { FoodCategory } from "#/types/gathering";
+import type { Category } from "#/types/gathering";
 
-interface FoodCardProps {
-	category: FoodCategory;
+interface CategoryCardProps {
+	category: Category;
 }
 
-export const FoodCard = ({ category }: FoodCardProps) => {
+export const CategoryCard = ({ category }: CategoryCardProps) => {
 	const imageSrc = `/images/foodCategory/${category.toLowerCase()}.svg`;
 
 	return (

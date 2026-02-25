@@ -10,13 +10,14 @@ import { Layout } from "#/components/layout";
 import { StepHeader } from "#/components/stepHeader";
 import { StepIndicator } from "#/components/stepIndicator";
 import {
-	FOOD_CATEGORIES,
+	CATEGORY,
+	CATEGORY_LIST,
 	OPINION_TOTAL_STEPS,
-	RANK_LABELS,
-	RANKS,
+	RANK_LABEL,
+	RANK_LIST,
 } from "#/constants/gathering/opinion";
 import {
-	preferredMenusSchema,
+	preferredCategoriesSchema,
 	type OpinionFormSchema,
 } from "#/schemas/gathering";
 import type { RankKey } from "#/types/gathering";
@@ -32,29 +33,29 @@ const RankSection = ({ rank }: RankSectionProps) => {
 
 	const disabled = useWatch({
 		control,
-		name: "preferredMenus",
+		name: "preferredCategories",
 		compute: (data) =>
-			RANKS.slice(0, RANKS.indexOf(rank)).some(
-				(prevRank) => data[prevRank] === "ANY",
+			RANK_LIST.slice(0, RANK_LIST.indexOf(rank)).some(
+				(prevRank) => data[prevRank] === CATEGORY.ANY,
 			),
 	});
 
-	const dislikedFoods = useWatch({
+	const dislikedCategories = useWatch({
 		control,
-		name: "dislikedFoods",
+		name: "dislikedCategories",
 	});
 
-	const availableCategories = FOOD_CATEGORIES.filter(
+	const availableCategories = CATEGORY_LIST.filter(
 		(category) =>
-			category.value === "ANY" ||
-			!dislikedFoods?.includes(category.value),
+			category.value === CATEGORY.ANY ||
+			!dislikedCategories?.includes(category.value),
 	);
 
 	return (
 		<div className="ygi:flex ygi:flex-col ygi:gap-6 ygi:py-6">
 			<div className="ygi:flex ygi:items-center ygi:justify-between">
 				<h2 className="ygi:heading-18-bd ygi:text-text-primary">
-					{RANK_LABELS[rank]}
+					{RANK_LABEL[rank]}
 				</h2>
 			</div>
 			<div className="ygi:flex ygi:flex-wrap ygi:gap-3">
@@ -85,36 +86,36 @@ const Header = () => {
 const Content = () => {
 	const { control, setValue } = useFormContext<OpinionFormSchema>();
 
-	const [dislikedFoods, preferredMenus] = useWatch({
+	const [dislikedCategories, preferredCategories] = useWatch({
 		control,
-		name: ["dislikedFoods", "preferredMenus"],
+		name: ["dislikedCategories", "preferredCategories"],
 	});
 
 	useEffect(() => {
-		if (!dislikedFoods || !preferredMenus) return;
+		if (!dislikedCategories || !preferredCategories) return;
 
 		const ranksToRemove: RankKey[] = [];
 
-		RANKS.forEach((rank) => {
-			const selectedCategory = preferredMenus[rank];
+		RANK_LIST.forEach((rank) => {
+			const selectedCategory = preferredCategories[rank];
 			if (
 				selectedCategory &&
-				selectedCategory !== "ANY" &&
-				dislikedFoods.includes(selectedCategory)
+				selectedCategory !== CATEGORY.ANY &&
+				dislikedCategories.includes(selectedCategory)
 			) {
 				ranksToRemove.push(rank);
 			}
 		});
 
 		if (ranksToRemove.length > 0) {
-			const cleanedMenus = omit(preferredMenus, ranksToRemove);
-			setValue("preferredMenus", cleanedMenus);
+			const cleanedCategories = omit(preferredCategories, ranksToRemove);
+			setValue("preferredCategories", cleanedCategories);
 		}
-	}, [dislikedFoods, preferredMenus, setValue]);
+	}, [dislikedCategories, preferredCategories, setValue]);
 
 	return (
 		<div className="ygi:flex ygi:flex-col">
-			{RANKS.map((rank) => (
+			{RANK_LIST.map((rank) => (
 				<RankSection key={rank} rank={rank} />
 			))}
 		</div>
@@ -124,21 +125,23 @@ const Content = () => {
 const Footer = () => {
 	const { control } = useFormContext<OpinionFormSchema>();
 
-	const { preferredMenus, disabled } = useWatch({
+	const { preferredCategories, disabled } = useWatch({
 		control,
-		name: "preferredMenus",
-		compute: (preferredMenus) => ({
-			preferredMenus,
-			disabled: !preferredMenusSchema.safeParse(preferredMenus).success,
+		name: "preferredCategories",
+		compute: (preferredCategories) => ({
+			preferredCategories,
+			disabled:
+				!preferredCategoriesSchema.safeParse(preferredCategories)
+					.success,
 		}),
 	});
 
 	const handleClick = () => {
-		const preferredLabels = RANKS.map((rank) => {
-			const value = preferredMenus?.[rank];
+		const preferredLabels = RANK_LIST.map((rank) => {
+			const value = preferredCategories?.[rank];
 			if (!value) return null;
-			if (value === "ANY") return "상관없음";
-			return FOOD_CATEGORIES.find((c) => c.value === value)?.label;
+			if (value === CATEGORY.ANY) return "상관없음";
+			return CATEGORY_LIST.find((c) => c.value === value)?.label;
 		})
 			.filter(Boolean)
 			.join(", ");

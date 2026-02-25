@@ -26,8 +26,8 @@ export function useOpinionForm() {
 		defaultValues: {
 			nickname: "",
 			distanceRange: undefined,
-			dislikedFoods: [],
-			preferredMenus: {
+			dislikedCategories: [],
+			preferredCategories: {
 				first: undefined,
 				second: undefined,
 				third: undefined,
@@ -38,16 +38,16 @@ export function useOpinionForm() {
 	const handleSubmit = methods.handleSubmit(async (data) => {
 		try {
 			const preferences = compact([
-				data.preferredMenus.first,
-				data.preferredMenus.second,
-				data.preferredMenus.third,
+				data.preferredCategories.first,
+				data.preferredCategories.second,
+				data.preferredCategories.third,
 			]);
 
 			await createParticipant({
 				accessKey,
 				preferences,
 				nickname: data.nickname,
-				dislikes: data.dislikedFoods,
+				dislikes: data.dislikedCategories,
 				distance: distanceRangeToKm(data.distanceRange),
 			});
 			router.replace(`/gathering/${accessKey}/opinion/pending`);

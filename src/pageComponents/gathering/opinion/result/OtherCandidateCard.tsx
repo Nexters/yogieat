@@ -4,7 +4,7 @@ import { trackRestaurantClick } from "#/components/analytics";
 import { StarIcon } from "#/icons/starIcon";
 import type { Restaurant } from "#/types/gathering";
 import {
-	FOOD_CATEGORY_LABEL,
+	CATEGORY_LABEL,
 	DISTANCE_RANGE_WALKING_MINUTES,
 } from "#/constants/gathering/opinion";
 import Image from "next/image";
@@ -61,11 +61,11 @@ export const OtherCandidateCard = ({
 
 				<div className="ygi:flex ygi:flex-wrap ygi:gap-2">
 					<Tag size="medium" theme="secondary">
-						{FOOD_CATEGORY_LABEL[restaurant.largeCategory]}
+						{CATEGORY_LABEL[restaurant.largeCategory]}
 					</Tag>
 					{restaurant.majorityDistanceRange !== "ANY" && (
 						<Tag size="medium" theme="secondary">
-							{`역에서 도보 ${DISTANCE_RANGE_WALKING_MINUTES[restaurant.majorityDistanceRange]}분`}
+							{`역에서 도보 ${DISTANCE_RANGE_WALKING_MINUTES[restaurant.majorityDistanceRange as keyof typeof DISTANCE_RANGE_WALKING_MINUTES]}분`}
 						</Tag>
 					)}
 				</div>
