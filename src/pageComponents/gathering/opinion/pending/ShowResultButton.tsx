@@ -21,7 +21,7 @@ export const ShowResultButton = ({
 		data: { currentCount, maxCount },
 	} = useGetGatheringCapacity(accessKey);
 
-	const hasReachedMajority = currentCount * 2 >= maxCount;
+	const hasReachedMajority = currentCount * 2 > maxCount;
 	const disabled = !hasReachedMajority || isPending;
 
 	return (
