@@ -1,5 +1,5 @@
 export { LandingPage } from "./landing";
-export { OpinionFormPage } from "./form";
+export { OpinionFormPage, ToastLinkButton } from "./form";
 export { PendingPage } from "./pending";
 export { CompletePage } from "./complete";
 export { ResultPage } from "./result";
