@@ -5,6 +5,12 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.0-beta.8](https://github.com/Nexters/yogieat/compare/v1.6.0-beta.7...v1.6.0-beta.8) (2026-02-25)
+
+### Code Refactoring
+
+* opinion 페이지 컴포넌트 구조 개선 및 로직 통합 ([#109](https://github.com/Nexters/yogieat/issues/109)) ([a76f75f](https://github.com/Nexters/yogieat/commit/a76f75f165cbf1526e037b1b765452503dacfe6f))
+
 ## [1.6.0-beta.7](https://github.com/Nexters/yogieat/compare/v1.6.0-beta.6...v1.6.0-beta.7) (2026-02-24)
 
 ### Features
