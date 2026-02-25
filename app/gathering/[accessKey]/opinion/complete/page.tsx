@@ -8,7 +8,7 @@ import { notFound, redirect } from "next/navigation";
 import { gatheringQueryOptions } from "#/apis/gathering";
 import { recommendResultOptions } from "#/apis/recommendResult";
 
-import { CompletePage } from "#/pageComponents/gathering/opinion/complete";
+import { CompletePage } from "#/pageComponents/gathering/opinion";
 import { ERROR_CODES, isApiError } from "#/utils/api";
 
 interface GatheringOpinionCompleteProps {

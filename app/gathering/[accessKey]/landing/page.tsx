@@ -6,7 +6,7 @@ import {
 import { notFound } from "next/navigation";
 
 import { gatheringQueryOptions } from "#/apis/gathering";
-import { LandingPage } from "#/pageComponents/gathering/opinion/landing";
+import { LandingPage } from "#/pageComponents/gathering/opinion";
 import { ERROR_CODES, isApiError } from "#/utils/api";
 
 interface GatheringLandingProps {
