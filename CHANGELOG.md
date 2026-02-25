@@ -5,6 +5,80 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0-beta.1](https://github.com/Nexters/yogieat/compare/v1.6.0-beta.8...v2.0.0-beta.1) (2026-02-25)
+
+### ⚠ BREAKING CHANGES
+
+* OpinionForm field names changed
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
+
+* refactor: update schema field names and exports
+
+- foodCategorySchema → categorySchema
+- dislikedFoodSchema → dislikedCategoriesSchema
+- preferredMenusSchema → preferredCategoriesSchema
+- Update opinionFormSchema with new field names
+- Replace hardcoded "ANY" with CATEGORY.ANY
+* Schema field names changed
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
+
+* refactor: rename component files to use Category naming
+
+- FoodCard → CategoryCard
+- FoodCategoryCarousel → CategoryCarousel
+- DislikedFoodButton → DislikedCategoryButton
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
+
+* refactor: update component export names
+
+- FoodCard → CategoryCard
+- FoodCategoryCarousel → CategoryCarousel
+- DislikedFoodButton → DislikedCategoryButton
+- Update component function names to match new file names
+- Internal logic unchanged (will be updated in next PR)
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
+
+* refactor: update import references to use new constant names
+
+- Update all components to use new constant names:
+  * RANKS → RANK_LIST
+  * RANK_LABELS → RANK_LABEL
+  * FOOD_CATEGORIES → CATEGORY_LIST
+  * FOOD_CATEGORY_LABEL → CATEGORY_LABEL
+  * FOOD_CATEGORY_VALUES → CATEGORY_VALUES
+  * dislikedFoodSchema → dislikedCategoriesSchema
+  * preferredMenusSchema → preferredCategoriesSchema
+
+- Update type imports:
+  * FoodCategory → Category
+
+- Update form field references:
+  * dislikedFoods → dislikedCategories
+  * preferredMenus → preferredCategories
+
+- Fix component imports after file renames:
+  * FoodCategoryCarousel → CategoryCarousel
+  * DislikedFoodButton → DislikedCategoryButton
+
+This ensures the build succeeds after type system changes.
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
+
+* style: run prettier format
+
+- Format code according to project prettier rules
+- No logic changes, only formatting
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
+
+### Code Refactoring
+
+* 타입 시스템 리팩토링 - enum을 as const 패턴으로 전환 ([#110](https://github.com/Nexters/yogieat/issues/110)) ([d427378](https://github.com/Nexters/yogieat/commit/d4273786f2b6db4f5f5c88fca18f7c960f1898b1)), closes [#111](https://github.com/Nexters/yogieat/issues/111)
+
 ## [1.6.0-beta.8](https://github.com/Nexters/yogieat/compare/v1.6.0-beta.7...v1.6.0-beta.8) (2026-02-25)
 
 ### Code Refactoring
