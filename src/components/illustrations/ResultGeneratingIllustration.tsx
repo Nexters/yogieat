@@ -48,7 +48,7 @@ export const ResultGeneratingIllustration = () => {
 				<motion.g
 					style={{ originX: "162px", originY: "186px" }}
 					animate={{
-						rotate: [0, -8, 0],
+						rotate: [0, -18, 0],
 					}}
 					transition={{
 						duration: 0.4,
@@ -70,7 +70,7 @@ export const ResultGeneratingIllustration = () => {
 				<motion.g
 					style={{ originX: "219px", originY: "202px" }}
 					animate={{
-						rotate: [0, 10, 0],
+						rotate: [0, 18, 0],
 					}}
 					transition={{
 						duration: 0.4,
