@@ -5,6 +5,16 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0-beta.3](https://github.com/Nexters/yogieat/compare/v2.0.0-beta.2...v2.0.0-beta.3) (2026-02-25)
+
+### Bug Fixes
+
+* 음식 카테고리 일러스트레이터를 Figma 내 최신 시안으로 수정 ([#114](https://github.com/Nexters/yogieat/issues/114)) ([18f9cc3](https://github.com/Nexters/yogieat/commit/18f9cc38dda3000852cca056fe186405750d0a53))
+
+### Code Refactoring
+
+* PeopleIllustration 캐릭터 배치 및 구조 개선 ([#112](https://github.com/Nexters/yogieat/issues/112)) ([ae95b72](https://github.com/Nexters/yogieat/commit/ae95b7274306d9edced38f6f9cb889d7e6cf0b5b))
+
 ## [2.0.0-beta.2](https://github.com/Nexters/yogieat/compare/v2.0.0-beta.1...v2.0.0-beta.2) (2026-02-25)
 
 ### Bug Fixes
