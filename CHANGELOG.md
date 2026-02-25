@@ -5,6 +5,108 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0-beta.3](https://github.com/Nexters/yogieat/compare/v2.0.0-beta.2...v2.0.0-beta.3) (2026-02-25)
+
+### Bug Fixes
+
+* 음식 카테고리 일러스트레이터를 Figma 내 최신 시안으로 수정 ([#114](https://github.com/Nexters/yogieat/issues/114)) ([18f9cc3](https://github.com/Nexters/yogieat/commit/18f9cc38dda3000852cca056fe186405750d0a53))
+
+### Code Refactoring
+
+* PeopleIllustration 캐릭터 배치 및 구조 개선 ([#112](https://github.com/Nexters/yogieat/issues/112)) ([ae95b72](https://github.com/Nexters/yogieat/commit/ae95b7274306d9edced38f6f9cb889d7e6cf0b5b))
+
+## [2.0.0-beta.2](https://github.com/Nexters/yogieat/compare/v2.0.0-beta.1...v2.0.0-beta.2) (2026-02-25)
+
+### Bug Fixes
+
+* 1, 3순위를 선택했으나 2순위를 선택하지 않았을 경우 Validation 을 막지 않았던 문제 수정 ([#113](https://github.com/Nexters/yogieat/issues/113)) ([22e58e8](https://github.com/Nexters/yogieat/commit/22e58e844539bfaf787ada837585d3a2590f8df3))
+
+## [2.0.0-beta.1](https://github.com/Nexters/yogieat/compare/v1.6.0-beta.8...v2.0.0-beta.1) (2026-02-25)
+
+### ⚠ BREAKING CHANGES
+
+* OpinionForm field names changed
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
+
+* refactor: update schema field names and exports
+
+- foodCategorySchema → categorySchema
+- dislikedFoodSchema → dislikedCategoriesSchema
+- preferredMenusSchema → preferredCategoriesSchema
+- Update opinionFormSchema with new field names
+- Replace hardcoded "ANY" with CATEGORY.ANY
+* Schema field names changed
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
+
+* refactor: rename component files to use Category naming
+
+- FoodCard → CategoryCard
+- FoodCategoryCarousel → CategoryCarousel
+- DislikedFoodButton → DislikedCategoryButton
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
+
+* refactor: update component export names
+
+- FoodCard → CategoryCard
+- FoodCategoryCarousel → CategoryCarousel
+- DislikedFoodButton → DislikedCategoryButton
+- Update component function names to match new file names
+- Internal logic unchanged (will be updated in next PR)
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
+
+* refactor: update import references to use new constant names
+
+- Update all components to use new constant names:
+  * RANKS → RANK_LIST
+  * RANK_LABELS → RANK_LABEL
+  * FOOD_CATEGORIES → CATEGORY_LIST
+  * FOOD_CATEGORY_LABEL → CATEGORY_LABEL
+  * FOOD_CATEGORY_VALUES → CATEGORY_VALUES
+  * dislikedFoodSchema → dislikedCategoriesSchema
+  * preferredMenusSchema → preferredCategoriesSchema
+
+- Update type imports:
+  * FoodCategory → Category
+
+- Update form field references:
+  * dislikedFoods → dislikedCategories
+  * preferredMenus → preferredCategories
+
+- Fix component imports after file renames:
+  * FoodCategoryCarousel → CategoryCarousel
+  * DislikedFoodButton → DislikedCategoryButton
+
+This ensures the build succeeds after type system changes.
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
+
+* style: run prettier format
+
+- Format code according to project prettier rules
+- No logic changes, only formatting
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
+
+### Code Refactoring
+
+* 타입 시스템 리팩토링 - enum을 as const 패턴으로 전환 ([#110](https://github.com/Nexters/yogieat/issues/110)) ([d427378](https://github.com/Nexters/yogieat/commit/d4273786f2b6db4f5f5c88fca18f7c960f1898b1)), closes [#111](https://github.com/Nexters/yogieat/issues/111)
+
+## [1.6.0-beta.8](https://github.com/Nexters/yogieat/compare/v1.6.0-beta.7...v1.6.0-beta.8) (2026-02-25)
+
+### Code Refactoring
+
+* opinion 페이지 컴포넌트 구조 개선 및 로직 통합 ([#109](https://github.com/Nexters/yogieat/issues/109)) ([a76f75f](https://github.com/Nexters/yogieat/commit/a76f75f165cbf1526e037b1b765452503dacfe6f))
+
+## [1.6.0-beta.7](https://github.com/Nexters/yogieat/compare/v1.6.0-beta.6...v1.6.0-beta.7) (2026-02-24)
+
+### Features
+
+* 인원 수 선택 시 시각적 피드백 추가 ([e9f6de6](https://github.com/Nexters/yogieat/commit/e9f6de6e647cc9825db8b88014ee5e2c6042a38e))
+
 ## [1.6.0-beta.6](https://github.com/Nexters/yogieat/compare/v1.6.0-beta.5...v1.6.0-beta.6) (2026-02-24)
 
 ### Features
