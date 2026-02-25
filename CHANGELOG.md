@@ -5,6 +5,12 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0-beta.2](https://github.com/Nexters/yogieat/compare/v2.0.0-beta.1...v2.0.0-beta.2) (2026-02-25)
+
+### Bug Fixes
+
+* 1, 3순위를 선택했으나 2순위를 선택하지 않았을 경우 Validation 을 막지 않았던 문제 수정 ([#113](https://github.com/Nexters/yogieat/issues/113)) ([22e58e8](https://github.com/Nexters/yogieat/commit/22e58e844539bfaf787ada837585d3a2590f8df3))
+
 ## [2.0.0-beta.1](https://github.com/Nexters/yogieat/compare/v1.6.0-beta.8...v2.0.0-beta.1) (2026-02-25)
 
 ### ⚠ BREAKING CHANGES
