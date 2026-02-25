@@ -5,6 +5,18 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0-beta.6](https://github.com/Nexters/yogieat/compare/v2.0.0-beta.5...v2.0.0-beta.6) (2026-02-25)
+
+### Bug Fixes
+
+* 결과 페이지 - 상단 취향 요약 섹션, 하단 투표 결과 선호 카테고리 노출 순서 로직 수정 ([#117](https://github.com/Nexters/yogieat/issues/117)) ([f5c4a1c](https://github.com/Nexters/yogieat/commit/f5c4a1c0d9f38ae57e7d00128086c1aa6643d4e8))
+
+## [2.0.0-beta.5](https://github.com/Nexters/yogieat/compare/v2.0.0-beta.4...v2.0.0-beta.5) (2026-02-25)
+
+### Bug Fixes
+
+* 모임 인원 초과 및 결과 생성 완료 시 Toast 커스텀 기능 추가 ([#116](https://github.com/Nexters/yogieat/issues/116)) ([6088935](https://github.com/Nexters/yogieat/commit/6088935b3b31eb824e557adf912ead7d7d74bb4d))
+
 ## [2.0.0-beta.4](https://github.com/Nexters/yogieat/compare/v2.0.0-beta.3...v2.0.0-beta.4) (2026-02-25)
 
 ### Bug Fixes

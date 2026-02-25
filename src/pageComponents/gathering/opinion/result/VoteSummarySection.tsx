@@ -216,19 +216,27 @@ const PreferenceVoteBlock = ({
 			? [unanimousCategory]
 			: voted.filter((c) => c !== CATEGORY.ANY);
 
-	// progress bar 세그먼트 (노출 순서 기준, votes 있는 것만)
-	const barCategories = foodCategoryOrder.filter(
-		(c) => (preferences[c] ?? 0) >= 1,
-	);
+	// progress bar 세그먼트 (투표 수 내림차순, ANY 마지막, 동률은 고정 순서 유지)
+	const barCategories = foodCategoryOrder
+		.filter((c) => (preferences[c] ?? 0) >= 1)
+		.sort((a, b) => {
+			if (a === CATEGORY.ANY) return 1;
+			if (b === CATEGORY.ANY) return -1;
+			return (preferences[b] ?? 0) - (preferences[a] ?? 0);
+		});
 	const totalVotes = barCategories.reduce(
 		(sum, c) => sum + (preferences[c] ?? 0),
 		0,
 	);
 
-	// 카테고리 dot 목록 (ANY 포함, 순서 유지, count > 0만)
-	const listCategories = foodCategoryOrder.filter(
-		(c) => (preferences[c] ?? 0) >= 1,
-	);
+	// 카테고리 dot 목록 (투표 수 내림차순, ANY 마지막, 동률은 고정 순서 유지)
+	const listCategories = foodCategoryOrder
+		.filter((c) => (preferences[c] ?? 0) >= 1)
+		.sort((a, b) => {
+			if (a === CATEGORY.ANY) return 1;
+			if (b === CATEGORY.ANY) return -1;
+			return (preferences[b] ?? 0) - (preferences[a] ?? 0);
+		});
 
 	return (
 		<div className="ygi:flex ygi:flex-col ygi:gap-4 ygi:rounded-md ygi:bg-surface-white ygi:p-5">
