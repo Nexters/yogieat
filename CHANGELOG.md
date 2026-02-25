@@ -5,6 +5,12 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0-beta.4](https://github.com/Nexters/yogieat/compare/v2.0.0-beta.3...v2.0.0-beta.4) (2026-02-25)
+
+### Bug Fixes
+
+* 결과 대기 페이지 내 공유 버튼 스타일을 Tertiary 로 수정 ([#115](https://github.com/Nexters/yogieat/issues/115)) ([a63ddd1](https://github.com/Nexters/yogieat/commit/a63ddd14dfb507937572e9929250749f9ceed519))
+
 ## [2.0.0-beta.3](https://github.com/Nexters/yogieat/compare/v2.0.0-beta.2...v2.0.0-beta.3) (2026-02-25)
 
 ### Bug Fixes
