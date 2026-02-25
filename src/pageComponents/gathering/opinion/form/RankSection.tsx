@@ -3,6 +3,7 @@
 import { useFormContext, useWatch } from "react-hook-form";
 
 import {
+	CATEGORY,
 	RANK_LABEL,
 	CATEGORY_LIST,
 	RANK_LIST,
@@ -23,7 +24,7 @@ export const RankSection = ({ rank }: RankSectionProps) => {
 		name: "preferredCategories",
 		compute: (data) =>
 			RANK_LIST.slice(0, RANK_LIST.indexOf(rank)).some(
-				(prevRank) => data[prevRank] === "ANY",
+				(prevRank) => data[prevRank] === CATEGORY.ANY,
 			),
 	});
 
@@ -33,7 +34,7 @@ export const RankSection = ({ rank }: RankSectionProps) => {
 		compute: (dislikedCategories) =>
 			CATEGORY_LIST.filter(
 				(category) =>
-					category.value === "ANY" ||
+					category.value === CATEGORY.ANY ||
 					!dislikedCategories?.includes(category.value),
 			),
 	});
