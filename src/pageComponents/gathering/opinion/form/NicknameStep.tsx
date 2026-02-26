@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 
 import { trackStepComplete } from "#/components/analytics";
@@ -8,6 +9,7 @@ import { StepHeader } from "#/components/stepHeader";
 import { Button } from "#/components/button";
 import { InputField } from "#/components/inputField";
 import { nicknameSchema, type OpinionFormSchema } from "#/schemas/gathering";
+import { useRandomNickname } from "#/hooks/gathering";
 
 const Header = () => {
 	return (
@@ -24,17 +26,55 @@ const Header = () => {
 	);
 };
 
+const RefreshIcon = () => (
+	<svg
+		width="16"
+		height="16"
+		viewBox="0 0 16 16"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+		aria-hidden="true"
+	>
+		<path
+			d="M13.65 2.35A8 8 0 1 0 15 8h-1.5a6.5 6.5 0 1 1-1.13-3.67L10 6.5h5v-5l-1.35 1.35Z"
+			fill="#6B7280"
+		/>
+	</svg>
+);
+
 const Content = () => {
 	const {
 		register,
+		setValue,
 		formState: { errors },
 	} = useFormContext<OpinionFormSchema>();
+
+	const { initialNickname, getNextNickname } = useRandomNickname();
+
+	useEffect(() => {
+		setValue("nickname", initialNickname, { shouldValidate: true });
+	}, [setValue, initialNickname]);
+
+	const handleRefresh = () => {
+		const next = getNextNickname();
+		setValue("nickname", next, { shouldValidate: true });
+	};
 
 	return (
 		<InputField
 			{...register("nickname")}
 			placeholder="이름을 입력해주세요"
 			errorText={errors.nickname?.message}
+			rightSlot={
+				<button
+					type="button"
+					onClick={handleRefresh}
+					className="ygi:flex ygi:items-center ygi:justify-center ygi:size-6 ygi:rounded-full ygi:cursor-pointer ygi:transition-colors ygi:hover:bg-palette-gray-100"
+					aria-label="다른 이름 추천받기"
+				>
+					<RefreshIcon />
+				</button>
+			}
 		/>
 	);
 };
