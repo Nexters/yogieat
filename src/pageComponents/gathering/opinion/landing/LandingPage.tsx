@@ -6,7 +6,6 @@ import { useEffect } from "react";
 import { twJoin } from "tailwind-merge";
 
 import { trackCtaClick, trackViewPage } from "#/components/analytics";
-import { Button } from "#/components/button";
 import { Layout } from "#/components/layout";
 import { useGetGathering } from "#/hooks/apis/gathering";
 import { GatheringDateBadge } from "./GatheringDateBadge";
@@ -76,13 +75,18 @@ export function LandingPage() {
 				>
 					<div className="ygi:flex ygi:flex-col ygi:gap-1 ygi:px-6 ygi:py-4">
 						<OpinionStartButton />
-						<Button
-							variant="tertiary"
-							width="full"
+						<button
+							type="button"
 							onClick={handleAlreadySubmitted}
+							className={twJoin(
+								"ygi:flex ygi:h-14 ygi:w-full ygi:items-center ygi:justify-center",
+								"ygi:rounded-md ygi:bg-button-tertiary",
+								"ygi:heading-18-bd ygi:text-text-secondary",
+								"ygi:cursor-pointer",
+							)}
 						>
 							이미 입력했어요
-						</Button>
+						</button>
 					</div>
 				</div>
 			</footer>
