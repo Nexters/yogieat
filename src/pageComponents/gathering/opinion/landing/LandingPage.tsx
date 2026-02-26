@@ -73,16 +73,16 @@ export function LandingPage() {
 						"ygi:pb-[env(safe-area-inset-bottom)]",
 					)}
 				>
-					<div className="ygi:flex ygi:flex-col ygi:gap-1 ygi:px-6 ygi:py-4">
+					<div className="ygi:flex ygi:flex-col ygi:gap-3 ygi:px-6 ygi:py-4">
 						<OpinionStartButton />
 						<button
 							type="button"
 							onClick={handleAlreadySubmitted}
 							className={twJoin(
 								"ygi:flex ygi:h-14 ygi:w-full ygi:items-center ygi:justify-center",
-								"ygi:rounded-md ygi:bg-button-tertiary",
+								"ygi:rounded-md ygi:bg-button-tertiary ygi:hover:bg-button-tertiary-hover",
 								"ygi:heading-18-bd ygi:text-text-secondary",
-								"ygi:cursor-pointer",
+								"ygi:cursor-pointer ygi:transition-colors",
 							)}
 						>
 							이미 입력했어요
