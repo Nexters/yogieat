@@ -1,22 +1,31 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-import { trackViewPage } from "#/components/analytics";
+import { twJoin } from "tailwind-merge";
+
+import { trackCtaClick, trackViewPage } from "#/components/analytics";
 import { Layout } from "#/components/layout";
 import { useGetGathering } from "#/hooks/apis/gathering";
-import { LogoIcon } from "#/icons/logoIcon";
-import { LandingIntroLottie } from "./LandingIntroLottie";
 import { GatheringDateBadge } from "./GatheringDateBadge";
+import { LandingIntroLottie } from "./LandingIntroLottie";
+import { LandingLogoIcon } from "#/icons/landingLogoIcon";
 import { OpinionStartButton } from "./OpinionStartButton";
+import { Button } from "#/components/button";
 
 const PAGE_ID = "의견수합_랜딩";
 
 export function LandingPage() {
 	const { accessKey } = useParams<{ accessKey: string }>();
+	const router = useRouter();
 
 	const { data: gathering } = useGetGathering(accessKey);
+
+	const handleAlreadySubmitted = () => {
+		trackCtaClick({ page_id: PAGE_ID, button_name: "이미 입력했어요" });
+		router.push(`/gathering/${accessKey}/opinion/pending`);
+	};
 
 	useEffect(() => {
 		if (gathering) {
@@ -29,13 +38,20 @@ export function LandingPage() {
 
 	return (
 		<>
-			<Layout.Header background="gray">
+			<Layout.Header background="white">
 				<div className="ygi:h-full ygi:w-full" />
 			</Layout.Header>
-			<Layout.Content background="gray">
+			<main
+				className={twJoin(
+					"ygi:relative ygi:h-dvh ygi:pt-layout-header-height",
+					"ygi:pb-[calc(148px+env(safe-area-inset-bottom))]",
+					"ygi:scrollbar-hide ygi:overflow-x-hidden ygi:overflow-y-auto",
+					"ygi:bg-bg-white",
+				)}
+			>
 				<section className="ygi:flex ygi:h-full ygi:flex-col ygi:bg-clip-padding">
 					<div className="ygi:flex ygi:flex-col ygi:gap-6 ygi:px-6">
-						<LogoIcon className="ygi:text-button-secondary" />
+						<LandingLogoIcon className="ygi:text-button-secondary" />
 						<h1 className="ygi:display-24-bd ygi:whitespace-pre-line ygi:text-text-primary">
 							메뉴 고르기 어려우시죠?
 							<br />
@@ -45,12 +61,31 @@ export function LandingPage() {
 					</div>
 					<LandingIntroLottie />
 				</section>
-			</Layout.Content>
-			<Layout.Footer background="gray">
-				<div className="ygi:py-auto ygi:px-6">
-					<OpinionStartButton />
+			</main>
+			<footer
+				className={twJoin(
+					"ygi:fixed ygi:bottom-0 ygi:left-0 ygi:z-layout-footer",
+					"ygi:flex ygi:w-full ygi:items-center ygi:justify-center",
+				)}
+			>
+				<div
+					className={twJoin(
+						"ygi:w-full ygi:max-w-root-layout ygi:bg-bg-white",
+						"ygi:pb-[env(safe-area-inset-bottom)]",
+					)}
+				>
+					<div className="ygi:flex ygi:flex-col ygi:gap-3 ygi:px-6 ygi:py-4">
+						<OpinionStartButton />
+						<Button
+							variant="tertiary"
+							width="full"
+							onClick={handleAlreadySubmitted}
+						>
+							이미 입력했어요
+						</Button>
+					</div>
 				</div>
-			</Layout.Footer>
+			</footer>
 		</>
 	);
 }
