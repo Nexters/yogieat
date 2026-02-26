@@ -10,8 +10,9 @@ import { Layout } from "#/components/layout";
 import { useGetGathering } from "#/hooks/apis/gathering";
 import { GatheringDateBadge } from "./GatheringDateBadge";
 import { LandingIntroLottie } from "./LandingIntroLottie";
-import { LandingLogoIcon } from "./LandingLogoIcon";
+import { LandingLogoIcon } from "#/icons/landingLogoIcon";
 import { OpinionStartButton } from "./OpinionStartButton";
+import { Button } from "#/components/button";
 
 const PAGE_ID = "의견수합_랜딩";
 
@@ -75,18 +76,13 @@ export function LandingPage() {
 				>
 					<div className="ygi:flex ygi:flex-col ygi:gap-3 ygi:px-6 ygi:py-4">
 						<OpinionStartButton />
-						<button
-							type="button"
+						<Button
+							variant="tertiary"
+							width="full"
 							onClick={handleAlreadySubmitted}
-							className={twJoin(
-								"ygi:flex ygi:h-14 ygi:w-full ygi:items-center ygi:justify-center",
-								"ygi:rounded-md ygi:bg-button-tertiary ygi:hover:bg-button-tertiary-hover",
-								"ygi:heading-18-bd ygi:text-text-secondary",
-								"ygi:cursor-pointer ygi:transition-colors",
-							)}
 						>
 							이미 입력했어요
-						</button>
+						</Button>
 					</div>
 				</div>
 			</footer>

@@ -1,7 +1,9 @@
 import type { SVGProps } from "react";
 
-interface LandingLogoIconProps
-	extends Omit<SVGProps<SVGSVGElement>, "children"> {
+interface LandingLogoIconProps extends Omit<
+	SVGProps<SVGSVGElement>,
+	"children"
+> {
 	color?: string;
 }
 
