@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
+import { useParams } from "next/navigation";
 
 import { trackStepComplete } from "#/components/analytics";
 import { Layout } from "#/components/layout";
@@ -10,6 +11,8 @@ import { Button } from "#/components/button";
 import { InputField } from "#/components/inputField";
 import { nicknameSchema, type OpinionFormSchema } from "#/schemas/gathering";
 import { useRandomNickname } from "#/hooks/gathering";
+import { useCheckNicknameDuplicate } from "#/hooks/apis/participant";
+import { toast } from "#/utils/toast";
 
 const Header = () => {
 	return (
@@ -85,22 +88,37 @@ interface FooterProps {
 
 const Footer = ({ onNext }: FooterProps) => {
 	const { control } = useFormContext<OpinionFormSchema>();
+	const { accessKey } = useParams<{ accessKey: string }>();
+	const { mutateAsync: checkDuplicate, isPending } =
+		useCheckNicknameDuplicate();
 
-	const { nickname, disabled } = useWatch({
+	const { nickname, isValid } = useWatch({
 		control,
 		name: "nickname",
 		compute: (nickname) => ({
 			nickname,
-			disabled: !nicknameSchema.safeParse(nickname).success,
+			isValid: nicknameSchema.safeParse(nickname).success,
 		}),
 	});
 
-	const handleNext = () => {
+	const handleNext = async () => {
 		trackStepComplete({
 			page_id: "의견수합_퍼널",
 			step_name: "이름",
 			step_value: nickname,
 		});
+
+		try {
+			const { data: { isDuplicate } } = await checkDuplicate({ accessKey, nickname });
+			if (isDuplicate) {
+				toast.warning("이미 사용 중인 이름이에요");
+				return;
+			}
+		} catch {
+			toast.warning("확인 중 문제가 발생했어요. 다시 시도해주세요.");
+			return;
+		}
+
 		onNext();
 	};
 
@@ -110,7 +128,7 @@ const Footer = ({ onNext }: FooterProps) => {
 				<Button
 					variant="primary"
 					width="full"
-					disabled={disabled}
+					disabled={!isValid || isPending}
 					onClick={handleNext}
 				>
 					다음
