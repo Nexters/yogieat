@@ -1,6 +1,9 @@
 import { participantKeys } from "./queryKey";
-import { createParticipant } from "./api";
-import type { CreateParticipantRequest } from "./type";
+import { createParticipant, checkNicknameDuplicate } from "./api";
+import type {
+	CreateParticipantRequest,
+	CheckNicknameDuplicateRequest,
+} from "./type";
 import { mutationOptions } from "@tanstack/react-query";
 
 /**
@@ -12,5 +15,11 @@ export const participantOptions = {
 			mutationKey: participantKeys.create(),
 			mutationFn: (request: CreateParticipantRequest) =>
 				createParticipant(request),
+		}),
+	checkDuplicate: () =>
+		mutationOptions({
+			mutationKey: participantKeys.checkDuplicate(),
+			mutationFn: (request: CheckNicknameDuplicateRequest) =>
+				checkNicknameDuplicate(request),
 		}),
 };

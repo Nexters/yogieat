@@ -25,3 +25,17 @@ export interface CreateParticipantResponse {
 	/** 모임 ID */
 	gatheringId: number;
 }
+
+/** 닉네임 중복 확인 요청 */
+export interface CheckNicknameDuplicateRequest {
+	/** 모임 접근키 */
+	accessKey: string;
+	/** 확인할 닉네임 */
+	nickname: string;
+}
+
+/** 닉네임 중복 확인 응답 */
+export interface CheckNicknameDuplicateResponse {
+	/** 중복 여부 */
+	isDuplicate: boolean;
+}
