@@ -37,7 +37,7 @@ export function LandingPage() {
 
 	return (
 		<>
-			<Layout.Header background="gray">
+			<Layout.Header background="white">
 				<div className="ygi:h-full ygi:w-full" />
 			</Layout.Header>
 			<main
@@ -45,7 +45,7 @@ export function LandingPage() {
 					"ygi:relative ygi:h-dvh ygi:pt-layout-header-height",
 					"ygi:pb-[calc(148px+env(safe-area-inset-bottom))]",
 					"ygi:scrollbar-hide ygi:overflow-x-hidden ygi:overflow-y-auto",
-					"ygi:bg-bg-gray",
+					"ygi:bg-bg-white",
 				)}
 			>
 				<section className="ygi:flex ygi:h-full ygi:flex-col ygi:bg-clip-padding">
@@ -69,7 +69,7 @@ export function LandingPage() {
 			>
 				<div
 					className={twJoin(
-						"ygi:w-full ygi:max-w-root-layout ygi:bg-bg-gray",
+						"ygi:w-full ygi:max-w-root-layout ygi:bg-bg-white",
 						"ygi:pb-[env(safe-area-inset-bottom)]",
 					)}
 				>
