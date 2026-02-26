@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import { useQueryClient } from "@tanstack/react-query";
@@ -18,6 +18,7 @@ import { participantCountSchema } from "#/schemas/sse";
 import { SubmissionBottomSheet } from "../SubmissionBottomSheet";
 import { ShareButton } from "./ShareButton";
 import { ShowResultButton } from "./ShowResultButton";
+import { ResultGeneratingPage } from "../result";
 
 const Player = dynamic(
 	() =>
@@ -34,37 +35,37 @@ export function PendingPage() {
 	const queryClient = useQueryClient();
 	const { accessKey } = useParams<{ accessKey: string }>();
 
-	const { proceed, isPending } = useProceedRecommendResult();
+	const { proceed, isPending, onResultComplete } =
+		useProceedRecommendResult();
 
 	const {
 		data: { currentCount, maxCount },
 	} = useGetGatheringCapacity(accessKey);
 
-	const eventHandlers = useMemo(
-		() => ({
+	useServerSentEvent({
+		url: `/gatherings/${accessKey}/subscribe`,
+		events: {
 			"participant-count": (event: MessageEvent) => {
 				const { data: updatedCapacity, success } =
 					participantCountSchema.safeParse(JSON.parse(event.data));
 
-				if (success) {
-					queryClient.setQueryData(
-						gatheringKeys.capacity(accessKey),
-						{
-							data: updatedCapacity,
-						},
-					);
+				if (!success) return;
+
+				if (updatedCapacity.currentCount === updatedCapacity.maxCount) {
+					router.push(`/gathering/${accessKey}/opinion/complete`);
 				}
+
+				queryClient.setQueryData(gatheringKeys.capacity(accessKey), {
+					data: updatedCapacity,
+				});
 			},
 			"gathering-full": () => {
-				router.push(`/gathering/${accessKey}/opinion/complete`);
+				onResultComplete();
+				if (maxCount === currentCount) {
+					router.push(`/gathering/${accessKey}/opinion/complete`);
+				}
 			},
-		}),
-		[accessKey, router, queryClient],
-	);
-
-	useServerSentEvent({
-		url: `/gatherings/${accessKey}/subscribe`,
-		events: eventHandlers,
+		},
 	});
 
 	useEffect(() => {
@@ -78,6 +79,14 @@ export function PendingPage() {
 			});
 		}
 	}, [accessKey, currentCount, maxCount]);
+
+	if (isPending) {
+		return (
+			<Layout.Root>
+				<ResultGeneratingPage />
+			</Layout.Root>
+		);
+	}
 
 	return (
 		<Layout.Root>
