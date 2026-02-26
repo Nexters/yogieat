@@ -26,7 +26,7 @@ export const LandingIntroLottie = () => {
 				<Player
 					autoplay
 					loop
-					src="/lotties/opinion-landing.json"
+					src="/lotties/create-landing.json"
 					style={{ width: "100%", height: "100%" }}
 				/>
 			</motion.div>
