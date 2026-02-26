@@ -5,6 +5,13 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0-beta.7](https://github.com/Nexters/yogieat/compare/v2.0.0-beta.6...v2.0.0-beta.7) (2026-02-26)
+
+### Features
+
+* opinion 랜딩 페이지 UI 업데이트 (로고·lottie·footer) ([#120](https://github.com/Nexters/yogieat/issues/120)) ([2817c50](https://github.com/Nexters/yogieat/commit/2817c5085db4088a0d200416ba9314689e41b440))
+* 추천 결과 생성 대기 페이지 및 애니메이션 구현 ([#118](https://github.com/Nexters/yogieat/issues/118)) ([a720a76](https://github.com/Nexters/yogieat/commit/a720a762b0947078044ece3710dc8a4e290c61d8))
+
 ## [2.0.0-beta.6](https://github.com/Nexters/yogieat/compare/v2.0.0-beta.5...v2.0.0-beta.6) (2026-02-25)
 
 ### Bug Fixes
