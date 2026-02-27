@@ -119,11 +119,17 @@ const Footer = ({ onNext }: FooterProps) => {
 		try {
 			await validateNickname({ accessKey, nickname: nickname ?? "" });
 		} catch (error) {
-			if (
-				isApiError(error) &&
-				error.errorCode === ERROR_CODES.DUPLICATE_NICKNAME
-			) {
-				toast.warning("이미 사용 중인 이름이에요");
+			if (isApiError(error)) {
+				switch (error.errorCode) {
+					case ERROR_CODES.DUPLICATE_NICKNAME:
+						toast.warning("이미 사용 중인 이름이에요");
+						break;
+					default:
+						toast.warning(
+							"확인 중 문제가 발생했어요. 다시 시도해주세요.",
+						);
+						break;
+				}
 			} else {
 				toast.warning("확인 중 문제가 발생했어요. 다시 시도해주세요.");
 			}
