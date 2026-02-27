@@ -10,9 +10,10 @@ import {
 } from "#/hooks/apis";
 import { isApiError } from "#/utils/api";
 import { toast } from "#/utils/toast";
+
 import { EVENT, useServerSentEventListener } from "../sse";
 
-const NAVIGATION_DELAY = 2_500;
+const NAVIGATION_DELAY = 2_000;
 
 const PROCEED_STATUS = {
 	IDLE: "idle",
@@ -38,7 +39,7 @@ export const useProceedRecommendResult = () => {
 	const { mutateAsync: postProceedResult } =
 		usePostProceedRecommendResult(accessKey);
 
-	useServerSentEventListener(EVENT.GATHERING_FULL, () => {
+	useServerSentEventListener(EVENT.RECOMMEND_RESULT_CREATED, () => {
 		if (!isProcessingRef.current) {
 			return;
 		}
@@ -71,10 +72,9 @@ export const useProceedRecommendResult = () => {
 
 			if (!latestResult?.status) {
 				isProcessingRef.current = true;
-				const startTime = Date.now();
 				setProceedState({
 					status: PROCEED_STATUS.PROCESSING,
-					startTime,
+					startTime: Date.now(),
 				});
 
 				await postProceedResult(accessKey);
@@ -84,10 +84,9 @@ export const useProceedRecommendResult = () => {
 			switch (latestResult.status) {
 				case RecommendationResultStatus.COMPLETED: {
 					isProcessingRef.current = true;
-					const startTime = Date.now();
 					setProceedState({
 						status: PROCEED_STATUS.PROCESSING,
-						startTime,
+						startTime: Date.now(),
 					});
 
 					setTimeout(() => {
@@ -104,10 +103,9 @@ export const useProceedRecommendResult = () => {
 
 				case RecommendationResultStatus.PENDING: {
 					isProcessingRef.current = true;
-					const startTime = Date.now();
 					setProceedState({
 						status: PROCEED_STATUS.PROCESSING,
-						startTime,
+						startTime: Date.now(),
 					});
 					return;
 				}

@@ -1,5 +1,5 @@
 export const EVENT = {
-	GATHERING_FULL: "gathering-full",
+	RECOMMEND_RESULT_CREATED: "recommend-result-created",
 	PARTICIPANT_COUNT: "participant-count",
 } as const;
 
