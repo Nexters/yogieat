@@ -51,8 +51,11 @@ const Content = () => {
 		register,
 		setValue,
 		getValues,
+		control,
 		formState: { errors },
 	} = useFormContext<OpinionFormSchema>();
+
+	const nickname = useWatch({ control, name: "nickname" });
 
 	const { initialNickname, getNextNickname } = useRandomNickname();
 
@@ -75,6 +78,7 @@ const Content = () => {
 	return (
 		<InputField
 			{...register("nickname")}
+			value={nickname ?? ""}
 			placeholder="이름을 입력해주세요"
 			errorText={errors.nickname?.message}
 			showClearButton
