@@ -49,11 +49,11 @@ const Content = () => {
 	const {
 		register,
 		setValue,
+		getValues,
 		formState: { errors },
 	} = useFormContext<OpinionFormSchema>();
 
 	const { initialNickname, getNextNickname } = useRandomNickname();
-
 
 	const handleRefresh = () => {
 		const next = getNextNickname();
@@ -65,8 +65,11 @@ const Content = () => {
 	};
 
 	useEffect(() => {
-		setValue("nickname", initialNickname, { shouldValidate: true });
-	}, [setValue, initialNickname]);
+		// 이미 입력된 값이 있으면 덮어쓰지 않음 (뒤로가기 복귀 시 기존 값 유지)
+		if (!getValues("nickname")) {
+			setValue("nickname", initialNickname, { shouldValidate: true });
+		}
+	}, [setValue, getValues, initialNickname]);
 
 	return (
 		<InputField
@@ -79,7 +82,7 @@ const Content = () => {
 				<button
 					type="button"
 					onClick={handleRefresh}
-					className="ygi:flex ygi:items-center ygi:justify-center ygi:size-6 ygi:rounded-full ygi:cursor-pointer ygi:transition-colors ygi:hover:bg-palette-gray-100"
+					className="ygi:flex ygi:size-6 ygi:cursor-pointer ygi:items-center ygi:justify-center ygi:rounded-full ygi:transition-colors ygi:hover:bg-palette-gray-100"
 					aria-label="다른 이름 추천받기"
 				>
 					<RefreshIcon />
@@ -109,22 +112,24 @@ const Footer = ({ onNext }: FooterProps) => {
 	});
 
 	const handleNext = async () => {
+		// try {
+		// 	const {
+		// 		data: { isDuplicate },
+		// 	} = await checkDuplicate({ accessKey, nickname });
+		// 	if (isDuplicate) {
+		// 		toast.warning("이미 사용 중인 이름이에요");
+		// 		return;
+		// 	}
+		// } catch {
+		// 	toast.warning("확인 중 문제가 발생했어요. 다시 시도해주세요.");
+		// 	return;
+		// }
+
 		trackStepComplete({
 			page_id: "의견수합_퍼널",
 			step_name: "이름",
 			step_value: nickname,
 		});
-
-		try {
-			const { data: { isDuplicate } } = await checkDuplicate({ accessKey, nickname });
-			if (isDuplicate) {
-				toast.warning("이미 사용 중인 이름이에요");
-				return;
-			}
-		} catch {
-			toast.warning("확인 중 문제가 발생했어요. 다시 시도해주세요.");
-			return;
-		}
 
 		onNext();
 	};
