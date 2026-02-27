@@ -11,6 +11,7 @@ import { Button } from "#/components/button";
 import { InputField } from "#/components/inputField";
 import { nicknameSchema, type OpinionFormSchema } from "#/schemas/gathering";
 import { useRandomNickname } from "#/hooks/gathering";
+import { RANDOM_NICKNAMES_SET } from "#/constants/nickname";
 import { useValidateNickname } from "#/hooks/apis/participant";
 import { ERROR_CODES, isApiError } from "#/utils/api";
 import { toast } from "#/utils/toast";
@@ -83,6 +84,11 @@ const Content = () => {
 			errorText={errors.nickname?.message}
 			showClearButton
 			onClear={handleClear}
+			inputClassName={
+				RANDOM_NICKNAMES_SET.has(nickname ?? "")
+					? "ygi:!text-palette-gray-400"
+					: ""
+			}
 			rightSlot={
 				<button
 					type="button"
