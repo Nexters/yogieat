@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 
 import { RecommendationResultStatus } from "#/constants/gathering/opinion";
@@ -10,6 +10,7 @@ import {
 } from "#/hooks/apis";
 import { isApiError } from "#/utils/api";
 import { toast } from "#/utils/toast";
+import { EVENT, useServerSentEventListener } from "../sse";
 
 const NAVIGATION_DELAY = 2_500;
 
@@ -30,14 +31,14 @@ export const useProceedRecommendResult = () => {
 		status: PROCEED_STATUS.IDLE,
 	});
 
-	const { refetch: fetchRecommendResult } = useGetRecommendResult(accessKey);
-	const { mutateAsync: proceedMutation } =
-		usePostProceedRecommendResult(accessKey);
-
 	const isProcessingRef = useRef(false);
 	const isPending = proceedState.status === PROCEED_STATUS.PROCESSING;
 
-	const onResultComplete = useCallback(async () => {
+	const { refetch: fetchRecommendResult } = useGetRecommendResult(accessKey);
+	const { mutateAsync: postProceedResult } =
+		usePostProceedRecommendResult(accessKey);
+
+	useServerSentEventListener(EVENT.GATHERING_FULL, () => {
 		if (!isProcessingRef.current) {
 			return;
 		}
@@ -58,7 +59,7 @@ export const useProceedRecommendResult = () => {
 				"추천 결과가 아직 준비되지 않았습니다. 잠시 후 다시 시도해주세요.",
 			);
 		}, remaining);
-	}, [accessKey, router, fetchRecommendResult]);
+	});
 
 	const proceed = async () => {
 		if (isProcessingRef.current) {
@@ -76,7 +77,7 @@ export const useProceedRecommendResult = () => {
 					startTime,
 				});
 
-				await proceedMutation(accessKey);
+				await postProceedResult(accessKey);
 				return;
 			}
 
@@ -126,6 +127,5 @@ export const useProceedRecommendResult = () => {
 	return {
 		proceed,
 		isPending,
-		onResultComplete,
 	};
 };
