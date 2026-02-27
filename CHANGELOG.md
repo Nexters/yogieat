@@ -5,6 +5,12 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0-beta.8](https://github.com/Nexters/yogieat/compare/v2.0.0-beta.7...v2.0.0-beta.8) (2026-02-27)
+
+### Features
+
+* SSE Event Registry 시스템 구현 및 마이그레이션 ([#119](https://github.com/Nexters/yogieat/issues/119)) ([178c79c](https://github.com/Nexters/yogieat/commit/178c79ca0cdb0a6c93ac502342329ba0b2c6e14f))
+
 ## [2.0.0-beta.7](https://github.com/Nexters/yogieat/compare/v2.0.0-beta.6...v2.0.0-beta.7) (2026-02-26)
 
 ### Features
