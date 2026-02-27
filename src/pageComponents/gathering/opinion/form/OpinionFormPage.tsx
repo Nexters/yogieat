@@ -19,7 +19,7 @@ export function OpinionFormPage() {
 	const { accessKey } = useParams<{ accessKey: string }>();
 	const router = useRouter();
 
-	const { methods, onSubmit } = useOpinionForm();
+	const { methods, onSubmit, isPending } = useOpinionForm();
 	const { step, direction, next, back, isFirstStep } = useOpinionFunnel();
 
 	const { data: gathering } = useGetGathering(accessKey);
@@ -85,7 +85,7 @@ export function OpinionFormPage() {
 			case "dislike":
 				return <DislikeStep.Footer onNext={next} />;
 			case "preference":
-				return <PreferenceStep.Footer />;
+				return <PreferenceStep.Footer isPending={isPending} />;
 			default:
 				return null;
 		}

@@ -6,6 +6,7 @@ import { omit } from "es-toolkit";
 
 import { trackStepComplete } from "#/components/analytics";
 import { Button } from "#/components/button";
+import { DotsLoader } from "#/components/dotsLoader";
 import { Layout } from "#/components/layout";
 import { StepHeader } from "#/components/stepHeader";
 import { StepIndicator } from "#/components/stepIndicator";
@@ -122,7 +123,11 @@ const Content = () => {
 	);
 };
 
-const Footer = () => {
+interface FooterProps {
+	isPending: boolean;
+}
+
+const Footer = ({ isPending }: FooterProps) => {
 	const { control } = useFormContext<OpinionFormSchema>();
 
 	const { preferredCategories, disabled } = useWatch({
@@ -159,10 +164,10 @@ const Footer = () => {
 					type="submit"
 					variant="primary"
 					width="full"
-					disabled={disabled}
+					disabled={disabled || isPending}
 					onClick={handleClick}
 				>
-					완료
+					{isPending ? <DotsLoader /> : "완료"}
 				</Button>
 			</div>
 		</Layout.Footer>
