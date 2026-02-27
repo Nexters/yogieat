@@ -54,14 +54,19 @@ const Content = () => {
 
 	const { initialNickname, getNextNickname } = useRandomNickname();
 
-	useEffect(() => {
-		setValue("nickname", initialNickname, { shouldValidate: true });
-	}, [setValue, initialNickname]);
 
 	const handleRefresh = () => {
 		const next = getNextNickname();
 		setValue("nickname", next, { shouldValidate: true });
 	};
+
+	const handleClear = () => {
+		setValue("nickname", "", { shouldValidate: true });
+	};
+
+	useEffect(() => {
+		setValue("nickname", initialNickname, { shouldValidate: true });
+	}, [setValue, initialNickname]);
 
 	return (
 		<InputField
@@ -69,6 +74,7 @@ const Content = () => {
 			placeholder="이름을 입력해주세요"
 			errorText={errors.nickname?.message}
 			showClearButton
+			onClear={handleClear}
 			rightSlot={
 				<button
 					type="button"
