@@ -1,0 +1,1 @@
+export { LandingLogoIcon } from "./LandingLogoIcon";

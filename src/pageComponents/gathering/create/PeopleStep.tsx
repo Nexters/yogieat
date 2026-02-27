@@ -7,6 +7,7 @@ import { trackStepComplete } from "#/components/analytics";
 import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
 import { Button } from "#/components/button";
+import { PeopleGroup } from "./PeopleGroup";
 import { PeopleCountGrid } from "./PeopleCountGrid";
 import type { CreateMeetingFormSchema } from "#/schemas/gathering";
 
@@ -22,13 +23,16 @@ export const PeopleStepContent = () => {
 	};
 
 	return (
-		<section className="ygi:pt-3">
+		<section className="ygi:flex ygi:h-full ygi:flex-col ygi:pt-3">
 			<div className="ygi:flex ygi:flex-col ygi:gap-6 ygi:px-6">
 				<StepIndicator currentStep={1} totalSteps={3} />
 				<h1 className="ygi:heading-22-bd ygi:text-text-primary">
 					몇 명이서 만나요?
 				</h1>
 				<PeopleCountGrid value={field.value} onChange={handleChange} />
+			</div>
+			<div className="ygi:flex ygi:grow ygi:flex-col ygi:items-center ygi:justify-center">
+				<PeopleGroup count={field.value} />
 			</div>
 		</section>
 	);

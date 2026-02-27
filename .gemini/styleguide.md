@@ -193,7 +193,6 @@ export const Layout = {
 
 ### Type Definition
 
-- Prefer `type` over `interface` for Props definitions (but interface is acceptable when needed)
 - Props suffix is required (e.g., `ButtonProps`)
 
 ```typescript
@@ -202,12 +201,6 @@ export type ButtonProps = {
 	variant?: "primary" | "secondary";
 	children: ReactNode;
 };
-
-// ❌ Bad
-interface ButtonProperties {
-	variant?: "primary" | "secondary";
-	children: ReactNode;
-}
 ```
 
 ### Type Imports
@@ -477,7 +470,6 @@ const { data } = useQuery(userQueryOptions.detail(userId));
 - Use design tokens for spacing/colors
 - Add `ygi:` prefix to all Tailwind classes
 - Export types along with components
-- Use `type` for Props definitions
 - Use `as const` for constant objects
 - Keep components small and focused
 - Write self-documenting code
@@ -488,7 +480,6 @@ const { data } = useQuery(userQueryOptions.detail(userId));
 - Don't use relative paths for imports
 - Don't hard-code spacing/color values
 - Don't forget the `ygi:` prefix
-- Don't use `interface` for Props
 - Don't create deep component hierarchies
 - Don't duplicate code (DRY principle)
 - Don't commit without running linter/formatter

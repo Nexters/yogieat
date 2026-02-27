@@ -1,11 +1,6 @@
-export { IntroStep } from "./IntroStep";
-export { NicknameStepContent, NicknameStepFooter } from "./NicknameStep";
-export { DistanceStepContent, DistanceStepFooter } from "./DistanceStep";
-export { DislikeStepContent, DislikeStepFooter } from "./DislikeStep";
-export { PreferenceStepContent, PreferenceStepFooter } from "./PreferenceStep";
-export { PendingView } from "./PendingView";
-export { ResultView } from "./ResultView";
-export { CompleteView } from "./CompleteView";
-export { LandingView } from "./LandingView";
-export { OpinionFormView } from "./OpinionFormView";
+export { LandingPage } from "./landing";
+export { OpinionFormPage, ToastLinkButton } from "./form";
+export { PendingPage } from "./pending";
+export { CompletePage } from "./complete";
+export { ResultPage } from "./result";
 export { SubmissionBottomSheet } from "./SubmissionBottomSheet";

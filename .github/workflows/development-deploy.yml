@@ -23,7 +23,7 @@ on:
         type: boolean
 
 concurrency:
-  group: deploy-${{ github.repository }}
+  group: deploy-${{ github.repository }}-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -213,8 +213,10 @@ jobs:
         run: |
           COMMIT_MSG=$(echo "${{ github.event.head_commit.message }}" | head -n 1)
           SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
+          BRANCH_NAME=$(echo "${{ github.ref }}" | sed 's|refs/heads/||')
           echo "message=$COMMIT_MSG" >> $GITHUB_OUTPUT
           echo "sha=$SHORT_SHA" >> $GITHUB_OUTPUT
+          echo "branch=$BRANCH_NAME" >> $GITHUB_OUTPUT
 
       - name: Discord notification
         if: always()
@@ -224,6 +226,7 @@ jobs:
           title: "🚀 Development 배포"
           description: |
             **상태**: ${{ job.status }}
+            **브랜치**: `${{ steps.commit.outputs.branch }}`
             **트리거**: ${{ github.event_name == 'workflow_dispatch' && '🖱️ 수동 배포' || '🔄 자동 배포' }}
             **커밋**: [`${{ steps.commit.outputs.sha }}`](https://github.com/${{ github.repository }}/commit/${{ github.sha }})
             **메시지**: ${{ steps.commit.outputs.message }}

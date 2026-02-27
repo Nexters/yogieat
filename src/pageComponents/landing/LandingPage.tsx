@@ -5,6 +5,8 @@ import { useEffect } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 
+import { LandingLogoIcon } from "#/icons/landingLogoIcon";
+
 const Player = dynamic(
 	() =>
 		import("@lottiefiles/react-lottie-player").then(
@@ -47,13 +49,7 @@ export const LandingPage = () => {
 						height={17}
 						priority
 					/>
-					<Image
-						src="/images/landing/logo.svg"
-						alt="요기잇"
-						width={170}
-						height={54}
-						priority
-					/>
+					<LandingLogoIcon color="white" width={170} height={54} />
 				</div>
 
 				{/* Illustration Section */}

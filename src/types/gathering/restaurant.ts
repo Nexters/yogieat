@@ -1,5 +1,4 @@
-import { DistanceRange } from "#/constants/gathering/opinion";
-import { FoodCategory } from "./foodCategory";
+import { DistanceRange, Category } from "#/constants/gathering/opinion";
 
 export interface Restaurant {
 	rank: number;
@@ -16,7 +15,15 @@ export interface Restaurant {
 		type: string;
 		coordinates: [number, number];
 	};
-	largeCategory: FoodCategory;
+	largeCategory: Category;
 	mediumCategory: string;
 	majorityDistanceRange: DistanceRange;
+	reviewCount: number;
+	blogReviewCount: number;
+	representMenu: string | null;
+	representMenuPrice: number | null;
+	priceLevel: string | null;
+	aiMateSummaryTitle: string | null;
+	aiMateSummaryContents: string[];
+	reasonText: string | null;
 }

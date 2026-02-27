@@ -3,34 +3,71 @@ import {
 	QueryClient,
 	dehydrate,
 } from "@tanstack/react-query";
+import { notFound, redirect } from "next/navigation";
 
 import { gatheringQueryOptions } from "#/apis/gathering";
-import { OpinionFormView } from "#/pageComponents/gathering/opinion";
+import { recommendResultOptions } from "#/apis/recommendResult";
+import { RecommendationResultStatus } from "#/constants/gathering/opinion";
+import { OpinionFormPage } from "#/pageComponents/gathering/opinion";
+import { ERROR_CODES, isApiError } from "#/utils/api";
 
-interface OpinionPageProps {
+interface GatheringOpinionProps {
 	params: Promise<{
 		accessKey: string;
 	}>;
 }
 
-/**
- * 의견 수렴 폼 페이지 (서버 컴포넌트)
- * - 실제 의견 입력 (distance -> dislike -> preference)
- * - gathering 데이터를 서버에서 prefetch하여 무한 렌더링 방지
- */
-export default async function OpinionPage({ params }: OpinionPageProps) {
+export default async function GatheringOpinion({
+	params,
+}: GatheringOpinionProps) {
 	const { accessKey } = await params;
-	const queryClient = new QueryClient();
+	const queryClient = new QueryClient({
+		defaultOptions: {
+			queries: {
+				retry: 0,
+			},
+		},
+	});
 
-	// 서버에서 gathering 데이터 미리 가져오기
-	await Promise.all([
-		queryClient.prefetchQuery(gatheringQueryOptions.detail(accessKey)),
-		queryClient.prefetchQuery(gatheringQueryOptions.capacity(accessKey)),
-	]);
+	try {
+		const [{ data: recommendResult }, , { data: capacity }] =
+			await Promise.all([
+				queryClient.fetchQuery(
+					recommendResultOptions.detail(accessKey),
+				),
+				queryClient.fetchQuery(gatheringQueryOptions.detail(accessKey)),
+				queryClient.fetchQuery(
+					gatheringQueryOptions.capacity(accessKey),
+				),
+			]);
+
+		if (capacity.maxCount === capacity.currentCount) {
+			redirect(`/gathering/${accessKey}/opinion/complete`);
+		}
+
+		if (recommendResult.status === RecommendationResultStatus.COMPLETED) {
+			redirect(`/gathering/${accessKey}/opinion/result`);
+		}
+	} catch (error) {
+		if (isApiError(error)) {
+			switch (error.errorCode) {
+				case ERROR_CODES.RECOMMEND_ALREADY_PROCEEDED:
+					redirect(`/gathering/${accessKey}/opinion/result`);
+
+				case ERROR_CODES.RESTAURANT_NOT_FOUND:
+				case ERROR_CODES.CATEGORY_NOT_FOUND:
+				case ERROR_CODES.GATHERING_NOT_FOUND:
+				case ERROR_CODES.GATHERING_DELETED:
+					notFound();
+			}
+		}
+
+		throw error;
+	}
 
 	return (
 		<HydrationBoundary state={dehydrate(queryClient)}>
-			<OpinionFormView />
+			<OpinionFormPage />
 		</HydrationBoundary>
 	);
 }
