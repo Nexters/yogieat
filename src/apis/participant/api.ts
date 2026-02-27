@@ -3,8 +3,7 @@ import { apiClient } from "#/utils/api";
 import type {
 	CreateParticipantRequest,
 	CreateParticipantResponse,
-	CheckNicknameDuplicateRequest,
-	CheckNicknameDuplicateResponse,
+	ValidateNicknameRequest,
 } from "./type";
 
 /**
@@ -18,14 +17,12 @@ export const createParticipant = (request: CreateParticipantRequest) => {
 };
 
 /**
- * 닉네임 중복 확인 API
- * TODO: 서버 준비 완료 후 실제 엔드포인트 및 응답 구조 확인 필요
+ * 닉네임 사전 검증 API
+ * 중복 시 에러 코드 P006(DUPLICATE_NICKNAME) throw
  */
-export const checkNicknameDuplicate = (
-	request: CheckNicknameDuplicateRequest,
-) => {
-	return apiClient.get<CheckNicknameDuplicateResponse>(
-		`gatherings/${request.accessKey}/participants/check-nickname`,
-		{ searchParams: { nickname: request.nickname } },
+export const validateNickname = (request: ValidateNicknameRequest) => {
+	return apiClient.post<null, ValidateNicknameRequest>(
+		"participants/nickname/validation",
+		request,
 	);
 };

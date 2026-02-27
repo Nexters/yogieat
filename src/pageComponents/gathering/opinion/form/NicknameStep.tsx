@@ -11,7 +11,8 @@ import { Button } from "#/components/button";
 import { InputField } from "#/components/inputField";
 import { nicknameSchema, type OpinionFormSchema } from "#/schemas/gathering";
 import { useRandomNickname } from "#/hooks/gathering";
-import { useCheckNicknameDuplicate } from "#/hooks/apis/participant";
+import { useValidateNickname } from "#/hooks/apis/participant";
+import { ERROR_CODES, isApiError } from "#/utils/api";
 import { toast } from "#/utils/toast";
 
 const Header = () => {
@@ -99,8 +100,7 @@ interface FooterProps {
 const Footer = ({ onNext }: FooterProps) => {
 	const { control } = useFormContext<OpinionFormSchema>();
 	const { accessKey } = useParams<{ accessKey: string }>();
-	const { mutateAsync: checkDuplicate, isPending } =
-		useCheckNicknameDuplicate();
+	const { mutateAsync: validateNickname, isPending } = useValidateNickname();
 
 	const { nickname, isValid } = useWatch({
 		control,
@@ -112,18 +112,19 @@ const Footer = ({ onNext }: FooterProps) => {
 	});
 
 	const handleNext = async () => {
-		// try {
-		// 	const {
-		// 		data: { isDuplicate },
-		// 	} = await checkDuplicate({ accessKey, nickname });
-		// 	if (isDuplicate) {
-		// 		toast.warning("이미 사용 중인 이름이에요");
-		// 		return;
-		// 	}
-		// } catch {
-		// 	toast.warning("확인 중 문제가 발생했어요. 다시 시도해주세요.");
-		// 	return;
-		// }
+		try {
+			await validateNickname({ accessKey, nickname: nickname ?? "" });
+		} catch (error) {
+			if (
+				isApiError(error) &&
+				error.errorCode === ERROR_CODES.DUPLICATE_NICKNAME
+			) {
+				toast.warning("이미 사용 중인 이름이에요");
+			} else {
+				toast.warning("확인 중 문제가 발생했어요. 다시 시도해주세요.");
+			}
+			return;
+		}
 
 		trackStepComplete({
 			page_id: "의견수합_퍼널",

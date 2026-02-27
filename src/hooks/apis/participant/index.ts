@@ -1,2 +1,2 @@
 export { useCreateParticipant } from "./useCreateParticipant";
-export { useCheckNicknameDuplicate } from "./useCheckNicknameDuplicate";
+export { useValidateNickname } from "./useValidateNickname";
