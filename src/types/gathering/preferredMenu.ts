@@ -1,5 +1,5 @@
-import { FoodCategory } from "./foodCategory";
+import { Category } from "#/constants/gathering/opinion";
 
 export type RankKey = "first" | "second" | "third";
 
-export type PreferredMenu = Partial<Record<RankKey, FoodCategory>>;
+export type PreferredCategory = Partial<Record<RankKey, Category>>;

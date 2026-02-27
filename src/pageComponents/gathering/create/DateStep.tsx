@@ -12,12 +12,9 @@ import { isValidDateFormat } from "#/utils/gathering/create";
 import type { CreateMeetingFormSchema } from "#/schemas/gathering";
 import type { TimeSlot } from "#/types/gathering";
 
-import { ScheduledDatePicker } from "./ScheduledDatePicker";
+import { TIME_SLOT_LABEL } from "#/constants/gathering/opinion";
 
-const TIME_SLOT_LABEL: Record<TimeSlot, string> = {
-	LUNCH: "점심",
-	DINNER: "저녁",
-};
+import { ScheduledDatePicker } from "./ScheduledDatePicker";
 
 export const DateStepContent = () => {
 	const { control } = useFormContext<CreateMeetingFormSchema>();
