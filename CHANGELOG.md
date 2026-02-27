@@ -5,6 +5,12 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0-beta.9](https://github.com/Nexters/yogieat/compare/v2.0.0-beta.8...v2.0.0-beta.9) (2026-02-27)
+
+### Code Refactoring
+
+* SSE 이벤트를 recommend-result-created로 변경 ([#121](https://github.com/Nexters/yogieat/issues/121)) ([222e613](https://github.com/Nexters/yogieat/commit/222e613a172b43709c6ffef303abc66683af7812))
+
 ## [2.0.0-beta.8](https://github.com/Nexters/yogieat/compare/v2.0.0-beta.7...v2.0.0-beta.8) (2026-02-27)
 
 ### Features
