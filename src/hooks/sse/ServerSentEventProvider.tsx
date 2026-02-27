@@ -71,11 +71,9 @@ export function ServerSentEventProvider({
 		});
 
 		return () => {
-			if (eventSourceRef.current) {
-				eventSourceRef.current.close();
-				eventSourceRef.current = null;
-			}
+			eventSource.close();
 			eventRegistry.clear();
+			eventSourceRef.current = null;
 		};
 	}, [connectionUrl, withCredentials, enabled, eventRegistry]);
 
