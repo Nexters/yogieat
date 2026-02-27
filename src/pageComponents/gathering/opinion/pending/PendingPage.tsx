@@ -12,8 +12,7 @@ import { StepHeader } from "#/components/stepHeader";
 import { Toaster } from "#/components/toast";
 import { useGetGatheringCapacity } from "#/hooks/apis/gathering";
 import { useProceedRecommendResult } from "#/hooks/gathering";
-import { useServerSentEvent } from "#/hooks/sse";
-import { participantCountSchema } from "#/schemas/sse";
+import { EVENT, useServerSentEventListener } from "#/hooks/sse";
 
 import { SubmissionBottomSheet } from "../SubmissionBottomSheet";
 import { ShareButton } from "./ShareButton";
@@ -35,37 +34,20 @@ export function PendingPage() {
 	const queryClient = useQueryClient();
 	const { accessKey } = useParams<{ accessKey: string }>();
 
-	const { proceed, isPending, onResultComplete } =
-		useProceedRecommendResult();
+	const { proceed, isPending } = useProceedRecommendResult();
 
 	const {
 		data: { currentCount, maxCount },
 	} = useGetGatheringCapacity(accessKey);
 
-	useServerSentEvent({
-		url: `/gatherings/${accessKey}/subscribe`,
-		events: {
-			"participant-count": (event: MessageEvent) => {
-				const { data: updatedCapacity, success } =
-					participantCountSchema.safeParse(JSON.parse(event.data));
+	useServerSentEventListener(EVENT.PARTICIPANT_COUNT, (payload) => {
+		if (payload.currentCount === payload.maxCount) {
+			router.push(`/gathering/${accessKey}/opinion/complete`);
+		}
 
-				if (!success) return;
-
-				if (updatedCapacity.currentCount === updatedCapacity.maxCount) {
-					router.push(`/gathering/${accessKey}/opinion/complete`);
-				}
-
-				queryClient.setQueryData(gatheringKeys.capacity(accessKey), {
-					data: updatedCapacity,
-				});
-			},
-			"gathering-full": () => {
-				onResultComplete();
-				if (maxCount === currentCount) {
-					router.push(`/gathering/${accessKey}/opinion/complete`);
-				}
-			},
-		},
+		queryClient.setQueryData(gatheringKeys.capacity(accessKey), {
+			data: payload,
+		});
 	});
 
 	useEffect(() => {

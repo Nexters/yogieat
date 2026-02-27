@@ -18,7 +18,8 @@ import { toast } from "#/utils/toast";
 export function useOpinionForm() {
 	const router = useRouter();
 	const { accessKey } = useParams<{ accessKey: string }>();
-	const { mutateAsync: createParticipant } = useCreateParticipant();
+	const { mutateAsync: createParticipant, isPending } =
+		useCreateParticipant();
 
 	const methods = useForm<OpinionFormSchema>({
 		mode: "onChange",
@@ -83,5 +84,6 @@ export function useOpinionForm() {
 	return {
 		methods,
 		onSubmit: handleSubmit,
+		isPending,
 	};
 }

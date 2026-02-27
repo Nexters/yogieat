@@ -25,3 +25,11 @@ export interface CreateParticipantResponse {
 	/** 모임 ID */
 	gatheringId: number;
 }
+
+/** 닉네임 사전 검증 요청 */
+export interface ValidateNicknameRequest {
+	/** 모임 접근키 */
+	accessKey: string;
+	/** 확인할 닉네임 */
+	nickname: string;
+}
