@@ -66,6 +66,6 @@ export class EventRegistry {
 			this.eventRegistry.set(type, new Set());
 		}
 
-		return this.eventRegistry.get(type) as Set<EventHandler<EventType>>;
+		return this.eventRegistry.get(type) as Set<EventHandler<TEvent>>;
 	}
 }
