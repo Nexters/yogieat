@@ -1,6 +1,7 @@
 import type { ComponentPropsWithoutRef } from "react";
 import { twJoin } from "tailwind-merge";
 import { motion } from "motion/react";
+import { clamp } from "es-toolkit";
 
 export interface ProgressBarProps extends Omit<
 	ComponentPropsWithoutRef<"div">,
@@ -9,8 +10,11 @@ export interface ProgressBarProps extends Omit<
 	value: number;
 }
 
+const MIN_VALUE = 0;
+const MAX_VALUE = 100;
+
 export const ProgressBar = ({ value, ...props }: ProgressBarProps) => {
-	const clampedValue = Math.min(Math.max(value, 0), 100);
+	const clampedValue = clamp(value, MIN_VALUE, MAX_VALUE);
 
 	return (
 		<div
@@ -19,8 +23,8 @@ export const ProgressBar = ({ value, ...props }: ProgressBarProps) => {
 			)}
 			role="progressbar"
 			aria-valuenow={clampedValue}
-			aria-valuemin={0}
-			aria-valuemax={100}
+			aria-valuemin={MIN_VALUE}
+			aria-valuemax={MAX_VALUE}
 			{...props}
 		>
 			<motion.div
