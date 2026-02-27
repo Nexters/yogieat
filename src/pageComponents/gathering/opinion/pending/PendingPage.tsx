@@ -79,7 +79,7 @@ export function PendingPage() {
 							메뉴 추천을 준비하고 있어요!
 						</StepHeader.Title>
 						<StepHeader.Description>
-							모든 의견이 모이면 추천 결과를 보여드릴게요
+							과반수 이상의 의견이 모이면 추천 결과를 보여드릴게요
 						</StepHeader.Description>
 					</StepHeader.Root>
 
