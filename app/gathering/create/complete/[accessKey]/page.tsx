@@ -42,13 +42,14 @@ export default function GatheringCreateCompletePage() {
 		<Layout.Root>
 			<main
 				className={twJoin(
-					"ygi:relative ygi:h-dvh ygi:pt-layout-header-height",
+					"ygi:relative ygi:flex ygi:h-dvh ygi:flex-col",
+					"ygi:pt-layout-header-height",
 					"ygi:pb-[calc(148px+env(safe-area-inset-bottom))]",
-					"ygi:scrollbar-hide ygi:overflow-x-hidden ygi:overflow-y-auto",
+					"ygi:overflow-hidden",
 					"ygi:bg-bg-white",
 				)}
 			>
-				<section className="ygi:pt-3">
+				<section className="ygi:flex ygi:min-h-0 ygi:flex-1 ygi:flex-col ygi:pt-3">
 					<div className="ygi:flex ygi:flex-col ygi:gap-xl ygi:px-6">
 						<h1 className="ygi:heading-22-bd ygi:text-text-primary">
 							모임 링크 생성 완료!
@@ -57,8 +58,8 @@ export default function GatheringCreateCompletePage() {
 						</h1>
 					</div>
 
-					<div className="ygi:mt-21 ygi:flex ygi:justify-center">
-						<MeetingCompleteIllustration />
+					<div className="ygi:flex ygi:min-h-0 ygi:flex-1 ygi:items-center ygi:justify-center ygi:px-10 ygi:py-[70px]">
+						<MeetingCompleteIllustration className="ygi:h-full ygi:w-auto ygi:max-w-full" />
 					</div>
 				</section>
 			</main>
