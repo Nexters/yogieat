@@ -128,36 +128,34 @@ const computeDistanceSubtitle = (distances: Record<string, number>): string => {
 // 여러 카테고리 이미지를 단방향 무한 캐러셀
 const AutoSlideImage = ({ categories }: { categories: Category[] }) => {
 	const [idx, setIdx] = useState(0);
-	const [sliding, setSliding] = useState(false);
+	const [fading, setFading] = useState(false);
 
 	useEffect(() => {
 		if (categories.length <= 1) return;
-		let slideTimeout: ReturnType<typeof setTimeout>;
+		let fadeTimeout: ReturnType<typeof setTimeout>;
 		const timer = setInterval(() => {
-			setSliding(true);
-			slideTimeout = setTimeout(() => {
+			setFading(true);
+			fadeTimeout = setTimeout(() => {
 				setIdx((prev) => (prev + 1) % categories.length);
-				setSliding(false);
-			}, 500);
-		}, 1500);
+				setFading(false);
+			}, 800);
+		}, 2000);
 		return () => {
 			clearInterval(timer);
-			clearTimeout(slideTimeout);
+			clearTimeout(fadeTimeout);
 		};
 	}, [categories.length]);
 
 	const nextIdx = (idx + 1) % categories.length;
 
 	return (
-		<div className="ygi:relative ygi:size-20 ygi:shrink-0 ygi:overflow-hidden">
+		<div className="ygi:relative ygi:size-20 ygi:shrink-0">
 			{/* 현재 이미지 */}
 			<div
 				className="ygi:absolute ygi:inset-0 ygi:flex ygi:items-center ygi:justify-center"
 				style={{
-					transform: sliding ? "translateX(-100%)" : "translateX(0)",
-					transition: sliding
-						? "transform 500ms ease-in-out"
-						: "none",
+					opacity: fading ? 0 : 1,
+					transition: fading ? "opacity 800ms ease-in-out" : "none",
 				}}
 			>
 				<div className="ygi:relative ygi:size-15">
@@ -174,11 +172,9 @@ const AutoSlideImage = ({ categories }: { categories: Category[] }) => {
 				<div
 					className="ygi:absolute ygi:inset-0 ygi:flex ygi:items-center ygi:justify-center"
 					style={{
-						transform: sliding
-							? "translateX(0)"
-							: "translateX(100%)",
-						transition: sliding
-							? "transform 500ms ease-in-out"
+						opacity: fading ? 1 : 0,
+						transition: fading
+							? "opacity 800ms ease-in-out"
 							: "none",
 					}}
 				>
