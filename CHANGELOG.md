@@ -104,6 +104,11 @@ Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
 * ProgressBar 컴포넌트 UI 개선 및 코드 최적화 ([#122](https://github.com/Nexters/yogieat/issues/122)) ([c73de1d](https://github.com/Nexters/yogieat/commit/c73de1d79ab2f51c720036cf8b2cfd4e789e64cc))
 * SSE 이벤트를 recommend-result-created로 변경 ([#121](https://github.com/Nexters/yogieat/issues/121)) ([222e613](https://github.com/Nexters/yogieat/commit/222e613a172b43709c6ffef303abc66683af7812))
 * 타입 시스템 리팩토링 - enum을 as const 패턴으로 전환 ([#110](https://github.com/Nexters/yogieat/issues/110)) ([d427378](https://github.com/Nexters/yogieat/commit/d4273786f2b6db4f5f5c88fca18f7c960f1898b1)), closes [#111](https://github.com/Nexters/yogieat/issues/111)
+## [2.0.0-beta.11](https://github.com/Nexters/yogieat/compare/v2.0.0-beta.10...v2.0.0-beta.11) (2026-02-27)
+
+### Features
+
+* 닉네임 입력 단계 랜덤 닉네임 및 중복 확인 기능 추가 ([#123](https://github.com/Nexters/yogieat/issues/123)) ([4cf0323](https://github.com/Nexters/yogieat/commit/4cf032363d058a35a8d33e406a8baa445861c447))
 
 ## [2.0.0-beta.10](https://github.com/Nexters/yogieat/compare/v2.0.0-beta.9...v2.0.0-beta.10) (2026-02-27)
 
