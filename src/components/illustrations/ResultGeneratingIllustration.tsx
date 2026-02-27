@@ -46,9 +46,9 @@ export const ResultGeneratingIllustration = () => {
 
 				{/* Left Chopstick */}
 				<motion.g
-					style={{ originX: "162px", originY: "186px" }}
+					style={{ originX: "162px", originY: "137px" }}
 					animate={{
-						rotate: [0, -18, 0],
+						rotate: [0, -3.52, 0],
 					}}
 					transition={{
 						duration: 0.4,
@@ -68,9 +68,9 @@ export const ResultGeneratingIllustration = () => {
 
 				{/* Right Chopstick */}
 				<motion.g
-					style={{ originX: "219px", originY: "202px" }}
+					style={{ originX: "211px", originY: "158px" }}
 					animate={{
-						rotate: [0, 18, 0],
+						rotate: [0, 3.52, 0],
 					}}
 					transition={{
 						duration: 0.4,
