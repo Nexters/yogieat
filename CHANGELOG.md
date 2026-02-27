@@ -5,6 +5,12 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0-beta.10](https://github.com/Nexters/yogieat/compare/v2.0.0-beta.9...v2.0.0-beta.10) (2026-02-27)
+
+### Code Refactoring
+
+* ProgressBar 컴포넌트 UI 개선 및 코드 최적화 ([#122](https://github.com/Nexters/yogieat/issues/122)) ([c73de1d](https://github.com/Nexters/yogieat/commit/c73de1d79ab2f51c720036cf8b2cfd4e789e64cc))
+
 ## [2.0.0-beta.9](https://github.com/Nexters/yogieat/compare/v2.0.0-beta.8...v2.0.0-beta.9) (2026-02-27)
 
 ### Code Refactoring
