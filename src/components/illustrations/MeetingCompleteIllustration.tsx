@@ -1,4 +1,8 @@
-export const MeetingCompleteIllustration = () => {
+export const MeetingCompleteIllustration = ({
+	className,
+}: {
+	className?: string;
+}) => {
 	return (
 		<svg
 			width="295"
@@ -6,6 +10,7 @@ export const MeetingCompleteIllustration = () => {
 			viewBox="0 -16 295 336"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
+			className={className}
 		>
 			<defs>
 				<clipPath id="clip0_bowl">
