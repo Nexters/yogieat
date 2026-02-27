@@ -73,7 +73,7 @@ export function PendingPage() {
 	return (
 		<Layout.Root>
 			<Layout.Content background="gray">
-				<div className="ygi:flex ygi:h-full ygi:flex-col ygi:items-center ygi:px-6 ygi:pt-3">
+				<div className="ygi:flex ygi:h-full ygi:flex-col ygi:items-center ygi:overflow-hidden ygi:px-6 ygi:pt-3">
 					<StepHeader.Root>
 						<StepHeader.Title>
 							메뉴 추천을 준비하고 있어요!
@@ -83,13 +83,19 @@ export function PendingPage() {
 						</StepHeader.Description>
 					</StepHeader.Root>
 
-					<div className="ygi:item-center ygi:mb-43 ygi:flex ygi:w-full ygi:flex-1 ygi:flex-col ygi:justify-end">
-						<Player
-							autoplay
-							loop
-							src="/lotties/opinion-submission.json"
-							style={{ width: 280, height: 300 }}
-						/>
+					{/* 텍스트–일러스트 고정 간격 60px */}
+					<div className="ygi:h-15 ygi:shrink-0" />
+
+					{/* 일러스트 컨테이너: 남은 높이 채움, 일러스트는 하단 고정 */}
+					<div className="ygi:mb-43 ygi:flex ygi:min-h-0 ygi:flex-1 ygi:items-end ygi:justify-center">
+						<div className="ygi:aspect-280/300 ygi:h-full ygi:max-h-75">
+							<Player
+								autoplay
+								loop
+								src="/lotties/opinion-submission.json"
+								style={{ width: "100%", height: "100%" }}
+							/>
+						</div>
 					</div>
 				</div>
 			</Layout.Content>
