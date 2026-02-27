@@ -5,6 +5,12 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0-beta.11](https://github.com/Nexters/yogieat/compare/v2.0.0-beta.10...v2.0.0-beta.11) (2026-02-27)
+
+### Features
+
+* 닉네임 입력 단계 랜덤 닉네임 및 중복 확인 기능 추가 ([#123](https://github.com/Nexters/yogieat/issues/123)) ([4cf0323](https://github.com/Nexters/yogieat/commit/4cf032363d058a35a8d33e406a8baa445861c447))
+
 ## [2.0.0-beta.10](https://github.com/Nexters/yogieat/compare/v2.0.0-beta.9...v2.0.0-beta.10) (2026-02-27)
 
 ### Code Refactoring
