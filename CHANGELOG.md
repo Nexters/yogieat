@@ -5,6 +5,106 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0](https://github.com/Nexters/yogieat/compare/v1.5.1...v2.0.0) (2026-02-27)
+
+### ⚠ BREAKING CHANGES
+
+* OpinionForm field names changed
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
+
+* refactor: update schema field names and exports
+
+- foodCategorySchema → categorySchema
+- dislikedFoodSchema → dislikedCategoriesSchema
+- preferredMenusSchema → preferredCategoriesSchema
+- Update opinionFormSchema with new field names
+- Replace hardcoded "ANY" with CATEGORY.ANY
+* Schema field names changed
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
+
+* refactor: rename component files to use Category naming
+
+- FoodCard → CategoryCard
+- FoodCategoryCarousel → CategoryCarousel
+- DislikedFoodButton → DislikedCategoryButton
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
+
+* refactor: update component export names
+
+- FoodCard → CategoryCard
+- FoodCategoryCarousel → CategoryCarousel
+- DislikedFoodButton → DislikedCategoryButton
+- Update component function names to match new file names
+- Internal logic unchanged (will be updated in next PR)
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
+
+* refactor: update import references to use new constant names
+
+- Update all components to use new constant names:
+  * RANKS → RANK_LIST
+  * RANK_LABELS → RANK_LABEL
+  * FOOD_CATEGORIES → CATEGORY_LIST
+  * FOOD_CATEGORY_LABEL → CATEGORY_LABEL
+  * FOOD_CATEGORY_VALUES → CATEGORY_VALUES
+  * dislikedFoodSchema → dislikedCategoriesSchema
+  * preferredMenusSchema → preferredCategoriesSchema
+
+- Update type imports:
+  * FoodCategory → Category
+
+- Update form field references:
+  * dislikedFoods → dislikedCategories
+  * preferredMenus → preferredCategories
+
+- Fix component imports after file renames:
+  * FoodCategoryCarousel → CategoryCarousel
+  * DislikedFoodButton → DislikedCategoryButton
+
+This ensures the build succeeds after type system changes.
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
+
+* style: run prettier format
+
+- Format code according to project prettier rules
+- No logic changes, only formatting
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
+
+### Features
+
+* 404, 500 에러 페이지 추가 ([#107](https://github.com/Nexters/yogieat/issues/107)) ([e9e5772](https://github.com/Nexters/yogieat/commit/e9e57725127ea384c2836c61910488e137801271))
+* opinion 랜딩 페이지 UI 업데이트 (로고·lottie·footer) ([#120](https://github.com/Nexters/yogieat/issues/120)) ([2817c50](https://github.com/Nexters/yogieat/commit/2817c5085db4088a0d200416ba9314689e41b440))
+* SSE Event Registry 시스템 구현 및 마이그레이션 ([#119](https://github.com/Nexters/yogieat/issues/119)) ([178c79c](https://github.com/Nexters/yogieat/commit/178c79ca0cdb0a6c93ac502342329ba0b2c6e14f))
+* SSE 기반 실시간 모임 현황 업데이트 구현 ([#87](https://github.com/Nexters/yogieat/issues/87)) ([0d220e0](https://github.com/Nexters/yogieat/commit/0d220e002c11da6cb470c793960d6736909e63a0))
+* 결과 페이지 - 투표 결과 섹션 구현 ([#106](https://github.com/Nexters/yogieat/issues/106)) ([c633225](https://github.com/Nexters/yogieat/commit/c6332256a59ef96b079f7ac26705b30c0e9ae02c))
+* 과반수 이상 의견 제출 시 추천 결과 생성 관련 API, Hook 추가 ([#103](https://github.com/Nexters/yogieat/issues/103)) ([5b31eec](https://github.com/Nexters/yogieat/commit/5b31eec62d2c3009053591d30b635118efdabbce)), closes [#105](https://github.com/Nexters/yogieat/issues/105)
+* 인원 수 선택 시 시각적 피드백 추가 ([e9f6de6](https://github.com/Nexters/yogieat/commit/e9f6de6e647cc9825db8b88014ee5e2c6042a38e))
+* 추천 결과 API response 타입 업데이트 ([#100](https://github.com/Nexters/yogieat/issues/100)) ([1d046ab](https://github.com/Nexters/yogieat/commit/1d046abea2361174e64927d29c92035da2899db5)), closes [#101](https://github.com/Nexters/yogieat/issues/101) [#102](https://github.com/Nexters/yogieat/issues/102)
+* 추천 결과 생성 대기 페이지 및 애니메이션 구현 ([#118](https://github.com/Nexters/yogieat/issues/118)) ([a720a76](https://github.com/Nexters/yogieat/commit/a720a762b0947078044ece3710dc8a4e290c61d8))
+* 취향 요약 카드 추가 ([#104](https://github.com/Nexters/yogieat/issues/104)) ([816fa96](https://github.com/Nexters/yogieat/commit/816fa96e04460501abfa485bd987c90a70c186da))
+
+### Bug Fixes
+
+* 1, 3순위를 선택했으나 2순위를 선택하지 않았을 경우 Validation 을 막지 않았던 문제 수정 ([#113](https://github.com/Nexters/yogieat/issues/113)) ([22e58e8](https://github.com/Nexters/yogieat/commit/22e58e844539bfaf787ada837585d3a2590f8df3))
+* GitHub Actions 워크플로우 개선 및 스타일 가이드 업데이트 ([#91](https://github.com/Nexters/yogieat/issues/91)) ([e6c009e](https://github.com/Nexters/yogieat/commit/e6c009e7f27a8c75fbfb49f0dc9fd832c83643a5))
+* 결과 대기 페이지 내 공유 버튼 스타일을 Tertiary 로 수정 ([#115](https://github.com/Nexters/yogieat/issues/115)) ([a63ddd1](https://github.com/Nexters/yogieat/commit/a63ddd14dfb507937572e9929250749f9ceed519))
+* 결과 페이지 - 상단 취향 요약 섹션, 하단 투표 결과 선호 카테고리 노출 순서 로직 수정 ([#117](https://github.com/Nexters/yogieat/issues/117)) ([f5c4a1c](https://github.com/Nexters/yogieat/commit/f5c4a1c0d9f38ae57e7d00128086c1aa6643d4e8))
+* 모임 인원 초과 및 결과 생성 완료 시 Toast 커스텀 기능 추가 ([#116](https://github.com/Nexters/yogieat/issues/116)) ([6088935](https://github.com/Nexters/yogieat/commit/6088935b3b31eb824e557adf912ead7d7d74bb4d))
+* 음식 카테고리 일러스트레이터를 Figma 내 최신 시안으로 수정 ([#114](https://github.com/Nexters/yogieat/issues/114)) ([18f9cc3](https://github.com/Nexters/yogieat/commit/18f9cc38dda3000852cca056fe186405750d0a53))
+
+### Code Refactoring
+
+* opinion 페이지 컴포넌트 구조 개선 및 로직 통합 ([#109](https://github.com/Nexters/yogieat/issues/109)) ([a76f75f](https://github.com/Nexters/yogieat/commit/a76f75f165cbf1526e037b1b765452503dacfe6f))
+* PeopleIllustration 캐릭터 배치 및 구조 개선 ([#112](https://github.com/Nexters/yogieat/issues/112)) ([ae95b72](https://github.com/Nexters/yogieat/commit/ae95b7274306d9edced38f6f9cb889d7e6cf0b5b))
+* ProgressBar 컴포넌트 UI 개선 및 코드 최적화 ([#122](https://github.com/Nexters/yogieat/issues/122)) ([c73de1d](https://github.com/Nexters/yogieat/commit/c73de1d79ab2f51c720036cf8b2cfd4e789e64cc))
+* SSE 이벤트를 recommend-result-created로 변경 ([#121](https://github.com/Nexters/yogieat/issues/121)) ([222e613](https://github.com/Nexters/yogieat/commit/222e613a172b43709c6ffef303abc66683af7812))
+* 타입 시스템 리팩토링 - enum을 as const 패턴으로 전환 ([#110](https://github.com/Nexters/yogieat/issues/110)) ([d427378](https://github.com/Nexters/yogieat/commit/d4273786f2b6db4f5f5c88fca18f7c960f1898b1)), closes [#111](https://github.com/Nexters/yogieat/issues/111)
+
 ## [2.0.0-beta.10](https://github.com/Nexters/yogieat/compare/v2.0.0-beta.9...v2.0.0-beta.10) (2026-02-27)
 
 ### Code Refactoring
