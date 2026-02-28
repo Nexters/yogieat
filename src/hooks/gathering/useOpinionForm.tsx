@@ -5,7 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { useCreateParticipant } from "#/hooks/apis";
+import { useCreateParticipant, useGetRecommendResult } from "#/hooks/apis";
 import { ToastLinkButton } from "#/pageComponents/gathering/opinion";
 import {
 	opinionFormSchema,
@@ -18,6 +18,8 @@ import { toast } from "#/utils/toast";
 export function useOpinionForm() {
 	const router = useRouter();
 	const { accessKey } = useParams<{ accessKey: string }>();
+
+	const { refetch: refetchRecommendResult } = useGetRecommendResult(accessKey);
 	const { mutateAsync: createParticipant, isPending } =
 		useCreateParticipant();
 
@@ -35,6 +37,11 @@ export function useOpinionForm() {
 			},
 		},
 	});
+
+	const handleClickShowResultButton = async () => {
+		await refetchRecommendResult();
+		router.push(`/gathering/${accessKey}/opinion/result`);
+	}
 
 	const handleSubmit = methods.handleSubmit(async (data) => {
 		try {
@@ -62,11 +69,7 @@ export function useOpinionForm() {
 							action: (
 								<ToastLinkButton
 									label="추천 결과 보기"
-									onClick={() => {
-										router.push(
-											`/gathering/${accessKey}/opinion/result`,
-										);
-									}}
+									onClick={handleClickShowResultButton}
 								/>
 							),
 						});
