@@ -16,6 +16,7 @@ export const ToastLinkButton = ({ label, onClick }: ToastLinkButtonProps) => {
 			className={twJoin(
 				"ygi:ml-auto ygi:flex ygi:items-center ygi:justify-center ygi:gap-0.5",
 				"ygi:cursor-pointer ygi:body-14-sb ygi:text-palette-primary-500",
+				"ygi:text-nowrap"
 			)}
 			onClick={onClick}
 		>
