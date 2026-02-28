@@ -1,6 +1,6 @@
 {
 	"name": "heareat",
-	"version": "2.1.4",
+	"version": "2.1.5-beta.1",
 	"private": true,
 	"scripts": {
 		"dev": "next dev",

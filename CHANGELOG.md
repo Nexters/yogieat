@@ -5,6 +5,13 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.5-beta.1](https://github.com/Nexters/yogieat/compare/v2.1.4...v2.1.5-beta.1) (2026-02-28)
+
+### Bug Fixes
+
+* Nickname Step 내 Description 을 이름에서 닉네임으로 수정 ([f90e861](https://github.com/Nexters/yogieat/commit/f90e861293a25fd725c3926af5f3dceb113288d9))
+* toast 및 toast link 버튼 내 nowrap 속성 추가하여 줄바꿈 적용 ([cf5d29c](https://github.com/Nexters/yogieat/commit/cf5d29c65c0db0169e48d789b0fa9162bb309a9f))
+
 ## [2.1.4](https://github.com/Nexters/yogieat/compare/v2.1.3...v2.1.4) (2026-02-28)
 
 ### Bug Fixes
