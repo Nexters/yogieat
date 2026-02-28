@@ -22,7 +22,7 @@ const Header = () => {
 			<StepHeader.Title>
 				모임 링크에 입장하기 위해
 				<br />
-				이름을 입력해주세요
+				닉네임을 입력해주세요
 			</StepHeader.Title>
 			<StepHeader.Description>
 				모임원을 식별하는 용도예요
