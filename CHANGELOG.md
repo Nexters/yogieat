@@ -5,6 +5,13 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.3-beta.1](https://github.com/Nexters/yogieat/compare/v2.1.2...v2.1.3-beta.1) (2026-02-28)
+
+### Bug Fixes
+
+* QA 피드백 반영 - UI 및 인터랙션 개선 ([#125](https://github.com/Nexters/yogieat/issues/125)) ([38a227f](https://github.com/Nexters/yogieat/commit/38a227f5455b88e9c2839b13147b55323ec7e159))
+* 이미 추천 결과가 생성된 Toast 메세지에서 refetch 로직 추가 ([b55cce3](https://github.com/Nexters/yogieat/commit/b55cce335a61b25ca1463f08244688ac0608e377))
+
 ## [2.1.2-beta.2](https://github.com/Nexters/yogieat/compare/v2.1.2-beta.1...v2.1.2-beta.2) (2026-02-27)
 
 ### Bug Fixes
