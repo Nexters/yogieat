@@ -141,6 +141,230 @@ const HeroSection = () => {
 	);
 };
 
+// ── Shared scroll reveal hook ───────────────────────────────────────────────
+const useScrollReveal = () => {
+	const ref = useRef<HTMLElement>(null);
+	const isInView = useInView(ref, { once: true, amount: 0.2 });
+	return { ref, isInView };
+};
+
+// ── FeatureText component ───────────────────────────────────────────────────
+interface FeatureTextProps {
+	badge: string;
+	headline: string;
+	isDark: boolean;
+	isInView: boolean;
+}
+
+const FeatureText = ({ badge, headline, isDark, isInView }: FeatureTextProps) => (
+	<motion.div
+		initial={{ opacity: 0, y: 40 }}
+		animate={isInView ? { opacity: 1, y: 0 } : {}}
+		transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+		className="ygi:flex ygi:flex-col ygi:items-center ygi:gap-4 md:ygi:items-start"
+	>
+		<span
+			className={`ygi:inline-block ygi:w-fit ygi:rounded-full ygi:px-4 ygi:py-1.5 ygi:body-14-bd ${
+				isDark
+					? "ygi:bg-white/10 ygi:text-text-inverse"
+					: "ygi:bg-button-secondary/10 ygi:text-button-secondary"
+			}`}
+		>
+			{badge}
+		</span>
+		<p
+			className={`ygi:heading-22-bd ygi:whitespace-pre-line ygi:text-center md:ygi:display-28-bd md:ygi:text-left ${
+				isDark ? "ygi:text-text-inverse" : "ygi:text-text-primary"
+			}`}
+		>
+			{headline}
+		</p>
+	</motion.div>
+);
+
+// ── Feature1Section ──────────────────────────────────────────────────────────
+const Feature1Section = () => {
+	const { ref, isInView } = useScrollReveal();
+
+	return (
+		<section
+			ref={ref}
+			className="ygi:bg-palette-gray-100 ygi:px-6 ygi:py-16 md:ygi:py-24 lg:ygi:px-10"
+		>
+			<div className="ygi:mx-auto ygi:flex ygi:max-w-[1200px] ygi:flex-col ygi:items-center ygi:gap-10 md:ygi:flex-row md:ygi:justify-between">
+				<motion.div
+					initial={{ opacity: 0, x: -30 }}
+					animate={isInView ? { opacity: 1, x: 0 } : {}}
+					transition={{ duration: 0.6, ease: "easeOut" }}
+					className="ygi:flex ygi:flex-row ygi:gap-3"
+				>
+					{(["feature-1-screen-a", "feature-1-screen-b"] as const).map((name) => (
+						<Image
+							key={name}
+							src={`/images/service-landing/${name}.png`}
+							alt="모임 생성 화면"
+							width={148}
+							height={241}
+							className="ygi:rounded-2xl ygi:shadow-lg"
+						/>
+					))}
+				</motion.div>
+				<FeatureText
+					badge="모임 링크 만들기"
+					headline={"우리 모임 정보\n입력 한번에"}
+					isDark={false}
+					isInView={isInView}
+				/>
+			</div>
+		</section>
+	);
+};
+
+// ── Feature2Section ──────────────────────────────────────────────────────────
+const Feature2Section = () => {
+	const { ref, isInView } = useScrollReveal();
+
+	return (
+		<section
+			ref={ref}
+			className="ygi:bg-palette-gray-800 ygi:px-6 ygi:py-16 md:ygi:py-24 lg:ygi:px-10"
+		>
+			<div className="ygi:mx-auto ygi:flex ygi:max-w-[1200px] ygi:flex-col ygi:items-center ygi:gap-10 md:ygi:flex-row-reverse md:ygi:justify-between">
+				<motion.div
+					initial={{ opacity: 0, x: 30 }}
+					animate={isInView ? { opacity: 1, x: 0 } : {}}
+					transition={{ duration: 0.6, ease: "easeOut" }}
+					className="ygi:flex ygi:flex-row ygi:gap-3"
+				>
+					{(["feature-2-screen-a", "feature-2-screen-b"] as const).map((name) => (
+						<Image
+							key={name}
+							src={`/images/service-landing/${name}.png`}
+							alt="의견 입력 화면"
+							width={130}
+							height={281}
+							className="ygi:rounded-2xl ygi:shadow-lg"
+						/>
+					))}
+				</motion.div>
+				<FeatureText
+					badge="나의 의견 입력"
+					headline={"먹기 싫은거, 먹고 싶은거\n나의 의견 입력 한번에"}
+					isDark={true}
+					isInView={isInView}
+				/>
+			</div>
+		</section>
+	);
+};
+
+// ── Feature3Section ──────────────────────────────────────────────────────────
+const Feature3Section = () => {
+	const { ref, isInView } = useScrollReveal();
+
+	return (
+		<section
+			ref={ref}
+			className="ygi:overflow-hidden ygi:bg-palette-gray-700 ygi:px-6 ygi:py-16 md:ygi:py-24 lg:ygi:px-10"
+		>
+			<div className="ygi:mx-auto ygi:flex ygi:max-w-[1200px] ygi:flex-col ygi:items-center ygi:gap-10">
+				<FeatureText
+					badge="투표 결과 확인"
+					headline={"친구들은 뭘 먹고 싶어 했을까?\n투표 결과로 확인해요"}
+					isDark={true}
+					isInView={isInView}
+				/>
+				<motion.div
+					initial={{ opacity: 0, y: 30 }}
+					animate={isInView ? { opacity: 1, y: 0 } : {}}
+					transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
+					className="ygi:flex ygi:w-full ygi:flex-col ygi:gap-3"
+				>
+					{(["feature-3-screen-a", "feature-3-screen-b", "feature-3-screen-c"] as const).map((name) => (
+						<Image
+							key={name}
+							src={`/images/service-landing/${name}.png`}
+							alt="투표 결과 화면"
+							width={654}
+							height={434}
+							className="ygi:w-full ygi:rounded-2xl ygi:shadow-lg"
+						/>
+					))}
+				</motion.div>
+			</div>
+		</section>
+	);
+};
+
+// ── Feature4Section ──────────────────────────────────────────────────────────
+const Feature4Section = () => {
+	const { ref, isInView } = useScrollReveal();
+
+	return (
+		<section
+			ref={ref}
+			className="ygi:px-6 ygi:py-16 md:ygi:py-24 lg:ygi:px-10"
+			style={{ backgroundColor: "#13181c" }}
+		>
+			<div className="ygi:mx-auto ygi:flex ygi:max-w-[1200px] ygi:flex-col ygi:items-center ygi:gap-10 md:ygi:flex-row md:ygi:justify-between">
+				<motion.div
+					initial={{ opacity: 0, x: -30 }}
+					animate={isInView ? { opacity: 1, x: 0 } : {}}
+					transition={{ duration: 0.6, ease: "easeOut" }}
+				>
+					<Image
+						src="/images/service-landing/feature-4-screen.png"
+						alt="맛집 추천 화면"
+						width={262}
+						height={301}
+						className="ygi:rounded-2xl ygi:shadow-lg"
+					/>
+				</motion.div>
+				<FeatureText
+					badge="맛집 추천"
+					headline={"투표 결과에 따라\n모임에 맞게 맛집 추천해요"}
+					isDark={true}
+					isInView={isInView}
+				/>
+			</div>
+		</section>
+	);
+};
+
+// ── Feature5Section ──────────────────────────────────────────────────────────
+const Feature5Section = () => {
+	const { ref, isInView } = useScrollReveal();
+
+	return (
+		<section
+			ref={ref}
+			className="ygi:bg-palette-gray-100 ygi:px-6 ygi:py-16 md:ygi:py-24 lg:ygi:px-10"
+		>
+			<div className="ygi:mx-auto ygi:flex ygi:max-w-[1200px] ygi:flex-col ygi:items-center ygi:gap-10 md:ygi:flex-row-reverse md:ygi:justify-between">
+				<motion.div
+					initial={{ opacity: 0, x: 30 }}
+					animate={isInView ? { opacity: 1, x: 0 } : {}}
+					transition={{ duration: 0.6, ease: "easeOut" }}
+				>
+					<Image
+						src="/images/service-landing/feature-5-kakao.png"
+						alt="카카오 메시지 화면"
+						width={327}
+						height={152}
+						className="ygi:rounded-2xl ygi:shadow-md"
+					/>
+				</motion.div>
+				<FeatureText
+					badge="링크 공유"
+					headline={"오래 걸리던 맛집 정하기\n이제는 쉽고 편하게 결정해요"}
+					isDark={false}
+					isInView={isInView}
+				/>
+			</div>
+		</section>
+	);
+};
+
 // ── ServiceLandingPage ───────────────────────────────────────────────────────
 export const ServiceLandingPage = () => {
 	return (
@@ -148,7 +372,12 @@ export const ServiceLandingPage = () => {
 			<Navbar />
 			<main className="ygi:pt-[65px]">
 				<HeroSection />
-				{/* Feature sections will be added here */}
+				<Feature1Section />
+				<Feature2Section />
+				<Feature3Section />
+				<Feature4Section />
+				<Feature5Section />
+				{/* CTA and Footer will be added next */}
 			</main>
 		</div>
 	);
