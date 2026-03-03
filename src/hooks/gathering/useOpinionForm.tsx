@@ -19,7 +19,8 @@ export function useOpinionForm() {
 	const router = useRouter();
 	const { accessKey } = useParams<{ accessKey: string }>();
 
-	const { refetch: refetchRecommendResult } = useGetRecommendResult(accessKey);
+	const { refetch: refetchRecommendResult } =
+		useGetRecommendResult(accessKey);
 	const { mutateAsync: createParticipant, isPending } =
 		useCreateParticipant();
 
@@ -41,7 +42,7 @@ export function useOpinionForm() {
 	const handleClickShowResultButton = async () => {
 		await refetchRecommendResult();
 		router.push(`/gathering/${accessKey}/opinion/result`);
-	}
+	};
 
 	const handleSubmit = methods.handleSubmit(async (data) => {
 		try {
