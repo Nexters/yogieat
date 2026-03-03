@@ -365,6 +365,76 @@ const Feature5Section = () => {
 	);
 };
 
+// ── CTA Section ─────────────────────────────────────────────────────────────
+const CtaSection = () => {
+	const router = useRouter();
+	const { ref, isInView } = useScrollReveal();
+
+	return (
+		<section
+			ref={ref}
+			className="ygi:bg-palette-gray-800 ygi:px-6 ygi:py-24 lg:ygi:px-10"
+		>
+			<motion.div
+				initial={{ opacity: 0, y: 40 }}
+				animate={isInView ? { opacity: 1, y: 0 } : {}}
+				transition={{ duration: 0.6, ease: "easeOut" }}
+				className="ygi:mx-auto ygi:flex ygi:max-w-[1200px] ygi:flex-col ygi:items-center ygi:gap-8 ygi:text-center"
+			>
+				<p className="ygi:display-28-bd ygi:whitespace-pre-line ygi:text-text-inverse">
+					{"지금 바로 요기잇으로\n맛집을 추천 받아요"}
+				</p>
+				<button
+					type="button"
+					onClick={() => router.push("/gathering/create")}
+					className="ygi:cursor-pointer ygi:rounded-full ygi:bg-button-secondary ygi:px-8 ygi:py-4 ygi:heading-18-bd ygi:text-text-inverse ygi:transition-colors ygi:hover:bg-button-secondary-hover"
+				>
+					바로 시작하기
+				</button>
+			</motion.div>
+		</section>
+	);
+};
+
+// ── Footer ───────────────────────────────────────────────────────────────────
+const LandingFooter = () => (
+	<footer
+		className="ygi:px-6 ygi:py-10 lg:ygi:px-10"
+		style={{ backgroundColor: "#13181c" }}
+	>
+		<div className="ygi:mx-auto ygi:flex ygi:max-w-[1200px] ygi:flex-col ygi:items-center ygi:gap-4 ygi:text-center">
+			<div className="ygi:flex ygi:flex-col ygi:items-center ygi:gap-2">
+				<p className="ygi:body-14-rg ygi:text-white/60">
+					문의:{" "}
+					<a
+						href="mailto:hereeatt@gmail.com"
+						className="ygi:text-white ygi:underline"
+					>
+						hereeatt@gmail.com
+					</a>
+				</p>
+				<div className="ygi:flex ygi:gap-4">
+					<a
+						href="#"
+						className="ygi:caption-12-rg ygi:text-white/60 ygi:transition-colors ygi:hover:text-white"
+					>
+						이용약관
+					</a>
+					<a
+						href="#"
+						className="ygi:caption-12-rg ygi:text-white/60 ygi:transition-colors ygi:hover:text-white"
+					>
+						개인정보 처리 방침
+					</a>
+				</div>
+			</div>
+			<p className="ygi:caption-12-rg ygi:text-white/40">
+				© 2026 Team Yogieat. All rights reserved.
+			</p>
+		</div>
+	</footer>
+);
+
 // ── ServiceLandingPage ───────────────────────────────────────────────────────
 export const ServiceLandingPage = () => {
 	return (
@@ -377,8 +447,9 @@ export const ServiceLandingPage = () => {
 				<Feature3Section />
 				<Feature4Section />
 				<Feature5Section />
-				{/* CTA and Footer will be added next */}
+				<CtaSection />
 			</main>
+			<LandingFooter />
 		</div>
 	);
 };
