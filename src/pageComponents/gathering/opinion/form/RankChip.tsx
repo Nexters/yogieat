@@ -1,8 +1,8 @@
 "use client";
 
+import { drop, omit } from "es-toolkit";
 import { useCallback } from "react";
-import { useFormContext, useController } from "react-hook-form";
-import { omit, drop } from "es-toolkit";
+import { useController, useFormContext } from "react-hook-form";
 
 import { Chip } from "#/components/chip";
 import {
@@ -10,8 +10,8 @@ import {
 	CATEGORY_LABEL,
 	RANK_LIST,
 } from "#/constants/gathering/opinion";
-import type { Category, RankKey } from "#/types/gathering";
 import type { OpinionFormSchema } from "#/schemas/gathering";
+import type { Category, RankKey } from "#/types/gathering";
 import { toast } from "#/utils/toast";
 
 interface RankChipProps {

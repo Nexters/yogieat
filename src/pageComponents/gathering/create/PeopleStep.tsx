@@ -1,15 +1,16 @@
 "use client";
 
-import { useFormContext, useController, useWatch } from "react-hook-form";
 import { isNil } from "es-toolkit";
+import { useController, useFormContext, useWatch } from "react-hook-form";
 
 import { trackStepComplete } from "#/components/analytics";
+import { Button } from "#/components/button";
 import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
-import { Button } from "#/components/button";
-import { PeopleGroup } from "./PeopleGroup";
-import { PeopleCountGrid } from "./PeopleCountGrid";
 import type { CreateMeetingFormSchema } from "#/schemas/gathering";
+
+import { PeopleCountGrid } from "./PeopleCountGrid";
+import { PeopleGroup } from "./PeopleGroup";
 
 export const PeopleStepContent = () => {
 	const { control } = useFormContext<CreateMeetingFormSchema>();

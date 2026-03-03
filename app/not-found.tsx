@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { Layout } from "#/components/layout";
+
 import { Button } from "#/components/button";
 import { NotFoundIllustration } from "#/components/illustrations";
+import { Layout } from "#/components/layout";
 
 export default function NotFound() {
 	return (

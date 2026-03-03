@@ -1,7 +1,7 @@
+import { clamp } from "es-toolkit";
+import { motion } from "motion/react";
 import type { ComponentPropsWithoutRef } from "react";
 import { twJoin } from "tailwind-merge";
-import { motion } from "motion/react";
-import { clamp } from "es-toolkit";
 
 export interface ProgressBarProps extends Omit<
 	ComponentPropsWithoutRef<"div">,

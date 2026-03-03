@@ -1,17 +1,18 @@
 "use client";
 
-import { useFormContext, useWatch } from "react-hook-form";
 import { isNil } from "es-toolkit";
+import { useFormContext, useWatch } from "react-hook-form";
 
 import { trackStepComplete } from "#/components/analytics";
-import { Layout } from "#/components/layout";
-import { StepIndicator } from "#/components/stepIndicator";
-import { StepHeader } from "#/components/stepHeader";
 import { Button } from "#/components/button/Button";
 import { DotsLoader } from "#/components/dotsLoader";
+import { Layout } from "#/components/layout";
+import { StepHeader } from "#/components/stepHeader";
+import { StepIndicator } from "#/components/stepIndicator";
 import { REGION_OPTIONS } from "#/constants/gathering/opinion";
-import { RegionChip } from "./RegionChip";
 import type { CreateMeetingFormSchema } from "#/schemas/gathering";
+
+import { RegionChip } from "./RegionChip";
 
 export const RegionStepContent = () => {
 	return (

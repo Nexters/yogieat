@@ -1,12 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect } from "react";
-import { CATEGORY, CATEGORY_LABEL } from "#/constants/gathering/opinion";
+import { useEffect, useState } from "react";
+
 import { colors } from "#/constants/color";
-import type { Category } from "#/types/gathering";
-import { XIcon } from "#/icons/xIcon";
+import { CATEGORY, CATEGORY_LABEL } from "#/constants/gathering/opinion";
 import { CircleIcon } from "#/icons/circleIcon";
+import { XIcon } from "#/icons/xIcon";
+import type { Category } from "#/types/gathering";
 
 // 카테고리 노출 순서 (고정)
 const foodCategoryOrder: Category[] = [

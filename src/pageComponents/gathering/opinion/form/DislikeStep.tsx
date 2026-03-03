@@ -3,11 +3,10 @@
 import { useFormContext, useWatch } from "react-hook-form";
 
 import { trackStepComplete } from "#/components/analytics";
-import { Layout } from "#/components/layout";
-import { StepIndicator } from "#/components/stepIndicator";
-import { StepHeader } from "#/components/stepHeader";
 import { Button } from "#/components/button/Button";
-import { DislikedCategoryButton } from "./DislikedCategoryButton";
+import { Layout } from "#/components/layout";
+import { StepHeader } from "#/components/stepHeader";
+import { StepIndicator } from "#/components/stepIndicator";
 import {
 	CATEGORY_LIST,
 	OPINION_TOTAL_STEPS,
@@ -16,6 +15,8 @@ import {
 	dislikedCategoriesSchema,
 	type OpinionFormSchema,
 } from "#/schemas/gathering";
+
+import { DislikedCategoryButton } from "./DislikedCategoryButton";
 
 const Header = () => {
 	return (

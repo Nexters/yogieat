@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
-import { useParams, useRouter } from "next/navigation";
-import dynamic from "next/dynamic";
 import { useQueryClient } from "@tanstack/react-query";
+import dynamic from "next/dynamic";
+import { useParams, useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 import { gatheringKeys } from "#/apis/gathering";
 import { trackViewPage } from "#/components/analytics";
@@ -14,10 +14,10 @@ import { useGetGatheringCapacity } from "#/hooks/apis/gathering";
 import { useProceedRecommendResult } from "#/hooks/gathering";
 import { EVENT, useServerSentEventListener } from "#/hooks/sse";
 
+import { ResultGeneratingPage } from "../result";
 import { SubmissionBottomSheet } from "../SubmissionBottomSheet";
 import { ShareButton } from "./ShareButton";
 import { ShowResultButton } from "./ShowResultButton";
-import { ResultGeneratingPage } from "../result";
 
 const Player = dynamic(
 	() =>

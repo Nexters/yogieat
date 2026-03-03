@@ -1,15 +1,15 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import { compact } from "es-toolkit";
 import { useParams, useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useCreateParticipant, useGetRecommendResult } from "#/hooks/apis";
 import { ToastLinkButton } from "#/pageComponents/gathering/opinion";
 import {
-	opinionFormSchema,
 	distanceRangeToKm,
+	opinionFormSchema,
 	type OpinionFormSchema,
 } from "#/schemas/gathering";
 import { ERROR_CODES, isApiError } from "#/utils/api";

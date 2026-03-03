@@ -1,7 +1,7 @@
-import { Root } from "./Root";
-import { Header } from "./Header";
-import { Footer } from "./Footer";
 import { Content } from "./Content";
+import { Footer } from "./Footer";
+import { Header } from "./Header";
+import { Root } from "./Root";
 
 export const Layout = {
 	Root,

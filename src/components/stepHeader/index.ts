@@ -1,6 +1,6 @@
+import { Description } from "./Description";
 import { Root } from "./Root";
 import { Title } from "./Title";
-import { Description } from "./Description";
 
 export const StepHeader = {
 	Root,

@@ -1,9 +1,10 @@
 "use client";
 
 import { useQueryErrorResetBoundary } from "@tanstack/react-query";
-import { Layout } from "#/components/layout";
+
 import { Button } from "#/components/button";
 import { NotFoundIllustration } from "#/components/illustrations";
+import { Layout } from "#/components/layout";
 
 interface ErrorPageProps {
 	reset: () => void;

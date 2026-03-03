@@ -1,12 +1,14 @@
 "use client";
 
-import { useFormContext, useWatch, useController } from "react-hook-form";
+import { useController, useFormContext, useWatch } from "react-hook-form";
+
+import type { GetGatheringResponse } from "#/apis/gathering";
 import { trackStepComplete } from "#/components/analytics";
-import { Layout } from "#/components/layout";
-import { StepIndicator } from "#/components/stepIndicator";
-import { StepHeader } from "#/components/stepHeader";
 import { Button } from "#/components/button";
 import { Chip } from "#/components/chip";
+import { Layout } from "#/components/layout";
+import { StepHeader } from "#/components/stepHeader";
+import { StepIndicator } from "#/components/stepIndicator";
 import {
 	DISTANCE_OPTIONS,
 	OPINION_TOTAL_STEPS,
@@ -16,7 +18,6 @@ import {
 	distanceRangeSchema,
 	type OpinionFormSchema,
 } from "#/schemas/gathering";
-import type { GetGatheringResponse } from "#/apis/gathering";
 
 interface HeaderProps {
 	region: GetGatheringResponse["region"];

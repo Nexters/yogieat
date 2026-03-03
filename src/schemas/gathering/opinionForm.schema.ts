@@ -1,7 +1,8 @@
-import { z } from "zod";
-import type { DistanceRange, Category } from "#/constants/gathering/opinion";
-import { DISTANCE_RANGE, CATEGORY } from "#/constants/gathering/opinion";
 import { isUndefined } from "es-toolkit";
+import { z } from "zod";
+
+import type { Category, DistanceRange } from "#/constants/gathering/opinion";
+import { CATEGORY, DISTANCE_RANGE } from "#/constants/gathering/opinion";
 
 export const distanceRangeSchema = z.enum([
 	"RANGE_500M",

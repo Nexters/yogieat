@@ -1,20 +1,20 @@
 "use client";
 
-import { useEffect } from "react";
-import { useParams, useRouter } from "next/navigation";
 import { format, parse } from "date-fns";
+import { useParams, useRouter } from "next/navigation";
+import { useEffect } from "react";
 
-import { BackwardButton } from "#/components/backwardButton";
 import { trackShareClick, trackViewPage } from "#/components/analytics";
+import { BackwardButton } from "#/components/backwardButton";
 import { Layout } from "#/components/layout";
 import { ShareButton } from "#/components/shareButton";
 import { Toaster } from "#/components/toast";
 import { REGION_LABEL, TIME_SLOT_LABEL } from "#/constants/gathering/opinion";
 import { useGetRecommendResult } from "#/hooks/apis/recommendResult";
 
+import { OtherCandidateCard } from "./OtherCandidateCard";
 import { TasteSummaryCard } from "./TasteSummaryCard";
 import { VoteSummarySection } from "./VoteSummarySection";
-import { OtherCandidateCard } from "./OtherCandidateCard";
 
 const PAGE_ID = "추천_결과";
 

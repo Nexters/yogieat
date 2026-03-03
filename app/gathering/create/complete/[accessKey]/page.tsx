@@ -2,13 +2,12 @@
 
 import { useParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
-
 import { twJoin } from "tailwind-merge";
 
 import { trackCtaClick, trackViewPage } from "#/components/analytics";
-import { Layout } from "#/components/layout";
 import { Button } from "#/components/button";
 import { MeetingCompleteIllustration } from "#/components/illustrations";
+import { Layout } from "#/components/layout";
 
 const PAGE_ID = "모임생성_완료";
 

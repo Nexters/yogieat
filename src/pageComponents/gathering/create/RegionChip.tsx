@@ -1,6 +1,6 @@
 "use client";
 
-import { useFormContext, useController } from "react-hook-form";
+import { useController, useFormContext } from "react-hook-form";
 
 import { Chip } from "#/components/chip";
 import type { CreateMeetingFormSchema } from "#/schemas/gathering";

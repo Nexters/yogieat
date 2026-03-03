@@ -1,6 +1,7 @@
+import { Category } from "#/constants/gathering/opinion";
+
 import { DistanceRange } from "./distance";
 import { PreferredCategory } from "./preferredMenu";
-import { Category } from "#/constants/gathering/opinion";
 
 export interface OpinionForm {
 	nickname: string;

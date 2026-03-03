@@ -1,5 +1,5 @@
-import { useCallback, useRef, useState } from "react";
 import { shuffle } from "es-toolkit";
+import { useCallback, useRef, useState } from "react";
 
 import { RANDOM_NICKNAMES } from "#/constants/nickname";
 
