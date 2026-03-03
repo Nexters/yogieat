@@ -61,7 +61,7 @@ const heroItemVariants = {
 
 const HeroSection = () => {
 	const router = useRouter();
-	const ref = useRef(null);
+	const ref = useRef<HTMLElement>(null);
 	const isInView = useInView(ref, { once: true, amount: 0.2 });
 
 	return (
@@ -72,15 +72,21 @@ const HeroSection = () => {
 			<div className="ygi:mx-auto ygi:flex ygi:max-w-[1200px] ygi:flex-col ygi:items-center ygi:gap-12 md:ygi:flex-row md:ygi:items-center md:ygi:justify-between">
 				{/* Text */}
 				<motion.div
-					initial={{ opacity: 0, y: 40 }}
-					animate={isInView ? { opacity: 1, y: 0 } : {}}
-					transition={{ duration: 0.6, ease: "easeOut" }}
+					variants={heroContainerVariants}
+					initial="hidden"
+					animate={isInView ? "visible" : "hidden"}
 					className="ygi:flex ygi:flex-col ygi:items-center ygi:gap-4 ygi:text-center md:ygi:items-start md:ygi:text-left"
 				>
-					<p className="ygi:caption-12-md ygi:text-text-secondary">
+					<motion.p
+						variants={heroItemVariants}
+						className="ygi:caption-12-md ygi:text-text-secondary"
+					>
 						다인원을 위한 맛집 서비스
-					</p>
-					<div className="ygi:flex ygi:flex-col ygi:gap-1">
+					</motion.p>
+					<motion.div
+						variants={heroItemVariants}
+						className="ygi:flex ygi:flex-col ygi:gap-1"
+					>
 						<p className="ygi:display-28-bd ygi:text-text-primary">
 							밥약속 생길 때마다 했던 고민
 						</p>
@@ -90,17 +96,21 @@ const HeroSection = () => {
 						>
 							&ldquo;어디가지..?&rdquo;
 						</p>
-					</div>
-					<p className="ygi:heading-20-bd ygi:text-text-primary">
+					</motion.div>
+					<motion.p
+						variants={heroItemVariants}
+						className="ygi:heading-20-bd ygi:text-text-primary"
+					>
 						이제 5분이면 끝!
-					</p>
-					<button
+					</motion.p>
+					<motion.button
+						variants={heroItemVariants}
 						type="button"
 						onClick={() => router.push("/gathering/create")}
 						className="ygi:mt-2 ygi:cursor-pointer ygi:rounded-full ygi:bg-button-secondary ygi:px-8 ygi:py-4 ygi:heading-18-bd ygi:text-text-inverse ygi:transition-colors ygi:hover:bg-button-secondary-hover"
 					>
 						모임 링크 만들기
-					</button>
+					</motion.button>
 				</motion.div>
 
 				{/* Characters */}
