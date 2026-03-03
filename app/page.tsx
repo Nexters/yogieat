@@ -1,5 +1,5 @@
-import { LandingPage } from "#/pageComponents/landing";
+import { ServiceLandingPage } from "#/pageComponents/serviceLanding";
 
 export default function Home() {
-	return <LandingPage />;
+	return <ServiceLandingPage />;
 }
