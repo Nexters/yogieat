@@ -192,6 +192,12 @@ const Feature1Section = () => {
 			className="ygi:bg-palette-gray-100 ygi:px-6 ygi:py-16 md:ygi:py-24 lg:ygi:px-10"
 		>
 			<div className="ygi:mx-auto ygi:flex ygi:max-w-[1200px] ygi:flex-col ygi:items-center ygi:gap-10 md:ygi:flex-row md:ygi:justify-between">
+				<FeatureText
+					badge="모임 링크 만들기"
+					headline={"우리 모임 정보\n입력 한번에"}
+					isDark={false}
+					isInView={isInView}
+				/>
 				<motion.div
 					initial={{ opacity: 0, x: -30 }}
 					animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -209,12 +215,6 @@ const Feature1Section = () => {
 						/>
 					))}
 				</motion.div>
-				<FeatureText
-					badge="모임 링크 만들기"
-					headline={"우리 모임 정보\n입력 한번에"}
-					isDark={false}
-					isInView={isInView}
-				/>
 			</div>
 		</section>
 	);
@@ -230,6 +230,12 @@ const Feature2Section = () => {
 			className="ygi:bg-palette-gray-800 ygi:px-6 ygi:py-16 md:ygi:py-24 lg:ygi:px-10"
 		>
 			<div className="ygi:mx-auto ygi:flex ygi:max-w-[1200px] ygi:flex-col ygi:items-center ygi:gap-10 md:ygi:flex-row-reverse md:ygi:justify-between">
+				<FeatureText
+					badge="나의 의견 입력"
+					headline={"먹기 싫은거, 먹고 싶은거\n나의 의견 입력 한번에"}
+					isDark={true}
+					isInView={isInView}
+				/>
 				<motion.div
 					initial={{ opacity: 0, x: 30 }}
 					animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -247,12 +253,6 @@ const Feature2Section = () => {
 						/>
 					))}
 				</motion.div>
-				<FeatureText
-					badge="나의 의견 입력"
-					headline={"먹기 싫은거, 먹고 싶은거\n나의 의견 입력 한번에"}
-					isDark={true}
-					isInView={isInView}
-				/>
 			</div>
 		</section>
 	);
@@ -310,7 +310,7 @@ const Feature3Section = () => {
 };
 
 // ── Feature4Section ──────────────────────────────────────────────────────────
-// 텍스트 TOP → 카카오 알림카드 → 맛집 리스트(아래로 overflow into Feature5)
+// 텍스트 TOP → 카카오 알림카드 → 맛집 리스트
 const Feature4Section = () => {
 	const { ref, isInView } = useScrollReveal();
 
@@ -343,7 +343,7 @@ const Feature4Section = () => {
 							className="ygi:w-full ygi:rounded-2xl ygi:shadow-lg"
 						/>
 					</motion.div>
-					{/* 맛집 추천 리스트 — 아래 섹션으로 overflow */}
+					{/* 맛집 추천 리스트 */}
 					<motion.div
 						initial={{ opacity: 0, y: 40 }}
 						animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -376,6 +376,12 @@ const Feature5Section = () => {
 			style={{ backgroundColor: "#d5dae1" }}
 		>
 			<div className="ygi:mx-auto ygi:flex ygi:max-w-[1200px] ygi:flex-col ygi:items-center ygi:gap-10 md:ygi:flex-row-reverse md:ygi:justify-between">
+				<FeatureText
+					badge="링크 공유"
+					headline={"오래 걸리던 맛집 정하기\n이제는 쉽고 편하게 결정해요"}
+					isDark={false}
+					isInView={isInView}
+				/>
 				{/* 카카오 OG 링크 미리보기 카드 */}
 				<motion.div
 					initial={{ opacity: 0, x: 30 }}
@@ -408,12 +414,6 @@ const Feature5Section = () => {
 						</div>
 					</div>
 				</motion.div>
-				<FeatureText
-					badge="링크 공유"
-					headline={"오래 걸리던 맛집 정하기\n이제는 쉽고 편하게 결정해요"}
-					isDark={false}
-					isInView={isInView}
-				/>
 			</div>
 		</section>
 	);
