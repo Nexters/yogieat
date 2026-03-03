@@ -4,13 +4,12 @@ import { useEffect, useRef, useState } from "react";
 
 import { type Variants, motion, useInView } from "motion/react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 import { LandingLogoIcon } from "#/icons/landingLogoIcon";
 
 // ── Navbar ──────────────────────────────────────────────────────────────────
 const Navbar = () => {
-	const router = useRouter();
 	const [scrolled, setScrolled] = useState(false);
 
 	useEffect(() => {
@@ -30,13 +29,12 @@ const Navbar = () => {
 					height={25}
 					aria-label="요기잇"
 				/>
-				<button
-					type="button"
-					onClick={() => router.push("/gathering/create")}
+				<Link
+					href="/gathering/create"
 					className="ygi:cursor-pointer ygi:rounded-full ygi:bg-button-secondary ygi:px-5 ygi:py-2.5 ygi:body-14-bd ygi:text-text-inverse ygi:transition-colors ygi:hover:bg-button-secondary-hover"
 				>
 					바로 시작하기
-				</button>
+				</Link>
 			</div>
 		</header>
 	);
@@ -60,7 +58,6 @@ const heroItemVariants: Variants = {
 };
 
 const HeroSection = () => {
-	const router = useRouter();
 	const ref = useRef<HTMLElement>(null);
 	const isInView = useInView(ref, { once: true, amount: 0.2 });
 
@@ -103,14 +100,14 @@ const HeroSection = () => {
 					>
 						이제 5분이면 끝!
 					</motion.p>
-					<motion.button
-						variants={heroItemVariants}
-						type="button"
-						onClick={() => router.replace("/gathering/create")}
-						className="ygi:mt-2 ygi:cursor-pointer ygi:rounded-full ygi:bg-button-secondary ygi:px-8 ygi:py-4 ygi:heading-18-bd ygi:text-text-inverse ygi:transition-colors ygi:hover:bg-button-secondary-hover"
-					>
-						모임 링크 만들기
-					</motion.button>
+					<motion.div variants={heroItemVariants} className="ygi:mt-2">
+						<Link
+							href="/gathering/create"
+							className="ygi:inline-flex ygi:cursor-pointer ygi:items-center ygi:justify-center ygi:rounded-full ygi:bg-button-secondary ygi:px-8 ygi:py-4 ygi:heading-18-bd ygi:text-text-inverse ygi:transition-colors ygi:hover:bg-button-secondary-hover"
+						>
+							모임 링크 만들기
+						</Link>
+					</motion.div>
 				</motion.div>
 
 				{/* Characters */}
@@ -455,7 +452,6 @@ const Feature5Section = () => {
 
 // ── CTA Section ─────────────────────────────────────────────────────────────
 const CtaSection = () => {
-	const router = useRouter();
 	const { ref, isInView } = useScrollReveal();
 
 	return (
@@ -472,13 +468,12 @@ const CtaSection = () => {
 				<p className="ygi:display-28-bd ygi:whitespace-pre-line ygi:text-text-inverse">
 					{"지금 바로 요기잇으로\n맛집을 추천 받아요"}
 				</p>
-				<button
-					type="button"
-					onClick={() => router.push("/gathering/create")}
+				<Link
+					href="/gathering/create"
 					className="ygi:cursor-pointer ygi:rounded-full ygi:bg-button-secondary ygi:px-8 ygi:py-4 ygi:heading-18-bd ygi:text-text-inverse ygi:transition-colors ygi:hover:bg-button-secondary-hover"
 				>
 					바로 시작하기
-				</button>
+				</Link>
 			</motion.div>
 		</section>
 	);
