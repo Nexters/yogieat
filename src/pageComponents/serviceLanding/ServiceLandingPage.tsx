@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import { motion, useInView } from "motion/react";
+import { type Variants, motion, useInView } from "motion/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -43,14 +43,14 @@ const Navbar = () => {
 };
 
 // ── Hero Section ─────────────────────────────────────────────────────────────
-const heroContainerVariants = {
+const heroContainerVariants: Variants = {
 	hidden: {},
 	visible: {
 		transition: { staggerChildren: 0.15, delayChildren: 0.1 },
 	},
 };
 
-const heroItemVariants = {
+const heroItemVariants: Variants = {
 	hidden: { opacity: 0, y: 24 },
 	visible: {
 		opacity: 1,
