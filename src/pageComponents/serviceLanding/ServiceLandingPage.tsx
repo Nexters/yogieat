@@ -106,7 +106,7 @@ const HeroSection = () => {
 					<motion.button
 						variants={heroItemVariants}
 						type="button"
-						onClick={() => router.push("/gathering/create")}
+						onClick={() => router.replace("/gathering/create")}
 						className="ygi:mt-2 ygi:cursor-pointer ygi:rounded-full ygi:bg-button-secondary ygi:px-8 ygi:py-4 ygi:heading-18-bd ygi:text-text-inverse ygi:transition-colors ygi:hover:bg-button-secondary-hover"
 					>
 						모임 링크 만들기
@@ -259,6 +259,12 @@ const Feature2Section = () => {
 };
 
 // ── Feature3Section ──────────────────────────────────────────────────────────
+const feature3Screens = [
+	{ name: "feature-3-screen-a", dir: -1, height: 434 },
+	{ name: "feature-3-screen-b", dir: 1, height: 418 },
+	{ name: "feature-3-screen-c", dir: -1, height: 398 },
+];
+
 const Feature3Section = () => {
 	const { ref, isInView } = useScrollReveal();
 
@@ -274,85 +280,133 @@ const Feature3Section = () => {
 					isDark={true}
 					isInView={isInView}
 				/>
-				<motion.div
-					initial={{ opacity: 0, y: 30 }}
-					animate={isInView ? { opacity: 1, y: 0 } : {}}
-					transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
-					className="ygi:flex ygi:w-full ygi:flex-col ygi:gap-3"
-				>
-					{(["feature-3-screen-a", "feature-3-screen-b", "feature-3-screen-c"] as const).map((name) => (
-						<Image
+				{/* 이미지 하나씩 순차 등장: 좌→우→좌, mobile/pc 모두 max-width 제한 */}
+				<div className="ygi:flex ygi:w-full ygi:flex-col ygi:items-center ygi:gap-4">
+					{feature3Screens.map(({ name, dir, height }, i) => (
+						<motion.div
 							key={name}
-							src={`/images/service-landing/${name}.png`}
-							alt="투표 결과 화면"
-							width={654}
-							height={434}
-							className="ygi:w-full ygi:rounded-2xl ygi:shadow-lg"
-						/>
+							initial={{ opacity: 0, x: dir * 60 }}
+							animate={isInView ? { opacity: 1, x: 0 } : {}}
+							transition={{
+								duration: 0.65,
+								ease: "easeOut",
+								delay: 0.3 + i * 0.2,
+							}}
+							className="ygi:w-full ygi:max-w-[400px] md:ygi:max-w-[500px]"
+						>
+							<Image
+								src={`/images/service-landing/${name}.png`}
+								alt={`투표 결과 화면 ${i + 1}`}
+								width={654}
+								height={height}
+								className="ygi:w-full ygi:rounded-2xl ygi:shadow-lg"
+							/>
+						</motion.div>
 					))}
-				</motion.div>
+				</div>
 			</div>
 		</section>
 	);
 };
 
 // ── Feature4Section ──────────────────────────────────────────────────────────
+// 텍스트 TOP → 카카오 알림카드 → 맛집 리스트(아래로 overflow into Feature5)
 const Feature4Section = () => {
 	const { ref, isInView } = useScrollReveal();
 
 	return (
 		<section
 			ref={ref}
-			className="ygi:px-6 ygi:py-16 md:ygi:py-24 lg:ygi:px-10"
+			className="ygi:overflow-hidden ygi:px-6 ygi:py-16 md:ygi:py-24 lg:ygi:px-10"
 			style={{ backgroundColor: "#13181c" }}
 		>
-			<div className="ygi:mx-auto ygi:flex ygi:max-w-[1200px] ygi:flex-col ygi:items-center ygi:gap-10 md:ygi:flex-row md:ygi:justify-between">
-				<motion.div
-					initial={{ opacity: 0, x: -30 }}
-					animate={isInView ? { opacity: 1, x: 0 } : {}}
-					transition={{ duration: 0.6, ease: "easeOut" }}
-				>
-					<Image
-						src="/images/service-landing/feature-4-screen.png"
-						alt="맛집 추천 화면"
-						width={262}
-						height={301}
-						className="ygi:rounded-2xl ygi:shadow-lg"
-					/>
-				</motion.div>
+			<div className="ygi:mx-auto ygi:flex ygi:max-w-[1200px] ygi:flex-col ygi:items-center ygi:gap-10">
 				<FeatureText
 					badge="맛집 추천"
 					headline={"투표 결과에 따라\n모임에 맞게 맛집 추천해요"}
 					isDark={true}
 					isInView={isInView}
 				/>
+				<div className="ygi:flex ygi:w-full ygi:flex-col ygi:items-center ygi:gap-4">
+					{/* 카카오 알림 메시지 카드 */}
+					<motion.div
+						initial={{ opacity: 0, y: 30 }}
+						animate={isInView ? { opacity: 1, y: 0 } : {}}
+						transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 }}
+						className="ygi:w-full ygi:max-w-[360px]"
+					>
+						<Image
+							src="/images/service-landing/feature-5-kakao.png"
+							alt="카카오 알림 메시지"
+							width={654}
+							height={304}
+							className="ygi:w-full ygi:rounded-2xl ygi:shadow-lg"
+						/>
+					</motion.div>
+					{/* 맛집 추천 리스트 — 아래 섹션으로 overflow */}
+					<motion.div
+						initial={{ opacity: 0, y: 40 }}
+						animate={isInView ? { opacity: 1, y: 0 } : {}}
+						transition={{ duration: 0.7, ease: "easeOut", delay: 0.6 }}
+						className="ygi:w-full ygi:max-w-[280px]"
+					>
+						<Image
+							src="/images/service-landing/feature-4-screen.png"
+							alt="맛집 추천 화면"
+							width={654}
+							height={752}
+							className="ygi:w-full ygi:rounded-3xl ygi:shadow-2xl"
+						/>
+					</motion.div>
+				</div>
 			</div>
 		</section>
 	);
 };
 
 // ── Feature5Section ──────────────────────────────────────────────────────────
+// 카카오 OG 링크 미리보기 카드 (HTML/CSS로 구현, Framer 레퍼런스 동일)
 const Feature5Section = () => {
 	const { ref, isInView } = useScrollReveal();
 
 	return (
 		<section
 			ref={ref}
-			className="ygi:bg-palette-gray-100 ygi:px-6 ygi:py-16 md:ygi:py-24 lg:ygi:px-10"
+			className="ygi:px-6 ygi:py-16 md:ygi:py-24 lg:ygi:px-10"
+			style={{ backgroundColor: "#d5dae1" }}
 		>
 			<div className="ygi:mx-auto ygi:flex ygi:max-w-[1200px] ygi:flex-col ygi:items-center ygi:gap-10 md:ygi:flex-row-reverse md:ygi:justify-between">
+				{/* 카카오 OG 링크 미리보기 카드 */}
 				<motion.div
 					initial={{ opacity: 0, x: 30 }}
 					animate={isInView ? { opacity: 1, x: 0 } : {}}
 					transition={{ duration: 0.6, ease: "easeOut" }}
+					className="ygi:w-full ygi:max-w-[300px]"
 				>
-					<Image
-						src="/images/service-landing/feature-5-kakao.png"
-						alt="카카오 메시지 화면"
-						width={327}
-						height={152}
-						className="ygi:rounded-2xl ygi:shadow-md"
-					/>
+					<div className="ygi:overflow-hidden ygi:rounded-2xl ygi:bg-white ygi:shadow-xl">
+						{/* 썸네일 영역 */}
+						<div
+							className="ygi:flex ygi:h-[120px] ygi:items-center ygi:justify-center"
+							style={{
+								background:
+									"linear-gradient(135deg, #FF5A3C 0%, #FF8A6B 100%)",
+							}}
+						>
+							<LandingLogoIcon color="white" width={100} height={32} />
+						</div>
+						{/* 텍스트 정보 영역 */}
+						<div className="ygi:flex ygi:flex-col ygi:gap-0.5 ygi:border-t ygi:border-palette-gray-100 ygi:px-4 ygi:py-3">
+							<p className="ygi:body-14-bd ygi:text-text-primary">
+								메뉴 추천이 완료되었어요
+							</p>
+							<p className="ygi:caption-12-rg ygi:text-text-secondary">
+								[요기잇] 추천 결과를 확인해 보세요
+							</p>
+							<p className="ygi:caption-12-rg ygi:text-button-secondary">
+								www.yogieat.com
+							</p>
+						</div>
+					</div>
 				</motion.div>
 				<FeatureText
 					badge="링크 공유"
