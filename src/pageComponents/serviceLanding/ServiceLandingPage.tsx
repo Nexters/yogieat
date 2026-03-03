@@ -100,7 +100,10 @@ const HeroSection = () => {
 					>
 						이제 5분이면 끝!
 					</motion.p>
-					<motion.div variants={heroItemVariants} className="ygi:mt-2">
+					<motion.div
+						variants={heroItemVariants}
+						className="ygi:mt-2"
+					>
 						<Link
 							href="/gathering/create"
 							className="ygi:inline-flex ygi:cursor-pointer ygi:items-center ygi:justify-center ygi:rounded-full ygi:bg-button-secondary ygi:px-8 ygi:py-4 ygi:heading-18-bd ygi:text-text-inverse ygi:transition-colors ygi:hover:bg-button-secondary-hover"
