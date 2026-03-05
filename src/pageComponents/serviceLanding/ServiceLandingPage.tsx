@@ -1,11 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 
 import { type Variants, motion, useInView } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 
+import { MeetingCompleteIllustration } from "#/components/illustrations/MeetingCompleteIllustration";
+import { LandingIntroLottie } from "#/pageComponents/gathering/opinion/landing/LandingIntroLottie";
 import { LandingLogoIcon } from "#/icons/landingLogoIcon";
 
 // ── Navbar ──────────────────────────────────────────────────────────────────
@@ -22,7 +24,7 @@ const Navbar = () => {
 		<header
 			className={`ygi:fixed ygi:top-0 ygi:right-0 ygi:left-0 ygi:z-50 ygi:bg-white ygi:transition-shadow ygi:duration-300 ${scrolled ? "ygi:shadow-md" : ""}`}
 		>
-			<div className="md:ygi:px-10 ygi:mx-auto ygi:flex ygi:max-w-[1200px] ygi:items-center ygi:justify-between ygi:px-6 ygi:py-4">
+			<div className="md:ygi:px-10 ygi:mx-auto ygi:flex ygi:max-w-300 ygi:items-center ygi:justify-between ygi:px-6 ygi:py-4">
 				<LandingLogoIcon
 					color="#1f2933"
 					width={80}
@@ -64,88 +66,83 @@ const HeroSection = () => {
 	return (
 		<section
 			ref={ref}
-			className="md:ygi:py-28 lg:ygi:px-10 ygi:bg-white ygi:px-6 ygi:py-20"
+			className="md:ygi:py-28 lg:ygi:px-10 ygi:px-6 ygi:py-20"
+			style={{ backgroundColor: "#FF5A3C" }}
 		>
-			<div className="md:ygi:flex-row md:ygi:items-center md:ygi:justify-between ygi:mx-auto ygi:flex ygi:max-w-[1200px] ygi:flex-col ygi:items-center ygi:gap-12">
-				{/* Text */}
-				<motion.div
-					variants={heroContainerVariants}
-					initial="hidden"
-					animate={isInView ? "visible" : "hidden"}
-					className="md:ygi:items-start md:ygi:text-left ygi:flex ygi:flex-col ygi:items-center ygi:gap-4 ygi:text-center"
-				>
+			<motion.div
+				variants={heroContainerVariants}
+				initial="hidden"
+				animate={isInView ? "visible" : "hidden"}
+				className="ygi:mx-auto ygi:flex ygi:max-w-300 ygi:flex-col ygi:items-center ygi:gap-10"
+			>
+				{/* Text block */}
+				<div className="ygi:flex ygi:flex-col ygi:items-center ygi:gap-4 ygi:text-center">
 					<motion.p
 						variants={heroItemVariants}
-						className="ygi:caption-12-md ygi:text-text-secondary"
+						className="ygi:caption-12-md ygi:text-white/80"
 					>
-						다인원을 위한 맛집 서비스
+						다인원을 위한 맛집 추천 서비스
 					</motion.p>
-					<motion.div
-						variants={heroItemVariants}
-						className="ygi:flex ygi:flex-col ygi:gap-1"
-					>
-						<p className="ygi:display-28-bd ygi:text-text-primary">
-							밥약속 생길 때마다 했던 고민
-						</p>
-						<p
-							className="ygi:display-28-bd ygi:text-button-secondary"
-							style={{ fontSize: "clamp(28px, 5vw, 48px)" }}
-						>
-							&ldquo;어디가지..?&rdquo;
-						</p>
+					<motion.div variants={heroItemVariants}>
+						<LandingLogoIcon
+							color="white"
+							width={170}
+							height={52}
+							aria-label="요기잇"
+						/>
 					</motion.div>
-					<motion.p
-						variants={heroItemVariants}
-						className="ygi:heading-20-bd ygi:text-text-primary"
-					>
-						이제 5분이면 끝!
-					</motion.p>
 					<motion.div
 						variants={heroItemVariants}
 						className="ygi:mt-2"
 					>
 						<Link
 							href="/gathering/create"
-							className="ygi:inline-flex ygi:cursor-pointer ygi:items-center ygi:justify-center ygi:rounded-full ygi:bg-button-secondary ygi:px-8 ygi:py-4 ygi:heading-18-bd ygi:text-text-inverse ygi:transition-colors ygi:hover:bg-button-secondary-hover"
+							className="ygi:inline-flex ygi:cursor-pointer ygi:items-center ygi:justify-center ygi:rounded-full ygi:bg-white ygi:px-8 ygi:py-4 ygi:heading-18-bd ygi:text-text-primary ygi:transition-colors ygi:hover:bg-white/90"
 						>
-							모임 링크 만들기
+							바로 시작하기
 						</Link>
 					</motion.div>
-				</motion.div>
+				</div>
 
-				{/* Characters */}
+				{/* Characters - Lottie */}
 				<motion.div
-					variants={heroContainerVariants}
-					initial="hidden"
-					animate={isInView ? "visible" : "hidden"}
-					className="md:ygi:gap-3 ygi:flex ygi:flex-row ygi:items-end ygi:gap-2"
+					variants={heroItemVariants}
+					className="md:ygi:max-w-[480px] ygi:w-full ygi:max-w-90"
+					style={{ height: 220 }}
 				>
-					{[
-						{
-							src: "/images/service-landing/hero-char-1.png",
-							alt: "캐릭터 1",
-						},
-						{
-							src: "/images/service-landing/hero-char-2.png",
-							alt: "캐릭터 2",
-						},
-						{
-							src: "/images/service-landing/hero-char-3.png",
-							alt: "캐릭터 3",
-						},
-					].map((char) => (
-						<motion.div key={char.alt} variants={heroItemVariants}>
-							<Image
-								src={char.src}
-								alt={char.alt}
-								width={200}
-								height={200}
-								className="md:ygi:w-[140px] lg:ygi:w-[180px] ygi:h-auto ygi:w-[90px]"
-							/>
-						</motion.div>
-					))}
+					<LandingIntroLottie />
 				</motion.div>
-			</div>
+			</motion.div>
+		</section>
+	);
+};
+
+// ── Pain Point Section ────────────────────────────────────────────────────────
+const PainPointSection = () => {
+	const ref = useRef<HTMLElement>(null);
+	const isInView = useInView(ref, { once: true, amount: 0.2 });
+
+	return (
+		<section
+			ref={ref}
+			className="lg:ygi:px-10 ygi:bg-palette-gray-800 ygi:px-6 ygi:py-16"
+		>
+			<motion.div
+				initial={{ opacity: 0, y: 30 }}
+				animate={isInView ? { opacity: 1, y: 0 } : {}}
+				transition={{ duration: 0.6, ease: "easeOut" }}
+				className="ygi:mx-auto ygi:flex ygi:max-w-300 ygi:flex-col ygi:items-center ygi:gap-6 ygi:text-center"
+			>
+				<p className="ygi:body-16-rg ygi:whitespace-pre-line ygi:text-palette-gray-300">
+					{"밥약속 생길 때마다 했던 고민\n\u201c어디가지..?\u201d"}
+				</p>
+				<div className="ygi:flex ygi:items-center ygi:justify-center">
+					<MeetingCompleteIllustration className="ygi:h-45 ygi:w-45" />
+				</div>
+				<p className="ygi:heading-22-bd ygi:text-text-inverse">
+					이제 5분이면 끝!
+				</p>
+			</motion.div>
 		</section>
 	);
 };
@@ -159,14 +156,14 @@ const useScrollReveal = () => {
 
 // ── FeatureText component ───────────────────────────────────────────────────
 interface FeatureTextProps {
-	badge: string;
-	headline: string;
+	caption: string;
+	headline: ReactNode;
 	isDark: boolean;
 	isInView: boolean;
 }
 
 const FeatureText = ({
-	badge,
+	caption,
 	headline,
 	isDark,
 	isInView,
@@ -175,17 +172,17 @@ const FeatureText = ({
 		initial={{ opacity: 0, y: 40 }}
 		animate={isInView ? { opacity: 1, y: 0 } : {}}
 		transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
-		className="md:ygi:items-start ygi:flex ygi:flex-col ygi:items-center ygi:gap-4"
+		className="md:ygi:items-start ygi:flex ygi:flex-col ygi:items-center ygi:gap-2"
 	>
-		<span
-			className={`ygi:inline-block ygi:w-fit ygi:rounded-full ygi:px-4 ygi:py-1.5 ygi:body-14-bd ${
+		<p
+			className={`ygi:body-14-md ${
 				isDark
-					? "ygi:bg-white/10 ygi:text-text-inverse"
-					: "ygi:bg-button-secondary/10 ygi:text-button-secondary"
+					? "ygi:text-palette-gray-300"
+					: "ygi:text-palette-gray-600"
 			}`}
 		>
-			{badge}
-		</span>
+			{caption}
+		</p>
 		<p
 			className={`md:ygi:display-28-bd md:ygi:text-left ygi:text-center ygi:heading-22-bd ygi:whitespace-pre-line ${
 				isDark ? "ygi:text-text-inverse" : "ygi:text-text-primary"
@@ -203,34 +200,44 @@ const Feature1Section = () => {
 	return (
 		<section
 			ref={ref}
-			className="md:ygi:py-24 lg:ygi:px-10 ygi:bg-palette-gray-100 ygi:px-6 ygi:py-16"
+			className="ygi:overflow-hidden ygi:bg-palette-gray-100 ygi:px-6 ygi:pt-16"
 		>
-			<div className="md:ygi:flex-row md:ygi:justify-between ygi:mx-auto ygi:flex ygi:max-w-[1200px] ygi:flex-col ygi:items-center ygi:gap-10">
+			<div className="ygi:mx-auto ygi:flex ygi:max-w-300 ygi:flex-col ygi:items-center">
 				<FeatureText
-					badge="모임 링크 만들기"
-					headline={"우리 모임 정보\n입력 한번에"}
+					caption="모임 링크 만들기"
+					headline="우리 모임 정보 입력 한번에"
 					isDark={false}
 					isInView={isInView}
 				/>
-				<motion.div
-					initial={{ opacity: 0, x: -30 }}
-					animate={isInView ? { opacity: 1, x: 0 } : {}}
-					transition={{ duration: 0.6, ease: "easeOut" }}
-					className="ygi:flex ygi:flex-row ygi:gap-3"
-				>
-					{(
-						["feature-1-screen-a", "feature-1-screen-b"] as const
-					).map((name) => (
-						<Image
-							key={name}
-							src={`/images/service-landing/${name}.png`}
-							alt="모임 생성 화면"
-							width={148}
-							height={241}
-							className="ygi:rounded-2xl ygi:shadow-lg"
-						/>
-					))}
-				</motion.div>
+				{/* overflow-hidden으로 하단 overflow 초기 상태 클리핑 */}
+				<div className="ygi:relative ygi:-bottom-14">
+					<motion.div
+						initial={{ opacity: 1, y: 72, scale: 0.88 }}
+						animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+						transition={{
+							duration: 0.7,
+							ease: [0.25, 0.46, 0.45, 0.94],
+						}}
+						className="ygi:flex ygi:flex-row ygi:gap-3"
+					>
+						{(
+							[
+								"feature-1-screen-a",
+								"feature-1-screen-b",
+							] as const
+						).map((name) => (
+							<Image
+								key={name}
+								src={`/images/service-landing/${name}.png`}
+								alt="모임 생성 화면"
+								width={148}
+								height={241}
+								className="ygi:rounded-[10px] ygi:shadow-lg"
+								priority
+							/>
+						))}
+					</motion.div>
+				</div>
 			</div>
 		</section>
 	);
@@ -243,34 +250,53 @@ const Feature2Section = () => {
 	return (
 		<section
 			ref={ref}
-			className="md:ygi:py-24 lg:ygi:px-10 ygi:bg-palette-gray-800 ygi:px-6 ygi:py-16"
+			className="ygi:overflow-hidden ygi:px-6 ygi:pt-16"
+			style={{ backgroundColor: "#d5dae2" }}
 		>
-			<div className="md:ygi:flex-row-reverse md:ygi:justify-between ygi:mx-auto ygi:flex ygi:max-w-[1200px] ygi:flex-col ygi:items-center ygi:gap-10">
+			<div className="ygi:mx-auto ygi:flex ygi:max-w-300 ygi:flex-col ygi:items-center">
 				<FeatureText
-					badge="나의 의견 입력"
-					headline={"먹기 싫은거, 먹고 싶은거\n나의 의견 입력 한번에"}
-					isDark={true}
+					caption="먹기 싫은거, 먹고 싶은거"
+					headline={
+						<>
+							{"나의 "}
+							<span className="ygi:text-button-secondary">
+								의견 입력
+							</span>
+							{" 한번에"}
+						</>
+					}
+					isDark={false}
 					isInView={isInView}
 				/>
-				<motion.div
-					initial={{ opacity: 0, x: 30 }}
-					animate={isInView ? { opacity: 1, x: 0 } : {}}
-					transition={{ duration: 0.6, ease: "easeOut" }}
-					className="ygi:flex ygi:flex-row ygi:gap-3"
-				>
-					{(
-						["feature-2-screen-a", "feature-2-screen-b"] as const
-					).map((name) => (
-						<Image
-							key={name}
-							src={`/images/service-landing/${name}.png`}
-							alt="의견 입력 화면"
-							width={130}
-							height={281}
-							className="ygi:rounded-2xl ygi:shadow-lg"
-						/>
-					))}
-				</motion.div>
+				{/* overflow-hidden으로 하단 overflow 초기 상태 클리핑 */}
+				<div className="ygi:relative ygi:-bottom-14">
+					<motion.div
+						initial={{ opacity: 1, y: 72, scale: 0.88 }}
+						animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+						transition={{
+							duration: 0.7,
+							ease: [0.25, 0.46, 0.45, 0.94],
+						}}
+						className="ygi:flex ygi:flex-row ygi:gap-3"
+					>
+						{(
+							[
+								"feature-2-screen-a",
+								"feature-2-screen-b",
+							] as const
+						).map((name) => (
+							<Image
+								key={name}
+								src={`/images/service-landing/${name}.png`}
+								alt="의견 입력 화면"
+								width={148}
+								height={321}
+								className="ygi:rounded-[10px] ygi:shadow-lg"
+								priority
+							/>
+						))}
+					</motion.div>
+				</div>
 			</div>
 		</section>
 	);
@@ -278,9 +304,9 @@ const Feature2Section = () => {
 
 // ── Feature3Section ──────────────────────────────────────────────────────────
 const feature3Screens = [
-	{ name: "feature-3-screen-a", dir: -1, height: 434 },
-	{ name: "feature-3-screen-b", dir: 1, height: 418 },
-	{ name: "feature-3-screen-c", dir: -1, height: 398 },
+	{ name: "feature-3-screen-a", dir: -1, height: 151 },
+	{ name: "feature-3-screen-b", dir: 1, height: 146 },
+	{ name: "feature-3-screen-c", dir: -1, height: 139 },
 ];
 
 const Feature3Section = () => {
@@ -289,18 +315,15 @@ const Feature3Section = () => {
 	return (
 		<section
 			ref={ref}
-			className="md:ygi:py-24 lg:ygi:px-10 ygi:overflow-hidden ygi:bg-palette-gray-700 ygi:px-6 ygi:py-16"
+			className="md:ygi:py-24 lg:ygi:px-10 ygi:overflow-hidden ygi:bg-palette-gray-100 ygi:px-6 ygi:py-16"
 		>
-			<div className="ygi:mx-auto ygi:flex ygi:max-w-[1200px] ygi:flex-col ygi:items-center ygi:gap-10">
+			<div className="ygi:mx-auto ygi:flex ygi:max-w-300 ygi:flex-col ygi:items-center ygi:gap-10">
 				<FeatureText
-					badge="투표 결과 확인"
-					headline={
-						"친구들은 뭘 먹고 싶어 했을까?\n투표 결과로 확인해요"
-					}
-					isDark={true}
+					caption="친구들은 뭘 먹고 싶어 했을까?"
+					headline="투표 결과로 확인해요"
+					isDark={false}
 					isInView={isInView}
 				/>
-				{/* 이미지 하나씩 순차 등장: 좌→우→좌, mobile/pc 모두 max-width 제한 */}
 				<div className="ygi:flex ygi:w-full ygi:flex-col ygi:items-center ygi:gap-4">
 					{feature3Screens.map(({ name, dir, height }, i) => (
 						<motion.div
@@ -312,7 +335,7 @@ const Feature3Section = () => {
 								ease: "easeOut",
 								delay: 0.3 + i * 0.2,
 							}}
-							className="md:ygi:max-w-[500px] ygi:w-full ygi:max-w-[400px]"
+							className="md:ygi:max-w-[500px] ygi:w-full ygi:max-w-100"
 						>
 							<Image
 								src={`/images/service-landing/${name}.png`}
@@ -320,6 +343,7 @@ const Feature3Section = () => {
 								width={654}
 								height={height}
 								className="ygi:w-full ygi:rounded-2xl ygi:shadow-lg"
+								priority
 							/>
 						</motion.div>
 					))}
@@ -330,70 +354,124 @@ const Feature3Section = () => {
 };
 
 // ── Feature4Section ──────────────────────────────────────────────────────────
-// 텍스트 TOP → 카카오 알림카드 → 맛집 리스트
 const Feature4Section = () => {
 	const { ref, isInView } = useScrollReveal();
 
 	return (
 		<section
 			ref={ref}
-			className="md:ygi:py-24 lg:ygi:px-10 ygi:overflow-hidden ygi:px-6 ygi:py-16"
-			style={{ backgroundColor: "#13181c" }}
+			className="ygi:overflow-hidden ygi:bg-palette-gray-700 ygi:px-6 ygi:pt-16"
 		>
-			<div className="ygi:mx-auto ygi:flex ygi:max-w-[1200px] ygi:flex-col ygi:items-center ygi:gap-10">
+			<div className="ygi:mx-auto ygi:flex ygi:max-w-300 ygi:flex-col ygi:items-center">
 				<FeatureText
-					badge="맛집 추천"
-					headline={"투표 결과에 따라\n모임에 맞게 맛집 추천해요"}
+					caption="투표 결과에 따라"
+					headline="모임에 맞게 맛집 추천해요"
 					isDark={true}
 					isInView={isInView}
 				/>
-				<div className="ygi:flex ygi:w-full ygi:flex-col ygi:items-center ygi:gap-4">
-					{/* 카카오 알림 메시지 카드 */}
+				<div className="ygi:relative ygi:-bottom-14">
+					{/* 투표 필터 요약 카드 - 아래에서 위로 fade + scale */}
 					<motion.div
-						initial={{ opacity: 0, y: 30 }}
-						animate={isInView ? { opacity: 1, y: 0 } : {}}
+						initial={{ opacity: 0, y: 40, scale: 0.92 }}
+						animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
 						transition={{
 							duration: 0.6,
-							ease: "easeOut",
-							delay: 0.4,
+							ease: [0.25, 0.46, 0.45, 0.94],
+							delay: 0.2,
 						}}
-						className="ygi:w-full ygi:max-w-[360px]"
+						className="ygi:w-full ygi:max-w-90"
 					>
 						<Image
-							src="/images/service-landing/feature-5-kakao.png"
-							alt="카카오 알림 메시지"
+							src="/images/service-landing/feature-4-tooltip.png"
+							alt="투표 결과 요약"
 							width={654}
-							height={304}
-							className="ygi:w-full ygi:rounded-2xl ygi:shadow-lg"
+							height={247}
+							className="ygi:w-full ygi:rounded-2xl"
+							priority
 						/>
 					</motion.div>
-					{/* 맛집 추천 리스트 */}
-					<motion.div
-						initial={{ opacity: 0, y: 40 }}
-						animate={isInView ? { opacity: 1, y: 0 } : {}}
-						transition={{
-							duration: 0.7,
-							ease: "easeOut",
-							delay: 0.6,
-						}}
-						className="ygi:w-full ygi:max-w-[280px]"
-					>
-						<Image
-							src="/images/service-landing/feature-4-screen.png"
-							alt="맛집 추천 화면"
-							width={654}
-							height={752}
-							className="ygi:w-full ygi:rounded-3xl ygi:shadow-2xl"
-						/>
-					</motion.div>
+					{/* 맛집 추천 리스트 - bottom overflow + scale 등장 */}
+					<div className="ygi:relative">
+						<motion.div
+							initial={{ opacity: 1, y: 80, scale: 0.88 }}
+							animate={
+								isInView ? { opacity: 1, y: 0, scale: 1 } : {}
+							}
+							transition={{
+								duration: 0.75,
+								ease: [0.25, 0.46, 0.45, 0.94],
+								delay: 0.4,
+							}}
+						>
+							<Image
+								src="/images/service-landing/feature-4-screen.png"
+								alt="맛집 추천 화면"
+								width={654}
+								height={752}
+								className="ygi:w-full ygi:rounded-3xl ygi:shadow-2xl"
+								priority
+							/>
+						</motion.div>
+					</div>
 				</div>
 			</div>
 		</section>
 	);
 };
 
+// ── Speech Bubble ─────────────────────────────────────────────────────────────
+interface SpeechBubbleProps {
+	text: string;
+	direction: "left" | "right";
+	variant: "primary" | "white";
+}
+
+const SpeechBubble = ({ text, direction, variant }: SpeechBubbleProps) => {
+	const isPrimary = variant === "primary";
+	const bg = isPrimary ? "#FF5A3C" : "white";
+	const textColor = isPrimary ? "white" : "#111827";
+
+	// 둥글게 뾰족하게 커브진 말풍선 꼬리
+	const TailLeft = () => (
+		<svg
+			width="7"
+			height="12"
+			viewBox="0 0 7 12"
+			fill="none"
+			aria-hidden="true"
+			style={{ flexShrink: 0 }}
+		>
+			<path d="M7 0 C7 0 1 4.5 0 6 C1 7.5 7 12 7 12 Z" fill={bg} />
+		</svg>
+	);
+	const TailRight = () => (
+		<svg
+			width="7"
+			height="12"
+			viewBox="0 0 7 12"
+			fill="none"
+			aria-hidden="true"
+			style={{ flexShrink: 0 }}
+		>
+			<path d="M0 0 C0 0 6 4.5 7 6 C6 7.5 0 12 0 12 Z" fill={bg} />
+		</svg>
+	);
+
+	return (
+		<div className="ygi:flex ygi:items-center" style={{ gap: 0 }}>
+			{direction === "left" && <TailLeft />}
+			<div
+				className="ygi:rounded-lg ygi:px-3 ygi:py-1.5 ygi:caption-12-sb"
+				style={{ backgroundColor: bg, color: textColor }}
+			>
+				{text}
+			</div>
+			{direction === "right" && <TailRight />}
+		</div>
+	);
+};
+
 // ── Feature5Section ──────────────────────────────────────────────────────────
-// 카카오 OG 링크 미리보기 카드 (HTML/CSS로 구현, Framer 레퍼런스 동일)
 const Feature5Section = () => {
 	const { ref, isInView } = useScrollReveal();
 
@@ -401,53 +479,91 @@ const Feature5Section = () => {
 		<section
 			ref={ref}
 			className="md:ygi:py-24 lg:ygi:px-10 ygi:px-6 ygi:py-16"
-			style={{ backgroundColor: "#d5dae1" }}
+			style={{ backgroundColor: "#d5dae2" }}
 		>
-			<div className="md:ygi:flex-row-reverse md:ygi:justify-between ygi:mx-auto ygi:flex ygi:max-w-[1200px] ygi:flex-col ygi:items-center ygi:gap-10">
+			<div className="md:ygi:flex-row-reverse md:ygi:justify-between ygi:mx-auto ygi:flex ygi:max-w-300 ygi:flex-col ygi:items-center ygi:gap-10">
 				<FeatureText
-					badge="링크 공유"
-					headline={
-						"오래 걸리던 맛집 정하기\n이제는 쉽고 편하게 결정해요"
-					}
+					caption="오래 걸리던 맛집 정하기"
+					headline={"이제는 쉽고 편하게\n결정해요"}
 					isDark={false}
 					isInView={isInView}
 				/>
-				{/* 카카오 OG 링크 미리보기 카드 */}
-				<motion.div
-					initial={{ opacity: 0, x: 30 }}
-					animate={isInView ? { opacity: 1, x: 0 } : {}}
-					transition={{ duration: 0.6, ease: "easeOut" }}
-					className="ygi:w-full ygi:max-w-[300px]"
-				>
-					<div className="ygi:overflow-hidden ygi:rounded-2xl ygi:bg-white ygi:shadow-xl">
-						{/* 썸네일 영역 */}
-						<div
-							className="ygi:flex ygi:h-[120px] ygi:items-center ygi:justify-center"
-							style={{
-								background:
-									"linear-gradient(135deg, #FF5A3C 0%, #FF8A6B 100%)",
-							}}
-						>
-							<LandingLogoIcon
-								color="white"
-								width={100}
-								height={32}
-							/>
-						</div>
-						{/* 텍스트 정보 영역 */}
-						<div className="ygi:flex ygi:flex-col ygi:gap-0.5 ygi:border-t ygi:border-palette-gray-100 ygi:px-4 ygi:py-3">
-							<p className="ygi:body-14-bd ygi:text-text-primary">
-								메뉴 추천이 완료되었어요
-							</p>
-							<p className="ygi:caption-12-rg ygi:text-text-secondary">
-								[요기잇] 추천 결과를 확인해 보세요
-							</p>
-							<p className="ygi:caption-12-rg ygi:text-button-secondary">
-								www.yogieat.com
-							</p>
-						</div>
-					</div>
-				</motion.div>
+
+				{/* OG 카드 + 말풍선 컨테이너 - 각 요소 개별 순차 애니메이션 */}
+				<div className="ygi:relative ygi:w-full ygi:max-w-75 ygi:pt-10 ygi:pb-14">
+					{/* ① 오렌지 말풍선 - 좌→우 (delay 0.1s) */}
+					<motion.div
+						initial={{ opacity: 0, x: -28 }}
+						animate={isInView ? { opacity: 1, x: 0 } : {}}
+						transition={{
+							duration: 0.4,
+							ease: "easeOut",
+							delay: 0.1,
+						}}
+						className="ygi:absolute ygi:-top-1 ygi:left-0"
+					>
+						<SpeechBubble
+							text="얘들아 오늘은 여기다"
+							direction="left"
+							variant="primary"
+						/>
+					</motion.div>
+
+					{/* ② OG 링크 미리보기 카드 - 좌→우 (delay 0.26s) */}
+					<motion.div
+						initial={{ opacity: 0, x: -28 }}
+						animate={isInView ? { opacity: 1, x: 0 } : {}}
+						transition={{
+							duration: 0.45,
+							ease: "easeOut",
+							delay: 0.26,
+						}}
+						className="ygi:relative ygi:h-49.5 ygi:w-full ygi:max-w-52.75"
+					>
+						<Image
+							src="/images/service-landing/feature-5-og-card.png"
+							alt="요기잇 링크 공유 미리보기"
+							fill
+							priority
+						/>
+					</motion.div>
+
+					{/* ③ 흰 말풍선 1 - 우→좌 (delay 0.44s) */}
+					<motion.div
+						initial={{ opacity: 0, x: 28 }}
+						animate={isInView ? { opacity: 1, x: 0 } : {}}
+						transition={{
+							duration: 0.4,
+							ease: "easeOut",
+							delay: 0.44,
+						}}
+						className="ygi:absolute ygi:right-0 ygi:bottom-6"
+					>
+						<SpeechBubble
+							text="마싯겠다"
+							direction="right"
+							variant="white"
+						/>
+					</motion.div>
+
+					{/* ④ 흰 말풍선 2 - 우→좌 (delay 0.6s) */}
+					<motion.div
+						initial={{ opacity: 0, x: 28 }}
+						animate={isInView ? { opacity: 1, x: 0 } : {}}
+						transition={{
+							duration: 0.4,
+							ease: "easeOut",
+							delay: 0.6,
+						}}
+						className="ygi:absolute ygi:right-0 ygi:-bottom-4"
+					>
+						<SpeechBubble
+							text="당장 고."
+							direction="right"
+							variant="white"
+						/>
+					</motion.div>
+				</div>
 			</div>
 		</section>
 	);
@@ -466,14 +582,16 @@ const CtaSection = () => {
 				initial={{ opacity: 0, y: 40 }}
 				animate={isInView ? { opacity: 1, y: 0 } : {}}
 				transition={{ duration: 0.6, ease: "easeOut" }}
-				className="ygi:mx-auto ygi:flex ygi:max-w-[1200px] ygi:flex-col ygi:items-center ygi:gap-8 ygi:text-center"
+				className="ygi:mx-auto ygi:flex ygi:max-w-300 ygi:flex-col ygi:items-center ygi:gap-8 ygi:text-center"
 			>
-				<p className="ygi:display-28-bd ygi:whitespace-pre-line ygi:text-text-inverse">
-					{"지금 바로 요기잇으로\n맛집을 추천 받아요"}
+				<p className="md:ygi:display-28-bd ygi:heading-22-bd ygi:whitespace-pre-line ygi:text-text-inverse">
+					{"지금 바로 "}
+					<span className="ygi:text-button-secondary">요기잇</span>
+					{"으로\n맛집을 추천 받아요"}
 				</p>
 				<Link
 					href="/gathering/create"
-					className="ygi:cursor-pointer ygi:rounded-full ygi:bg-button-secondary ygi:px-8 ygi:py-4 ygi:heading-18-bd ygi:text-text-inverse ygi:transition-colors ygi:hover:bg-button-secondary-hover"
+					className="ygi:cursor-pointer ygi:rounded-full ygi:bg-white ygi:px-8 ygi:py-4 ygi:heading-18-bd ygi:text-text-primary ygi:transition-colors ygi:hover:bg-white/90"
 				>
 					바로 시작하기
 				</Link>
@@ -488,7 +606,7 @@ const LandingFooter = () => (
 		className="lg:ygi:px-10 ygi:px-6 ygi:py-10"
 		style={{ backgroundColor: "#13181c" }}
 	>
-		<div className="ygi:mx-auto ygi:flex ygi:max-w-[1200px] ygi:flex-col ygi:items-center ygi:gap-4 ygi:text-center">
+		<div className="ygi:mx-auto ygi:flex ygi:max-w-300 ygi:flex-col ygi:items-center ygi:gap-4 ygi:text-center">
 			<div className="ygi:flex ygi:flex-col ygi:items-center ygi:gap-2">
 				<p className="ygi:body-14-rg ygi:text-white/60">
 					문의:{" "}
@@ -526,8 +644,9 @@ export const ServiceLandingPage = () => {
 	return (
 		<div className="ygi:w-full ygi:overflow-x-hidden">
 			<Navbar />
-			<main className="ygi:pt-[65px]">
+			<main className="ygi:pt-16.25">
 				<HeroSection />
+				<PainPointSection />
 				<Feature1Section />
 				<Feature2Section />
 				<Feature3Section />
