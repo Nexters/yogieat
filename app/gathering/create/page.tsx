@@ -28,7 +28,7 @@ export default function GatheringCreatePage() {
 
 	const handleBackward = () => {
 		if (isFirstStep) {
-			router.push("/");
+			router.push("/app");
 		} else {
 			back();
 		}
