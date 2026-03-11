@@ -1,6 +1,5 @@
-import { useRef } from "react";
-
 import { useInView } from "motion/react";
+import { useRef } from "react";
 
 export const useScrollReveal = () => {
 	const ref = useRef<HTMLElement>(null);

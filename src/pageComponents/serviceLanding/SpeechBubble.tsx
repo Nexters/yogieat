@@ -1,5 +1,6 @@
-import { colors } from "#/constants/color";
 import type { SVGProps } from "react";
+
+import { colors } from "#/constants/color";
 
 const TailLeft = ({ fill }: SVGProps<SVGSVGElement>) => (
 	<svg

@@ -1,8 +1,7 @@
 "use client";
 
-import { useRef } from "react";
-
 import { motion, useInView } from "motion/react";
+import { useRef } from "react";
 
 import { MeetingCompleteIllustration } from "#/components/illustrations/MeetingCompleteIllustration";
 

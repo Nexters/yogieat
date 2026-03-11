@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
 import { motion } from "motion/react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 import { LandingLogoIcon } from "#/icons/landingLogoIcon";
 
