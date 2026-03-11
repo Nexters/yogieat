@@ -8,7 +8,6 @@ export {
 export {
 	DISTANCE_OPTIONS,
 	DISTANCE_RANGE,
-	DISTANCE_RANGE_LABEL,
 	DISTANCE_RANGE_WALKING_MINUTES,
 	type DistanceRange,
 } from "./distance";
