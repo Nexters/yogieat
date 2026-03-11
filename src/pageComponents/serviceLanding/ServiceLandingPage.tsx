@@ -250,10 +250,10 @@ const Feature2Section = () => {
 	return (
 		<section
 			ref={ref}
-			className="ygi:overflow-hidden ygi:px-6 ygi:pt-16"
+			className="ygi:overflow-hidden ygi:px-6 ygi:pt-13.5"
 			style={{ backgroundColor: "#d5dae2" }}
 		>
-			<div className="ygi:mx-auto ygi:flex ygi:max-w-300 ygi:flex-col ygi:items-center">
+			<div className="ygi:mx-auto ygi:flex ygi:flex-col ygi:items-center">
 				<FeatureText
 					caption="먹기 싫은거, 먹고 싶은거"
 					headline={
@@ -304,9 +304,9 @@ const Feature2Section = () => {
 
 // ── Feature3Section ──────────────────────────────────────────────────────────
 const feature3Screens = [
-	{ name: "feature-3-screen-a", dir: -1, height: 151 },
-	{ name: "feature-3-screen-b", dir: 1, height: 146 },
-	{ name: "feature-3-screen-c", dir: -1, height: 139 },
+	{ name: "feature-3-screen-a", direction: -1, height: 151 },
+	{ name: "feature-3-screen-b", direction: 1, height: 146 },
+	{ name: "feature-3-screen-c", direction: -1, height: 139 },
 ];
 
 const Feature3Section = () => {
@@ -315,34 +315,34 @@ const Feature3Section = () => {
 	return (
 		<section
 			ref={ref}
-			className="ygi:overflow-hidden ygi:bg-palette-gray-100 ygi:px-6 ygi:py-16"
+			className="ygi:overflow-hidden ygi:bg-palette-gray-100 ygi:px-6 ygi:py-13.5"
 		>
-			<div className="ygi:mx-auto ygi:flex ygi:max-w-300 ygi:flex-col ygi:items-center ygi:gap-10">
+			<div className="ygi:mx-auto ygi:flex ygi:flex-col ygi:items-center ygi:gap-10">
 				<FeatureText
 					caption="친구들은 뭘 먹고 싶어 했을까?"
 					headline="투표 결과로 확인해요"
 					isDark={false}
 					isInView={isInView}
 				/>
-				<div className="ygi:flex ygi:w-full ygi:flex-col ygi:items-center ygi:gap-4">
-					{feature3Screens.map(({ name, dir, height }, i) => (
+				<div className="ygi:flex ygi:w-full ygi:flex-col ygi:items-center ygi:gap-2.5">
+					{feature3Screens.map(({ name, direction, height }, index) => (
 						<motion.div
 							key={name}
-							initial={{ opacity: 0, x: dir * 60 }}
+							initial={{ opacity: 0, x: direction * 60 }}
 							animate={isInView ? { opacity: 1, x: 0 } : {}}
 							transition={{
 								duration: 0.65,
 								ease: "easeOut",
-								delay: 0.3 + i * 0.2,
+								delay: 0.3 + index * 0.2,
 							}}
-							className="ygi:w-full ygi:max-w-100"
+							className="ygi:w-full ygi:max-w-57.5"
 						>
 							<Image
 								src={`/images/service-landing/${name}.png`}
-								alt={`투표 결과 화면 ${i + 1}`}
+								alt={`투표 결과 화면 ${index + 1}`}
 								width={654}
 								height={height}
-								className="ygi:w-full ygi:rounded-2xl ygi:shadow-lg"
+								className="ygi:w-full ygi:shadow-lg"
 								priority
 							/>
 						</motion.div>
@@ -360,7 +360,7 @@ const Feature4Section = () => {
 	return (
 		<section
 			ref={ref}
-			className="ygi:overflow-hidden ygi:bg-palette-gray-700 ygi:px-6 ygi:pt-16"
+			className="ygi:overflow-hidden ygi:bg-palette-gray-700 ygi:px-6 ygi:pt-13.5"
 		>
 			<div className="ygi:mx-auto ygi:flex ygi:max-w-300 ygi:flex-col ygi:items-center">
 				<FeatureText
