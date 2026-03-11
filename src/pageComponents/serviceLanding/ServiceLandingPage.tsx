@@ -602,37 +602,31 @@ const CtaSection = () => {
 
 // ── Footer ───────────────────────────────────────────────────────────────────
 const LandingFooter = () => (
-	<footer
-		className="ygi:px-6 ygi:py-10"
-		style={{ backgroundColor: "#13181c" }}
-	>
-		<div className="ygi:mx-auto ygi:flex ygi:max-w-300 ygi:flex-col ygi:items-center ygi:gap-4 ygi:text-center">
-			<div className="ygi:flex ygi:flex-col ygi:items-center ygi:gap-2">
-				<p className="ygi:body-14-rg ygi:text-white/60">
-					문의:{" "}
-					<a
-						href="mailto:hereeatt@gmail.com"
-						className="ygi:text-white ygi:underline"
-					>
-						hereeatt@gmail.com
-					</a>
-				</p>
-				<div className="ygi:flex ygi:gap-4">
-					<a
-						href="#"
-						className="ygi:caption-12-rg ygi:text-white/60 ygi:transition-colors ygi:hover:text-white"
-					>
-						이용약관
-					</a>
-					<a
-						href="#"
-						className="ygi:caption-12-rg ygi:text-white/60 ygi:transition-colors ygi:hover:text-white"
-					>
-						개인정보 처리 방침
-					</a>
-				</div>
-			</div>
-			<p className="ygi:caption-12-rg ygi:text-white/40">
+	<footer className="ygi:bg-[#13181c] ygi:p-10">
+		<div className="ygi:space-y-2.5">
+			<p className="ygi:body-14-rg ygi:text-[#717D96]">
+				문의:{" "}
+				<a href="mailto:hereeatt@gmail.com" className="ygi:underline">
+					hereeatt@gmail.com
+				</a>
+			</p>
+
+			<p className="ygi:flex ygi:gap-4 ygi:body-14-rg ygi:text-[#717D96] ygi:transition-colors">
+				<a
+					href="#" // TODO: 이용약관 링크 추가
+					className=" ygi:hover:text-white"
+				>
+					이용약관
+				</a>
+				<a
+					href="#" // TODO: 개인정보 처리 방침 링크 추가
+					className="ygi:hover:text-white"
+				>
+					개인정보 처리 방침
+				</a>
+			</p>
+
+			<p className="ygi:body-14-rg ygi:text-[#717D96]">
 				© 2026 Team Yogieat. All rights reserved.
 			</p>
 		</div>
