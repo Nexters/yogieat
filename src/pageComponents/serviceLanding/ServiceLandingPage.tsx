@@ -576,13 +576,13 @@ const CtaSection = () => {
 	return (
 		<section
 			ref={ref}
-			className="ygi:bg-palette-gray-800 ygi:px-6 ygi:py-24"
+			className="ygi:bg-palette-gray-800 ygi:px-6 ygi:py-15.5"
 		>
 			<motion.div
 				initial={{ opacity: 0, y: 40 }}
 				animate={isInView ? { opacity: 1, y: 0 } : {}}
 				transition={{ duration: 0.6, ease: "easeOut" }}
-				className="ygi:mx-auto ygi:flex ygi:max-w-300 ygi:flex-col ygi:items-center ygi:gap-8 ygi:text-center"
+				className="ygi:mx-auto ygi:flex ygi:flex-col ygi:items-center ygi:gap-10 ygi:text-center"
 			>
 				<p className="ygi:heading-22-bd ygi:whitespace-pre-line ygi:text-text-inverse">
 					{"지금 바로 "}
@@ -591,7 +591,7 @@ const CtaSection = () => {
 				</p>
 				<Link
 					href="/gathering/create"
-					className="ygi:cursor-pointer ygi:rounded-full ygi:bg-white ygi:px-8 ygi:py-4 ygi:heading-18-bd ygi:text-text-primary ygi:transition-colors ygi:hover:bg-white/90"
+					className="ygi:flex ygi:cursor-pointer ygi:items-center ygi:justify-center ygi:rounded-full ygi:bg-white ygi:px-6 ygi:py-3 ygi:heading-18-bd ygi:text-text-primary ygi:transition-colors ygi:hover:bg-white/90"
 				>
 					바로 시작하기
 				</Link>
