@@ -175,10 +175,10 @@ const FeatureText = ({
 		className="ygi:flex ygi:flex-col ygi:items-center ygi:gap-2"
 	>
 		<p
-			className={`ygi:body-14-md ${
+			className={`ygi:body-16-md ygi:text-center ${
 				isDark
 					? "ygi:text-palette-gray-300"
-					: "ygi:text-palette-gray-600"
+					: "ygi:text-palette-gray-500"
 			}`}
 		>
 			{caption}
@@ -478,13 +478,13 @@ const Feature5Section = () => {
 	return (
 		<section
 			ref={ref}
-			className="ygi:px-6 ygi:py-16"
+			className="ygi:px-12.5 ygi:py-13.5"
 			style={{ backgroundColor: "#d5dae2" }}
 		>
 			<div className="ygi:mx-auto ygi:flex ygi:max-w-300 ygi:flex-col ygi:items-center ygi:gap-10">
 				<FeatureText
 					caption="오래 걸리던 맛집 정하기"
-					headline={"이제는 쉽고 편하게\n결정해요"}
+					headline={"이제는 쉽고 편하게 결정해요"}
 					isDark={false}
 					isInView={isInView}
 				/>
