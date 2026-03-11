@@ -125,19 +125,19 @@ const PainPointSection = () => {
 	return (
 		<section
 			ref={ref}
-			className="ygi:bg-palette-gray-800 ygi:px-6 ygi:py-16"
+			className="ygi:bg-palette-gray-800 ygi:px-6 ygi:py-12"
 		>
+			<p className="ygi:mb-6 ygi:body-16-md ygi:whitespace-pre-line ygi:text-center ygi:text-palette-gray-300">
+				{"밥약속 생길 때마다 했던 고민\n\u201c어디가지..?\u201d"}
+			</p>
 			<motion.div
-				initial={{ opacity: 0, y: 30 }}
-				animate={isInView ? { opacity: 1, y: 0 } : {}}
-				transition={{ duration: 0.6, ease: "easeOut" }}
-				className="ygi:mx-auto ygi:flex ygi:max-w-300 ygi:flex-col ygi:items-center ygi:gap-6 ygi:text-center"
+				initial={{ opacity: 0, translateY: 30, scale: 0.85 }}
+				animate={isInView ? { opacity: 1, translateY: 0, scale: 1 } : {}}
+				transition={{ duration: 0.3, delay: 0.3, ease: "easeOut" }}
+				className="ygi:mx-auto ygi:flex ygi:flex-col ygi:items-center ygi:text-center"
 			>
-				<p className="ygi:body-16-rg ygi:whitespace-pre-line ygi:text-palette-gray-300">
-					{"밥약속 생길 때마다 했던 고민\n\u201c어디가지..?\u201d"}
-				</p>
-				<div className="ygi:flex ygi:items-center ygi:justify-center">
-					<MeetingCompleteIllustration className="ygi:h-45 ygi:w-45" />
+				<div className="ygi:mb-4 ygi:flex ygi:items-center ygi:justify-center">
+					<MeetingCompleteIllustration className="ygi:h-34 ygi:w-34" />
 				</div>
 				<p className="ygi:heading-22-bd ygi:text-text-inverse">
 					이제 5분이면 끝!
