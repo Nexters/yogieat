@@ -369,24 +369,24 @@ const Feature4Section = () => {
 					isDark={true}
 					isInView={isInView}
 				/>
-				<div className="ygi:relative ygi:-bottom-14">
+				<div className="ygi:relative ygi:-bottom-8 ygi:flex ygi:flex-col ygi:items-center ygi:gap-4">
 					{/* 투표 필터 요약 카드 - 아래에서 위로 fade + scale */}
 					<motion.div
-						initial={{ opacity: 0, y: 40, scale: 0.92 }}
+						initial={{ opacity: 0, y: 40, scale: 0.5 }}
 						animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
 						transition={{
-							duration: 0.6,
+							duration: 0.45,
 							ease: [0.25, 0.46, 0.45, 0.94],
 							delay: 0.2,
 						}}
-						className="ygi:w-full ygi:max-w-90"
+						className="ygi:w-full ygi:max-w-55.25 ygi:mx-auto"
 					>
 						<Image
 							src="/images/service-landing/feature-4-tooltip.png"
 							alt="투표 결과 요약"
 							width={654}
 							height={247}
-							className="ygi:w-full ygi:rounded-2xl"
+							className="ygi:w-full"
 							priority
 						/>
 					</motion.div>
@@ -402,13 +402,14 @@ const Feature4Section = () => {
 								ease: [0.25, 0.46, 0.45, 0.94],
 								delay: 0.4,
 							}}
+							className="ygi:w-full ygi:max-w-65.5"
 						>
 							<Image
 								src="/images/service-landing/feature-4-screen.png"
 								alt="맛집 추천 화면"
 								width={654}
 								height={752}
-								className="ygi:w-full ygi:rounded-3xl ygi:shadow-2xl"
+								className="ygi:w-full  ygi:shadow-2xl"
 								priority
 							/>
 						</motion.div>
