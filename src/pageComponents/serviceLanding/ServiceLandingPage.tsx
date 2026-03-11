@@ -43,76 +43,55 @@ const Navbar = () => {
 };
 
 // ── Hero Section ─────────────────────────────────────────────────────────────
-const heroContainerVariants: Variants = {
-	hidden: {},
-	visible: {
-		transition: { staggerChildren: 0.15, delayChildren: 0.1 },
-	},
-};
-
-const heroItemVariants: Variants = {
-	hidden: { opacity: 0, y: 24 },
-	visible: {
-		opacity: 1,
-		y: 0,
-		transition: { duration: 0.5, ease: "easeOut" },
-	},
-};
-
 const HeroSection = () => {
-	const ref = useRef<HTMLElement>(null);
-	const isInView = useInView(ref, { once: true, amount: 0.2 });
-
 	return (
 		<section
-			ref={ref}
-			className="ygi:px-6 ygi:py-20"
-			style={{ backgroundColor: "#FF5A3C" }}
+			className="ygi:overflow-hidden ygi:bg-palette-primary-500 ygi:pt-25"
 		>
-			<motion.div
-				variants={heroContainerVariants}
-				initial="hidden"
-				animate={isInView ? "visible" : "hidden"}
-				className="ygi:mx-auto ygi:flex ygi:max-w-300 ygi:flex-col ygi:items-center ygi:gap-10"
+			<div
+				
+				className="ygi:mx-auto ygi:flex ygi:flex-col ygi:items-center ygi:gap-6"
 			>
 				{/* Text block */}
-				<div className="ygi:flex ygi:flex-col ygi:items-center ygi:gap-4 ygi:text-center">
-					<motion.p
-						variants={heroItemVariants}
-						className="ygi:caption-12-md ygi:text-white/80"
-					>
-						다인원을 위한 맛집 추천 서비스
-					</motion.p>
-					<motion.div variants={heroItemVariants}>
+				<div className="ygi:flex ygi:flex-col ygi:items-center ygi:text-center">
+					<div className="ygi:mb-6">
+						<Image
+							src="/images/landing/subtitle.svg"
+							alt="다인원을 위한 맛집 추천 서비스"
+							width={246}
+							height={17}
+							priority
+						/>
+					</div>
+
+					<div className="ygi:mb-15">
 						<LandingLogoIcon
 							color="white"
 							width={170}
 							height={52}
 							aria-label="요기잇"
 						/>
-					</motion.div>
-					<motion.div
-						variants={heroItemVariants}
-						className="ygi:mt-2"
+					</div>
+
+					<Link
+						href="/gathering/create"
+						className="ygi:inline-flex ygi:cursor-pointer ygi:items-center ygi:justify-center ygi:rounded-full ygi:bg-white ygi:px-8 ygi:py-4 ygi:heading-18-bd ygi:text-text-primary ygi:transition-colors ygi:hover:bg-white/90"
 					>
-						<Link
-							href="/gathering/create"
-							className="ygi:inline-flex ygi:cursor-pointer ygi:items-center ygi:justify-center ygi:rounded-full ygi:bg-white ygi:px-8 ygi:py-4 ygi:heading-18-bd ygi:text-text-primary ygi:transition-colors ygi:hover:bg-white/90"
-						>
-							바로 시작하기
-						</Link>
-					</motion.div>
+						바로 시작하기
+					</Link>
 				</div>
 
 				{/* Characters - Lottie */}
-				<motion.div
-					variants={heroItemVariants}
-					className="ㄴygi:w-full ygi:max-w-90"
-					style={{ height: 220 }}
-				>
-					<LandingIntroLottie />
+				<motion.div className="ygi:min-w-105.25 ygi:min-h-66.5 ygi:relative ygi:-bottom-8">
+					<motion.div
+						initial={{ opacity: 0, translateY: 30, scale: 0.9 }}
+						animate={{ opacity: 1, translateY: 0, scale: 1 }}
+						transition={{ duration: 0.3, delay: 0.3, ease: "easeOut" }}
+					>
+						<LandingIntroLottie />
+					</motion.div>
 				</motion.div>
-			</motion.div>
+			</div>
 		</section>
 	);
 };
