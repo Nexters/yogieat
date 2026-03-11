@@ -66,7 +66,7 @@ const HeroSection = () => {
 	return (
 		<section
 			ref={ref}
-			className="md:ygi:py-28 lg:ygi:px-10 ygi:px-6 ygi:py-20"
+			className="ygi:px-6 ygi:py-20"
 			style={{ backgroundColor: "#FF5A3C" }}
 		>
 			<motion.div
@@ -107,7 +107,7 @@ const HeroSection = () => {
 				{/* Characters - Lottie */}
 				<motion.div
 					variants={heroItemVariants}
-					className="md:ygi:max-w-[480px] ygi:w-full ygi:max-w-90"
+					className="ㄴygi:w-full ygi:max-w-90"
 					style={{ height: 220 }}
 				>
 					<LandingIntroLottie />
@@ -125,7 +125,7 @@ const PainPointSection = () => {
 	return (
 		<section
 			ref={ref}
-			className="lg:ygi:px-10 ygi:bg-palette-gray-800 ygi:px-6 ygi:py-16"
+			className="ygi:bg-palette-gray-800 ygi:px-6 ygi:py-16"
 		>
 			<motion.div
 				initial={{ opacity: 0, y: 30 }}
@@ -172,7 +172,7 @@ const FeatureText = ({
 		initial={{ opacity: 0, y: 40 }}
 		animate={isInView ? { opacity: 1, y: 0 } : {}}
 		transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
-		className="md:ygi:items-start ygi:flex ygi:flex-col ygi:items-center ygi:gap-2"
+		className="ygi:flex ygi:flex-col ygi:items-center ygi:gap-2"
 	>
 		<p
 			className={`ygi:body-14-md ${
@@ -184,7 +184,7 @@ const FeatureText = ({
 			{caption}
 		</p>
 		<p
-			className={`md:ygi:display-28-bd md:ygi:text-left ygi:text-center ygi:heading-22-bd ygi:whitespace-pre-line ${
+			className={`ygi:text-center ygi:heading-22-bd ygi:whitespace-pre-line ${
 				isDark ? "ygi:text-text-inverse" : "ygi:text-text-primary"
 			}`}
 		>
@@ -315,7 +315,7 @@ const Feature3Section = () => {
 	return (
 		<section
 			ref={ref}
-			className="md:ygi:py-24 lg:ygi:px-10 ygi:overflow-hidden ygi:bg-palette-gray-100 ygi:px-6 ygi:py-16"
+			className="ygi:overflow-hidden ygi:bg-palette-gray-100 ygi:px-6 ygi:py-16"
 		>
 			<div className="ygi:mx-auto ygi:flex ygi:max-w-300 ygi:flex-col ygi:items-center ygi:gap-10">
 				<FeatureText
@@ -335,7 +335,7 @@ const Feature3Section = () => {
 								ease: "easeOut",
 								delay: 0.3 + i * 0.2,
 							}}
-							className="md:ygi:max-w-[500px] ygi:w-full ygi:max-w-100"
+							className="ygi:w-full ygi:max-w-100"
 						>
 							<Image
 								src={`/images/service-landing/${name}.png`}
@@ -461,7 +461,7 @@ const SpeechBubble = ({ text, direction, variant }: SpeechBubbleProps) => {
 		<div className="ygi:flex ygi:items-center" style={{ gap: 0 }}>
 			{direction === "left" && <TailLeft />}
 			<div
-				className="ygi:rounded-lg ygi:px-3 ygi:py-1.5 ygi:caption-12-sb"
+				className="ygi:rounded-sm ygi:px-3 ygi:py-1.5 ygi:caption-12-sb"
 				style={{ backgroundColor: bg, color: textColor }}
 			>
 				{text}
@@ -478,10 +478,10 @@ const Feature5Section = () => {
 	return (
 		<section
 			ref={ref}
-			className="md:ygi:py-24 lg:ygi:px-10 ygi:px-6 ygi:py-16"
+			className="ygi:px-6 ygi:py-16"
 			style={{ backgroundColor: "#d5dae2" }}
 		>
-			<div className="md:ygi:flex-row-reverse md:ygi:justify-between ygi:mx-auto ygi:flex ygi:max-w-300 ygi:flex-col ygi:items-center ygi:gap-10">
+			<div className="ygi:mx-auto ygi:flex ygi:max-w-300 ygi:flex-col ygi:items-center ygi:gap-10">
 				<FeatureText
 					caption="오래 걸리던 맛집 정하기"
 					headline={"이제는 쉽고 편하게\n결정해요"}
@@ -576,7 +576,7 @@ const CtaSection = () => {
 	return (
 		<section
 			ref={ref}
-			className="lg:ygi:px-10 ygi:bg-palette-gray-800 ygi:px-6 ygi:py-24"
+			className="ygi:bg-palette-gray-800 ygi:px-6 ygi:py-24"
 		>
 			<motion.div
 				initial={{ opacity: 0, y: 40 }}
@@ -584,7 +584,7 @@ const CtaSection = () => {
 				transition={{ duration: 0.6, ease: "easeOut" }}
 				className="ygi:mx-auto ygi:flex ygi:max-w-300 ygi:flex-col ygi:items-center ygi:gap-8 ygi:text-center"
 			>
-				<p className="md:ygi:display-28-bd ygi:heading-22-bd ygi:whitespace-pre-line ygi:text-text-inverse">
+				<p className="ygi:heading-22-bd ygi:whitespace-pre-line ygi:text-text-inverse">
 					{"지금 바로 "}
 					<span className="ygi:text-button-secondary">요기잇</span>
 					{"으로\n맛집을 추천 받아요"}
@@ -603,7 +603,7 @@ const CtaSection = () => {
 // ── Footer ───────────────────────────────────────────────────────────────────
 const LandingFooter = () => (
 	<footer
-		className="lg:ygi:px-10 ygi:px-6 ygi:py-10"
+		className="ygi:px-6 ygi:py-10"
 		style={{ backgroundColor: "#13181c" }}
 	>
 		<div className="ygi:mx-auto ygi:flex ygi:max-w-300 ygi:flex-col ygi:items-center ygi:gap-4 ygi:text-center">
