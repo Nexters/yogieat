@@ -45,13 +45,8 @@ const Navbar = () => {
 // ── Hero Section ─────────────────────────────────────────────────────────────
 const HeroSection = () => {
 	return (
-		<section
-			className="ygi:overflow-hidden ygi:bg-palette-primary-500 ygi:pt-25"
-		>
-			<div
-				
-				className="ygi:mx-auto ygi:flex ygi:flex-col ygi:items-center ygi:gap-6"
-			>
+		<section className="ygi:overflow-hidden ygi:bg-palette-primary-500 ygi:pt-25">
+			<div className="ygi:mx-auto ygi:flex ygi:flex-col ygi:items-center ygi:gap-6">
 				{/* Text block */}
 				<div className="ygi:flex ygi:flex-col ygi:items-center ygi:text-center">
 					<div className="ygi:mb-6">
@@ -82,11 +77,15 @@ const HeroSection = () => {
 				</div>
 
 				{/* Characters - Lottie */}
-				<motion.div className="ygi:min-w-105.25 ygi:min-h-66.5 ygi:relative ygi:-bottom-8">
+				<motion.div className="ygi:relative ygi:-bottom-8 ygi:min-h-66.5 ygi:min-w-105.25">
 					<motion.div
 						initial={{ opacity: 0, translateY: 30, scale: 0.9 }}
 						animate={{ opacity: 1, translateY: 0, scale: 1 }}
-						transition={{ duration: 0.3, delay: 0.3, ease: "easeOut" }}
+						transition={{
+							duration: 0.3,
+							delay: 0.3,
+							ease: "easeOut",
+						}}
 					>
 						<LandingIntroLottie />
 					</motion.div>
@@ -106,12 +105,14 @@ const PainPointSection = () => {
 			ref={ref}
 			className="ygi:bg-palette-gray-800 ygi:px-6 ygi:py-12"
 		>
-			<p className="ygi:mb-6 ygi:body-16-md ygi:whitespace-pre-line ygi:text-center ygi:text-palette-gray-300">
+			<p className="ygi:mb-6 ygi:text-center ygi:body-16-md ygi:whitespace-pre-line ygi:text-palette-gray-300">
 				{"밥약속 생길 때마다 했던 고민\n\u201c어디가지..?\u201d"}
 			</p>
 			<motion.div
 				initial={{ opacity: 0, translateY: 30, scale: 0.85 }}
-				animate={isInView ? { opacity: 1, translateY: 0, scale: 1 } : {}}
+				animate={
+					isInView ? { opacity: 1, translateY: 0, scale: 1 } : {}
+				}
 				transition={{ duration: 0.3, delay: 0.3, ease: "easeOut" }}
 				className="ygi:mx-auto ygi:flex ygi:flex-col ygi:items-center ygi:text-center"
 			>
@@ -154,7 +155,7 @@ const FeatureText = ({
 		className="ygi:flex ygi:flex-col ygi:items-center ygi:gap-2"
 	>
 		<p
-			className={`ygi:body-16-md ygi:text-center ${
+			className={`ygi:text-center ygi:body-16-md ${
 				isDark
 					? "ygi:text-palette-gray-300"
 					: "ygi:text-palette-gray-500"
@@ -304,28 +305,30 @@ const Feature3Section = () => {
 					isInView={isInView}
 				/>
 				<div className="ygi:flex ygi:w-full ygi:flex-col ygi:items-center ygi:gap-2.5">
-					{feature3Screens.map(({ name, direction, height }, index) => (
-						<motion.div
-							key={name}
-							initial={{ opacity: 0, x: direction * 60 }}
-							animate={isInView ? { opacity: 1, x: 0 } : {}}
-							transition={{
-								duration: 0.65,
-								ease: "easeOut",
-								delay: 0.3 + index * 0.2,
-							}}
-							className="ygi:w-full ygi:max-w-57.5"
-						>
-							<Image
-								src={`/images/service-landing/${name}.png`}
-								alt={`투표 결과 화면 ${index + 1}`}
-								width={654}
-								height={height}
-								className="ygi:w-full ygi:shadow-lg"
-								priority
-							/>
-						</motion.div>
-					))}
+					{feature3Screens.map(
+						({ name, direction, height }, index) => (
+							<motion.div
+								key={name}
+								initial={{ opacity: 0, x: direction * 60 }}
+								animate={isInView ? { opacity: 1, x: 0 } : {}}
+								transition={{
+									duration: 0.65,
+									ease: "easeOut",
+									delay: 0.3 + index * 0.2,
+								}}
+								className="ygi:w-full ygi:max-w-57.5"
+							>
+								<Image
+									src={`/images/service-landing/${name}.png`}
+									alt={`투표 결과 화면 ${index + 1}`}
+									width={654}
+									height={height}
+									className="ygi:w-full ygi:shadow-lg"
+									priority
+								/>
+							</motion.div>
+						),
+					)}
 				</div>
 			</div>
 		</section>
@@ -358,7 +361,7 @@ const Feature4Section = () => {
 							ease: [0.25, 0.46, 0.45, 0.94],
 							delay: 0.2,
 						}}
-						className="ygi:w-full ygi:max-w-55.25 ygi:mx-auto"
+						className="ygi:mx-auto ygi:w-full ygi:max-w-55.25"
 					>
 						<Image
 							src="/images/service-landing/feature-4-tooltip.png"
