@@ -200,9 +200,9 @@ const Feature1Section = () => {
 	return (
 		<section
 			ref={ref}
-			className="ygi:overflow-hidden ygi:bg-palette-gray-100 ygi:px-6 ygi:pt-16"
+			className="ygi:overflow-hidden ygi:bg-palette-gray-100 ygi:px-6 ygi:pt-13.5"
 		>
-			<div className="ygi:mx-auto ygi:flex ygi:max-w-300 ygi:flex-col ygi:items-center">
+			<div className="ygi:mx-auto ygi:flex ygi:flex-col ygi:items-center">
 				<FeatureText
 					caption="모임 링크 만들기"
 					headline="우리 모임 정보 입력 한번에"
