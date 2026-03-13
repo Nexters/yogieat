@@ -1,7 +1,7 @@
 import { mutationOptions } from "@tanstack/react-query";
 
-import { gatheringKeys } from "./queryKey";
 import { createGathering } from "./api";
+import { gatheringKeys } from "./queryKey";
 
 /**
  * 모임 관련 Mutation Options Factory

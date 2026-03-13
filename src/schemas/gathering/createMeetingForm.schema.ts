@@ -1,8 +1,9 @@
 import { z } from "zod";
-import type { TimeSlot, Region } from "#/types/gathering";
+
+import type { Region, TimeSlot } from "#/types/gathering";
 import {
-	validateDateInput,
 	DATE_ERROR_MESSAGES,
+	validateDateInput,
 } from "#/utils/gathering/create";
 
 const timeSlotSchema = z.enum([

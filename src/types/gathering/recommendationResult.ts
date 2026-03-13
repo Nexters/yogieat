@@ -1,6 +1,7 @@
 import type { RecommendationResultStatus } from "#/constants/gathering/opinion";
-import type { Restaurant } from "./restaurant";
+
 import type { Region } from "./region";
+import type { Restaurant } from "./restaurant";
 import type { TimeSlot } from "./timeSlot";
 
 export interface VoteStatistics {

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useCallback, useState } from "react";
+
 import type { CreateMeetingStep } from "#/types/gathering";
 
 const STEP_ORDER: CreateMeetingStep[] = ["people", "date", "region"];

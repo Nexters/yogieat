@@ -2,6 +2,7 @@ import {
 	toast as sonnerToast,
 	type ExternalToast as SonnerToastOptions,
 } from "sonner";
+
 import { AlertCircleIcon } from "#/icons/alertCircleIcon";
 
 type ToastOptions = Omit<SonnerToastOptions, "icon" | "classNames">;

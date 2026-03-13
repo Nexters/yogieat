@@ -1,8 +1,8 @@
 "use client";
 
+import { omit } from "es-toolkit";
 import { useEffect } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
-import { omit } from "es-toolkit";
 
 import { trackStepComplete } from "#/components/analytics";
 import { Button } from "#/components/button";
@@ -18,8 +18,8 @@ import {
 	RANK_LIST,
 } from "#/constants/gathering/opinion";
 import {
-	preferredCategoriesSchema,
 	type OpinionFormSchema,
+	preferredCategoriesSchema,
 } from "#/schemas/gathering";
 import type { RankKey } from "#/types/gathering";
 

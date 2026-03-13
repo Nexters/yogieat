@@ -1,18 +1,17 @@
 "use client";
 
-import { useFormContext, useController, useWatch } from "react-hook-form";
 import { isNil } from "es-toolkit";
+import { useController, useFormContext, useWatch } from "react-hook-form";
 
 import { trackStepComplete } from "#/components/analytics";
-import { Layout } from "#/components/layout";
-import { StepIndicator } from "#/components/stepIndicator";
 import { Button } from "#/components/button";
 import { Chip } from "#/components/chip";
-import { isValidDateFormat } from "#/utils/gathering/create";
+import { Layout } from "#/components/layout";
+import { StepIndicator } from "#/components/stepIndicator";
+import { TIME_SLOT_LABEL } from "#/constants/gathering/opinion";
 import type { CreateMeetingFormSchema } from "#/schemas/gathering";
 import type { TimeSlot } from "#/types/gathering";
-
-import { TIME_SLOT_LABEL } from "#/constants/gathering/opinion";
+import { isValidDateFormat } from "#/utils/gathering/create";
 
 import { ScheduledDatePicker } from "./ScheduledDatePicker";
 

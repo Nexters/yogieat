@@ -2,6 +2,7 @@
 
 import { cva } from "class-variance-authority";
 import type { ReactNode } from "react";
+
 import { useCheckBoxContext } from "./context";
 
 const labelVariants = cva(["ygi:body-14-md"], {

@@ -1,16 +1,15 @@
 import {
+	dehydrate,
 	HydrationBoundary,
 	QueryClient,
-	dehydrate,
 } from "@tanstack/react-query";
 import { notFound, redirect } from "next/navigation";
 
 import { gatheringQueryOptions } from "#/apis/gathering";
 import { recommendResultOptions } from "#/apis/recommendResult";
-import { ERROR_CODES, isApiError } from "#/utils/api";
 import { RecommendationResultStatus } from "#/constants/gathering/opinion";
-
 import { ResultPage } from "#/pageComponents/gathering/opinion/result";
+import { ERROR_CODES, isApiError } from "#/utils/api";
 
 interface GatheringOpinionResultProps {
 	params: Promise<{

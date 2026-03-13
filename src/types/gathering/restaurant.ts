@@ -1,4 +1,4 @@
-import { DistanceRange, Category } from "#/constants/gathering/opinion";
+import { Category, DistanceRange } from "#/constants/gathering/opinion";
 
 export interface Restaurant {
 	rank: number;

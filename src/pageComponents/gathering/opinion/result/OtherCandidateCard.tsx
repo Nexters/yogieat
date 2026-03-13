@@ -1,14 +1,15 @@
 "use client";
 
+import Image from "next/image";
+
 import { trackRestaurantClick } from "#/components/analytics";
-import { StarIcon } from "#/icons/starIcon";
-import type { Restaurant } from "#/types/gathering";
+import { Tag } from "#/components/tag";
 import {
 	CATEGORY_LABEL,
 	DISTANCE_RANGE_WALKING_MINUTES,
 } from "#/constants/gathering/opinion";
-import Image from "next/image";
-import { Tag } from "#/components/tag";
+import { StarIcon } from "#/icons/starIcon";
+import type { Restaurant } from "#/types/gathering";
 
 export interface OtherCandidateCardProps {
 	restaurant: Restaurant;

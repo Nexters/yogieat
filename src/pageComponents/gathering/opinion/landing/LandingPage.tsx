@@ -2,17 +2,17 @@
 
 import { useParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
-
 import { twJoin } from "tailwind-merge";
 
 import { trackCtaClick, trackViewPage } from "#/components/analytics";
+import { Button } from "#/components/button";
 import { Layout } from "#/components/layout";
 import { useGetGathering } from "#/hooks/apis/gathering";
+import { LandingLogoIcon } from "#/icons/landingLogoIcon";
+
 import { GatheringDateBadge } from "./GatheringDateBadge";
 import { LandingIntroLottie } from "./LandingIntroLottie";
-import { LandingLogoIcon } from "#/icons/landingLogoIcon";
 import { OpinionStartButton } from "./OpinionStartButton";
-import { Button } from "#/components/button";
 
 const PAGE_ID = "의견수합_랜딩";
 

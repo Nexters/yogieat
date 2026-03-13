@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useCallback, useState } from "react";
+
 import { OPINION_STEP_ORDER } from "#/constants/gathering/opinion";
 import type { OpinionStep } from "#/types/gathering";
 

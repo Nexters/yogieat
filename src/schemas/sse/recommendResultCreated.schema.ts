@@ -1,5 +1,6 @@
-import { REGION } from "#/constants/gathering/opinion";
 import z from "zod";
+
+import { REGION } from "#/constants/gathering/opinion";
 
 export const recommendResultCreatedSchema = z.object({
 	accessKey: z.string().trim().min(1),

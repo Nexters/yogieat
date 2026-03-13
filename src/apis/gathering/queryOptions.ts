@@ -1,7 +1,7 @@
 import { queryOptions } from "@tanstack/react-query";
 
-import { gatheringKeys } from "./queryKey";
 import { getGathering, getGatheringCapacity } from "./api";
+import { gatheringKeys } from "./queryKey";
 
 /**
  * 모임 관련 Query Options Factory

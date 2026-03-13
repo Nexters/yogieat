@@ -1,15 +1,15 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import { compact } from "es-toolkit";
 import { useParams, useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useCreateParticipant, useGetRecommendResult } from "#/hooks/apis";
 import { ToastLinkButton } from "#/pageComponents/gathering/opinion";
 import {
-	opinionFormSchema,
 	distanceRangeToKm,
+	opinionFormSchema,
 	type OpinionFormSchema,
 } from "#/schemas/gathering";
 import { ERROR_CODES, isApiError } from "#/utils/api";
@@ -19,7 +19,8 @@ export function useOpinionForm() {
 	const router = useRouter();
 	const { accessKey } = useParams<{ accessKey: string }>();
 
-	const { refetch: refetchRecommendResult } = useGetRecommendResult(accessKey);
+	const { refetch: refetchRecommendResult } =
+		useGetRecommendResult(accessKey);
 	const { mutateAsync: createParticipant, isPending } =
 		useCreateParticipant();
 
@@ -41,7 +42,7 @@ export function useOpinionForm() {
 	const handleClickShowResultButton = async () => {
 		await refetchRecommendResult();
 		router.push(`/gathering/${accessKey}/opinion/result`);
-	}
+	};
 
 	const handleSubmit = methods.handleSubmit(async (data) => {
 		try {

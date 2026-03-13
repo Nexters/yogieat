@@ -1,9 +1,9 @@
 import { apiClient } from "#/utils/api";
 
 import {
+	type GetRecommendResultResponse,
 	PostProcessRecommendResultRequest,
 	PostProcessRecommendResultResponse,
-	type GetRecommendResultResponse,
 } from "./type";
 
 /**

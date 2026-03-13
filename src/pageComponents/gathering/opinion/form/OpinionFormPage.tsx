@@ -10,8 +10,8 @@ import { Toaster } from "#/components/toast";
 import { useGetGathering } from "#/hooks/apis/gathering";
 import { useOpinionForm, useOpinionFunnel } from "#/hooks/gathering";
 
-import { DistanceStep } from "./DistanceStep";
 import { DislikeStep } from "./DislikeStep";
+import { DistanceStep } from "./DistanceStep";
 import { NicknameStep } from "./NicknameStep";
 import { PreferenceStep } from "./PreferenceStep";
 

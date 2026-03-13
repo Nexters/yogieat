@@ -1,10 +1,11 @@
 "use client";
 
+import Image from "next/image";
+
+import { CATEGORY, CATEGORY_LABEL } from "#/constants/gathering/opinion";
 import { CircleIcon } from "#/icons/circleIcon";
 import { XIcon } from "#/icons/xIcon";
-import { CATEGORY, CATEGORY_LABEL } from "#/constants/gathering/opinion";
 import type { Category } from "#/types/gathering";
-import Image from "next/image";
 
 // "ANY"를 제외한 구체적 카테고리 목록
 const foodCategories: Category[] = [
