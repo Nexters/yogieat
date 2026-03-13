@@ -10,13 +10,17 @@ export const LandingFooter = () => (
 
 			<p className="ygi:flex ygi:gap-4 ygi:body-14-rg ygi:text-[#717D96] ygi:transition-colors">
 				<a
-					href="#" // TODO: 이용약관 링크 추가
-					className=" ygi:hover:text-white"
+					href="https://lime-salto-42a.notion.site/321b5a0dc75b80808570cb6e5512904b"
+					target="_blank"
+					rel="noopener noreferrer"
+					className="ygi:hover:text-white"
 				>
 					이용약관
 				</a>
 				<a
-					href="#" // TODO: 개인정보 처리 방침 링크 추가
+					href="https://lime-salto-42a.notion.site/321b5a0dc75b80f38beef7a440acaa03"
+					target="_blank"
+					rel="noopener noreferrer"
 					className="ygi:hover:text-white"
 				>
 					개인정보 처리 방침
