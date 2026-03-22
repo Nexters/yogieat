@@ -19,6 +19,7 @@ export const RestaurantList = ({ restaurants }: RestaurantListProps) => {
 					<OtherCandidateCard
 						restaurant={restaurant}
 						ranking={index + 1}
+						rankType={index === 0 ? "top" : "other"}
 					/>
 				</div>
 			))}
