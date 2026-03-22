@@ -1,6 +1,6 @@
 import { mutationOptions } from "@tanstack/react-query";
 
-import { postProcessRecommendResult } from "./api";
+import { postProcessRecommendResult, postRerollRecommendResult } from "./api";
 import { recommendResultMutationKeys } from "./mutationKey";
 
 /**
@@ -11,5 +11,10 @@ export const recommendResultMutationOptions = {
 		mutationOptions({
 			mutationKey: recommendResultMutationKeys.proceed(accessKey),
 			mutationFn: postProcessRecommendResult,
+		}),
+	reroll: (accessKey: string) =>
+		mutationOptions({
+			mutationKey: recommendResultMutationKeys.reroll(accessKey),
+			mutationFn: postRerollRecommendResult,
 		}),
 };

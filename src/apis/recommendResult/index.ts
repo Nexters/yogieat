@@ -10,4 +10,8 @@ export { recommendResultKeys } from "./queryKey";
 export { recommendResultOptions } from "./queryOption";
 
 // Types
-export type { GetRecommendResultResponse } from "./type";
+export type {
+	GetRecommendResultResponse,
+	RerollRecommendResultRequest,
+	RerollRecommendResultResponse,
+} from "./type";
