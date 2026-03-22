@@ -4,6 +4,8 @@ import {
 	type GetRecommendResultResponse,
 	PostProcessRecommendResultRequest,
 	PostProcessRecommendResultResponse,
+	type RerollRecommendResultRequest,
+	type RerollRecommendResultResponse,
 } from "./type";
 
 /**
@@ -23,4 +25,13 @@ export const postProcessRecommendResult = (accessKey: string) => {
 	>(`recommend-results/proceed`, {
 		accessKey,
 	});
+};
+
+export const postRerollRecommendResult = (
+	request: RerollRecommendResultRequest,
+) => {
+	return apiClient.post<
+		RerollRecommendResultResponse,
+		RerollRecommendResultRequest
+	>(`recommend-results/reroll`, request);
 };

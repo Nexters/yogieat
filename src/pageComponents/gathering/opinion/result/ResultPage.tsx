@@ -3,8 +3,13 @@
 import { format, parse } from "date-fns";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { twJoin } from "tailwind-merge";
 
-import { trackShareClick, trackViewPage } from "#/components/analytics";
+import {
+	trackCtaClick,
+	trackShareClick,
+	trackViewPage,
+} from "#/components/analytics";
 import { BackwardButton } from "#/components/backwardButton";
 import { Layout } from "#/components/layout";
 import { ShareButton } from "#/components/shareButton";
@@ -12,7 +17,7 @@ import { Toaster } from "#/components/toast";
 import { REGION_LABEL, TIME_SLOT_LABEL } from "#/constants/gathering/opinion";
 import { useGetRecommendResult } from "#/hooks/apis/recommendResult";
 
-import { OtherCandidateCard } from "./OtherCandidateCard";
+import { RecommendedRestaurantSection } from "./recommendedRestaurantSection";
 import { TasteSummaryCard } from "./TasteSummaryCard";
 import { VoteSummarySection } from "./VoteSummarySection";
 
@@ -32,12 +37,26 @@ export function ResultPage() {
 	const { accessKey } = useParams<{ accessKey: string }>();
 	const { data: recommendationResult } = useGetRecommendResult(accessKey);
 
+	// TODO: Top Recommendation 맛집과 Other Candidates 맛집 View 분리가 통합되면서 구분이 필요없어짐 -> API Response 도 하나의 필드로 구성되도 좋을 듯함.
+	const initialRestaurantList = [
+		recommendationResult.topRecommendation,
+		...recommendationResult.otherCandidates,
+	];
+
 	const handleClickBackward = () => {
 		router.push(`/gathering/${accessKey}/opinion/complete`);
 	};
 
 	const handleShare = () => {
 		trackShareClick({ page_id: PAGE_ID, share_location: "Footer" });
+	};
+
+	const handleRecreateLink = () => {
+		trackCtaClick({
+			page_id: PAGE_ID,
+			button_name: "모임 링크 다시 만들기",
+		});
+		router.push("/gathering/create");
 	};
 
 	useEffect(() => {
@@ -56,7 +75,7 @@ export function ResultPage() {
 			</Layout.Header>
 
 			<Layout.Content background="gray">
-				<div className="ygi:flex ygi:flex-col ygi:gap-7 ygi:px-6 ygi:pb-8">
+				<div className="ygi:flex ygi:flex-col ygi:gap-7 ygi:px-6 ygi:pb-20">
 					{/* Head Section */}
 					<div className="ygi:flex ygi:flex-col ygi:gap-2 ygi:pt-3">
 						<span className="ygi:body-16-md ygi:text-text-secondary">
@@ -87,32 +106,11 @@ export function ResultPage() {
 					/>
 
 					{/* Restaurant List Section */}
-					<section className="ygi:flex ygi:flex-col ygi:gap-3">
-						<h2 className="ygi:heading-22-bd ygi:text-text-primary">
-							약속 장소는 여기 어때요?
-						</h2>
-						<div className="ygi:space-y-4 ygi:rounded-md ygi:bg-surface-white ygi:p-4">
-							<p className="ygi:body-16-bd ygi:text-text-primary">
-								요기잇 추천 맛집
-							</p>
-							<div className="ygi:flex ygi:flex-col ygi:gap-4 ygi:divide-y ygi:divide-dashed ygi:divide-border-default">
-								{[
-									recommendationResult.topRecommendation,
-									...recommendationResult.otherCandidates,
-								].map((restaurant, index) => (
-									<div
-										key={restaurant.restaurantId}
-										className="ygi:not-last:pb-4"
-									>
-										<OtherCandidateCard
-											restaurant={restaurant}
-											ranking={index + 1}
-										/>
-									</div>
-								))}
-							</div>
-						</div>
-					</section>
+					<RecommendedRestaurantSection
+						accessKey={accessKey}
+						initialList={initialRestaurantList}
+					/>
+
 					<VoteSummarySection
 						preferences={recommendationResult.preferences}
 						dislikes={recommendationResult.dislikes}
@@ -121,13 +119,36 @@ export function ResultPage() {
 				</div>
 			</Layout.Content>
 
-			<Layout.Footer background="gray">
-				<div className="ygi:px-6">
-					<ShareButton onShare={handleShare} />
+			<footer
+				className={twJoin(
+					"ygi:fixed ygi:bottom-0 ygi:left-0 ygi:z-layout-footer",
+					"ygi:flex ygi:w-full ygi:items-center ygi:justify-center",
+				)}
+			>
+				<div
+					className={twJoin(
+						"ygi:w-full ygi:max-w-root-layout ygi:bg-bg-gray",
+						"ygi:pb-[env(safe-area-inset-bottom)]",
+					)}
+				>
+					<div className="ygi:flex ygi:flex-col ygi:gap-1 ygi:px-6 ygi:py-4">
+						<ShareButton onShare={handleShare} />
+						<button
+							type="button"
+							onClick={handleRecreateLink}
+							className={twJoin(
+								"ygi:flex ygi:h-14 ygi:items-center ygi:justify-center",
+								"ygi:body-16-md ygi:text-text-secondary ygi:underline",
+								"ygi:cursor-pointer ygi:bg-transparent",
+							)}
+						>
+							모임 링크 다시 만들기
+						</button>
+					</div>
 				</div>
-			</Layout.Footer>
+			</footer>
 
-			<Toaster offset={{ bottom: 96 }} mobileOffset={{ bottom: 96 }} />
+			<Toaster offset={{ bottom: 148 }} mobileOffset={{ bottom: 148 }} />
 		</Layout.Root>
 	);
 }

@@ -14,17 +14,19 @@ import type { Restaurant } from "#/types/gathering";
 export interface OtherCandidateCardProps {
 	restaurant: Restaurant;
 	ranking: number;
+	rankType: "top" | "other";
 }
 
 export const OtherCandidateCard = ({
 	restaurant,
 	ranking,
+	rankType,
 }: OtherCandidateCardProps) => {
 	const handleMapClick = () => {
 		trackRestaurantClick({
 			page_id: "추천_결과",
 			restaurant_name: restaurant.restaurantName,
-			rank_type: "other",
+			rank_type: rankType,
 		});
 		window.open(restaurant.mapUrl, "_blank", "noopener,noreferrer");
 	};
