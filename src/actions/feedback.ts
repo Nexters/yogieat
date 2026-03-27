@@ -21,7 +21,7 @@ export async function submitFeedback(
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({
-				content: `⏰ 작성 날짜 : ${new Date().toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })}\n✅ 모임 식별자 : ${accessKey}\n\n${message}`,
+				content: `⏰ 작성 날짜 : ${new Date().toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })}\n✅ 모임 식별자 : ${accessKey}\n\n[사용자 피드백]\n${message}`,
 			}),
 		});
 
