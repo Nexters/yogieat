@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { useState } from "react";
 
+import { ArrowLeftIcon } from "#/icons/arrowLeftIcon";
+
 import { FeedbackBottomSheet } from "./FeedbackBottomSheet";
 
 interface FeedbackSectionProps {
@@ -27,31 +29,23 @@ export function FeedbackSection({ accessKey }: FeedbackSectionProps) {
 						<span className="ygi:caption-12-bd ygi:text-palette-primary-500">
 							의견 제안하기
 						</span>
-						<svg
-							width="20"
-							height="20"
-							viewBox="0 0 20 20"
-							fill="none"
-							xmlns="http://www.w3.org/2000/svg"
+						<ArrowLeftIcon
+							size={16}
+							color="#FF5A3C"
 							aria-hidden="true"
-						>
-							<path
-								d="M8 5l5 5-5 5"
-								stroke="#FF5A3C"
-								strokeWidth="1.5"
-								strokeLinecap="round"
-								strokeLinejoin="round"
-							/>
-						</svg>
+							className="ygi:rotate-180"
+						/>
 					</div>
 				</div>
-				<div className="ygi:relative ygi:size-[88px] ygi:shrink-0 ygi:overflow-hidden ygi:rounded-full ygi:bg-surface-lightgray">
-					<Image
-						src="/images/feedback/illustration.svg"
-						alt="의견 제안 일러스트"
-						fill
-						className="ygi:object-cover"
-					/>
+				<div className="ygi:relative ygi:size-22 ygi:shrink-0 ygi:overflow-hidden ygi:rounded-full ygi:bg-surface-lightgray">
+					<div className="ygi:absolute ygi:inset-x-0 ygi:top-4 ygi:-bottom-5">
+						<Image
+							src="/images/feedback/illustration.svg"
+							alt="의견 제안 일러스트"
+							fill
+							className="ygi:object-cover"
+						/>
+					</div>
 				</div>
 			</button>
 
