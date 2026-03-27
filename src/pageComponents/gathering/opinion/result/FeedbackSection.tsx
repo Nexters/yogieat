@@ -17,7 +17,7 @@ export function FeedbackSection({ accessKey }: FeedbackSectionProps) {
 			<button
 				type="button"
 				onClick={() => setOpen(true)}
-				className="ygi:flex ygi:w-full ygi:cursor-pointer ygi:items-center ygi:justify-between ygi:gap-5 ygi:rounded-xl ygi:bg-surface-white ygi:p-5"
+				className="ygi:flex ygi:w-full ygi:cursor-pointer ygi:items-center ygi:justify-between ygi:gap-5 ygi:rounded-md ygi:bg-surface-white ygi:p-5"
 			>
 				<div className="ygi:flex ygi:flex-1 ygi:flex-col ygi:items-start ygi:gap-3">
 					<p className="ygi:text-left ygi:body-14-bd ygi:whitespace-pre-line ygi:text-text-primary">
