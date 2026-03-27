@@ -19,11 +19,11 @@ interface FeedbackBottomSheetProps {
 	onOpenChange: (open: boolean) => void;
 }
 
-export function FeedbackBottomSheet({
+export const FeedbackBottomSheet = ({
 	open,
 	accessKey,
 	onOpenChange,
-}: FeedbackBottomSheetProps) {
+}: FeedbackBottomSheetProps) => {
 	const [isPending, startTransition] = useTransition();
 
 	const {
@@ -91,4 +91,4 @@ export function FeedbackBottomSheet({
 			</BottomSheet.Content>
 		</BottomSheet>
 	);
-}
+};

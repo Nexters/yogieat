@@ -4,10 +4,10 @@ export type FeedbackResult =
 	| { success: true }
 	| { success: false; error: string };
 
-export async function submitFeedback(
+export const submitFeedback = async (
 	accessKey: string,
 	message: string,
-): Promise<FeedbackResult> {
+): Promise<FeedbackResult> => {
 	const webhookUrl = process.env.DISCORD_FEEDBACK_WEBHOOK_URL;
 
 	if (!webhookUrl) {
@@ -36,4 +36,4 @@ export async function submitFeedback(
 	} catch {
 		return { success: false, error: "네트워크 오류가 발생했습니다." };
 	}
-}
+};

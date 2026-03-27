@@ -11,7 +11,7 @@ interface FeedbackSectionProps {
 	accessKey: string;
 }
 
-export function FeedbackSection({ accessKey }: FeedbackSectionProps) {
+export const FeedbackSection = ({ accessKey }: FeedbackSectionProps) => {
 	const [open, setOpen] = useState(false);
 
 	return (
@@ -56,4 +56,4 @@ export function FeedbackSection({ accessKey }: FeedbackSectionProps) {
 			/>
 		</>
 	);
-}
+};
