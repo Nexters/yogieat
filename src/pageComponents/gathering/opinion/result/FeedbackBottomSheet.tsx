@@ -3,7 +3,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTransition } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 
 import { submitFeedback } from "#/actions/feedback";
 import { BottomSheet } from "#/components/bottomSheet";
@@ -12,6 +11,7 @@ import {
 	feedbackFormSchema,
 	type FeedbackFormSchema,
 } from "#/schemas/feedback/feedbackForm.schema";
+import { toast } from "#/utils/toast";
 
 interface FeedbackBottomSheetProps {
 	open: boolean;
@@ -46,13 +46,13 @@ export function FeedbackBottomSheet({
 					// BottomSheet exit 애니메이션(200ms) 완료 후 form 리셋 및 토스트 노출
 					setTimeout(() => {
 						reset();
-						toast("의견이 전달됐어요!");
+						toast.success("의견이 전달됐어요!");
 					}, 300);
 				} else {
-					toast("의견 전달에 실패했어요. 다시 시도해주세요.");
+					toast.warning("의견 전달에 실패했어요. 다시 시도해주세요.");
 				}
 			} catch {
-				toast("의견 전달에 실패했어요. 다시 시도해주세요.");
+				toast.warning("의견 전달에 실패했어요. 다시 시도해주세요.");
 			}
 		});
 	};
