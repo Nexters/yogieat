@@ -38,16 +38,20 @@ export function FeedbackBottomSheet({
 
   const onSubmit = (data: FeedbackFormSchema) => {
     startTransition(async () => {
-      const result = await submitFeedback(accessKey, data.message);
+      try {
+        const result = await submitFeedback(accessKey, data.message);
 
-      if (result.success) {
-        reset();
-        onOpenChange(false);
-        // BottomSheet exit 애니메이션(200ms) 완료 후 토스트 노출
-        setTimeout(() => {
-          toast("의견이 전달됐어요!");
-        }, 300);
-      } else {
+        if (result.success) {
+          onOpenChange(false);
+          // BottomSheet exit 애니메이션(200ms) 완료 후 form 리셋 및 토스트 노출
+          setTimeout(() => {
+            reset();
+            toast("의견이 전달됐어요!");
+          }, 300);
+        } else {
+          toast("의견 전달에 실패했어요. 다시 시도해주세요.");
+        }
+      } catch {
         toast("의견 전달에 실패했어요. 다시 시도해주세요.");
       }
     });
