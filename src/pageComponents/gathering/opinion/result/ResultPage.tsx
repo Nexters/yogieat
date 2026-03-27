@@ -17,6 +17,7 @@ import { Toaster } from "#/components/toast";
 import { REGION_LABEL, TIME_SLOT_LABEL } from "#/constants/gathering/opinion";
 import { useGetRecommendResult } from "#/hooks/apis/recommendResult";
 
+import { FeedbackSection } from "./FeedbackSection";
 import { RecommendedRestaurantSection } from "./recommendedRestaurantSection";
 import { TasteSummaryCard } from "./TasteSummaryCard";
 import { VoteSummarySection } from "./VoteSummarySection";
@@ -75,7 +76,7 @@ export function ResultPage() {
 			</Layout.Header>
 
 			<Layout.Content background="gray">
-				<div className="ygi:flex ygi:flex-col ygi:gap-7 ygi:px-6 ygi:pb-20">
+				<div className="ygi:flex ygi:flex-col ygi:gap-7 ygi:px-6 ygi:pb-28">
 					{/* Head Section */}
 					<div className="ygi:flex ygi:flex-col ygi:gap-2 ygi:pt-3">
 						<span className="ygi:body-16-md ygi:text-text-secondary">
@@ -116,6 +117,8 @@ export function ResultPage() {
 						dislikes={recommendationResult.dislikes}
 						distances={recommendationResult.distances}
 					/>
+
+					<FeedbackSection accessKey={accessKey} />
 				</div>
 			</Layout.Content>
 
