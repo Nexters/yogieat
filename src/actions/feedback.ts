@@ -28,7 +28,7 @@ export async function submitFeedback(
 		if (!response.ok) {
 			return {
 				success: false,
-				error: `Discord 전송 실패: ${response.status}`,
+				error: `Discord 웹훅 전송 실패 (${response.status})`,
 			};
 		}
 
