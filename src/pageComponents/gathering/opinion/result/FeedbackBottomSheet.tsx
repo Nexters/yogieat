@@ -39,13 +39,36 @@ export const FeedbackBottomSheet = ({
 
 	const { ref: registerRef, ...registerRest } = register("message");
 
-	// BottomSheet 진입 애니메이션(200ms) 완료 후 textarea 자동 포커스
+	// BottomSheet 열릴 때 초기화:
+	// 1) 진입 애니메이션(200ms) 완료 후 textarea 자동 포커스
+	// 2) iOS Safari는 interactiveWidget 미지원 → visualViewport로 키보드 높이 감지해 CSS 변수 세팅
 	useEffect(() => {
 		if (!open) return;
+
 		const timer = setTimeout(() => {
 			textareaRef.current?.focus();
 		}, 250);
-		return () => clearTimeout(timer);
+
+		const viewport = window.visualViewport;
+		const updateKeyboardHeight = () => {
+			const keyboardHeight = Math.max(
+				0,
+				window.innerHeight - (viewport?.height ?? window.innerHeight),
+			);
+			document.documentElement.style.setProperty(
+				"--keyboard-height",
+				`${keyboardHeight}px`,
+			);
+		};
+
+		viewport?.addEventListener("resize", updateKeyboardHeight);
+		updateKeyboardHeight();
+
+		return () => {
+			clearTimeout(timer);
+			viewport?.removeEventListener("resize", updateKeyboardHeight);
+			document.documentElement.style.removeProperty("--keyboard-height");
+		};
 	}, [open]);
 
 	const onSubmit = (data: FeedbackFormSchema) => {
