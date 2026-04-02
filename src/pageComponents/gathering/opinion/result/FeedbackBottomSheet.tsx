@@ -48,6 +48,33 @@ export const FeedbackBottomSheet = ({
 		return () => clearTimeout(timer);
 	}, [open]);
 
+	// iOS Safari는 interactiveWidget을 지원하지 않으므로
+	// visualViewport로 키보드 높이를 감지해 CSS 변수로 BottomSheet 위치 조정
+	useEffect(() => {
+		if (!open) return;
+		const viewport = window.visualViewport;
+		if (!viewport) return;
+
+		const updateKeyboardHeight = () => {
+			const keyboardHeight = Math.max(
+				0,
+				window.innerHeight - viewport.height,
+			);
+			document.documentElement.style.setProperty(
+				"--keyboard-height",
+				`${keyboardHeight}px`,
+			);
+		};
+
+		viewport.addEventListener("resize", updateKeyboardHeight);
+		updateKeyboardHeight();
+
+		return () => {
+			viewport.removeEventListener("resize", updateKeyboardHeight);
+			document.documentElement.style.removeProperty("--keyboard-height");
+		};
+	}, [open]);
+
 	const onSubmit = (data: FeedbackFormSchema) => {
 		startTransition(async () => {
 			try {
