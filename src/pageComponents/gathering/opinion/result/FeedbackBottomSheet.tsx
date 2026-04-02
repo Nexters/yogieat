@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useTransition } from "react";
+import { useEffect, useRef, useTransition } from "react";
 import { useForm } from "react-hook-form";
 
 import { submitFeedback } from "#/actions/feedback";
@@ -25,6 +25,7 @@ export const FeedbackBottomSheet = ({
 	onOpenChange,
 }: FeedbackBottomSheetProps) => {
 	const [isPending, startTransition] = useTransition();
+	const textareaRef = useRef<HTMLTextAreaElement>(null);
 
 	const {
 		register,
@@ -35,6 +36,17 @@ export const FeedbackBottomSheet = ({
 		resolver: zodResolver(feedbackFormSchema),
 		mode: "onChange",
 	});
+
+	const { ref: registerRef, ...registerRest } = register("message");
+
+	// BottomSheet 진입 애니메이션(200ms) 완료 후 textarea 자동 포커스
+	useEffect(() => {
+		if (!open) return;
+		const timer = setTimeout(() => {
+			textareaRef.current?.focus();
+		}, 250);
+		return () => clearTimeout(timer);
+	}, [open]);
 
 	const onSubmit = (data: FeedbackFormSchema) => {
 		startTransition(async () => {
@@ -73,9 +85,15 @@ export const FeedbackBottomSheet = ({
 							{"의견과 피드백을\n자유롭게 작성해주세요"}
 						</h2>
 						<textarea
-							{...register("message")}
+							{...registerRest}
+							ref={(el) => {
+								registerRef(el);
+								textareaRef.current = el;
+							}}
 							placeholder="답변을 입력해주세요."
 							maxLength={1000}
+							// iOS에서 font-size < 16px이면 포커스 시 자동 줌인됨 → 16px로 override
+							style={{ fontSize: "16px" }}
 							className="focus:ygi:outline-none ygi:min-h-40 ygi:w-full ygi:resize-none ygi:rounded-md ygi:bg-surface-lightgray ygi:p-4 ygi:body-14-md ygi:text-text-primary ygi:placeholder:text-text-placeholder"
 						/>
 					</div>
