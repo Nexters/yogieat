@@ -5,6 +5,12 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.0](https://github.com/Nexters/yogieat/compare/v2.3.0...v2.4.0) (2026-04-02)
+
+### Features
+
+* 의견 제안 폼 추가 (결과 페이지 → Discord Webhook) ([#128](https://github.com/Nexters/yogieat/issues/128)) ([befc003](https://github.com/Nexters/yogieat/commit/befc003145d60ab1a5407e8b0e8620fda2984267))
+
 ## [2.3.0](https://github.com/Nexters/yogieat/compare/v2.2.0...v2.3.0) (2026-03-22)
 
 ## [2.2.0-beta.2](https://github.com/Nexters/yogieat/compare/v2.2.0-beta.1...v2.2.0-beta.2) (2026-03-22)
