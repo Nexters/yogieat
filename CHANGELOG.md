@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * FeedbackBottomSheet UX 개선 (autofocus, 줌 방지, 키패드 위 렌더링) ([#129](https://github.com/Nexters/yogieat/issues/129)) ([b1ea8ca](https://github.com/Nexters/yogieat/commit/b1ea8cafd90839cb34d02e75cf925a9033c9cfa1))
 * iOS Safari 키보드 위 BottomSheet 렌더링 개선 (visualViewport) ([#130](https://github.com/Nexters/yogieat/issues/130)) ([77ccb7a](https://github.com/Nexters/yogieat/commit/77ccb7a05bf78c7e1f5d3c9108bd4c717449a02e))
+## [2.4.0](https://github.com/Nexters/yogieat/compare/v2.3.0...v2.4.0) (2026-04-02)
+
+### Features
+
 * 의견 제안 폼 추가 (결과 페이지 → Discord Webhook) ([#128](https://github.com/Nexters/yogieat/issues/128)) ([befc003](https://github.com/Nexters/yogieat/commit/befc003145d60ab1a5407e8b0e8620fda2984267))
 
 ## [2.3.0](https://github.com/Nexters/yogieat/compare/v2.2.0...v2.3.0) (2026-03-22)
