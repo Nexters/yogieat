@@ -77,8 +77,11 @@ const BottomSheetContent = ({
 								duration: 0.2,
 								ease: "easeInOut",
 							}}
+							// iOS Safari는 interactiveWidget을 지원하지 않으므로
+							// visualViewport 기반 --keyboard-height CSS 변수로 위치 조정
+							style={{ bottom: "var(--keyboard-height, 0px)" }}
 							className={twJoin(
-								"ygi:fixed ygi:right-0 ygi:bottom-0 ygi:left-0 ygi:z-50",
+								"ygi:fixed ygi:right-0 ygi:left-0 ygi:z-50",
 								"ygi:rounded-t-xl ygi:bg-surface-white ygi:shadow-lg",
 								"ygi:mx-auto ygi:w-full ygi:max-w-root-layout ygi:overflow-y-auto",
 								"focus:ygi:outline-none",
