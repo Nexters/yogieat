@@ -5,7 +5,7 @@ import {
 
 import { AlertCircleIcon } from "#/icons/alertCircleIcon";
 
-type ToastOptions = Omit<SonnerToastOptions, "icon" | "classNames">;
+type ToastOptions = Omit<SonnerToastOptions, "classNames">;
 
 export const toast = {
 	success: (message: string, options?: ToastOptions) => {
