@@ -5,6 +5,8 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.0](https://github.com/Nexters/yogieat/compare/v2.2.0...v2.3.0) (2026-03-22)
+
 ## [2.2.0-beta.3](https://github.com/Nexters/yogieat/compare/v2.2.0-beta.2...v2.2.0-beta.3) (2026-04-02)
 
 ### Features
@@ -17,7 +19,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * 결과 페이지 맛집 더 보기 기능 추가 및 레이아웃 개선 ([#127](https://github.com/Nexters/yogieat/issues/127)) ([1e85982](https://github.com/Nexters/yogieat/commit/1e85982ba55ef3b400cb27b502d1c51e62374920))
 
+## [2.2.0](https://github.com/Nexters/yogieat/compare/v2.1.6...v2.2.0) (2026-03-13)
+
+### Features
+
+* 서비스 소개 랜딩 페이지 구현 및 앱 시작 경로 변경 ([#126](https://github.com/Nexters/yogieat/issues/126)) ([556e740](https://github.com/Nexters/yogieat/commit/556e74042c564e26fd4adceaa1e922920e041900)), closes [#d5dae2](https://github.com/Nexters/yogieat/issues/d5dae2)
+
+### Features
+
+* 결과 페이지 맛집 더 보기 기능 추가 및 레이아웃 개선 ([#127](https://github.com/Nexters/yogieat/issues/127)) ([1e85982](https://github.com/Nexters/yogieat/commit/1e85982ba55ef3b400cb27b502d1c51e62374920))
+
 ## [2.2.0-beta.1](https://github.com/Nexters/yogieat/compare/v2.1.5-beta.1...v2.2.0-beta.1) (2026-03-13)
+
+## [2.1.6](https://github.com/Nexters/yogieat/compare/v2.1.5...v2.1.6) (2026-02-28)
+
 
 ### Features
 
@@ -28,6 +43,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Bug Fixes
 
 * Nickname Step 내 Description 을 이름에서 닉네임으로 수정 ([f90e861](https://github.com/Nexters/yogieat/commit/f90e861293a25fd725c3926af5f3dceb113288d9))
+
+## [2.1.5](https://github.com/Nexters/yogieat/compare/v2.1.4...v2.1.5) (2026-02-28)
+
+### Bug Fixes
+
 * toast 및 toast link 버튼 내 nowrap 속성 추가하여 줄바꿈 적용 ([cf5d29c](https://github.com/Nexters/yogieat/commit/cf5d29c65c0db0169e48d789b0fa9162bb309a9f))
 
 ## [2.1.4](https://github.com/Nexters/yogieat/compare/v2.1.3...v2.1.4) (2026-02-28)
