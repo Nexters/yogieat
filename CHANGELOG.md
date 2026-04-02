@@ -5,6 +5,13 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.0](https://github.com/Nexters/yogieat/compare/v2.4.0...v2.5.0) (2026-04-02)
+
+### Features
+
+* FeedbackBottomSheet UX 개선 (autofocus, 줌 방지, 키패드 위 렌더링) ([#129](https://github.com/Nexters/yogieat/issues/129)) ([b1ea8ca](https://github.com/Nexters/yogieat/commit/b1ea8cafd90839cb34d02e75cf925a9033c9cfa1))
+* iOS Safari 키보드 위 BottomSheet 렌더링 개선 (visualViewport) ([#130](https://github.com/Nexters/yogieat/issues/130)) ([77ccb7a](https://github.com/Nexters/yogieat/commit/77ccb7a05bf78c7e1f5d3c9108bd4c717449a02e))
+
 ## [2.4.0-beta.1](https://github.com/Nexters/yogieat/compare/v2.3.0...v2.4.0-beta.1) (2026-04-02)
 
 ### Features
