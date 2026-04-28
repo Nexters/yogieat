@@ -14,8 +14,9 @@ import { BackwardButton } from "#/components/backwardButton";
 import { Layout } from "#/components/layout";
 import { ShareButton } from "#/components/shareButton";
 import { Toaster } from "#/components/toast";
-import { REGION_LABEL, TIME_SLOT_LABEL } from "#/constants/gathering/opinion";
+import { TIME_SLOT_LABEL } from "#/constants/gathering/opinion";
 import { useGetRecommendResult } from "#/hooks/apis/recommendResult";
+import { useGetRegions } from "#/hooks/apis/region";
 
 import { FeedbackSection } from "./FeedbackSection";
 import { RecommendedRestaurantSection } from "./recommendedRestaurantSection";
@@ -37,6 +38,7 @@ export function ResultPage() {
 	const router = useRouter();
 	const { accessKey } = useParams<{ accessKey: string }>();
 	const { data: recommendationResult } = useGetRecommendResult(accessKey);
+	const { data: regionsByProvince } = useGetRegions();
 
 	// TODO: Top Recommendation 맛집과 Other Candidates 맛집 View 분리가 통합되면서 구분이 필요없어짐 -> API Response 도 하나의 필드로 구성되도 좋을 듯함.
 	const initialRestaurantList = [
@@ -84,9 +86,13 @@ export function ResultPage() {
 								recommendationResult.gathering.scheduledDate,
 							)}{" "}
 							{
-								REGION_LABEL[
-									recommendationResult.gathering.region
-								]
+								[...regionsByProvince.values()]
+									.flat()
+									.find(
+										(r) =>
+											r.code ===
+											recommendationResult.gathering.region,
+									)?.displayName
 							}{" "}
 							{
 								TIME_SLOT_LABEL[

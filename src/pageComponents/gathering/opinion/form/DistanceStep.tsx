@@ -12,8 +12,8 @@ import { StepIndicator } from "#/components/stepIndicator";
 import {
 	DISTANCE_OPTIONS,
 	OPINION_TOTAL_STEPS,
-	REGION_OPTIONS,
 } from "#/constants/gathering/opinion";
+import { useGetRegions } from "#/hooks/apis/region";
 import {
 	distanceRangeSchema,
 	type OpinionFormSchema,
@@ -24,9 +24,11 @@ interface HeaderProps {
 }
 
 const Header = ({ region }: HeaderProps) => {
+	const { data: regionsByProvince } = useGetRegions();
 	const stationName =
-		REGION_OPTIONS.find((currentRegion) => currentRegion.value === region)
-			?.label ?? "";
+		[...regionsByProvince.values()]
+			.flat()
+			.find((r) => r.code === region)?.displayName ?? "";
 
 	return (
 		<>
