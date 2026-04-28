@@ -24,11 +24,8 @@ interface HeaderProps {
 }
 
 const Header = ({ region }: HeaderProps) => {
-	const { data: regionsByProvince } = useGetRegions();
-	const stationName =
-		[...regionsByProvince.values()]
-			.flat()
-			.find((r) => r.code === region)?.displayName ?? "";
+	const { data: regions } = useGetRegions();
+	const stationName = regions.get(region) ?? "";
 
 	return (
 		<>

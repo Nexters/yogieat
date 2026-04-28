@@ -12,13 +12,13 @@ import { StepHeader } from "#/components/stepHeader";
 import { StepIndicator } from "#/components/stepIndicator";
 import { Tab } from "#/components/tab";
 import { PROVINCES } from "#/constants/gathering/opinion/province";
-import { useGetRegions } from "#/hooks/apis/region";
+import { useGetRegions, useGetRegionsByProvince } from "#/hooks/apis/region";
 import type { CreateMeetingFormSchema } from "#/schemas/gathering";
 
 import { RegionChip } from "./RegionChip";
 
 export const RegionStepContent = () => {
-	const { data: regionsByProvince } = useGetRegions();
+	const { data: regionsByProvince } = useGetRegionsByProvince();
 
 	const availableProvinces = PROVINCES.filter(
 		(province) => (regionsByProvince.get(province)?.length ?? 0) > 0,
@@ -67,7 +67,7 @@ interface RegionStepFooterProps {
 
 export const RegionStepFooter = ({ isPending }: RegionStepFooterProps) => {
 	const { control, getValues } = useFormContext<CreateMeetingFormSchema>();
-	const { data: regionsByProvince } = useGetRegions();
+	const { data: regions } = useGetRegions();
 	const isValid = useWatch({
 		control,
 		name: "region",
@@ -76,10 +76,7 @@ export const RegionStepFooter = ({ isPending }: RegionStepFooterProps) => {
 
 	const handleClick = () => {
 		const region = getValues("region");
-		const regionLabel =
-			[...regionsByProvince.values()]
-				.flat()
-				.find((r) => r.code === region)?.displayName ?? "-";
+		const regionLabel = (region && regions.get(region)) || "-";
 		trackStepComplete({
 			page_id: "모임생성_퍼널",
 			step_name: "장소",

@@ -38,13 +38,24 @@ export function ResultPage() {
 	const router = useRouter();
 	const { accessKey } = useParams<{ accessKey: string }>();
 	const { data: recommendationResult } = useGetRecommendResult(accessKey);
-	const { data: regionsByProvince } = useGetRegions();
+	const { data: regions } = useGetRegions();
 
 	// TODO: Top Recommendation 맛집과 Other Candidates 맛집 View 분리가 통합되면서 구분이 필요없어짐 -> API Response 도 하나의 필드로 구성되도 좋을 듯함.
 	const initialRestaurantList = [
 		recommendationResult.topRecommendation,
 		...recommendationResult.otherCandidates,
 	];
+
+	const { gathering } = recommendationResult;
+	const regionDisplayName = regions.get(gathering.region);
+	const gatheringSummary = [
+		formatScheduledDate(gathering.scheduledDate),
+		regionDisplayName,
+		TIME_SLOT_LABEL[gathering.timeSlot],
+		"약속",
+	]
+		.filter(Boolean)
+		.join(" ");
 
 	const handleClickBackward = () => {
 		router.push(`/gathering/${accessKey}/opinion/complete`);
@@ -82,24 +93,7 @@ export function ResultPage() {
 					{/* Head Section */}
 					<div className="ygi:flex ygi:flex-col ygi:gap-2 ygi:pt-3">
 						<span className="ygi:body-16-md ygi:text-text-secondary">
-							{formatScheduledDate(
-								recommendationResult.gathering.scheduledDate,
-							)}{" "}
-							{
-								[...regionsByProvince.values()]
-									.flat()
-									.find(
-										(r) =>
-											r.code ===
-											recommendationResult.gathering.region,
-									)?.displayName
-							}{" "}
-							{
-								TIME_SLOT_LABEL[
-									recommendationResult.gathering.timeSlot
-								]
-							}{" "}
-							약속
+							{gatheringSummary}
 						</span>
 						<h1 className="ygi:heading-22-bd ygi:text-text-primary">
 							여러분의 취향을 조합해보니...
