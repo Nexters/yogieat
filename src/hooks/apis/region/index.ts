@@ -1,0 +1,1 @@
+export { useGetRegions } from "./useGetRegions";
