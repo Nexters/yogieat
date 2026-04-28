@@ -9,7 +9,6 @@ export type {
 	RecommendationResult,
 	VoteStatistics,
 } from "./recommendationResult";
-export type { Region } from "./region";
 export type { Restaurant } from "./restaurant";
 
 export type { TimeSlot } from "./timeSlot";
