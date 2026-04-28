@@ -2,14 +2,14 @@
  * 모임 API 요청/응답 타입
  */
 
-import type { Region, TimeSlot } from "#/types/gathering";
+import type { TimeSlot } from "#/types/gathering";
 
 /** 모임 생성 요청 */
 export interface CreateGatheringRequest {
 	/** 모임 인원수 (1-10) */
 	peopleCount: number;
 	/** 지역 */
-	region: Region;
+	region: string;
 	/** 모임 날짜 (YYYY-MM-DD) */
 	scheduledDate: string;
 	/** 시간대 */
@@ -43,7 +43,7 @@ export interface GetGatheringResponse {
 	/** 시간대 */
 	timeSlot: NonNullable<TimeSlot>;
 	/** 지역 */
-	region: NonNullable<Region>;
+	region: string;
 	/** 모임 인원수 */
 	peopleCount: number;
 }
