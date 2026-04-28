@@ -13,7 +13,6 @@ export {
 } from "./distance";
 export { OPINION_STEP_ORDER, OPINION_TOTAL_STEPS } from "./funnel";
 export { MOCK_MEETING_DATA } from "./meeting";
-export { PROVINCES } from "./province";
 export { RANK, RANK_LABEL, RANK_LIST, type RankKey } from "./rank";
 export { RecommendationResultStatus } from "./recommendationResultStatus";
 export { TIME_SLOT_LABEL } from "./timeSlot";

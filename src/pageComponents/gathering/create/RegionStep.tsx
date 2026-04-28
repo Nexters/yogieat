@@ -11,7 +11,6 @@ import { Layout } from "#/components/layout";
 import { StepHeader } from "#/components/stepHeader";
 import { StepIndicator } from "#/components/stepIndicator";
 import { Tab } from "#/components/tab";
-import { PROVINCES } from "#/constants/gathering/opinion/province";
 import { useGetRegions, useGetRegionsByProvince } from "#/hooks/apis/region";
 import type { CreateMeetingFormSchema } from "#/schemas/gathering";
 
@@ -20,13 +19,11 @@ import { RegionChip } from "./RegionChip";
 export const RegionStepContent = () => {
 	const { data: regionsByProvince } = useGetRegionsByProvince();
 
-	const availableProvinces = PROVINCES.filter(
-		(province) => (regionsByProvince.get(province)?.length ?? 0) > 0,
-	);
+	const availableProvinces = [...regionsByProvince.keys()];
 
-	const [selectedProvince, setSelectedProvince] = useState<
-		(typeof PROVINCES)[number]
-	>(availableProvinces[0] ?? PROVINCES[0]);
+	const [selectedProvince, setSelectedProvince] = useState<string>(
+		availableProvinces[0] ?? "",
+	);
 
 	const filteredRegions = regionsByProvince.get(selectedProvince) ?? [];
 
@@ -41,9 +38,7 @@ export const RegionStepContent = () => {
 
 			<Tab.Root
 				value={selectedProvince}
-				onChange={(v) =>
-					setSelectedProvince(v as (typeof PROVINCES)[number])
-				}
+				onChange={(v) => setSelectedProvince(v)}
 			>
 				{availableProvinces.map((province) => (
 					<Tab.Item key={province} value={province}>
