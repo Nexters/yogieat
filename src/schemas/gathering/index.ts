@@ -6,8 +6,6 @@ export {
 export {
 	categorySchema,
 	dislikedCategoriesSchema,
-	distanceRangeSchema,
-	distanceRangeToKm,
 	nicknameSchema,
 	opinionFormSchema,
 	type OpinionFormSchema,
