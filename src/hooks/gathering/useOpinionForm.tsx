@@ -52,7 +52,7 @@ export function useOpinionForm() {
 				preferences,
 				nickname: data.nickname,
 				dislikes: data.dislikedCategories,
-				distance: null,
+				distance: null, // NOTE : 거리 스텝이 제거되어 ANY (null) 로 수정정
 			});
 			router.replace(`/gathering/${accessKey}/opinion/pending`);
 		} catch (error) {
