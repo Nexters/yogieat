@@ -21,7 +21,7 @@ import { DislikedCategoryButton } from "./DislikedCategoryButton";
 const Header = () => {
 	return (
 		<>
-			<StepIndicator currentStep={2} totalSteps={OPINION_TOTAL_STEPS} />
+			<StepIndicator currentStep={1} totalSteps={OPINION_TOTAL_STEPS} />
 			<StepHeader.Root>
 				<StepHeader.Title>
 					안 먹고 싶은 음식을 골라주세요
