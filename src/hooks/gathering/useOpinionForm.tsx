@@ -7,10 +7,7 @@ import { useForm } from "react-hook-form";
 
 import { useCreateParticipant, useGetRecommendResult } from "#/hooks/apis";
 import { ToastLinkButton } from "#/pageComponents/gathering/opinion";
-import {
-	opinionFormSchema,
-	type OpinionFormSchema,
-} from "#/schemas/gathering";
+import { opinionFormSchema, type OpinionFormSchema } from "#/schemas/gathering";
 import { ERROR_CODES, isApiError } from "#/utils/api";
 import { toast } from "#/utils/toast";
 
