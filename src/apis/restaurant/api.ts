@@ -13,5 +13,8 @@ import { type GetRestaurantDetailResponse } from "./type";
 export const getRestaurantDetail = (
 	_id: string,
 ): Promise<GetRestaurantDetailResponse> => {
-	return Promise.resolve(MOCK_RESTAURANT_DETAIL);
+	return Promise.resolve({
+		status: 200,
+		data: MOCK_RESTAURANT_DETAIL,
+	});
 };

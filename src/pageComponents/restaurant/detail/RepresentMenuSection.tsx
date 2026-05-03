@@ -1,11 +1,11 @@
 "use client";
 
-import type { Restaurant } from "#/types/gathering";
+import type { RestaurantDetail } from "#/apis/restaurant";
 
 const formatKrw = (value: number) => `${value.toLocaleString("ko-KR")}원`;
 
 interface RepresentMenuSectionProps {
-	restaurant: Restaurant;
+	restaurant: RestaurantDetail;
 }
 
 export const RepresentMenuSection = ({

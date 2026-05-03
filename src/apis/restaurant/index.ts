@@ -6,4 +6,4 @@ export { restaurantKeys } from "./queryKey";
 export { restaurantOptions } from "./queryOption";
 
 // Types
-export type { GetRestaurantDetailResponse } from "./type";
+export type { GetRestaurantDetailResponse, RestaurantDetail } from "./type";

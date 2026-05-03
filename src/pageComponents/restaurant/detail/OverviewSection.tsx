@@ -1,19 +1,19 @@
 "use client";
 
+import type { RestaurantDetail } from "#/apis/restaurant";
 import { CATEGORY_LABEL } from "#/constants/gathering/opinion";
 import { CheckIcon } from "#/icons/checkIcon";
 import { MapPinIcon } from "#/icons/mapPinIcon";
 import { StarIcon } from "#/icons/starIcon";
-import type { Restaurant } from "#/types/gathering";
 
 interface OverviewSectionProps {
-	restaurant: Restaurant;
+	restaurant: RestaurantDetail;
 }
 
 export const OverviewSection = ({ restaurant }: OverviewSectionProps) => {
 	const categoryLabel =
 		CATEGORY_LABEL[restaurant.largeCategory as keyof typeof CATEGORY_LABEL];
-	const locationLine = [restaurant.region, restaurant.address]
+	const locationLine = [restaurant.station, restaurant.address]
 		.filter(Boolean)
 		.join(" · ");
 	const aiLine = restaurant.aiMateSummaryContents.join(" · ");

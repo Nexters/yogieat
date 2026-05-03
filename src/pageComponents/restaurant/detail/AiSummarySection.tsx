@@ -1,9 +1,9 @@
 "use client";
 
-import type { Restaurant } from "#/types/gathering";
+import type { RestaurantDetail } from "#/apis/restaurant";
 
 interface AiSummarySectionProps {
-	restaurant: Restaurant;
+	restaurant: RestaurantDetail;
 }
 
 export const AiSummarySection = ({ restaurant }: AiSummarySectionProps) => {

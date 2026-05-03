@@ -2,12 +2,12 @@
 
 import Image from "next/image";
 
-import type { Restaurant } from "#/types/gathering";
+import type { RestaurantDetail } from "#/apis/restaurant";
 
 const PLACEHOLDER_SRC = "/images/result/restaurant-image-placeholder.png";
 
 interface HeroImageSectionProps {
-	restaurant: Restaurant;
+	restaurant: RestaurantDetail;
 }
 
 export const HeroImageSection = ({ restaurant }: HeroImageSectionProps) => {

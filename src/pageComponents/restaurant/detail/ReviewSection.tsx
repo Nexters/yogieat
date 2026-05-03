@@ -2,10 +2,10 @@
 
 import { twJoin } from "tailwind-merge";
 
-import type { Restaurant } from "#/types/gathering";
+import type { RestaurantDetail } from "#/apis/restaurant";
 
 interface ReviewSectionProps {
-	restaurant: Restaurant;
+	restaurant: RestaurantDetail;
 }
 
 export const ReviewSection = ({ restaurant }: ReviewSectionProps) => {

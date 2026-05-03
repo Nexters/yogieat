@@ -1,17 +1,17 @@
 "use client";
 
+import type { RestaurantDetail } from "#/apis/restaurant";
 import {
 	getActivePriceLevelCount,
 	MAX_PRICE_LEVEL,
 	PRICE_LEVEL_LABEL,
 	type PriceLevelStep,
 } from "#/constants/restaurant";
-import type { Restaurant } from "#/types/gathering";
 
 import { PriceLevelCoin } from "./PriceLevelCoin";
 
 interface PriceLevelSectionProps {
-	restaurant: Restaurant;
+	restaurant: RestaurantDetail;
 }
 
 export const PriceLevelSection = ({ restaurant }: PriceLevelSectionProps) => {
