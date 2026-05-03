@@ -1,7 +1,12 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { useEffect } from "react";
 
+import { trackViewPage } from "#/components/analytics";
+import { BackwardButton } from "#/components/backwardButton";
+import { Layout } from "#/components/layout";
+import { Toaster } from "#/components/toast";
 import { useGetRestaurantDetail } from "#/hooks/apis/restaurant";
 
 import { AiSummarySection } from "./AiSummarySection";
@@ -10,22 +15,51 @@ import { OverviewSection } from "./OverviewSection";
 import { PriceLevelSection } from "./PriceLevelSection";
 import { RepresentMenuSection } from "./RepresentMenuSection";
 import { ReviewSection } from "./ReviewSection";
+import { ShareFooter } from "./ShareFooter";
+
+const PAGE_ID = "맛집_상세";
+const FOOTER_OFFSET = 96;
 
 export const RestaurantDetailPage = () => {
 	const { id } = useParams<{ id: string }>();
+	const router = useRouter();
 	const { data: restaurant } = useGetRestaurantDetail(id);
 
+	useEffect(() => {
+		trackViewPage({ page_id: PAGE_ID });
+	}, []);
+
+	const handleBack = () => {
+		if (typeof window !== "undefined" && window.history.length > 1) {
+			router.back();
+			return;
+		}
+		router.push("/");
+	};
+
 	return (
-		<>
-			<HeroImageSection restaurant={restaurant} />
-			<OverviewSection restaurant={restaurant} />
-			<AiSummarySection restaurant={restaurant} />
-			<PriceLevelSection restaurant={restaurant} />
-			<RepresentMenuSection restaurant={restaurant} />
-			<ReviewSection restaurant={restaurant} />
-			<pre style={{ padding: 16, fontSize: 12 }}>
-				{JSON.stringify(restaurant, null, 2)}
-			</pre>
-		</>
+		<Layout.Root>
+			<Layout.Header>
+				<BackwardButton onClick={handleBack} />
+			</Layout.Header>
+
+			<Layout.Content background="gray">
+				<div className="ygi:flex ygi:flex-col ygi:gap-2 ygi:pb-24">
+					<HeroImageSection restaurant={restaurant} />
+					<OverviewSection restaurant={restaurant} />
+					<AiSummarySection restaurant={restaurant} />
+					<PriceLevelSection restaurant={restaurant} />
+					<RepresentMenuSection restaurant={restaurant} />
+					<ReviewSection restaurant={restaurant} />
+				</div>
+			</Layout.Content>
+
+			<ShareFooter restaurantId={id} pageId={PAGE_ID} />
+
+			<Toaster
+				offset={{ bottom: FOOTER_OFFSET }}
+				mobileOffset={{ bottom: FOOTER_OFFSET }}
+			/>
+		</Layout.Root>
 	);
 };
