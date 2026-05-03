@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { useGetRestaurantDetail } from "#/hooks/apis/restaurant";
 
 import { HeroImageSection } from "./HeroImageSection";
+import { OverviewSection } from "./OverviewSection";
 
 export const RestaurantDetailPage = () => {
 	const { id } = useParams<{ id: string }>();
@@ -13,6 +14,7 @@ export const RestaurantDetailPage = () => {
 	return (
 		<>
 			<HeroImageSection restaurant={restaurant} />
+			<OverviewSection restaurant={restaurant} />
 			<pre style={{ padding: 16, fontSize: 12 }}>
 				{JSON.stringify(restaurant, null, 2)}
 			</pre>
