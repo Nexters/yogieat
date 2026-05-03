@@ -25,7 +25,7 @@ export const PriceLevelSection = ({ restaurant }: PriceLevelSectionProps) => {
 
 	return (
 		<section className="ygi:flex ygi:flex-col ygi:gap-1 ygi:bg-surface-white ygi:px-5 ygi:py-4">
-			<span className="ygi:body-12-md ygi:text-text-secondary">
+			<span className="ygi:caption-12-md ygi:text-text-secondary">
 				평균 대비 가격은
 			</span>
 			<div className="ygi:flex ygi:items-center ygi:justify-between">

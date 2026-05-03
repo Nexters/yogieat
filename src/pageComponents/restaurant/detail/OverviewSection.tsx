@@ -40,14 +40,14 @@ export const OverviewSection = ({ restaurant }: OverviewSectionProps) => {
 
 			<div className="ygi:flex ygi:flex-col ygi:gap-1">
 				{locationLine && (
-					<div className="ygi:body-12-md ygi:flex ygi:items-center ygi:gap-1.5 ygi:text-text-primary">
+					<div className="ygi:flex ygi:items-center ygi:gap-1.5 ygi:caption-12-md ygi:text-text-primary">
 						<MapPinIcon size={16} color="currentColor" />
 						<span className="ygi:truncate">{locationLine}</span>
 					</div>
 				)}
 
 				{restaurant.aiMateSummaryContents.length > 0 && (
-					<div className="ygi:body-12-md ygi:flex ygi:items-start ygi:gap-1.5 ygi:text-text-primary">
+					<div className="ygi:flex ygi:items-start ygi:gap-1.5 ygi:caption-12-md ygi:text-text-primary">
 						<span className="ygi:flex ygi:h-4.5 ygi:shrink-0 ygi:items-center">
 							<CheckIcon size={16} color="currentColor" />
 						</span>
