@@ -1,0 +1,1 @@
+export { useGetRestaurantDetail } from "./useGetRestaurantDetail";
