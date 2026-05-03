@@ -9,6 +9,7 @@ import { HeroImageSection } from "./HeroImageSection";
 import { OverviewSection } from "./OverviewSection";
 import { PriceLevelSection } from "./PriceLevelSection";
 import { RepresentMenuSection } from "./RepresentMenuSection";
+import { ReviewSection } from "./ReviewSection";
 
 export const RestaurantDetailPage = () => {
 	const { id } = useParams<{ id: string }>();
@@ -21,6 +22,7 @@ export const RestaurantDetailPage = () => {
 			<AiSummarySection restaurant={restaurant} />
 			<PriceLevelSection restaurant={restaurant} />
 			<RepresentMenuSection restaurant={restaurant} />
+			<ReviewSection restaurant={restaurant} />
 			<pre style={{ padding: 16, fontSize: 12 }}>
 				{JSON.stringify(restaurant, null, 2)}
 			</pre>
