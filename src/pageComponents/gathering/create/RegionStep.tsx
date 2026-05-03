@@ -1,6 +1,7 @@
 "use client";
 
 import { isNil } from "es-toolkit";
+import { useState } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 
 import { trackStepComplete } from "#/components/analytics";
@@ -9,27 +10,47 @@ import { DotsLoader } from "#/components/dotsLoader";
 import { Layout } from "#/components/layout";
 import { StepHeader } from "#/components/stepHeader";
 import { StepIndicator } from "#/components/stepIndicator";
-import { REGION_OPTIONS } from "#/constants/gathering/opinion";
+import { Tab } from "#/components/tab";
+import { useGetRegions, useGetRegionsByProvince } from "#/hooks/apis/region";
 import type { CreateMeetingFormSchema } from "#/schemas/gathering";
 
 import { RegionChip } from "./RegionChip";
 
 export const RegionStepContent = () => {
+	const { data: regionsByProvince } = useGetRegionsByProvince();
+
+	const availableProvinces = [...regionsByProvince.keys()];
+
+	const [selectedProvince, setSelectedProvince] = useState<string>(
+		availableProvinces[0] ?? "",
+	);
+
+	const filteredRegions = regionsByProvince.get(selectedProvince) ?? [];
+
 	return (
-		<section className="ygi:pt-3">
+		<section className="ygi:flex ygi:flex-col ygi:gap-xl ygi:pt-3">
 			<div className="ygi:flex ygi:flex-col ygi:gap-xl ygi:px-6">
 				<StepIndicator currentStep={3} totalSteps={3} />
 				<StepHeader.Root>
 					<StepHeader.Title>장소를 선택해 주세요</StepHeader.Title>
-					<StepHeader.Description>
-						선택 가능한 장소는 계속해서 추가될 예정이에요
-					</StepHeader.Description>
 				</StepHeader.Root>
-				<div className="ygi:flex ygi:flex-wrap ygi:gap-3">
-					{REGION_OPTIONS.map(({ value, label }) => (
-						<RegionChip key={value} value={value} label={label} />
-					))}
-				</div>
+			</div>
+
+			<Tab.Root
+				value={selectedProvince}
+				onChange={(v) => setSelectedProvince(v)}
+			>
+				{availableProvinces.map((province) => (
+					<Tab.Item key={province} value={province}>
+						{province}
+					</Tab.Item>
+				))}
+			</Tab.Root>
+
+			<div className="ygi:flex ygi:flex-wrap ygi:gap-3 ygi:px-5">
+				{filteredRegions.map(({ code, displayName }) => (
+					<RegionChip key={code} value={code} label={displayName} />
+				))}
 			</div>
 		</section>
 	);
@@ -41,6 +62,7 @@ interface RegionStepFooterProps {
 
 export const RegionStepFooter = ({ isPending }: RegionStepFooterProps) => {
 	const { control, getValues } = useFormContext<CreateMeetingFormSchema>();
+	const { data: regions } = useGetRegions();
 	const isValid = useWatch({
 		control,
 		name: "region",
@@ -49,8 +71,7 @@ export const RegionStepFooter = ({ isPending }: RegionStepFooterProps) => {
 
 	const handleClick = () => {
 		const region = getValues("region");
-		const regionLabel =
-			REGION_OPTIONS.find((r) => r.value === region)?.label ?? "-";
+		const regionLabel = (region && regions.get(region)) || "-";
 		trackStepComplete({
 			page_id: "모임생성_퍼널",
 			step_name: "장소",

@@ -76,7 +76,7 @@ const RankSection = ({ rank }: RankSectionProps) => {
 const Header = () => {
 	return (
 		<>
-			<StepIndicator currentStep={3} totalSteps={OPINION_TOTAL_STEPS} />
+			<StepIndicator currentStep={2} totalSteps={OPINION_TOTAL_STEPS} />
 			<StepHeader.Root>
 				<StepHeader.Title>먹고 싶은 음식을 골라주세요</StepHeader.Title>
 			</StepHeader.Root>

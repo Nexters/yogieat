@@ -1,28 +1,23 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { FormProvider } from "react-hook-form";
 
 import { BackwardButton } from "#/components/backwardButton";
 import { Layout } from "#/components/layout";
 import { StepTransition } from "#/components/stepTransition";
 import { Toaster } from "#/components/toast";
-import { useGetGathering } from "#/hooks/apis/gathering";
 import { useOpinionForm, useOpinionFunnel } from "#/hooks/gathering";
 
 import { DislikeStep } from "./DislikeStep";
-import { DistanceStep } from "./DistanceStep";
 import { NicknameStep } from "./NicknameStep";
 import { PreferenceStep } from "./PreferenceStep";
 
 export function OpinionFormPage() {
-	const { accessKey } = useParams<{ accessKey: string }>();
 	const router = useRouter();
 
 	const { methods, onSubmit, isPending } = useOpinionForm();
 	const { step, direction, next, back, isFirstStep } = useOpinionFunnel();
-
-	const { data: gathering } = useGetGathering(accessKey);
 
 	const handleBackward = () => {
 		if (isFirstStep) {
@@ -44,13 +39,6 @@ export function OpinionFormPage() {
 					<div className="ygi:flex ygi:flex-col ygi:gap-xl ygi:px-6 ygi:pt-3">
 						<NicknameStep.Header />
 						<NicknameStep.Content />
-					</div>
-				);
-			case "distance":
-				return (
-					<div className="ygi:flex ygi:flex-col ygi:gap-xl ygi:px-6 ygi:pt-3">
-						<DistanceStep.Header region={gathering.region} />
-						<DistanceStep.Content />
 					</div>
 				);
 			case "dislike":
@@ -80,8 +68,6 @@ export function OpinionFormPage() {
 		switch (step) {
 			case "nickname":
 				return <NicknameStep.Footer onNext={next} />;
-			case "distance":
-				return <DistanceStep.Footer onNext={next} />;
 			case "dislike":
 				return <DislikeStep.Footer onNext={next} />;
 			case "preference":
