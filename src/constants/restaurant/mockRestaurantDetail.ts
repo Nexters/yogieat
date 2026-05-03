@@ -6,7 +6,8 @@ export const MOCK_RESTAURANT_DETAIL: Restaurant = {
 	restaurantName: "마루심 강남점",
 	address: "서울 서초구 서초대로 326",
 	rating: 4.8,
-	imageUrl: "http://t1.kakaocdn.net/mystore/67FE73AC7092490CBFA21729535EE6F5",
+	imageUrl:
+		"https://t1.kakaocdn.net/mystore/67FE73AC7092490CBFA21729535EE6F5",
 	mapUrl: "https://place.map.kakao.com/2074481849",
 	representativeReview:
 		"Lots of variety in food selection.\nSurroundings very calm and peaceful\nFood tastes really yummy! ",
