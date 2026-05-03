@@ -48,7 +48,7 @@ export const OverviewSection = ({ restaurant }: OverviewSectionProps) => {
 
 				{restaurant.aiMateSummaryContents.length > 0 && (
 					<div className="ygi:body-12-md ygi:flex ygi:items-start ygi:gap-1.5 ygi:text-text-primary">
-						<span className="ygi:flex ygi:h-[18px] ygi:shrink-0 ygi:items-center">
+						<span className="ygi:flex ygi:h-4.5 ygi:shrink-0 ygi:items-center">
 							<CheckIcon size={16} color="currentColor" />
 						</span>
 						<span className="ygi:break-keep">{aiLine}</span>
