@@ -44,7 +44,7 @@ export const RestaurantDetailPage = () => {
 			</Layout.Header>
 
 			<Layout.Content background="gray">
-				<div className="ygi:flex ygi:flex-col ygi:gap-2 ygi:pb-24">
+				<div className="ygi:flex ygi:flex-col ygi:gap-2">
 					<HeroImageSection restaurant={restaurant} />
 					<OverviewSection restaurant={restaurant} />
 					<AiSummarySection restaurant={restaurant} />
