@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 import { trackRestaurantClick } from "#/components/analytics";
 import { Tag } from "#/components/tag";
@@ -22,20 +23,20 @@ export const OtherCandidateCard = ({
 	ranking,
 	rankType,
 }: OtherCandidateCardProps) => {
-	const handleMapClick = () => {
+	const handleClick = () => {
 		trackRestaurantClick({
 			page_id: "추천_결과",
 			restaurant_name: restaurant.restaurantName,
 			rank_type: rankType,
 		});
-		window.open(restaurant.mapUrl, "_blank", "noopener,noreferrer");
 	};
 
 	return (
-		<article
-			className="ygi:flex ygi:cursor-pointer ygi:items-start ygi:gap-5 ygi:overflow-hidden"
+		<Link
+			href={`/restaurants/${restaurant.restaurantId}`}
+			onClick={handleClick}
 			aria-label={`${ranking}위 추천 음식점: ${restaurant.restaurantName}`}
-			onClick={handleMapClick}
+			className="ygi:flex ygi:cursor-pointer ygi:items-start ygi:gap-5 ygi:overflow-hidden"
 		>
 			<div className="ygi:relative ygi:h-20 ygi:w-20 ygi:shrink-0 ygi:overflow-clip ygi:rounded-xs  ygi:border ygi:border-solid ygi:border-border-default ygi:bg-surface-lightgray">
 				<Image
@@ -73,6 +74,6 @@ export const OtherCandidateCard = ({
 					)}
 				</div>
 			</div>
-		</article>
+		</Link>
 	);
 };
