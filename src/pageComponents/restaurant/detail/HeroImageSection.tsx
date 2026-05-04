@@ -19,6 +19,7 @@ export const HeroImageSection = ({ restaurant }: HeroImageSectionProps) => {
 				fill
 				sizes="(max-width: 480px) 100vw, 480px"
 				className="ygi:object-cover"
+				priority
 			/>
 		</div>
 	);
