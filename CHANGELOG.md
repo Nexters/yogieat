@@ -5,18 +5,7 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.6.0-beta.1](https://github.com/Nexters/yogieat/compare/v2.5.0...v2.6.0-beta.1) (2026-05-04)
-
-### Features
-
-* 식당 상세 페이지 신규 구현 ([#134](https://github.com/Nexters/yogieat/issues/134)) ([055841c](https://github.com/Nexters/yogieat/commit/055841c02b7aa74162ec40566cc4b783a7a0672d))
-* 지역 API 연동 및 지역 선택 Step UI 수정 ([#131](https://github.com/Nexters/yogieat/issues/131)) ([8c89cb3](https://github.com/Nexters/yogieat/commit/8c89cb3a360bbbe9e3c2a4a32dff3fc3ddb6555c))
-
-### Code Refactoring
-
-* OpinionForm에서 DistanceStep 제거 ([#132](https://github.com/Nexters/yogieat/issues/132)) ([f8f65cf](https://github.com/Nexters/yogieat/commit/f8f65cf9d111dde5adcd7fd1e690149b62b8704c))
-
-## [2.6.0-beta.1](https://github.com/Nexters/yogieat/compare/v2.5.0...v2.6.0-beta.1) (2026-05-03)
+## [2.6.0](https://github.com/Nexters/yogieat/compare/v2.5.0...v2.6.0) (2026-05-03)
 
 ### Features
 
