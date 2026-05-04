@@ -1,0 +1,86 @@
+name: Sync main to develop
+
+on:
+    push:
+        branches:
+            - main
+    workflow_dispatch:
+
+permissions:
+    contents: read
+    pull-requests: write
+
+jobs:
+    sync-pr:
+        name: Open sync PR (main → develop)
+        runs-on: ubuntu-latest
+        # `[skip sync]` 가 포함된 커밋은 동기화 PR 생성 건너뜀
+        if: "!contains(github.event.head_commit.message, '[skip sync]')"
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - name: Skip if main 이 이미 develop 의 ancestor
+              id: check
+              run: |
+                  if git merge-base --is-ancestor origin/main origin/develop; then
+                    echo "main is already merged into develop. No sync needed."
+                    echo "needs_sync=false" >> $GITHUB_OUTPUT
+                  else
+                    echo "needs_sync=true" >> $GITHUB_OUTPUT
+                  fi
+
+            - name: Skip if 동일한 sync PR 이 이미 열려 있음
+              id: existing
+              if: steps.check.outputs.needs_sync == 'true'
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  EXISTING=$(gh pr list \
+                    --base develop \
+                    --head main \
+                    --state open \
+                    --json number \
+                    --jq '.[0].number // empty')
+                  if [ -n "$EXISTING" ]; then
+                    echo "Existing sync PR found: #$EXISTING"
+                    echo "skip=true" >> $GITHUB_OUTPUT
+                  else
+                    echo "skip=false" >> $GITHUB_OUTPUT
+                  fi
+
+            - name: Create sync PR (main → develop)
+              if: steps.check.outputs.needs_sync == 'true' && steps.existing.outputs.skip != 'true'
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  gh pr create \
+                    --base develop \
+                    --head main \
+                    --title "chore: sync main back to develop" \
+                    --body "$(cat <<'EOF'
+                  # 🎯 PR 제목
+
+                  chore: sync main back to develop
+
+                  # 📑 작업 상세 내역
+
+                  - main 의 변경 사항을 develop 으로 자동 동기화하는 PR입니다 (sync-main-to-develop 워크플로 자동 생성)
+                  - 머지 시 stable 릴리스 commit 이 develop 에 반영되어, semantic-release 가 다음 prerelease 버전을 정확히 산정하게 됩니다
+
+                  # 🙏 리뷰 요청 사항
+
+                  - CHANGELOG.md / package.json 충돌 발생 시 **main 측을 base** 로 해결해주세요. develop 의 미릴리스 변경 사항은 다음 prerelease 시점에 자동으로 changelog 에 반영됩니다.
+                  - main 머지 직후 자동 생성되는 PR이라 별도 작업 내역은 없습니다.
+
+                  # 📃 참고 자료
+
+                  - 워크플로 파일: \`.github/workflows/sync-main-to-develop.yml\`
+
+                  # 🖼️ 작업 결과물
+
+                  -   [프로젝트 문서]()
+                  EOF
+                  )"
