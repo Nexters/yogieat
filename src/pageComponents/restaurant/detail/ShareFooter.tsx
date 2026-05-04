@@ -3,30 +3,25 @@
 import { twJoin } from "tailwind-merge";
 
 import { trackShareClick } from "#/components/analytics";
-import { toast } from "#/utils/toast";
+import { share } from "#/utils/share";
 
 interface ShareFooterProps {
 	restaurantId: string;
+	restaurantName: string;
 	pageId: string;
 }
 
-export const ShareFooter = ({ restaurantId, pageId }: ShareFooterProps) => {
-	const handleShare = async () => {
+export const ShareFooter = ({
+	restaurantId,
+	restaurantName,
+	pageId,
+}: ShareFooterProps) => {
+	const handleShare = () => {
 		trackShareClick({ page_id: pageId, share_location: "Footer" });
-
-		const url = `${window.location.origin}/restaurants/${restaurantId}`;
-
-		if (typeof navigator === "undefined" || !navigator.clipboard) {
-			toast.warning("공유 기능을 사용할 수 없습니다");
-			return;
-		}
-
-		try {
-			await navigator.clipboard.writeText(url);
-			toast.success("링크가 복사되었어요");
-		} catch {
-			toast.warning("링크 복사에 실패했습니다");
-		}
+		void share({
+			title: restaurantName,
+			url: `${window.location.origin}/restaurants/${restaurantId}`,
+		});
 	};
 
 	return (

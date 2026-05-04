@@ -58,7 +58,11 @@ export const RestaurantDetailPage = () => {
 				</div>
 			</Layout.Content>
 
-			<ShareFooter restaurantId={id} pageId={PAGE_ID} />
+			<ShareFooter
+				restaurantId={id}
+				restaurantName={restaurant.restaurantName}
+				pageId={PAGE_ID}
+			/>
 
 			<Toaster
 				offset={{ bottom: FOOTER_OFFSET }}

@@ -60,15 +60,15 @@ export async function share(data: ShareData): Promise<ShareResult> {
 				.filter(Boolean)
 				.join("\n");
 			await navigator.clipboard.writeText(text);
-			toast.success("링크가 복사되었습니다");
+			toast.success("링크가 복사되었어요");
 			return { success: true, method: "clipboard" };
 		} catch {
-			toast.warning("링크 복사에 실패했습니다");
+			toast.warning("링크 복사에 실패했어요");
 			return { success: false, method: "failed" };
 		}
 	}
 
 	// 클립보드 API도 지원하지 않는 경우
-	toast.warning("공유 기능을 사용할 수 없습니다");
+	toast.warning("공유 기능을 사용할 수 없어요");
 	return { success: false, method: "failed" };
 }
