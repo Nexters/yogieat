@@ -131,7 +131,14 @@ export const RestaurantCarousel = ({
 
 	return (
 		<div className="ygi:flex ygi:flex-col ygi:gap-3">
-			<div className="ygi:group/carousel ygi:relative">
+			{/*
+			 * 박스 padding(p-4 = 16px) 을 좌우로 상쇄(-mx-4)해 컨테이너의 좌우 끝이
+			 * 흰 박스 boundary 와 정확히 일치하게 만든다. 그러면 화살표를 이 컨테이너의
+			 * 좌/우 끝(left-0 / right-0)에 두고 ±translate-x-1/2 로 자기 너비의 절반만
+			 * 이동시키는 것만으로 박스 border 에 절반씩 걸치는 위치가 표현된다.
+			 * 트랙(scroll area) 에는 다시 px-4 를 줘서 카드 너비는 변경되지 않는다.
+			 */}
+			<div className="ygi:group/carousel ygi:relative ygi:-mx-4">
 				<div
 					ref={trackRef}
 					role="region"
@@ -139,7 +146,7 @@ export const RestaurantCarousel = ({
 					aria-label="추천 식당 캐러셀"
 					tabIndex={0}
 					onKeyDown={handleKeyDown}
-					className="ygi:flex ygi:snap-x ygi:snap-mandatory ygi:overflow-x-auto ygi:overflow-y-hidden ygi:[scrollbar-width:none] ygi:focus:outline-none ygi:focus-visible:ring-2 ygi:focus-visible:ring-palette-primary-500 ygi:[&::-webkit-scrollbar]:hidden"
+					className="ygi:flex ygi:snap-x ygi:snap-mandatory ygi:overflow-x-auto ygi:overflow-y-hidden ygi:px-4 ygi:[scrollbar-width:none] ygi:focus:outline-none ygi:focus-visible:ring-2 ygi:focus-visible:ring-palette-primary-500 ygi:[&::-webkit-scrollbar]:hidden"
 				>
 					{pages.map((page, i) => (
 						<div

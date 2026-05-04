@@ -28,9 +28,12 @@ export const NavArrowButton = ({
 			aria-label={label}
 			tabIndex={disabled ? -1 : 0}
 			className={twJoin(
-				// 위치
+				// 위치: 부모 컨테이너의 좌/우 끝에 두고 자기 너비의 절반만큼 바깥으로
+				// 이동시켜 컨테이너 boundary 에 화살표 중심을 정렬한다.
 				"ygi:absolute ygi:top-1/2 ygi:z-10 ygi:-translate-y-1/2",
-				isPrev ? "ygi:left-1" : "ygi:right-1",
+				isPrev
+					? "ygi:left-0 ygi:-translate-x-1/2"
+					: "ygi:right-0 ygi:translate-x-1/2",
 				// 외형
 				"ygi:flex ygi:h-8 ygi:w-8 ygi:items-center ygi:justify-center",
 				"ygi:rounded-full ygi:bg-surface-white ygi:shadow-drop",
