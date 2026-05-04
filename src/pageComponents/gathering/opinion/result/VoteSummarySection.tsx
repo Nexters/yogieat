@@ -369,6 +369,7 @@ const DislikeVoteBlock = ({
 	);
 };
 
+// 거리 스텝(#132) 부활 대비 컴포넌트 정의를 보존. SHOW_DISTANCE_VOTE_BLOCK 플래그로 노출 여부 제어.
 const DistanceVoteBlock = ({
 	distances,
 }: {
@@ -519,6 +520,10 @@ const DistanceVoteBlock = ({
 	);
 };
 
+// 의견 수합 퍼널에서 거리 스텝이 제거됨(#132)에 따라 결과 페이지에서도 거리 투표 블록을 숨김 처리.
+// 거리 값이 항상 null로 제출되어 의미 있는 결과를 보여줄 수 없음. 거리 스텝이 부활하면 true로 변경.
+const SHOW_DISTANCE_VOTE_BLOCK = false;
+
 export const VoteSummarySection = ({
 	preferences,
 	dislikes,
@@ -531,7 +536,9 @@ export const VoteSummarySection = ({
 			</h2>
 			<PreferenceVoteBlock preferences={preferences} />
 			<DislikeVoteBlock dislikes={dislikes} />
-			<DistanceVoteBlock distances={distances} />
+			{SHOW_DISTANCE_VOTE_BLOCK && (
+				<DistanceVoteBlock distances={distances} />
+			)}
 		</section>
 	);
 };
