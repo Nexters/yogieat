@@ -1,21 +1,6 @@
 import type { Category } from "#/constants/gathering/opinion";
 
 /**
- * 식당이 위치한 권역 코드.
- *
- * 서버 OpenAPI 명세 기준 8개 값으로 한정된다. 새 권역이 추가되면 명세를 따라 갱신한다.
- */
-export type RestaurantRegion =
-	| "HONGDAE"
-	| "GANGNAM"
-	| "GONGDEOK"
-	| "EULJIRO3GA"
-	| "SADANG"
-	| "JONGNO3GA"
-	| "JAMSIL"
-	| "SAMGAKJI";
-
-/**
  * 식당 상세 응답 본문
  *
  * 프로젝트 공용 `apiClient.get<T>` 가 응답을 `ApiResponse<T> = { status, data, timestamp }`
@@ -27,7 +12,8 @@ export interface RestaurantDetail {
 	restaurantName: string;
 	station: string | null;
 	address: string;
-	region: RestaurantRegion | null;
+	/** 지역 코드 (예: "GANGNAM"). 서버에서 동적으로 추가될 수 있어 string 으로 둔다. */
+	region: string | null;
 	largeCategory: Category;
 	rating: number;
 	imageUrl: string | null;
