@@ -18,7 +18,7 @@ export const ShareFooter = ({
 }: ShareFooterProps) => {
 	const handleShare = () => {
 		trackShareClick({ page_id: pageId, share_location: "Footer" });
-		void share({
+		share({
 			title: restaurantName,
 			url: `${window.location.origin}/restaurants/${restaurantId}`,
 		});
