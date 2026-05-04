@@ -21,7 +21,7 @@ import { useGetRegions } from "#/hooks/apis/region";
 import { FeedbackSection } from "./FeedbackSection";
 import { RecommendedRestaurantSection } from "./recommendedRestaurantSection";
 import { TasteSummaryCard } from "./TasteSummaryCard";
-import { VoteSummarySection } from "./VoteSummarySection";
+import { VoteSummarySection } from "./voteSummarySection";
 
 const PAGE_ID = "추천_결과";
 
