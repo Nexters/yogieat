@@ -26,6 +26,7 @@ export const OtherCandidateCard = ({
 	const handleClick = () => {
 		trackRestaurantClick({
 			page_id: "추천_결과",
+			restaurant_id: restaurant.restaurantId,
 			restaurant_name: restaurant.restaurantName,
 			rank_type: rankType,
 		});

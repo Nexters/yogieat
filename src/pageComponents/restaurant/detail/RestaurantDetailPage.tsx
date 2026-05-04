@@ -26,8 +26,12 @@ export const RestaurantDetailPage = () => {
 	const { data: restaurant } = useGetRestaurantDetail(id);
 
 	useEffect(() => {
-		trackViewPage({ page_id: PAGE_ID });
-	}, []);
+		trackViewPage({
+			page_id: PAGE_ID,
+			restaurant_id: restaurant.restaurantId,
+			restaurant_name: restaurant.restaurantName,
+		});
+	}, [restaurant.restaurantId, restaurant.restaurantName]);
 
 	const handleBack = () => {
 		if (typeof window !== "undefined" && window.history.length > 1) {
