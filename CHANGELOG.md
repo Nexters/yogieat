@@ -5,6 +5,12 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.0-beta.2](https://github.com/Nexters/yogieat/compare/v2.7.0-beta.1...v2.7.0-beta.2) (2026-05-04)
+
+### Code Refactoring
+
+* VoteSummarySection 거리 블록 숨김 및 디렉터리 분리 ([#136](https://github.com/Nexters/yogieat/issues/136)) ([31f9d13](https://github.com/Nexters/yogieat/commit/31f9d1378be24cf3aa8fd68f0e2438af6a56d3f2)), closes [#132](https://github.com/Nexters/yogieat/issues/132)
+
 ## [2.7.0-beta.1](https://github.com/Nexters/yogieat/compare/v2.6.0...v2.7.0-beta.1) (2026-05-04)
 
 ### Features
