@@ -25,7 +25,7 @@ export const ShareFooter = ({
 		});
 		share({
 			title: "[요기잇]",
-			text: `\n${restaurantName}\n${restaurantAddress}`,
+			text: `${restaurantName}\n${restaurantAddress}`,
 			url: `${window.location.origin}/restaurants/${restaurantId}`,
 		});
 	};
