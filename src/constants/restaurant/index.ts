@@ -1,4 +1,3 @@
-export { MOCK_RESTAURANT_DETAIL } from "./mockRestaurantDetail";
 export {
 	getActivePriceLevelCount,
 	MAX_PRICE_LEVEL,
