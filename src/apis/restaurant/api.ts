@@ -1,4 +1,5 @@
 import { MOCK_RESTAURANT_DETAIL } from "#/constants/restaurant";
+import type { ApiResponse } from "#/utils/api";
 
 import { type GetRestaurantDetailResponse } from "./type";
 
@@ -12,9 +13,10 @@ import { type GetRestaurantDetailResponse } from "./type";
  */
 export const getRestaurantDetail = (
 	_id: string,
-): Promise<GetRestaurantDetailResponse> => {
+): Promise<ApiResponse<GetRestaurantDetailResponse>> => {
 	return Promise.resolve({
 		status: 200,
 		data: MOCK_RESTAURANT_DETAIL,
+		timestamp: new Date().toISOString(),
 	});
 };

@@ -11,7 +11,7 @@ export const MOCK_RESTAURANT_DETAIL: RestaurantDetail = {
 	imageUrl: "https://example.com/image.jpg",
 	mapUrl: "https://map.kakao.com/...",
 	description: "분위기 좋은 한식 맛집",
-	priceLevel: 2,
+	priceLevel: "₩₩",
 	representMenu: "김치찌개",
 	representMenuPrice: 9000,
 	representativeReview: "진짜 맛있어요",

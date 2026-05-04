@@ -11,13 +11,14 @@ export const PRICE_LEVEL_LABEL: Record<PriceLevelStep, string> = {
 };
 
 /**
- * 서버에서 받은 priceLevel(1~5 정수)을 활성 동전 수로 환산.
- * 서버 응답이 5 초과로 올 가능성에 대비해 최대 5로 클램프하며,
- * 0 이하 또는 null 이면 표시 대상이 아님(0).
+ * 서버에서 받은 priceLevel 문자열("₩")을 활성 동전 수로 환산.
+ * "₩" 이외의 문자는 무시하며 5 개 초과 응답에 대비해 최대 5 로 클램프한다.
+ * null 또는 "₩" 이 0 개면 표시 대상이 아님(0).
  *
  * @returns 1 ~ 5 사이의 활성 동전 수
  */
-export const getActivePriceLevelCount = (priceLevel: number | null): number => {
-	if (priceLevel === null || priceLevel <= 0) return 0;
-	return Math.min(Math.floor(priceLevel), MAX_PRICE_LEVEL);
+export const getActivePriceLevelCount = (priceLevel: string | null): number => {
+	if (!priceLevel) return 0;
+	const wonCount = (priceLevel.match(/₩/g) ?? []).length;
+	return Math.min(wonCount, MAX_PRICE_LEVEL);
 };
