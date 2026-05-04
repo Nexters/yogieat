@@ -8,18 +8,25 @@ import { share } from "#/utils/share";
 interface ShareFooterProps {
 	restaurantId: string;
 	restaurantName: string;
+	restaurantAddress: string;
 	pageId: string;
 }
 
 export const ShareFooter = ({
 	restaurantId,
 	restaurantName,
+	restaurantAddress,
 	pageId,
 }: ShareFooterProps) => {
 	const handleShare = () => {
-		trackShareClick({ page_id: pageId, share_location: "Footer" });
+		trackShareClick({
+			page_id: pageId,
+			share_location: "식당 상세 하단 공유 버튼",
+		});
+		// share 유틸의 join("\n") 로직 상, 첫 줄과 본문 사이 빈 줄을 만들기 위해 text 앞에 \n 한 번 더 둔다.
 		share({
-			title: restaurantName,
+			title: "[요기잇]",
+			text: `\n${restaurantName}\n${restaurantAddress}`,
 			url: `${window.location.origin}/restaurants/${restaurantId}`,
 		});
 	};

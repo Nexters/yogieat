@@ -61,6 +61,7 @@ export const RestaurantDetailPage = () => {
 			<ShareFooter
 				restaurantId={id}
 				restaurantName={restaurant.restaurantName}
+				restaurantAddress={restaurant.address}
 				pageId={PAGE_ID}
 			/>
 
