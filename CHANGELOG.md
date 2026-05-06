@@ -5,6 +5,12 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.0-beta.3](https://github.com/Nexters/yogieat/compare/v2.7.0-beta.2...v2.7.0-beta.3) (2026-05-06)
+
+### Features
+
+* 약속 장소 섹션 캐러셀 UI 개편 ([#137](https://github.com/Nexters/yogieat/issues/137)) ([c77b04a](https://github.com/Nexters/yogieat/commit/c77b04a77e3d74650af5f613631fd78e9aa51e77))
+
 ## [2.7.0-beta.2](https://github.com/Nexters/yogieat/compare/v2.7.0-beta.1...v2.7.0-beta.2) (2026-05-04)
 
 ### Code Refactoring
