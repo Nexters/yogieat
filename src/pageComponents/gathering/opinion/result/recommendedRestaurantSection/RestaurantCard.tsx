@@ -13,6 +13,9 @@ interface RestaurantCardProps {
 }
 
 export const RestaurantCard = ({ restaurant }: RestaurantCardProps) => {
+	const categoryLabel = CATEGORY_LABEL[restaurant.largeCategory];
+	const aiTitle = restaurant.aiMateSummaryTitle?.trim();
+
 	const handleClick = () => {
 		trackRestaurantClick({
 			page_id: "추천_결과",
@@ -21,9 +24,6 @@ export const RestaurantCard = ({ restaurant }: RestaurantCardProps) => {
 			rank_type: "other",
 		});
 	};
-
-	const categoryLabel = CATEGORY_LABEL[restaurant.largeCategory];
-	const aiTitle = restaurant.aiMateSummaryTitle?.trim();
 
 	return (
 		<Link

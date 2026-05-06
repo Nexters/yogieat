@@ -9,8 +9,6 @@ interface RecommendedRestaurantSectionProps {
 	initialList: Restaurant[];
 }
 
-const MAX_REROLL_COUNT = 2;
-
 export const RecommendedRestaurantSection = ({
 	accessKey,
 	initialList,
@@ -28,7 +26,7 @@ export const RecommendedRestaurantSection = ({
 				<RestaurantCarousel
 					accessKey={accessKey}
 					initialList={initialList}
-					maxRerollCount={MAX_REROLL_COUNT}
+					maxRerollCount={2}
 				/>
 			</div>
 		</section>

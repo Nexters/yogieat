@@ -27,7 +27,7 @@ export const RestaurantCarousel = ({
 	initialList,
 	maxRerollCount,
 }: RestaurantCarouselProps) => {
-	const { pages, prefetchPage, totalPages } = useRerollRestaurants({
+	const { pages, totalPages, prefetchPage } = useRerollRestaurants({
 		accessKey,
 		initialList,
 		maxRerollCount,
@@ -38,9 +38,50 @@ export const RestaurantCarousel = ({
 	const visibilityRatiosRef = useRef<Map<number, number>>(new Map());
 	const [currentPage, setCurrentPage] = useState(0);
 
-	// IntersectionObserver: 가장 많이 보이는 페이지를 currentPage 로.
-	// callback 의 entries 는 변화가 있었던 페이지만 포함하므로, 누적 Map 에 기록한 뒤
-	// 모든 페이지의 누적 ratio 중 최댓값을 선정한다.
+	const lastReadyPage = useMemo(() => {
+		let last = 0;
+		for (let i = 1; i < pages.length; i += 1) {
+			if (pages[i].status === "ready") last = i;
+			else break;
+		}
+		return last;
+	}, [pages]);
+
+	const scrollToPage = useCallback((pageIndex: number) => {
+		const track = trackRef.current;
+		if (!track) return;
+		const pageWidth = track.clientWidth;
+		track.scrollTo({ left: pageIndex * pageWidth, behavior: "smooth" });
+	}, []);
+
+	const handlePrev = useCallback(() => {
+		if (currentPage <= 0) return;
+		scrollToPage(currentPage - 1);
+	}, [currentPage, scrollToPage]);
+
+	const handleNext = useCallback(() => {
+		const nextIndex = currentPage + 1;
+		if (nextIndex >= totalPages) return;
+		scrollToPage(nextIndex);
+	}, [currentPage, scrollToPage, totalPages]);
+
+	const handleKeyDown = useCallback(
+		(event: KeyboardEvent<HTMLDivElement>) => {
+			if (event.key === "ArrowLeft") {
+				event.preventDefault();
+				handlePrev();
+			} else if (event.key === "ArrowRight") {
+				event.preventDefault();
+				handleNext();
+			}
+		},
+		[handleNext, handlePrev],
+	);
+
+	useEffect(() => {
+		prefetchPage(lastReadyPage + 1);
+	}, [lastReadyPage, prefetchPage]);
+
 	useEffect(() => {
 		const ratios = visibilityRatiosRef.current;
 		const observer = new IntersectionObserver(
@@ -81,63 +122,8 @@ export const RestaurantCarousel = ({
 		};
 	}, [totalPages]);
 
-	// 마지막 도달 가능한 페이지: 0 (initialList 는 항상 ready) 부터 연속해서 ready 인 마지막 인덱스
-	const lastReadyPage = useMemo(() => {
-		let last = 0;
-		for (let i = 1; i < pages.length; i += 1) {
-			if (pages[i].status === "ready") last = i;
-			else break;
-		}
-		return last;
-	}, [pages]);
-
-	// "다음에 fetch 해야 할 페이지" = lastReadyPage + 1 만 호출 시도. 직렬 의존성을 자연스럽게 표현하며,
-	// 사용자가 페이지 1 loading 중에 페이지 2 로 빠르게 swipe 한 경우에도 페이지 1 이 ready 가 되는 시점에
-	// 자동으로 페이지 2 가 호출된다.
-	useEffect(() => {
-		prefetchPage(lastReadyPage + 1);
-	}, [lastReadyPage, prefetchPage]);
-
-	const scrollToPage = useCallback((pageIndex: number) => {
-		const track = trackRef.current;
-		if (!track) return;
-		const pageWidth = track.clientWidth;
-		track.scrollTo({ left: pageIndex * pageWidth, behavior: "smooth" });
-	}, []);
-
-	const handlePrev = useCallback(() => {
-		if (currentPage <= 0) return;
-		scrollToPage(currentPage - 1);
-	}, [currentPage, scrollToPage]);
-
-	const handleNext = useCallback(() => {
-		const nextIndex = currentPage + 1;
-		if (nextIndex >= totalPages) return;
-		scrollToPage(nextIndex);
-	}, [currentPage, scrollToPage, totalPages]);
-
-	const handleKeyDown = useCallback(
-		(event: KeyboardEvent<HTMLDivElement>) => {
-			if (event.key === "ArrowLeft") {
-				event.preventDefault();
-				handlePrev();
-			} else if (event.key === "ArrowRight") {
-				event.preventDefault();
-				handleNext();
-			}
-		},
-		[handleNext, handlePrev],
-	);
-
 	return (
 		<div className="ygi:flex ygi:flex-col ygi:gap-3">
-			{/*
-			 * 박스 padding(p-4 = 16px) 을 좌우로 상쇄(-mx-4)해 컨테이너의 좌우 끝이
-			 * 흰 박스 boundary 와 정확히 일치하게 만든다. 그러면 화살표를 이 컨테이너의
-			 * 좌/우 끝(left-0 / right-0)에 두고 ±translate-x-1/2 로 자기 너비의 절반만
-			 * 이동시키는 것만으로 박스 border 에 절반씩 걸치는 위치가 표현된다.
-			 * 트랙(scroll area) 에는 다시 px-4 를 줘서 카드 너비는 변경되지 않는다.
-			 */}
 			<div className="ygi:group/carousel ygi:relative ygi:-mx-4">
 				<div
 					ref={trackRef}
