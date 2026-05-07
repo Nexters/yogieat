@@ -2,13 +2,14 @@
 
 import { twJoin } from "tailwind-merge";
 
-import { trackShareClick } from "#/components/analytics";
+import { trackCtaClick, trackShareClick } from "#/components/analytics";
 import { share } from "#/utils/share";
 
 interface ShareFooterProps {
 	restaurantId: string;
 	restaurantName: string;
 	restaurantAddress: string;
+	phoneNumber: string | null;
 	pageId: string;
 }
 
@@ -16,6 +17,7 @@ export const ShareFooter = ({
 	restaurantId,
 	restaurantName,
 	restaurantAddress,
+	phoneNumber,
 	pageId,
 }: ShareFooterProps) => {
 	const handleShare = () => {
@@ -29,6 +31,23 @@ export const ShareFooter = ({
 			url: `${window.location.origin}/restaurants/${restaurantId}`,
 		});
 	};
+
+	const hasPhone = phoneNumber !== null && phoneNumber.trim() !== "";
+
+	const shareButtonClass = twJoin(
+		"ygi:flex ygi:h-14 ygi:items-center ygi:justify-center",
+		"ygi:rounded-md ygi:bg-button-primary",
+		"ygi:heading-18-bd ygi:text-text-inverse",
+		"ygi:cursor-pointer",
+	);
+
+	const phoneButtonClass = twJoin(
+		"ygi:flex ygi:h-14 ygi:items-center ygi:justify-center",
+		"ygi:rounded-md ygi:bg-surface-white",
+		"ygi:border ygi:border-border-default",
+		"ygi:heading-18-bd ygi:text-text-primary",
+		"ygi:cursor-pointer",
+	);
 
 	return (
 		<footer
@@ -44,18 +63,43 @@ export const ShareFooter = ({
 				)}
 			>
 				<div className="ygi:px-6 ygi:py-4">
-					<button
-						type="button"
-						onClick={handleShare}
-						className={twJoin(
-							"ygi:flex ygi:h-14 ygi:w-full ygi:items-center ygi:justify-center",
-							"ygi:rounded-md ygi:bg-button-primary",
-							"ygi:heading-18-bd ygi:text-text-inverse",
-							"ygi:cursor-pointer",
-						)}
-					>
-						공유하기
-					</button>
+					{hasPhone ? (
+						<div className="ygi:flex ygi:gap-2">
+							<button
+								type="button"
+								onClick={handleShare}
+								className={twJoin(
+									shareButtonClass,
+									"ygi:flex-1",
+								)}
+							>
+								공유하기
+							</button>
+							<a
+								href={`tel:${phoneNumber}`}
+								onClick={() =>
+									trackCtaClick({
+										page_id: pageId,
+										button_name: "전화하기",
+									})
+								}
+								className={twJoin(
+									phoneButtonClass,
+									"ygi:flex-1",
+								)}
+							>
+								전화하기
+							</a>
+						</div>
+					) : (
+						<button
+							type="button"
+							onClick={handleShare}
+							className={twJoin(shareButtonClass, "ygi:w-full")}
+						>
+							공유하기
+						</button>
+					)}
 				</div>
 			</div>
 		</footer>

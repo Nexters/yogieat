@@ -69,6 +69,7 @@ export const RestaurantDetailPage = () => {
 				restaurantId={id}
 				restaurantName={restaurant.restaurantName}
 				restaurantAddress={restaurant.address}
+				phoneNumber={restaurant.phoneNumber}
 				pageId={PAGE_ID}
 			/>
 
