@@ -5,6 +5,12 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.0-beta.6](https://github.com/Nexters/yogieat/compare/v2.7.0-beta.5...v2.7.0-beta.6) (2026-05-07)
+
+### Bug Fixes
+
+* **ci:** allowlist sharp and unrs-resolver build scripts ([#139](https://github.com/Nexters/yogieat/issues/139)) ([6399273](https://github.com/Nexters/yogieat/commit/639927351b25c5f5394a5ef630b2989326586ed9))
+
 ## [2.7.0-beta.5](https://github.com/Nexters/yogieat/compare/v2.7.0-beta.4...v2.7.0-beta.5) (2026-05-07)
 
 ### Features
