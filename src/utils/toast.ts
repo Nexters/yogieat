@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-
 import {
 	toast as sonnerToast,
 	type ExternalToast as SonnerToastOptions,
