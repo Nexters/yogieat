@@ -24,6 +24,8 @@ export interface RestaurantDetail {
 	representMenu: string | null;
 	representMenuPrice: number | null;
 	representativeReview: string | null;
+	/** 전화번호. 서버에서 "010-1234-5678" 형태의 dash-separated 문자열로 응답. */
+	phoneNumber: string | null;
 	reviewCount: number;
 	aiMateSummaryTitle: string | null;
 	aiMateSummaryContents: string[];

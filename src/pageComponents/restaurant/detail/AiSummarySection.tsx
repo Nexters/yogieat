@@ -12,7 +12,7 @@ export const AiSummarySection = ({ restaurant }: AiSummarySectionProps) => {
 	}
 
 	return (
-		<section className="ygi:flex ygi:flex-col ygi:gap-3 ygi:bg-surface-white ygi:px-5 ygi:py-4">
+		<section className="ygi:flex ygi:flex-col ygi:gap-3 ygi:px-5 ygi:py-4">
 			<div className="ygi:flex ygi:flex-col ygi:gap-0.5">
 				<span className="ygi:caption-12-md ygi:text-text-secondary">
 					AI 추천 요약

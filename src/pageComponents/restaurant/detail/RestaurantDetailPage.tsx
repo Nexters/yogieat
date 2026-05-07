@@ -50,10 +50,17 @@ export const RestaurantDetailPage = () => {
 			<Layout.Content background="gray">
 				<div className="ygi:flex ygi:flex-col ygi:gap-2">
 					<HeroImageSection restaurant={restaurant} />
-					<OverviewSection restaurant={restaurant} />
-					<AiSummarySection restaurant={restaurant} />
-					<PriceLevelSection restaurant={restaurant} />
-					<RepresentMenuSection restaurant={restaurant} />
+
+					<div className="ygi:flex ygi:flex-col ygi:divide-y ygi:divide-dashed ygi:divide-border-default ygi:bg-surface-white">
+						<OverviewSection restaurant={restaurant} />
+						<AiSummarySection restaurant={restaurant} />
+					</div>
+
+					<div className="ygi:flex ygi:flex-col ygi:divide-y ygi:divide-dashed ygi:divide-border-default ygi:bg-surface-white">
+						<PriceLevelSection restaurant={restaurant} />
+						<RepresentMenuSection restaurant={restaurant} />
+					</div>
+
 					<ReviewSection restaurant={restaurant} />
 				</div>
 			</Layout.Content>
@@ -62,6 +69,7 @@ export const RestaurantDetailPage = () => {
 				restaurantId={id}
 				restaurantName={restaurant.restaurantName}
 				restaurantAddress={restaurant.address}
+				phoneNumber={restaurant.phoneNumber}
 				pageId={PAGE_ID}
 			/>
 
