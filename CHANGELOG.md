@@ -5,6 +5,12 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.0-beta.5](https://github.com/Nexters/yogieat/compare/v2.7.0-beta.4...v2.7.0-beta.5) (2026-05-07)
+
+### Features
+
+* RegionStep에 지역 요청 Banner 및 Dialog 추가 ([#133](https://github.com/Nexters/yogieat/issues/133)) ([b61ba13](https://github.com/Nexters/yogieat/commit/b61ba13bf23a01b8e3f1eac482d9954a562ed0c5))
+
 ## [2.7.0-beta.4](https://github.com/Nexters/yogieat/compare/v2.7.0-beta.3...v2.7.0-beta.4) (2026-05-07)
 
 ### Features
