@@ -106,7 +106,9 @@ export const RegionStepFooter = ({ isPending }: RegionStepFooterProps) => {
 					title="원하는 지역을 입력해 주세요"
 					description="원하는 지역 요청 다이얼로그"
 				>
-					<RegionRequestDialog onClose={() => setIsDialogOpen(false)} />
+					<RegionRequestDialog
+						onClose={() => setIsDialogOpen(false)}
+					/>
 				</Dialog.Content>
 			</Dialog.Root>
 			<Layout.Footer>

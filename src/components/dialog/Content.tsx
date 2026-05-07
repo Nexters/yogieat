@@ -27,7 +27,11 @@ export const Content = ({
 							initial={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
 							exit={{ opacity: 0 }}
-							transition={{ type: "tween", duration: 0.2, ease: "easeInOut" }}
+							transition={{
+								type: "tween",
+								duration: 0.2,
+								ease: "easeInOut",
+							}}
 							className="ygi:fixed ygi:inset-0 ygi:z-50 ygi:bg-bg-dim"
 						/>
 					</RadixDialog.Overlay>
@@ -36,9 +40,13 @@ export const Content = ({
 							initial={{ opacity: 0, scale: 0.95 }}
 							animate={{ opacity: 1, scale: 1 }}
 							exit={{ opacity: 0, scale: 0.95 }}
-							transition={{ type: "tween", duration: 0.2, ease: "easeInOut" }}
+							transition={{
+								type: "tween",
+								duration: 0.2,
+								ease: "easeInOut",
+							}}
 							className={twJoin(
-								"ygi:fixed ygi:left-1/2 ygi:top-1/2 ygi:-translate-x-1/2 ygi:-translate-y-1/2",
+								"ygi:fixed ygi:top-1/2 ygi:left-1/2 ygi:-translate-x-1/2 ygi:-translate-y-1/2",
 								"ygi:z-50 ygi:w-[327px]",
 								"ygi:rounded-[20px] ygi:bg-bg-white ygi:p-6",
 								"focus:ygi:outline-none",

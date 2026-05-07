@@ -49,11 +49,14 @@ export const RegionRequestDialog = ({ onClose }: RegionRequestDialogProps) => {
 							className="ygi:flex ygi:shrink-0 ygi:cursor-pointer ygi:items-center ygi:justify-center ygi:p-1.5"
 							aria-label="닫기"
 						>
-							<XIcon size={10} className="ygi:text-text-primary" />
+							<XIcon
+								size={10}
+								className="ygi:text-text-primary"
+							/>
 						</button>
 					</Dialog.Close>
 				</div>
-				<p className="ygi:body-14-md ygi:text-text-secondary ygi:whitespace-pre-line">
+				<p className="ygi:body-14-md ygi:whitespace-pre-line ygi:text-text-secondary">
 					{`입력해주신 지역을 참고해서 더 좋은 맛집을\n추천해드릴게요.`}
 				</p>
 			</div>
