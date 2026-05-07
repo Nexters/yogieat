@@ -5,6 +5,12 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.0-beta.4](https://github.com/Nexters/yogieat/compare/v2.7.0-beta.3...v2.7.0-beta.4) (2026-05-07)
+
+### Features
+
+* 식당 상세 시안 정렬 및 전화하기 CTA 추가 ([#138](https://github.com/Nexters/yogieat/issues/138)) ([b675fc4](https://github.com/Nexters/yogieat/commit/b675fc4a7b459e85dfccd549dcd7693f0ea000ee))
+
 ## [2.7.0-beta.3](https://github.com/Nexters/yogieat/compare/v2.7.0-beta.2...v2.7.0-beta.3) (2026-05-06)
 
 ### Features
