@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import {
 	toast as sonnerToast,
 	type ExternalToast as SonnerToastOptions,
@@ -8,10 +9,10 @@ import { AlertCircleIcon } from "#/icons/alertCircleIcon";
 type ToastOptions = Omit<SonnerToastOptions, "classNames">;
 
 export const toast = {
-	success: (message: string, options?: ToastOptions) => {
+	success: (message: string | ReactNode, options?: ToastOptions) => {
 		sonnerToast(message, {
 			classNames: {
-				toast: "ygi:bg-button-primary! ygi:text-text-inverse! ygi:break-keep! ygi:body-14-md! ygi:rounded-sm! ygi:py-3! ygi:px-5! ygi:flex! ygi:items-center! ygi:justify-center! ygi:border-none!",
+				toast: "ygi:bg-button-primary! ygi:text-text-inverse! ygi:break-keep! ygi:body-14-md! ygi:rounded-sm! ygi:py-3! ygi:px-5! ygi:flex! ygi:items-start! ygi:border-none!",
 			},
 			duration: options?.duration,
 			...options,
