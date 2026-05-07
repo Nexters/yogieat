@@ -5,6 +5,17 @@ import { twJoin } from "tailwind-merge";
 import { trackCtaClick, trackShareClick } from "#/components/analytics";
 import { share } from "#/utils/share";
 
+const baseButtonClass = twJoin(
+	"ygi:flex ygi:h-14 ygi:items-center ygi:justify-center",
+	"ygi:rounded-md ygi:heading-18-bd",
+	"ygi:cursor-pointer",
+);
+
+// 시안 매핑: 두 버튼 케이스에서 공유하기는 tertiary, 전화하기는 primary 메인 CTA.
+// 단독 케이스(phoneNumber null)에서는 공유하기가 유일 액션이라 primary 로 회귀.
+const primaryVariantClass = "ygi:bg-button-primary ygi:text-text-inverse";
+const tertiaryVariantClass = "ygi:bg-palette-gray-200 ygi:text-button-primary";
+
 interface ShareFooterProps {
 	restaurantId: string;
 	restaurantName: string;
@@ -20,6 +31,8 @@ export const ShareFooter = ({
 	phoneNumber,
 	pageId,
 }: ShareFooterProps) => {
+	const hasPhone = phoneNumber !== null && phoneNumber.trim() !== "";
+
 	const handleShare = () => {
 		trackShareClick({
 			page_id: pageId,
@@ -32,19 +45,12 @@ export const ShareFooter = ({
 		});
 	};
 
-	const hasPhone = phoneNumber !== null && phoneNumber.trim() !== "";
-
-	const baseButtonClass = twJoin(
-		"ygi:flex ygi:h-14 ygi:items-center ygi:justify-center",
-		"ygi:rounded-md ygi:heading-18-bd",
-		"ygi:cursor-pointer",
-	);
-
-	// 시안 매핑: 두 버튼 케이스에서 공유하기는 tertiary, 전화하기는 primary 메인 CTA.
-	// 단독 케이스(phoneNumber null)에서는 공유하기가 유일 액션이라 primary 로 회귀.
-	const primaryVariantClass = "ygi:bg-button-primary ygi:text-text-inverse";
-	const tertiaryVariantClass =
-		"ygi:bg-palette-gray-200 ygi:text-button-primary";
+	const handleCallClick = () => {
+		trackCtaClick({
+			page_id: pageId,
+			button_name: "전화하기",
+		});
+	};
 
 	return (
 		<footer
@@ -75,12 +81,7 @@ export const ShareFooter = ({
 							</button>
 							<a
 								href={`tel:${phoneNumber}`}
-								onClick={() =>
-									trackCtaClick({
-										page_id: pageId,
-										button_name: "전화하기",
-									})
-								}
+								onClick={handleCallClick}
 								className={twJoin(
 									baseButtonClass,
 									primaryVariantClass,
