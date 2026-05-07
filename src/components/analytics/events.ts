@@ -94,10 +94,16 @@ export const trackShareClick = (params: {
  * 맛집 클릭 이벤트
  *
  * @example
- * trackRestaurantClick({ page_id: "추천_결과", restaurant_name: "맛집이름", rank_type: "top" });
+ * trackRestaurantClick({
+ *   page_id: "추천_결과",
+ *   restaurant_id: 444,
+ *   restaurant_name: "마루심 강남점",
+ *   rank_type: "top",
+ * });
  */
 export const trackRestaurantClick = (params: {
 	page_id: string;
+	restaurant_id: number;
 	restaurant_name: string;
 	rank_type: "top" | "other";
 }) => {

@@ -5,7 +5,9 @@ import { useState } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 
 import { trackStepComplete } from "#/components/analytics";
+import { Banner } from "#/components/banner";
 import { Button } from "#/components/button/Button";
+import { Dialog } from "#/components/dialog";
 import { DotsLoader } from "#/components/dotsLoader";
 import { Layout } from "#/components/layout";
 import { StepHeader } from "#/components/stepHeader";
@@ -15,6 +17,7 @@ import { useGetRegions, useGetRegionsByProvince } from "#/hooks/apis/region";
 import type { CreateMeetingFormSchema } from "#/schemas/gathering";
 
 import { RegionChip } from "./RegionChip";
+import { RegionRequestDialog } from "./RegionRequestDialog";
 
 export const RegionStepContent = () => {
 	const { data: regionsByProvince } = useGetRegionsByProvince();
@@ -69,6 +72,8 @@ export const RegionStepFooter = ({ isPending }: RegionStepFooterProps) => {
 		compute: (region) => !isNil(region),
 	});
 
+	const [isDialogOpen, setIsDialogOpen] = useState(false);
+
 	const handleClick = () => {
 		const region = getValues("region");
 		const regionLabel = (region && regions.get(region)) || "-";
@@ -80,18 +85,45 @@ export const RegionStepFooter = ({ isPending }: RegionStepFooterProps) => {
 	};
 
 	return (
-		<Layout.Footer>
-			<div className="ygi:px-6">
-				<Button
-					type="submit"
-					variant="primary"
-					width="full"
-					disabled={!isValid || isPending}
-					onClick={handleClick}
+		<>
+			<Dialog.Root open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+				<div className="ygi:fixed ygi:bottom-layout-footer-height ygi:left-0 ygi:z-layout-footer ygi:flex ygi:w-full ygi:justify-center">
+					<div className="ygi:w-full ygi:max-w-root-layout ygi:bg-bg-white ygi:px-6 ygi:pb-6">
+						<Banner.Root
+							as="button"
+							className="ygi:cursor-pointer"
+							onClick={() => setIsDialogOpen(true)}
+						>
+							<Banner.Text className="ygi:text-left">
+								원하는 지역이 있다면 말씀해 주세요!
+							</Banner.Text>
+							<Banner.Chevron />
+						</Banner.Root>
+					</div>
+				</div>
+				<Dialog.Content
+					open={isDialogOpen}
+					title="원하는 지역을 입력해 주세요"
+					description="원하는 지역 요청 다이얼로그"
 				>
-					{isPending ? <DotsLoader /> : "완료"}
-				</Button>
-			</div>
-		</Layout.Footer>
+					<RegionRequestDialog
+						onClose={() => setIsDialogOpen(false)}
+					/>
+				</Dialog.Content>
+			</Dialog.Root>
+			<Layout.Footer>
+				<div className="ygi:px-6">
+					<Button
+						type="submit"
+						variant="primary"
+						width="full"
+						disabled={!isValid || isPending}
+						onClick={handleClick}
+					>
+						{isPending ? <DotsLoader /> : "완료"}
+					</Button>
+				</div>
+			</Layout.Footer>
+		</>
 	);
 };

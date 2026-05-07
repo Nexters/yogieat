@@ -1,13 +1,21 @@
 "use client";
 
 import { useMutationState } from "@tanstack/react-query";
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 
 import { recommendResultMutationKeys } from "#/apis/recommendResult";
 import type { RerollRecommendResultResponse } from "#/apis/recommendResult";
 import { useRerollRecommendResult } from "#/hooks/apis/recommendResult";
 import type { Restaurant } from "#/types/gathering";
 import type { ApiResponse } from "#/utils/api/types";
+import { toast } from "#/utils/toast";
+
+type PageStatus = "ready" | "loading" | "error";
+
+interface CarouselPage {
+	status: PageStatus;
+	restaurants: Restaurant[];
+}
 
 interface UseRerollRestaurantsProps {
 	accessKey: string;
@@ -15,45 +23,117 @@ interface UseRerollRestaurantsProps {
 	maxRerollCount: number;
 }
 
+interface UseRerollRestaurantsReturn {
+	pages: CarouselPage[];
+	prefetchPage: (pageIndex: number) => void;
+	totalPages: number;
+}
+
+interface MutationSnapshot {
+	status: "pending" | "success" | "error" | "idle";
+	data: ApiResponse<RerollRecommendResultResponse> | undefined;
+}
+
 export const useRerollRestaurants = ({
 	accessKey,
 	initialList,
 	maxRerollCount,
-}: UseRerollRestaurantsProps) => {
-	const { mutate, isPending } = useRerollRecommendResult(accessKey);
+}: UseRerollRestaurantsProps): UseRerollRestaurantsReturn => {
+	const { mutate } = useRerollRecommendResult(accessKey);
 
-	// 성공한 reroll 결과 이력을 TanStack Query 캐시에서 직접 읽음
-	// → isMaxReached 가 isPending 과 동일 렌더 사이클에서 업데이트되어 race condition 없음
-	const successfulRerolls = useMutationState({
+	const totalPages = maxRerollCount + 1;
+	const allRerollMutations = useMutationState<MutationSnapshot>({
 		filters: {
 			mutationKey: recommendResultMutationKeys.reroll(accessKey),
-			status: "success",
 		},
-		select: (mutation) =>
-			mutation.state.data as ApiResponse<RerollRecommendResultResponse>,
+		select: (mutation) => ({
+			status: mutation.state.status,
+			data: mutation.state.data as
+				| ApiResponse<RerollRecommendResultResponse>
+				| undefined,
+		}),
 	});
 
-	const isMaxReached = successfulRerolls.length >= maxRerollCount;
+	const pages: CarouselPage[] = useMemo(() => {
+		return Array.from({ length: totalPages }, (_, pageIndex) => {
+			if (pageIndex === 0) {
+				return { status: "ready", restaurants: initialList };
+			}
+			const mutation = allRerollMutations[pageIndex - 1];
+			if (!mutation) {
+				return { status: "loading", restaurants: [] };
+			}
+			const fetchedList =
+				mutation.status === "success"
+					? mutation.data?.data?.list
+					: undefined;
+			if (fetchedList) {
+				return { status: "ready", restaurants: fetchedList };
+			}
+			if (mutation.status === "error") {
+				return { status: "error", restaurants: [] };
+			}
+			return { status: "loading", restaurants: [] };
+		});
+	}, [allRerollMutations, initialList, totalPages]);
 
-	const displayList = useMemo(
-		() => [
-			...initialList,
-			...successfulRerolls.flatMap((result) => result.data.list),
-		],
-		[initialList, successfulRerolls],
+	const notifiedErrorIndicesRef = useRef<Set<number>>(new Set());
+	const inFlightRef = useRef<Set<number>>(new Set());
+
+	const prefetchPage = useCallback(
+		(pageIndex: number) => {
+			if (pageIndex <= 0 || pageIndex >= totalPages) return;
+
+			const targetPage = pages[pageIndex];
+			const previousPage = pages[pageIndex - 1];
+			if (!targetPage || !previousPage) return;
+			if (previousPage.status !== "ready") return;
+			if (targetPage.status === "ready") return;
+
+			const mutation = allRerollMutations[pageIndex - 1];
+			if (mutation && mutation.status === "pending") return;
+
+			if (inFlightRef.current.has(pageIndex)) return;
+			inFlightRef.current.add(pageIndex);
+
+			const accumulatedIds = pages
+				.slice(0, pageIndex)
+				.flatMap((page) =>
+					page.restaurants.map(
+						(restaurant) => restaurant.restaurantId,
+					),
+				);
+			mutate(
+				{ accessKey, restaurantIds: accumulatedIds },
+				{
+					onSettled: () => {
+						inFlightRef.current.delete(pageIndex);
+					},
+				},
+			);
+		},
+		[accessKey, allRerollMutations, mutate, pages, totalPages],
 	);
 
-	const handleReroll = useCallback(() => {
-		if (isMaxReached || isPending) return;
+	useEffect(() => {
+		pages.forEach((page, pageIndex) => {
+			if (
+				page.status === "error" &&
+				!notifiedErrorIndicesRef.current.has(pageIndex)
+			) {
+				toast.warning(
+					"맛집을 더 불러오지 못했어요. 잠시 후 다시 시도해주세요.",
+				);
+				notifiedErrorIndicesRef.current.add(pageIndex);
+			}
+			if (
+				page.status === "ready" &&
+				notifiedErrorIndicesRef.current.has(pageIndex)
+			) {
+				notifiedErrorIndicesRef.current.delete(pageIndex);
+			}
+		});
+	}, [pages]);
 
-		const excludedIds = displayList.map((r) => r.restaurantId);
-		mutate({ accessKey, restaurantIds: excludedIds });
-	}, [accessKey, displayList, isMaxReached, isPending, mutate]);
-
-	return {
-		displayList,
-		isMaxReached,
-		isPending,
-		handleReroll,
-	};
+	return { pages, prefetchPage, totalPages };
 };
