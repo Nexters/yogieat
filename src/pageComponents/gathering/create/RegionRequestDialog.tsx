@@ -1,12 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { toast } from "sonner";
 
+import { submitRegionRequest } from "#/actions/region";
 import { Button } from "#/components/button/Button";
 import { Dialog } from "#/components/dialog";
 import { Input } from "#/components/inputField";
+import { CheckCircleFilledIcon } from "#/icons/checkCircleFilledIcon";
 import { XIcon } from "#/icons/xIcon";
+import { toast } from "#/utils/toast";
 
 const MAX_LENGTH = 18;
 
@@ -17,9 +19,21 @@ interface RegionRequestDialogProps {
 export const RegionRequestDialog = ({ onClose }: RegionRequestDialogProps) => {
 	const [value, setValue] = useState("");
 
-	const handleSubmit = () => {
-		toast("원하는 지역 요청이 접수되었어요!");
+	const handleSubmit = async () => {
+		await submitRegionRequest(value.trim());
 		onClose();
+		toast.success(
+			<>
+				의견을 남겨주셔서 감사합니다!
+				<br />
+				입력해주신 지역을 참고해 더 좋은 추천을 준비할게요.
+			</>,
+			{
+				icon: (
+					<CheckCircleFilledIcon className="ygi:text-palette-secondary-700" />
+				),
+			},
+		);
 	};
 
 	return (
