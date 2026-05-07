@@ -16,7 +16,7 @@ export const RepresentMenuSection = ({
 	}
 
 	return (
-		<section className="ygi:flex ygi:flex-col ygi:gap-1 ygi:bg-surface-white ygi:px-5 ygi:py-4">
+		<section className="ygi:flex ygi:flex-col ygi:gap-1 ygi:px-5 ygi:py-4">
 			<span className="ygi:caption-12-md ygi:text-text-secondary">
 				먹어야 할 대표 음식
 			</span>

@@ -19,7 +19,7 @@ export const OverviewSection = ({ restaurant }: OverviewSectionProps) => {
 	const aiLine = restaurant.aiMateSummaryContents.join(" · ");
 
 	return (
-		<section className="ygi:flex ygi:flex-col ygi:gap-2 ygi:bg-surface-white ygi:px-5 ygi:py-4">
+		<section className="ygi:flex ygi:flex-col ygi:gap-2 ygi:px-5 ygi:py-4">
 			<div className="ygi:flex ygi:items-center ygi:gap-2">
 				<h1 className="ygi:heading-18-bd ygi:text-text-primary">
 					{restaurant.restaurantName}
