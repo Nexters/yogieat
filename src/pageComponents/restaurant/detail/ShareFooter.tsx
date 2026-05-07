@@ -34,20 +34,17 @@ export const ShareFooter = ({
 
 	const hasPhone = phoneNumber !== null && phoneNumber.trim() !== "";
 
-	const shareButtonClass = twJoin(
+	const baseButtonClass = twJoin(
 		"ygi:flex ygi:h-14 ygi:items-center ygi:justify-center",
-		"ygi:rounded-md ygi:bg-button-primary",
-		"ygi:heading-18-bd ygi:text-text-inverse",
+		"ygi:rounded-md ygi:heading-18-bd",
 		"ygi:cursor-pointer",
 	);
 
-	const phoneButtonClass = twJoin(
-		"ygi:flex ygi:h-14 ygi:items-center ygi:justify-center",
-		"ygi:rounded-md ygi:bg-surface-white",
-		"ygi:border ygi:border-border-default",
-		"ygi:heading-18-bd ygi:text-text-primary",
-		"ygi:cursor-pointer",
-	);
+	// 시안 매핑: 두 버튼 케이스에서 공유하기는 tertiary, 전화하기는 primary 메인 CTA.
+	// 단독 케이스(phoneNumber null)에서는 공유하기가 유일 액션이라 primary 로 회귀.
+	const primaryVariantClass = "ygi:bg-button-primary ygi:text-text-inverse";
+	const tertiaryVariantClass =
+		"ygi:bg-palette-gray-200 ygi:text-button-primary";
 
 	return (
 		<footer
@@ -69,7 +66,8 @@ export const ShareFooter = ({
 								type="button"
 								onClick={handleShare}
 								className={twJoin(
-									shareButtonClass,
+									baseButtonClass,
+									tertiaryVariantClass,
 									"ygi:flex-1",
 								)}
 							>
@@ -84,7 +82,8 @@ export const ShareFooter = ({
 									})
 								}
 								className={twJoin(
-									phoneButtonClass,
+									baseButtonClass,
+									primaryVariantClass,
 									"ygi:flex-1",
 								)}
 							>
@@ -95,7 +94,11 @@ export const ShareFooter = ({
 						<button
 							type="button"
 							onClick={handleShare}
-							className={twJoin(shareButtonClass, "ygi:w-full")}
+							className={twJoin(
+								baseButtonClass,
+								primaryVariantClass,
+								"ygi:w-full",
+							)}
 						>
 							공유하기
 						</button>
