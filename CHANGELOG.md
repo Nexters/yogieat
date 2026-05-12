@@ -5,6 +5,27 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.0](https://github.com/Nexters/yogieat/compare/v2.6.0...v2.7.0) (2026-05-12)
+
+### Features
+
+* RegionStep에 지역 요청 Banner 및 Dialog 추가 ([#133](https://github.com/Nexters/yogieat/issues/133)) ([b61ba13](https://github.com/Nexters/yogieat/commit/b61ba13bf23a01b8e3f1eac482d9954a562ed0c5))
+* 식당 상세 시안 정렬 및 전화하기 CTA 추가 ([#138](https://github.com/Nexters/yogieat/issues/138)) ([b675fc4](https://github.com/Nexters/yogieat/commit/b675fc4a7b459e85dfccd549dcd7693f0ea000ee))
+* 식당 상세 페이지 신규 구현 ([#134](https://github.com/Nexters/yogieat/issues/134)) ([055841c](https://github.com/Nexters/yogieat/commit/055841c02b7aa74162ec40566cc4b783a7a0672d))
+* 약속 장소 섹션 캐러셀 UI 개편 ([#137](https://github.com/Nexters/yogieat/issues/137)) ([c77b04a](https://github.com/Nexters/yogieat/commit/c77b04a77e3d74650af5f613631fd78e9aa51e77))
+
+### Bug Fixes
+
+* certbot 컨테이너 제거 후 호스트 certbot 방식으로 전환 ([a104bfb](https://github.com/Nexters/yogieat/commit/a104bfb293b1cf22a255fcad2180251fcd8772ed))
+* **ci:** allowlist sharp and unrs-resolver build scripts ([#139](https://github.com/Nexters/yogieat/issues/139)) ([6399273](https://github.com/Nexters/yogieat/commit/639927351b25c5f5394a5ef630b2989326586ed9))
+* **ci:** move pnpm build allowlist to pnpm-workspace.yaml ([#140](https://github.com/Nexters/yogieat/issues/140)) ([17ecd51](https://github.com/Nexters/yogieat/commit/17ecd517000d61405e5ef3dd9698caea04b8db15))
+* **ci:** pin pnpm to 10.13.1 via packageManager ([#141](https://github.com/Nexters/yogieat/issues/141)) ([e020a3c](https://github.com/Nexters/yogieat/commit/e020a3c42a077cff8065979d3b0a9ca042b7260e)), closes [#139](https://github.com/Nexters/yogieat/issues/139) [#140](https://github.com/Nexters/yogieat/issues/140)
+* **ci:** pnpm 버전 충돌 해결을 위해 워크플로우의 version 명시 제거 ([a5000af](https://github.com/Nexters/yogieat/commit/a5000af6e033b89da093c3c28a77a45bbf41ea53))
+
+### Code Refactoring
+
+* VoteSummarySection 거리 블록 숨김 및 디렉터리 분리 ([#136](https://github.com/Nexters/yogieat/issues/136)) ([31f9d13](https://github.com/Nexters/yogieat/commit/31f9d1378be24cf3aa8fd68f0e2438af6a56d3f2)), closes [#132](https://github.com/Nexters/yogieat/issues/132)
+
 ## [2.7.0-beta.6](https://github.com/Nexters/yogieat/compare/v2.7.0-beta.5...v2.7.0-beta.6) (2026-05-07)
 
 ### Bug Fixes
