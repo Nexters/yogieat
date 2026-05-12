@@ -5,6 +5,15 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.0-beta.7](https://github.com/Nexters/yogieat/compare/v2.7.0-beta.6...v2.7.0-beta.7) (2026-05-12)
+
+### Bug Fixes
+
+* certbot 컨테이너 제거 후 호스트 certbot 방식으로 전환 ([a104bfb](https://github.com/Nexters/yogieat/commit/a104bfb293b1cf22a255fcad2180251fcd8772ed))
+* **ci:** move pnpm build allowlist to pnpm-workspace.yaml ([#140](https://github.com/Nexters/yogieat/issues/140)) ([17ecd51](https://github.com/Nexters/yogieat/commit/17ecd517000d61405e5ef3dd9698caea04b8db15))
+* **ci:** pin pnpm to 10.13.1 via packageManager ([#141](https://github.com/Nexters/yogieat/issues/141)) ([e020a3c](https://github.com/Nexters/yogieat/commit/e020a3c42a077cff8065979d3b0a9ca042b7260e)), closes [#139](https://github.com/Nexters/yogieat/issues/139) [#140](https://github.com/Nexters/yogieat/issues/140)
+* **ci:** pnpm 버전 충돌 해결을 위해 워크플로우의 version 명시 제거 ([a5000af](https://github.com/Nexters/yogieat/commit/a5000af6e033b89da093c3c28a77a45bbf41ea53))
+
 ## [2.7.0-beta.6](https://github.com/Nexters/yogieat/compare/v2.7.0-beta.5...v2.7.0-beta.6) (2026-05-07)
 
 ### Bug Fixes
