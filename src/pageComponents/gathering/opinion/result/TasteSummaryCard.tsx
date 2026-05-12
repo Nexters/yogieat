@@ -1,10 +1,11 @@
 "use client";
 
+import Image from "next/image";
+
+import { CATEGORY, CATEGORY_LABEL } from "#/constants/gathering/opinion";
 import { CircleIcon } from "#/icons/circleIcon";
 import { XIcon } from "#/icons/xIcon";
-import { CATEGORY, CATEGORY_LABEL } from "#/constants/gathering/opinion";
 import type { Category } from "#/types/gathering";
-import Image from "next/image";
 
 // "ANY"를 제외한 구체적 카테고리 목록
 const foodCategories: Category[] = [
@@ -152,7 +153,7 @@ export const TasteSummaryCard = ({
 		<div className="ygi:flex ygi:flex-col ygi:gap-5 ygi:rounded-md ygi:bg-surface-white ygi:p-5">
 			{/* 캐릭터 일러스트 */}
 			<div className="ygi:relative ygi:h-30.25 ygi:w-full ygi:overflow-hidden ygi:rounded-md ygi:bg-surface-gray">
-				<div className="ygi:absolute ygi:bottom-0 ygi:left-1/2 ygi:h-26.5 ygi:w-52.75 ygi:-translate-x-1/2">
+				<div className="ygi:absolute ygi:bottom-0 ygi:left-1/2 ygi:h-23.75 ygi:w-52.75 ygi:-translate-x-1/2">
 					<Image
 						src="/images/result/taste-characters.png"
 						alt="캐릭터 일러스트"

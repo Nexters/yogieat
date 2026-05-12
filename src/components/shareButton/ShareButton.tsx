@@ -1,8 +1,9 @@
 "use client";
 
+import { useParams } from "next/navigation";
+
 import { Button, type ButtonProps } from "#/components/button";
 import { share } from "#/utils/share";
-import { useParams } from "next/navigation";
 
 export type ShareButtonProps = Omit<ButtonProps, "onClick"> & {
 	onShare?: () => void;

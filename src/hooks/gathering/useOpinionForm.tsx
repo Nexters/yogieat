@@ -1,23 +1,22 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import { compact } from "es-toolkit";
 import { useParams, useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 
-import { useCreateParticipant } from "#/hooks/apis";
+import { useCreateParticipant, useGetRecommendResult } from "#/hooks/apis";
 import { ToastLinkButton } from "#/pageComponents/gathering/opinion";
-import {
-	opinionFormSchema,
-	distanceRangeToKm,
-	type OpinionFormSchema,
-} from "#/schemas/gathering";
+import { opinionFormSchema, type OpinionFormSchema } from "#/schemas/gathering";
 import { ERROR_CODES, isApiError } from "#/utils/api";
 import { toast } from "#/utils/toast";
 
 export function useOpinionForm() {
 	const router = useRouter();
 	const { accessKey } = useParams<{ accessKey: string }>();
+
+	const { refetch: refetchRecommendResult } =
+		useGetRecommendResult(accessKey);
 	const { mutateAsync: createParticipant, isPending } =
 		useCreateParticipant();
 
@@ -26,7 +25,6 @@ export function useOpinionForm() {
 		resolver: zodResolver(opinionFormSchema),
 		defaultValues: {
 			nickname: "",
-			distanceRange: undefined,
 			dislikedCategories: [],
 			preferredCategories: {
 				first: undefined,
@@ -35,6 +33,11 @@ export function useOpinionForm() {
 			},
 		},
 	});
+
+	const handleClickShowResultButton = async () => {
+		await refetchRecommendResult();
+		router.push(`/gathering/${accessKey}/opinion/result`);
+	};
 
 	const handleSubmit = methods.handleSubmit(async (data) => {
 		try {
@@ -49,7 +52,7 @@ export function useOpinionForm() {
 				preferences,
 				nickname: data.nickname,
 				dislikes: data.dislikedCategories,
-				distance: distanceRangeToKm(data.distanceRange),
+				distance: null, // NOTE : 거리 스텝이 제거되어 ANY (null) 로 수정정
 			});
 			router.replace(`/gathering/${accessKey}/opinion/pending`);
 		} catch (error) {
@@ -62,11 +65,7 @@ export function useOpinionForm() {
 							action: (
 								<ToastLinkButton
 									label="추천 결과 보기"
-									onClick={() => {
-										router.push(
-											`/gathering/${accessKey}/opinion/result`,
-										);
-									}}
+									onClick={handleClickShowResultButton}
 								/>
 							),
 						});

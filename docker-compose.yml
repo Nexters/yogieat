@@ -51,10 +51,8 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - certbot_conf_dev:/etc/letsencrypt-dev
-      - certbot_www_dev:/var/www/certbot-dev
-      - certbot_conf_prod:/etc/letsencrypt-prod
-      - certbot_www_prod:/var/www/certbot-prod
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - /var/www/certbot:/var/www/certbot
     depends_on:
       - client-dev
       - client-prod
@@ -66,42 +64,8 @@ services:
       - "mode=unified"
     restart: on-failure
 
-  # Development Certbot
-  certbot-dev:
-    image: certbot/certbot:latest
-    container_name: yogieat-certbot-dev
-    volumes:
-      - certbot_conf_dev:/etc/letsencrypt
-      - certbot_www_dev:/var/www/certbot
-    networks:
-      - yogieat-dev-network
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
-    labels:
-      - "name=certbot-dev"
-      - "mode=development"
-
-  # Production Certbot
-  certbot-prod:
-    image: certbot/certbot:latest
-    container_name: yogieat-certbot-prod
-    volumes:
-      - certbot_conf_prod:/etc/letsencrypt
-      - certbot_www_prod:/var/www/certbot
-    networks:
-      - yogieat-prod-network
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
-    labels:
-      - "name=certbot-prod"
-      - "mode=production"
-
 networks:
   yogieat-dev-network:
     driver: bridge
   yogieat-prod-network:
     driver: bridge
-
-volumes:
-  certbot_conf_dev:
-  certbot_www_dev:
-  certbot_conf_prod:
-  certbot_www_prod:

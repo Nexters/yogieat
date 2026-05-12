@@ -85,6 +85,7 @@ jobs:
           echo "NEXT_PUBLIC_AWS_S3=${{ secrets.NEXT_PUBLIC_AWS_S3 }}" >> .env.production
           echo "NEXT_PUBLIC_GTM_ID=${{ secrets.NEXT_PUBLIC_GTM_ID }}" >> .env.production
           echo "NEXT_PUBLIC_GA_ID=${{ secrets.NEXT_PUBLIC_GA_ID }}" >> .env.production
+          echo "DISCORD_FEEDBACK_WEBHOOK_URL=${{ secrets.DISCORD_FEEDBACK_WEBHOOK_URL }}" >> .env.production
 
       - name: Build and Push Client image
         if: |

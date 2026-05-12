@@ -94,6 +94,7 @@ export type InputProps = Omit<ComponentProps<"input">, "size"> &
 		rightSlot?: ReactNode;
 		onClear?: () => void;
 		showClearButton?: boolean;
+		inputClassName?: string;
 	};
 
 export const Input = ({
@@ -104,6 +105,7 @@ export const Input = ({
 	isError = false,
 	disabled = false,
 	className,
+	inputClassName,
 	ref,
 	value,
 	defaultValue,
@@ -175,7 +177,7 @@ export const Input = ({
 				ref={inputRef}
 				disabled={disabled ?? false}
 				aria-invalid={isError ?? false}
-				className={inputVariants()}
+				className={twJoin(inputVariants(), inputClassName)}
 				value={isControlled ? value : undefined}
 				defaultValue={isControlled ? undefined : defaultValue}
 				onChange={handleChange}

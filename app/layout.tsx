@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+
 import { Analytics } from "#/components/analytics";
+
 import "./globals.css";
 
 const geistSans = Geist({
@@ -50,6 +52,7 @@ export const viewport: Viewport = {
 	width: "device-width",
 	initialScale: 1,
 	viewportFit: "cover",
+	interactiveWidget: "resizes-content",
 };
 
 export default function RootLayout({

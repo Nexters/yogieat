@@ -1,10 +1,11 @@
 import { z } from "zod";
 
-import { EVENT, type EventType } from "./types";
 import {
-	recommendResultCreatedSchema,
 	participantCountSchema,
+	recommendResultCreatedSchema,
 } from "#/schemas/sse";
+
+import { EVENT, type EventType } from "./types";
 
 export const EVENT_SCHEMA = {
 	[EVENT.RECOMMEND_RESULT_CREATED]: recommendResultCreatedSchema,

@@ -20,3 +20,5 @@ export const RANDOM_NICKNAMES = [
 	"삼계탕왕",
 	"치즈왕",
 ] as const;
+
+export const RANDOM_NICKNAMES_SET: Set<string> = new Set(RANDOM_NICKNAMES);

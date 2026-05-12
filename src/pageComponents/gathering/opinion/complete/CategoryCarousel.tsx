@@ -1,10 +1,12 @@
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
+import { animate, motion, useMotionValue } from "motion/react";
 import Image from "next/image";
-import { motion, useMotionValue, animate } from "motion/react";
-import { CategoryCard } from "./CategoryCard";
+import { useLayoutEffect, useRef } from "react";
+
 import { CATEGORY_VALUES } from "#/constants/gathering/opinion";
+
+import { CategoryCard } from "./CategoryCard";
 
 const CARD_WIDTH = 200;
 const GAP = 16;

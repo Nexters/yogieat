@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { useRef, useState } from "react";
 
 import { RecommendationResultStatus } from "#/constants/gathering/opinion";
 import {
-	usePostProceedRecommendResult,
 	useGetRecommendResult,
+	usePostProceedRecommendResult,
 } from "#/hooks/apis";
 import { isApiError } from "#/utils/api";
 import { toast } from "#/utils/toast";

@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
 import { useParams } from "next/navigation";
+import { useEffect } from "react";
 
 import { trackViewPage } from "#/components/analytics";
 import { Layout } from "#/components/layout";
@@ -9,10 +9,10 @@ import { StepHeader } from "#/components/stepHeader";
 import { Toaster } from "#/components/toast";
 import { useProceedRecommendResult } from "#/hooks/gathering";
 
+import { ResultGeneratingPage } from "../result";
 import { SubmissionBottomSheet } from "../SubmissionBottomSheet";
 import { CategoryCarousel } from "./CategoryCarousel";
 import { ShowResultButton } from "./ShowResultButton";
-import { ResultGeneratingPage } from "../result";
 
 const PAGE_ID = "의견수합_완료";
 

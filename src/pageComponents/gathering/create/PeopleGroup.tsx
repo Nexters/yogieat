@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useCallback } from "react";
 import { AnimatePresence } from "motion/react";
+import { useCallback, useState } from "react";
+
 import { PersonCharacter } from "./PersonCharacter";
 
 interface PeopleGroupProps {

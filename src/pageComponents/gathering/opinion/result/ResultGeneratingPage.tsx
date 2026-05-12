@@ -1,7 +1,8 @@
 "use client";
 
-import { Layout } from "#/components/layout";
 import { ResultGeneratingIllustration } from "#/components/illustrations";
+import { Layout } from "#/components/layout";
+
 import { ResultGeneratingSpeechBubble } from "./ResultGeneratingSpeechBubble";
 
 export const ResultGeneratingPage = () => {

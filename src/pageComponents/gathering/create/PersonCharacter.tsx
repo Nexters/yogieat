@@ -1,13 +1,13 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "motion/react";
+import Image from "next/image";
 
 import {
-	POP_IN_VARIANT,
-	POP_IN_TRANSITION,
-	MOVE_TRANSITION,
 	EXIT_TRANSITION,
+	MOVE_TRANSITION,
+	POP_IN_TRANSITION,
+	POP_IN_VARIANT,
 	type Position,
 } from "./PeopleGroup";
 

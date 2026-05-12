@@ -1,4 +1,5 @@
-import { DistanceRange, Category } from "#/constants/gathering/opinion";
+import { Category, DistanceRange } from "#/constants/gathering/opinion";
+import type { GeoJsonGeometry } from "#/types/geo";
 
 export interface Restaurant {
 	rank: number;
@@ -11,10 +12,7 @@ export interface Restaurant {
 	representativeReview: string;
 	description: string;
 	region: string | null;
-	location: {
-		type: string;
-		coordinates: [number, number];
-	};
+	location: GeoJsonGeometry;
 	largeCategory: Category;
 	mediumCategory: string;
 	majorityDistanceRange: DistanceRange;

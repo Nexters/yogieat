@@ -2,9 +2,9 @@
 
 import { useEffect } from "react";
 
-import type { EventType } from "./types";
 import type { EventHandler } from "./schemas";
 import { useServerSentEventRegistry } from "./ServerSentEventProvider";
+import type { EventType } from "./types";
 
 export function useServerSentEventListener<TEvent extends EventType>(
 	eventType: TEvent,

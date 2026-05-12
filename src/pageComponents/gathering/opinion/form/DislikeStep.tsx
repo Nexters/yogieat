@@ -3,11 +3,10 @@
 import { useFormContext, useWatch } from "react-hook-form";
 
 import { trackStepComplete } from "#/components/analytics";
-import { Layout } from "#/components/layout";
-import { StepIndicator } from "#/components/stepIndicator";
-import { StepHeader } from "#/components/stepHeader";
 import { Button } from "#/components/button/Button";
-import { DislikedCategoryButton } from "./DislikedCategoryButton";
+import { Layout } from "#/components/layout";
+import { StepHeader } from "#/components/stepHeader";
+import { StepIndicator } from "#/components/stepIndicator";
 import {
 	CATEGORY_LIST,
 	OPINION_TOTAL_STEPS,
@@ -17,10 +16,12 @@ import {
 	type OpinionFormSchema,
 } from "#/schemas/gathering";
 
+import { DislikedCategoryButton } from "./DislikedCategoryButton";
+
 const Header = () => {
 	return (
 		<>
-			<StepIndicator currentStep={2} totalSteps={OPINION_TOTAL_STEPS} />
+			<StepIndicator currentStep={1} totalSteps={OPINION_TOTAL_STEPS} />
 			<StepHeader.Root>
 				<StepHeader.Title>
 					안 먹고 싶은 음식을 골라주세요

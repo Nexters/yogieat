@@ -1,6 +1,5 @@
-export { OpinionFormPage } from "./OpinionFormPage";
-export { NicknameStep } from "./NicknameStep";
-export { DistanceStep } from "./DistanceStep";
 export { DislikeStep } from "./DislikeStep";
-export { ToastLinkButton } from "./ToastLinkButton";
+export { NicknameStep } from "./NicknameStep";
+export { OpinionFormPage } from "./OpinionFormPage";
 export { PreferenceStep } from "./PreferenceStep";
+export { ToastLinkButton } from "./ToastLinkButton";

@@ -1,15 +1,15 @@
+// API
+export { createGathering, getGathering, getGatheringCapacity } from "./api";
+
+export { gatheringMutationOptions } from "./mutationOptions";
+// Query Key & Options
+export { gatheringKeys } from "./queryKey";
+export { gatheringQueryOptions } from "./queryOptions";
+
 // Types
 export type {
 	CreateGatheringRequest,
 	CreateGatheringResponse,
-	GetGatheringResponse,
 	GatheringCapacityResponse,
+	GetGatheringResponse,
 } from "./type";
-
-// Query Key & Options
-export { gatheringKeys } from "./queryKey";
-export { gatheringQueryOptions } from "./queryOptions";
-export { gatheringMutationOptions } from "./mutationOptions";
-
-// API
-export { createGathering, getGathering, getGatheringCapacity } from "./api";

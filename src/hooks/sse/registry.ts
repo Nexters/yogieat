@@ -1,7 +1,8 @@
-import { EVENT, type EventType } from "./types";
-import type { EventPayload, EventHandler } from "./schemas";
-import { EVENT_SCHEMA } from "./schemas";
 import { isError } from "es-toolkit";
+
+import type { EventHandler, EventPayload } from "./schemas";
+import { EVENT_SCHEMA } from "./schemas";
+import { EVENT, type EventType } from "./types";
 
 type EventRegistryMap = Map<EventType, Set<EventHandler<EventType>>>;
 

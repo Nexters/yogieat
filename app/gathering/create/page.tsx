@@ -3,22 +3,22 @@
 import { useRouter } from "next/navigation";
 import { FormProvider } from "react-hook-form";
 
-import { Layout } from "#/components/layout";
 import { BackwardButton } from "#/components/backwardButton";
+import { Layout } from "#/components/layout";
 import { StepTransition } from "#/components/stepTransition";
-import {
-	PeopleStepContent,
-	PeopleStepFooter,
-	DateStepContent,
-	DateStepFooter,
-	RegionStepContent,
-	RegionStepFooter,
-} from "#/pageComponents/gathering/create";
+import { Toaster } from "#/components/toast";
 import {
 	useCreateMeetingForm,
 	useCreateMeetingFunnel,
 } from "#/hooks/gathering";
-import { Toaster } from "#/components/toast";
+import {
+	DateStepContent,
+	DateStepFooter,
+	PeopleStepContent,
+	PeopleStepFooter,
+	RegionStepContent,
+	RegionStepFooter,
+} from "#/pageComponents/gathering/create";
 
 export default function GatheringCreatePage() {
 	const router = useRouter();
@@ -28,7 +28,7 @@ export default function GatheringCreatePage() {
 
 	const handleBackward = () => {
 		if (isFirstStep) {
-			router.push("/");
+			router.push("/app");
 		} else {
 			back();
 		}

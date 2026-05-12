@@ -1,9 +1,9 @@
 "use client";
 
-import { useMemo, type ReactNode } from "react";
+import { type ReactNode, useMemo } from "react";
+import { twMerge } from "tailwind-merge";
 
 import { CheckBoxContext } from "./context";
-import { twMerge } from "tailwind-merge";
 
 interface CheckBoxRootProps {
 	checked: boolean;

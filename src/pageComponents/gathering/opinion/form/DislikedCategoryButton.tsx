@@ -1,9 +1,9 @@
 "use client";
 
-import { useController, useFormContext } from "react-hook-form";
-import Image from "next/image";
-import { AnimatePresence, motion } from "motion/react";
 import { cva } from "class-variance-authority";
+import { AnimatePresence, motion } from "motion/react";
+import Image from "next/image";
+import { useController, useFormContext } from "react-hook-form";
 import { twJoin } from "tailwind-merge";
 
 import { CATEGORY, CATEGORY_LABEL } from "#/constants/gathering/opinion";

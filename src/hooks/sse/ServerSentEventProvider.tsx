@@ -2,11 +2,11 @@
 
 import {
 	createContext,
+	type PropsWithChildren,
 	useContext,
 	useEffect,
 	useMemo,
 	useRef,
-	type PropsWithChildren,
 } from "react";
 
 import { EventRegistry } from "./registry";

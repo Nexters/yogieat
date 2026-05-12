@@ -1,13 +1,8 @@
-import { z } from "zod";
-import type { DistanceRange, Category } from "#/constants/gathering/opinion";
-import { DISTANCE_RANGE, CATEGORY } from "#/constants/gathering/opinion";
 import { isUndefined } from "es-toolkit";
+import { z } from "zod";
 
-export const distanceRangeSchema = z.enum([
-	"RANGE_500M",
-	"RANGE_1KM",
-	"ANY",
-] satisfies readonly DistanceRange[]);
+import type { Category } from "#/constants/gathering/opinion";
+import { CATEGORY } from "#/constants/gathering/opinion";
 
 export const categorySchema = z.enum([
 	"KOREAN",
@@ -61,16 +56,8 @@ export const preferredCategoriesSchema = z
 
 export const opinionFormSchema = z.object({
 	nickname: nicknameSchema,
-	distanceRange: distanceRangeSchema,
 	dislikedCategories: dislikedCategoriesSchema,
 	preferredCategories: preferredCategoriesSchema,
 });
 
 export type OpinionFormSchema = z.infer<typeof opinionFormSchema>;
-
-/**
- * DistanceRange를 실제 거리(km)로 변환하는 헬퍼 함수
- */
-export function distanceRangeToKm(range: DistanceRange): number | null {
-	return DISTANCE_RANGE[range];
-}

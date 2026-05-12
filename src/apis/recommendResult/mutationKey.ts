@@ -5,4 +5,6 @@ export const recommendResultMutationKeys = {
 	all: ["recommendResult"],
 	proceed: (accessKey: string) =>
 		[...recommendResultMutationKeys.all, "proceed", accessKey] as const,
+	reroll: (accessKey: string) =>
+		[...recommendResultMutationKeys.all, "reroll", accessKey] as const,
 };

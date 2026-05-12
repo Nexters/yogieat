@@ -1,6 +1,6 @@
 import type { RecommendationResultStatus } from "#/constants/gathering/opinion";
+
 import type { Restaurant } from "./restaurant";
-import type { Region } from "./region";
 import type { TimeSlot } from "./timeSlot";
 
 export interface VoteStatistics {
@@ -12,7 +12,7 @@ export interface VoteStatistics {
 export interface GatheringInfo {
 	scheduledDate: string; // "YYYY-MM-DD" format
 	timeSlot: TimeSlot;
-	region: Region;
+	region: string;
 	peopleCount: number;
 }
 

@@ -4,12 +4,13 @@ import { useFormContext, useWatch } from "react-hook-form";
 
 import {
 	CATEGORY,
-	RANK_LABEL,
 	CATEGORY_LIST,
+	RANK_LABEL,
 	RANK_LIST,
 } from "#/constants/gathering/opinion";
-import type { RankKey } from "#/types/gathering";
 import type { OpinionFormSchema } from "#/schemas/gathering";
+import type { RankKey } from "#/types/gathering";
+
 import { RankChip } from "./RankChip";
 
 interface RankSectionProps {

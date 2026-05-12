@@ -1,17 +1,18 @@
 "use client";
 
+import { useParams } from "next/navigation";
 import { useEffect } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
-import { useParams } from "next/navigation";
 
 import { trackStepComplete } from "#/components/analytics";
-import { Layout } from "#/components/layout";
-import { StepHeader } from "#/components/stepHeader";
 import { Button } from "#/components/button";
 import { InputField } from "#/components/inputField";
-import { nicknameSchema, type OpinionFormSchema } from "#/schemas/gathering";
-import { useRandomNickname } from "#/hooks/gathering";
+import { Layout } from "#/components/layout";
+import { StepHeader } from "#/components/stepHeader";
+import { RANDOM_NICKNAMES_SET } from "#/constants/nickname";
 import { useValidateNickname } from "#/hooks/apis/participant";
+import { useRandomNickname } from "#/hooks/gathering";
+import { nicknameSchema, type OpinionFormSchema } from "#/schemas/gathering";
 import { ERROR_CODES, isApiError } from "#/utils/api";
 import { toast } from "#/utils/toast";
 
@@ -21,7 +22,7 @@ const Header = () => {
 			<StepHeader.Title>
 				모임 링크에 입장하기 위해
 				<br />
-				이름을 입력해주세요
+				닉네임을 입력해주세요
 			</StepHeader.Title>
 			<StepHeader.Description>
 				모임원을 식별하는 용도예요
@@ -83,6 +84,11 @@ const Content = () => {
 			errorText={errors.nickname?.message}
 			showClearButton
 			onClear={handleClear}
+			inputClassName={
+				RANDOM_NICKNAMES_SET.has(nickname ?? "")
+					? "ygi:!text-palette-gray-400"
+					: ""
+			}
 			rightSlot={
 				<button
 					type="button"

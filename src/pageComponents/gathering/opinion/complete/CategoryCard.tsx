@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+
 import type { Category } from "#/types/gathering";
 
 interface CategoryCardProps {

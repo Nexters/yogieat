@@ -1,4 +1,4 @@
-import type { RecommendationResult } from "#/types/gathering";
+import type { RecommendationResult, Restaurant } from "#/types/gathering";
 
 /** 추천 결과 조회 응답 */
 export type GetRecommendResultResponse = RecommendationResult;
@@ -8,3 +8,12 @@ export type PostProcessRecommendResultRequest = {
 };
 
 export type PostProcessRecommendResultResponse = boolean;
+
+export type RerollRecommendResultRequest = {
+	accessKey: string;
+	restaurantIds: number[];
+};
+
+export type RerollRecommendResultResponse = {
+	list: Restaurant[];
+};

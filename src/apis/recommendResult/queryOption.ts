@@ -1,7 +1,7 @@
 import { queryOptions } from "@tanstack/react-query";
 
-import { recommendResultKeys } from "./queryKey";
 import { getRecommendResult } from "./api";
+import { recommendResultKeys } from "./queryKey";
 
 /**
  * recommend-result API QueryOption 관리

@@ -5,6 +5,151 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.0-beta.6](https://github.com/Nexters/yogieat/compare/v2.7.0-beta.5...v2.7.0-beta.6) (2026-05-07)
+
+### Bug Fixes
+
+* **ci:** allowlist sharp and unrs-resolver build scripts ([#139](https://github.com/Nexters/yogieat/issues/139)) ([6399273](https://github.com/Nexters/yogieat/commit/639927351b25c5f5394a5ef630b2989326586ed9))
+
+## [2.7.0-beta.5](https://github.com/Nexters/yogieat/compare/v2.7.0-beta.4...v2.7.0-beta.5) (2026-05-07)
+
+### Features
+
+* RegionStep에 지역 요청 Banner 및 Dialog 추가 ([#133](https://github.com/Nexters/yogieat/issues/133)) ([b61ba13](https://github.com/Nexters/yogieat/commit/b61ba13bf23a01b8e3f1eac482d9954a562ed0c5))
+
+## [2.7.0-beta.4](https://github.com/Nexters/yogieat/compare/v2.7.0-beta.3...v2.7.0-beta.4) (2026-05-07)
+
+### Features
+
+* 식당 상세 시안 정렬 및 전화하기 CTA 추가 ([#138](https://github.com/Nexters/yogieat/issues/138)) ([b675fc4](https://github.com/Nexters/yogieat/commit/b675fc4a7b459e85dfccd549dcd7693f0ea000ee))
+
+## [2.7.0-beta.3](https://github.com/Nexters/yogieat/compare/v2.7.0-beta.2...v2.7.0-beta.3) (2026-05-06)
+
+### Features
+
+* 약속 장소 섹션 캐러셀 UI 개편 ([#137](https://github.com/Nexters/yogieat/issues/137)) ([c77b04a](https://github.com/Nexters/yogieat/commit/c77b04a77e3d74650af5f613631fd78e9aa51e77))
+
+## [2.7.0-beta.2](https://github.com/Nexters/yogieat/compare/v2.7.0-beta.1...v2.7.0-beta.2) (2026-05-04)
+
+### Code Refactoring
+
+* VoteSummarySection 거리 블록 숨김 및 디렉터리 분리 ([#136](https://github.com/Nexters/yogieat/issues/136)) ([31f9d13](https://github.com/Nexters/yogieat/commit/31f9d1378be24cf3aa8fd68f0e2438af6a56d3f2)), closes [#132](https://github.com/Nexters/yogieat/issues/132)
+
+## [2.7.0-beta.1](https://github.com/Nexters/yogieat/compare/v2.6.0...v2.7.0-beta.1) (2026-05-04)
+
+### Features
+
+* 식당 상세 페이지 신규 구현 ([#134](https://github.com/Nexters/yogieat/issues/134)) ([055841c](https://github.com/Nexters/yogieat/commit/055841c02b7aa74162ec40566cc4b783a7a0672d))
+
+## [2.6.0](https://github.com/Nexters/yogieat/compare/v2.5.0...v2.6.0) (2026-05-03)
+
+### Features
+
+* 지역 API 연동 및 지역 선택 Step UI 수정 ([#131](https://github.com/Nexters/yogieat/issues/131)) ([8c89cb3](https://github.com/Nexters/yogieat/commit/8c89cb3a360bbbe9e3c2a4a32dff3fc3ddb6555c))
+
+### Code Refactoring
+
+* OpinionForm에서 DistanceStep 제거 ([#132](https://github.com/Nexters/yogieat/issues/132)) ([f8f65cf](https://github.com/Nexters/yogieat/commit/f8f65cf9d111dde5adcd7fd1e690149b62b8704c))
+
+## [2.6.0-beta.1](https://github.com/Nexters/yogieat/compare/v2.5.0...v2.6.0-beta.1) (2026-04-29)
+
+### Features
+
+* 지역 API 연동 및 지역 선택 Step UI 수정 ([#131](https://github.com/Nexters/yogieat/issues/131)) ([8c89cb3](https://github.com/Nexters/yogieat/commit/8c89cb3a360bbbe9e3c2a4a32dff3fc3ddb6555c))
+
+### Code Refactoring
+
+* OpinionForm에서 DistanceStep 제거 ([#132](https://github.com/Nexters/yogieat/issues/132)) ([f8f65cf](https://github.com/Nexters/yogieat/commit/f8f65cf9d111dde5adcd7fd1e690149b62b8704c))
+
+## [2.6.0-beta.1](https://github.com/Nexters/yogieat/compare/v2.5.0...v2.6.0-beta.1) (2026-04-28)
+
+### Features
+
+* 지역 API 연동 및 지역 선택 Step UI 수정 ([#131](https://github.com/Nexters/yogieat/issues/131)) ([8c89cb3](https://github.com/Nexters/yogieat/commit/8c89cb3a360bbbe9e3c2a4a32dff3fc3ddb6555c))
+
+## [2.5.0](https://github.com/Nexters/yogieat/compare/v2.4.0...v2.5.0) (2026-04-02)
+
+### Features
+
+* FeedbackBottomSheet UX 개선 (autofocus, 줌 방지, 키패드 위 렌더링) ([#129](https://github.com/Nexters/yogieat/issues/129)) ([b1ea8ca](https://github.com/Nexters/yogieat/commit/b1ea8cafd90839cb34d02e75cf925a9033c9cfa1))
+* iOS Safari 키보드 위 BottomSheet 렌더링 개선 (visualViewport) ([#130](https://github.com/Nexters/yogieat/issues/130)) ([77ccb7a](https://github.com/Nexters/yogieat/commit/77ccb7a05bf78c7e1f5d3c9108bd4c717449a02e))
+
+## [2.4.0-beta.1](https://github.com/Nexters/yogieat/compare/v2.3.0...v2.4.0-beta.1) (2026-04-02)
+
+### Features
+
+* FeedbackBottomSheet UX 개선 (autofocus, 줌 방지, 키패드 위 렌더링) ([#129](https://github.com/Nexters/yogieat/issues/129)) ([b1ea8ca](https://github.com/Nexters/yogieat/commit/b1ea8cafd90839cb34d02e75cf925a9033c9cfa1))
+* iOS Safari 키보드 위 BottomSheet 렌더링 개선 (visualViewport) ([#130](https://github.com/Nexters/yogieat/issues/130)) ([77ccb7a](https://github.com/Nexters/yogieat/commit/77ccb7a05bf78c7e1f5d3c9108bd4c717449a02e))
+## [2.4.0](https://github.com/Nexters/yogieat/compare/v2.3.0...v2.4.0) (2026-04-02)
+
+### Features
+
+* 의견 제안 폼 추가 (결과 페이지 → Discord Webhook) ([#128](https://github.com/Nexters/yogieat/issues/128)) ([befc003](https://github.com/Nexters/yogieat/commit/befc003145d60ab1a5407e8b0e8620fda2984267))
+
+## [2.3.0](https://github.com/Nexters/yogieat/compare/v2.2.0...v2.3.0) (2026-03-22)
+
+## [2.2.0-beta.3](https://github.com/Nexters/yogieat/compare/v2.2.0-beta.2...v2.2.0-beta.3) (2026-04-02)
+
+### Features
+
+* 의견 제안 폼 추가 (결과 페이지 → Discord Webhook) ([#128](https://github.com/Nexters/yogieat/issues/128)) ([befc003](https://github.com/Nexters/yogieat/commit/befc003145d60ab1a5407e8b0e8620fda2984267))
+
+## [2.2.0-beta.2](https://github.com/Nexters/yogieat/compare/v2.2.0-beta.1...v2.2.0-beta.2) (2026-03-22)
+
+### Features
+
+* 결과 페이지 맛집 더 보기 기능 추가 및 레이아웃 개선 ([#127](https://github.com/Nexters/yogieat/issues/127)) ([1e85982](https://github.com/Nexters/yogieat/commit/1e85982ba55ef3b400cb27b502d1c51e62374920))
+
+## [2.2.0](https://github.com/Nexters/yogieat/compare/v2.1.6...v2.2.0) (2026-03-13)
+
+### Features
+
+* 서비스 소개 랜딩 페이지 구현 및 앱 시작 경로 변경 ([#126](https://github.com/Nexters/yogieat/issues/126)) ([556e740](https://github.com/Nexters/yogieat/commit/556e74042c564e26fd4adceaa1e922920e041900)), closes [#d5dae2](https://github.com/Nexters/yogieat/issues/d5dae2)
+
+### Features
+
+* 결과 페이지 맛집 더 보기 기능 추가 및 레이아웃 개선 ([#127](https://github.com/Nexters/yogieat/issues/127)) ([1e85982](https://github.com/Nexters/yogieat/commit/1e85982ba55ef3b400cb27b502d1c51e62374920))
+
+## [2.2.0-beta.1](https://github.com/Nexters/yogieat/compare/v2.1.5-beta.1...v2.2.0-beta.1) (2026-03-13)
+
+## [2.1.6](https://github.com/Nexters/yogieat/compare/v2.1.5...v2.1.6) (2026-02-28)
+
+
+### Features
+
+* 서비스 소개 랜딩 페이지 구현 및 앱 시작 경로 변경 ([#126](https://github.com/Nexters/yogieat/issues/126)) ([556e740](https://github.com/Nexters/yogieat/commit/556e74042c564e26fd4adceaa1e922920e041900)), closes [#d5dae2](https://github.com/Nexters/yogieat/issues/d5dae2)
+
+## [2.1.5-beta.1](https://github.com/Nexters/yogieat/compare/v2.1.4...v2.1.5-beta.1) (2026-02-28)
+
+### Bug Fixes
+
+* Nickname Step 내 Description 을 이름에서 닉네임으로 수정 ([f90e861](https://github.com/Nexters/yogieat/commit/f90e861293a25fd725c3926af5f3dceb113288d9))
+
+## [2.1.5](https://github.com/Nexters/yogieat/compare/v2.1.4...v2.1.5) (2026-02-28)
+
+### Bug Fixes
+
+* toast 및 toast link 버튼 내 nowrap 속성 추가하여 줄바꿈 적용 ([cf5d29c](https://github.com/Nexters/yogieat/commit/cf5d29c65c0db0169e48d789b0fa9162bb309a9f))
+
+## [2.1.4](https://github.com/Nexters/yogieat/compare/v2.1.3...v2.1.4) (2026-02-28)
+
+### Bug Fixes
+
+* 이미 추천 결과가 생성된 Toast 메세지에서 refetch 로직 추가 ([b55cce3](https://github.com/Nexters/yogieat/commit/b55cce335a61b25ca1463f08244688ac0608e377))
+
+## [2.1.3](https://github.com/Nexters/yogieat/compare/v2.1.2...v2.1.3) (2026-02-27)
+
+### Bug Fixes
+
+* QA 피드백 반영 - UI 및 인터랙션 개선 ([#125](https://github.com/Nexters/yogieat/issues/125)) ([38a227f](https://github.com/Nexters/yogieat/commit/38a227f5455b88e9c2839b13147b55323ec7e159))
+
+## [2.1.2](https://github.com/Nexters/yogieat/compare/v2.1.1...v2.1.2) (2026-02-27)
+## [2.1.2-beta.1](https://github.com/Nexters/yogieat/compare/v2.1.1...v2.1.2-beta.1) (2026-02-27)
+
+### Bug Fixes
+
+* 의견 결과 취합 대기 페이지 내 설명 수정 ([0c33cb2](https://github.com/Nexters/yogieat/commit/0c33cb2fa4bea1f24ef6a26c4934e8b43347d70d))
+
 ## [2.1.1](https://github.com/Nexters/yogieat/compare/v2.1.0...v2.1.1) (2026-02-27)
 
 ### Code Refactoring
@@ -16,8 +161,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Features
 
 - 닉네임 입력 단계 랜덤 닉네임 및 중복 확인 기능 추가 ([#123](https://github.com/Nexters/yogieat/issues/123)) ([4cf0323](https://github.com/Nexters/yogieat/commit/4cf032363d058a35a8d33e406a8baa445861c447))
-
-# <<<<<<< HEAD
 
 ## [2.0.0](https://github.com/Nexters/yogieat/compare/v1.5.1...v2.0.0) (2026-02-27)
 
@@ -114,13 +257,16 @@ Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
 
 ### Code Refactoring
 
-- opinion 페이지 컴포넌트 구조 개선 및 로직 통합 ([#109](https://github.com/Nexters/yogieat/issues/109)) ([a76f75f](https://github.com/Nexters/yogieat/commit/a76f75f165cbf1526e037b1b765452503dacfe6f))
-- PeopleIllustration 캐릭터 배치 및 구조 개선 ([#112](https://github.com/Nexters/yogieat/issues/112)) ([ae95b72](https://github.com/Nexters/yogieat/commit/ae95b7274306d9edced38f6f9cb889d7e6cf0b5b))
-- ProgressBar 컴포넌트 UI 개선 및 코드 최적화 ([#122](https://github.com/Nexters/yogieat/issues/122)) ([c73de1d](https://github.com/Nexters/yogieat/commit/c73de1d79ab2f51c720036cf8b2cfd4e789e64cc))
-- SSE 이벤트를 recommend-result-created로 변경 ([#121](https://github.com/Nexters/yogieat/issues/121)) ([222e613](https://github.com/Nexters/yogieat/commit/222e613a172b43709c6ffef303abc66683af7812))
-- 타입 시스템 리팩토링 - enum을 as const 패턴으로 전환 ([#110](https://github.com/Nexters/yogieat/issues/110)) ([d427378](https://github.com/Nexters/yogieat/commit/d4273786f2b6db4f5f5c88fca18f7c960f1898b1)), closes [#111](https://github.com/Nexters/yogieat/issues/111)
+* opinion 페이지 컴포넌트 구조 개선 및 로직 통합 ([#109](https://github.com/Nexters/yogieat/issues/109)) ([a76f75f](https://github.com/Nexters/yogieat/commit/a76f75f165cbf1526e037b1b765452503dacfe6f))
+* PeopleIllustration 캐릭터 배치 및 구조 개선 ([#112](https://github.com/Nexters/yogieat/issues/112)) ([ae95b72](https://github.com/Nexters/yogieat/commit/ae95b7274306d9edced38f6f9cb889d7e6cf0b5b))
+* ProgressBar 컴포넌트 UI 개선 및 코드 최적화 ([#122](https://github.com/Nexters/yogieat/issues/122)) ([c73de1d](https://github.com/Nexters/yogieat/commit/c73de1d79ab2f51c720036cf8b2cfd4e789e64cc))
+* SSE 이벤트를 recommend-result-created로 변경 ([#121](https://github.com/Nexters/yogieat/issues/121)) ([222e613](https://github.com/Nexters/yogieat/commit/222e613a172b43709c6ffef303abc66683af7812))
+* 타입 시스템 리팩토링 - enum을 as const 패턴으로 전환 ([#110](https://github.com/Nexters/yogieat/issues/110)) ([d427378](https://github.com/Nexters/yogieat/commit/d4273786f2b6db4f5f5c88fca18f7c960f1898b1)), closes [#111](https://github.com/Nexters/yogieat/issues/111)
+## [2.0.0-beta.11](https://github.com/Nexters/yogieat/compare/v2.0.0-beta.10...v2.0.0-beta.11) (2026-02-27)
 
-> > > > > > > main
+### Features
+
+* 닉네임 입력 단계 랜덤 닉네임 및 중복 확인 기능 추가 ([#123](https://github.com/Nexters/yogieat/issues/123)) ([4cf0323](https://github.com/Nexters/yogieat/commit/4cf032363d058a35a8d33e406a8baa445861c447))
 
 ## [2.0.0-beta.10](https://github.com/Nexters/yogieat/compare/v2.0.0-beta.9...v2.0.0-beta.10) (2026-02-27)
 

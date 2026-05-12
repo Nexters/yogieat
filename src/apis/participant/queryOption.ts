@@ -1,7 +1,7 @@
 import { mutationOptions } from "@tanstack/react-query";
 
-import { participantKeys } from "./queryKey";
 import { createParticipant, validateNickname } from "./api";
+import { participantKeys } from "./queryKey";
 import type { CreateParticipantRequest, ValidateNicknameRequest } from "./type";
 
 /**
