@@ -41,7 +41,12 @@ export async function generateMetadata({
 				siteName: "요기잇",
 				url: canonicalPath,
 				...(restaurant.imageUrl && {
-					images: [{ url: restaurant.imageUrl, alt: restaurant.restaurantName }],
+					images: [
+						{
+							url: restaurant.imageUrl,
+							alt: restaurant.restaurantName,
+						},
+					],
 				}),
 			},
 		};
