@@ -7,6 +7,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { getRestaurantDetail, restaurantOptions } from "#/apis/restaurant";
+import { CATEGORY_LABEL } from "#/constants/gathering/opinion";
 import { RestaurantDetailPage } from "#/pageComponents/restaurant/detail";
 import { ERROR_CODES, isApiError } from "#/utils/api";
 
@@ -24,15 +25,8 @@ export async function generateMetadata({
 	try {
 		const { data: restaurant } = await getRestaurantDetail(id);
 
-		const title = `[요기잇] ${restaurant.restaurantName}`;
-		const description =
-			restaurant.description ??
-			restaurant.aiMateSummaryTitle ??
-			"다인원을 위한 맛집 추천 서비스";
-		const ogDescription =
-			restaurant.description ??
-			restaurant.aiMateSummaryTitle ??
-			"[요기잇] 다인원을 위한 맛집 추천";
+		const title = `${restaurant.restaurantName} | ${CATEGORY_LABEL[restaurant.largeCategory]}`;
+		const description = "[요기잇] 추천 맛집을 확인해보세요.";
 		const canonicalPath = `/restaurants/${id}`;
 
 		return {
@@ -41,23 +35,17 @@ export async function generateMetadata({
 			alternates: { canonical: canonicalPath },
 			openGraph: {
 				title,
-				description: ogDescription,
+				description,
 				type: "website",
 				locale: "ko_KR",
 				siteName: "요기잇",
 				url: canonicalPath,
 				...(restaurant.imageUrl && {
-					images: [
-						{
-							url: restaurant.imageUrl,
-							alt: restaurant.restaurantName,
-						},
-					],
+					images: [{ url: restaurant.imageUrl, alt: restaurant.restaurantName }],
 				}),
 			},
 		};
 	} catch {
-		// 식당 조회 실패 시 루트 layout 의 default metadata 상속
 		return {};
 	}
 }
