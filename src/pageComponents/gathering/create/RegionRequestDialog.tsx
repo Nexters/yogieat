@@ -18,22 +18,30 @@ interface RegionRequestDialogProps {
 
 export const RegionRequestDialog = ({ onClose }: RegionRequestDialogProps) => {
 	const [value, setValue] = useState("");
+	const [isSubmitting, setIsSubmitting] = useState(false);
+
+	const isSubmitDisabled = value.trim().length === 0 || isSubmitting;
 
 	const handleSubmit = async () => {
-		await submitRegionRequest(value.trim());
-		onClose();
-		toast.success(
-			<>
-				의견을 남겨주셔서 감사합니다!
-				<br />
-				입력해주신 지역을 참고해 더 좋은 추천을 준비할게요.
-			</>,
-			{
-				icon: (
-					<CheckCircleFilledIcon className="ygi:text-palette-secondary-700" />
-				),
-			},
-		);
+		setIsSubmitting(true);
+		try {
+			await submitRegionRequest(value.trim());
+			toast.success(
+				<>
+					의견을 남겨주셔서 감사합니다!
+					<br />
+					입력해주신 지역을 참고해 더 좋은 추천을 준비할게요.
+				</>,
+				{
+					icon: (
+						<CheckCircleFilledIcon className="ygi:text-palette-secondary-700" />
+					),
+				},
+			);
+			onClose();
+		} finally {
+			setIsSubmitting(false);
+		}
 	};
 
 	return (
@@ -72,7 +80,7 @@ export const RegionRequestDialog = ({ onClose }: RegionRequestDialogProps) => {
 				type="button"
 				variant="primary"
 				width="full"
-				disabled={value.trim().length === 0}
+				disabled={isSubmitDisabled}
 				onClick={handleSubmit}
 			>
 				입력 완료
