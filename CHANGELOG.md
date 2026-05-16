@@ -5,6 +5,16 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.0](https://github.com/Nexters/yogieat/compare/v2.7.0...v2.8.0) (2026-05-16)
+
+### Features
+
+* **region:** 지역 요청 제출 중 버튼 비활성화 처리 ([#144](https://github.com/Nexters/yogieat/issues/144)) ([34c1ded](https://github.com/Nexters/yogieat/commit/34c1ded93c368cf2af4bbf952e2c22dc01f541d6))
+
+### Code Refactoring
+
+* 식당 상세 페이지 OG 메타데이터 양식 수정 ([#143](https://github.com/Nexters/yogieat/issues/143)) ([dff7e66](https://github.com/Nexters/yogieat/commit/dff7e66ec6b5f781b4ea07df1aea7df89adfd7e4))
+
 ## [2.7.0-beta.7](https://github.com/Nexters/yogieat/compare/v2.7.0-beta.6...v2.7.0-beta.7) (2026-05-12)
 
 ### Bug Fixes
