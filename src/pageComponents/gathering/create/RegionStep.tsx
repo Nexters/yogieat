@@ -91,6 +91,7 @@ export const RegionStepFooter = ({ isPending }: RegionStepFooterProps) => {
 					<div className="ygi:w-full ygi:max-w-root-layout ygi:bg-bg-white ygi:px-6 ygi:pb-6">
 						<Banner.Root
 							as="button"
+							type="button"
 							className="ygi:cursor-pointer"
 							onClick={() => setIsDialogOpen(true)}
 						>
