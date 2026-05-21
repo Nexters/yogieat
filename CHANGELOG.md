@@ -5,6 +5,12 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.2-beta.1](https://github.com/Nexters/yogieat/compare/v2.8.1...v2.8.2-beta.1) (2026-05-21)
+
+### Bug Fixes
+
+* 맛집 상세 폰트 및 결과 페이지 추천 식당 UI 개선 ([#147](https://github.com/Nexters/yogieat/issues/147)) ([1223862](https://github.com/Nexters/yogieat/commit/1223862e227fbc99d9160841270991ad5e6977cc))
+
 ## [2.8.1](https://github.com/Nexters/yogieat/compare/v2.8.0...v2.8.1) (2026-05-18)
 
 ### Bug Fixes
