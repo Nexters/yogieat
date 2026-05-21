@@ -30,7 +30,7 @@ export const RestaurantCard = ({ restaurant }: RestaurantCardProps) => {
 			href={`/restaurants/${restaurant.restaurantId}`}
 			onClick={handleClick}
 			aria-label={`추천 음식점: ${restaurant.restaurantName}`}
-			className="ygi:flex ygi:cursor-pointer ygi:items-start ygi:gap-5 ygi:overflow-hidden"
+			className="ygi:flex ygi:cursor-pointer ygi:items-start ygi:gap-3 ygi:overflow-hidden"
 		>
 			<div className="ygi:relative ygi:h-20 ygi:w-20 ygi:shrink-0 ygi:overflow-clip ygi:rounded-xs ygi:border ygi:border-solid ygi:border-border-default ygi:bg-surface-lightgray">
 				<Image
@@ -44,12 +44,12 @@ export const RestaurantCard = ({ restaurant }: RestaurantCardProps) => {
 				/>
 			</div>
 
-			<div className="ygi:flex ygi:flex-1 ygi:flex-col ygi:gap-1">
-				<div className="ygi:flex ygi:items-baseline ygi:gap-1.5">
-					<h3 className="ygi:body-14-bd ygi:text-text-primary">
+			<div className="ygi:flex ygi:min-w-0 ygi:flex-1 ygi:flex-col ygi:gap-1">
+				<div className="ygi:flex ygi:items-baseline ygi:gap-1.5 ygi:overflow-hidden">
+					<h3 className="ygi:min-w-0 ygi:truncate ygi:body-14-bd ygi:text-text-primary">
 						{restaurant.restaurantName}
 					</h3>
-					<span className="ygi:caption-12-md ygi:text-text-secondary">
+					<span className="ygi:shrink-0 ygi:caption-12-md ygi:text-text-secondary">
 						{categoryLabel}
 					</span>
 				</div>

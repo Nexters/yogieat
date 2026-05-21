@@ -17,8 +17,8 @@ export const DotIndicator = ({ total, current }: DotIndicatorProps) => {
 					className={twJoin(
 						"ygi:h-1.5 ygi:w-1.5 ygi:rounded-full ygi:transition-colors",
 						i === current
-							? "ygi:bg-palette-primary-500"
-							: "ygi:bg-palette-gray-200",
+							? "ygi:bg-surface-dark"
+							: "ygi:bg-palette-gray-300",
 					)}
 				/>
 			))}

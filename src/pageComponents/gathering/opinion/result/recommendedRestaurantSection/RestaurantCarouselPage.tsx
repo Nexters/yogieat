@@ -32,12 +32,14 @@ const SkeletonCard = () => (
 	</div>
 );
 
+const slideContainerClass = "ygi:rounded-md ygi:bg-surface-white ygi:p-4";
+
 const ReadySlide = ({ restaurants, ariaLabel }: ReadySlideProps) => (
 	<div
 		role="group"
 		aria-roledescription="slide"
 		aria-label={ariaLabel}
-		className="ygi:flex ygi:flex-col ygi:gap-4 ygi:divide-y ygi:divide-dashed ygi:divide-border-default"
+		className={`${slideContainerClass} ygi:flex ygi:flex-col ygi:gap-4 ygi:divide-y ygi:divide-dashed ygi:divide-border-default`}
 	>
 		{restaurants.map((restaurant) => (
 			<div key={restaurant.restaurantId} className="ygi:not-last:pb-4">
@@ -52,7 +54,7 @@ const LoadingSlide = ({ ariaLabel }: SlideProps) => (
 		role="group"
 		aria-roledescription="slide"
 		aria-label={ariaLabel}
-		className="ygi:flex ygi:flex-col ygi:gap-4 ygi:divide-y ygi:divide-dashed ygi:divide-border-default"
+		className={`${slideContainerClass} ygi:flex ygi:flex-col ygi:gap-4 ygi:divide-y ygi:divide-dashed ygi:divide-border-default`}
 	>
 		{[0, 1, 2].map((i) => (
 			<div key={i} className="ygi:not-last:pb-4">
@@ -67,7 +69,7 @@ const ErrorSlide = ({ ariaLabel }: SlideProps) => (
 		role="group"
 		aria-roledescription="slide"
 		aria-label={ariaLabel}
-		className="ygi:flex ygi:min-h-60 ygi:flex-col ygi:items-center ygi:justify-center ygi:gap-2 ygi:text-center"
+		className={`${slideContainerClass} ygi:flex ygi:min-h-60 ygi:flex-col ygi:items-center ygi:justify-center ygi:gap-2 ygi:text-center`}
 	>
 		<p className="ygi:body-14-md ygi:text-text-secondary">
 			불러오기에 실패했어요.
