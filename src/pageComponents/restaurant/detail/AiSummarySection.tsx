@@ -23,7 +23,7 @@ export const AiSummarySection = ({ restaurant }: AiSummarySectionProps) => {
 			</div>
 
 			<div className="ygi:rounded-md ygi:bg-surface-lightgray ygi:p-4">
-				<p className="ygi:caption-12-md ygi:break-keep ygi:text-text-primary">
+				<p className="ygi:body-14-md ygi:break-keep ygi:text-text-primary">
 					{restaurant.description}
 				</p>
 			</div>

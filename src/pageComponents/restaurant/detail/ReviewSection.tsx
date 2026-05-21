@@ -30,7 +30,7 @@ export const ReviewSection = ({ restaurant }: ReviewSectionProps) => {
 						<span className="ygi:caption-12-md ygi:text-text-secondary">
 							대표 리뷰
 						</span>
-						<p className="ygi:caption-12-md ygi:break-keep ygi:whitespace-pre-line ygi:text-text-primary">
+						<p className="ygi:body-14-md ygi:break-keep ygi:whitespace-pre-line ygi:text-text-primary">
 							{restaurant.representativeReview}
 						</p>
 					</div>

@@ -49,9 +49,9 @@ export const RestaurantCarousel = ({
 
 	const scrollToPage = useCallback((pageIndex: number) => {
 		const track = trackRef.current;
-		if (!track) return;
-		const pageWidth = track.clientWidth;
-		track.scrollTo({ left: pageIndex * pageWidth, behavior: "smooth" });
+		const target = pageRefs.current[pageIndex];
+		if (!track || !target) return;
+		track.scrollTo({ left: target.offsetLeft, behavior: "smooth" });
 	}, []);
 
 	const handlePrev = useCallback(() => {
@@ -124,7 +124,7 @@ export const RestaurantCarousel = ({
 
 	return (
 		<div className="ygi:flex ygi:flex-col ygi:gap-3">
-			<div className="ygi:group/carousel ygi:relative ygi:-mx-4">
+			<div className="ygi:group/carousel ygi:relative">
 				<div
 					ref={trackRef}
 					role="region"
@@ -132,7 +132,7 @@ export const RestaurantCarousel = ({
 					aria-label="추천 식당 캐러셀"
 					tabIndex={0}
 					onKeyDown={handleKeyDown}
-					className="ygi:flex ygi:snap-x ygi:snap-mandatory ygi:overflow-x-auto ygi:overflow-y-hidden ygi:px-4 ygi:[scrollbar-width:none] ygi:focus:outline-none ygi:focus-visible:ring-2 ygi:focus-visible:ring-palette-primary-500 ygi:[&::-webkit-scrollbar]:hidden"
+					className="ygi:flex ygi:snap-x ygi:snap-mandatory ygi:gap-3 ygi:overflow-x-auto ygi:overflow-y-hidden ygi:[scrollbar-width:none] ygi:focus:outline-none ygi:focus-visible:ring-2 ygi:focus-visible:ring-palette-primary-500 ygi:[&::-webkit-scrollbar]:hidden"
 				>
 					{pages.map((page, i) => (
 						<div
@@ -141,7 +141,7 @@ export const RestaurantCarousel = ({
 								pageRefs.current[i] = el;
 							}}
 							data-page-index={i}
-							className="ygi:w-full ygi:shrink-0 ygi:snap-center"
+							className="ygi:w-[calc(100%-2rem)] ygi:shrink-0 ygi:snap-start ygi:snap-always"
 						>
 							<RestaurantCarouselPage
 								status={page.status}
