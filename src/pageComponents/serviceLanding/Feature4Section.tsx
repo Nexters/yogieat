@@ -21,47 +21,64 @@ export const Feature4Section = () => {
 					isDark={true}
 					isInView={isInView}
 				/>
-				<div className="ygi:relative ygi:-bottom-8 ygi:flex ygi:flex-col ygi:items-center ygi:gap-4">
-					{/* 투표 필터 요약 카드 - 아래에서 위로 fade + scale */}
+				<div className="ygi:relative ygi:mt-10 ygi:flex ygi:w-full ygi:flex-col ygi:items-center">
 					<motion.div
-						initial={{ opacity: 0, y: 40, scale: 0.5 }}
-						animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+						initial={{ opacity: 0, y: -16 }}
+						animate={isInView ? { opacity: 1, y: 0 } : {}}
 						transition={{
 							duration: 0.45,
 							ease: [0.25, 0.46, 0.45, 0.94],
 							delay: 0.2,
 						}}
-						className="ygi:mx-auto ygi:w-full ygi:max-w-55.25"
+						className="ygi:w-full ygi:max-w-55.75"
 					>
 						<Image
-							src="/images/service-landing/feature-4-tooltip.png"
+							src="/images/service-landing/feature-4-banner.png"
 							alt="투표 결과 요약"
-							width={654}
-							height={247}
+							width={446}
+							height={210}
 							className="ygi:w-full"
 							priority
 						/>
 					</motion.div>
-					{/* 맛집 추천 리스트 - bottom overflow + scale 등장 */}
-					<div className="ygi:relative">
+					<div className="ygi:mt-6 ygi:flex ygi:w-full ygi:flex-row ygi:items-end ygi:justify-center ygi:gap-2.5">
 						<motion.div
-							initial={{ opacity: 1, y: 80, scale: 0.88 }}
+							initial={{ opacity: 0, y: 80, scale: 0.88 }}
 							animate={
 								isInView ? { opacity: 1, y: 0, scale: 1 } : {}
 							}
 							transition={{
-								duration: 0.75,
+								duration: 0.7,
 								ease: [0.25, 0.46, 0.45, 0.94],
 								delay: 0.4,
 							}}
-							className="ygi:w-full ygi:max-w-65.5"
 						>
 							<Image
-								src="/images/service-landing/feature-4-screen.png"
-								alt="맛집 추천 화면"
-								width={654}
-								height={752}
-								className="ygi:w-full  ygi:shadow-2xl"
+								src="/images/service-landing/feature-4-screen-a.png"
+								alt="맛집 추천 화면 1"
+								width={148}
+								height={252}
+								className="ygi:rounded-t-[10px] ygi:shadow-lg"
+								priority
+							/>
+						</motion.div>
+						<motion.div
+							initial={{ opacity: 0, y: 80, scale: 0.88 }}
+							animate={
+								isInView ? { opacity: 1, y: 0, scale: 1 } : {}
+							}
+							transition={{
+								duration: 0.7,
+								ease: [0.25, 0.46, 0.45, 0.94],
+								delay: 0.55,
+							}}
+						>
+							<Image
+								src="/images/service-landing/feature-4-screen-b.png"
+								alt="맛집 추천 화면 2"
+								width={148}
+								height={225}
+								className="ygi:rounded-t-[10px] ygi:shadow-lg"
 								priority
 							/>
 						</motion.div>

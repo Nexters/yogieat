@@ -8,13 +8,27 @@ interface FeatureTextProps {
 	headline: ReactNode;
 	isDark: boolean;
 	isInView: boolean;
+	captionSize?: "sm" | "md";
 }
+
+const captionClassName = ({
+	captionSize,
+	isDark,
+}: Pick<FeatureTextProps, "captionSize" | "isDark">) => {
+	if (captionSize === "sm") {
+		return "ygi:body-14-md ygi:text-palette-gray-700";
+	}
+	return isDark
+		? "ygi:body-16-md ygi:text-palette-gray-300"
+		: "ygi:body-16-md ygi:text-palette-gray-500";
+};
 
 export const FeatureText = ({
 	caption,
 	headline,
 	isDark,
 	isInView,
+	captionSize = "md",
 }: FeatureTextProps) => (
 	<motion.div
 		initial={{ opacity: 0, y: 40 }}
@@ -23,11 +37,9 @@ export const FeatureText = ({
 		className="ygi:flex ygi:flex-col ygi:items-center ygi:gap-2"
 	>
 		<p
-			className={`ygi:text-center ygi:body-16-md ${
-				isDark
-					? "ygi:text-palette-gray-300"
-					: "ygi:text-palette-gray-500"
-			}`}
+			className={`ygi:text-center ygi:whitespace-pre-line ${captionClassName(
+				{ captionSize, isDark },
+			)}`}
 		>
 			{caption}
 		</p>

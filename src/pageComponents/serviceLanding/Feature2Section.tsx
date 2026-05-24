@@ -12,15 +12,14 @@ export const Feature2Section = () => {
 	return (
 		<section
 			ref={ref}
-			className="ygi:overflow-hidden ygi:px-6 ygi:pt-13.5"
-			style={{ backgroundColor: "#d5dae2" }}
+			className="ygi:overflow-hidden ygi:bg-palette-gray-100 ygi:px-6 ygi:pt-13.5"
 		>
 			<div className="ygi:mx-auto ygi:flex ygi:flex-col ygi:items-center">
 				<FeatureText
 					caption="먹기 싫은거, 먹고 싶은거"
 					headline={
 						<>
-							{"나의 "}
+							{"각자의 "}
 							<span className="ygi:text-button-secondary">
 								의견 입력
 							</span>
@@ -29,8 +28,8 @@ export const Feature2Section = () => {
 					}
 					isDark={false}
 					isInView={isInView}
+					captionSize="sm"
 				/>
-				{/* overflow-hidden으로 하단 overflow 초기 상태 클리핑 */}
 				<div className="ygi:relative ygi:-bottom-14">
 					<motion.div
 						initial={{ opacity: 1, y: 72, scale: 0.88 }}
@@ -43,8 +42,8 @@ export const Feature2Section = () => {
 					>
 						{(
 							[
+								"feature-1-screen-a",
 								"feature-2-screen-a",
-								"feature-2-screen-b",
 							] as const
 						).map((name) => (
 							<Image
@@ -52,8 +51,8 @@ export const Feature2Section = () => {
 								src={`/images/service-landing/${name}.png`}
 								alt="의견 입력 화면"
 								width={148}
-								height={321}
-								className="ygi:rounded-[10px] ygi:shadow-lg"
+								height={242}
+								className="ygi:rounded-t-[10px] ygi:shadow-lg"
 								priority
 							/>
 						))}
