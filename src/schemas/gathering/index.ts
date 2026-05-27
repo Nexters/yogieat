@@ -11,3 +11,8 @@ export {
 	type OpinionFormSchema,
 	preferredCategoriesSchema,
 } from "./opinionForm.schema";
+
+export {
+	aloneFormSchema,
+	type AloneFormSchema,
+} from "./aloneForm.schema";
