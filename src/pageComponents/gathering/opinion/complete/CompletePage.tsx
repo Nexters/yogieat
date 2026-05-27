@@ -7,6 +7,7 @@ import { trackViewPage } from "#/components/analytics";
 import { Layout } from "#/components/layout";
 import { StepHeader } from "#/components/stepHeader";
 import { Toaster } from "#/components/toast";
+import { useGetGatheringCapacity } from "#/hooks/apis/gathering";
 import { useProceedRecommendResult } from "#/hooks/gathering";
 
 import { ResultGeneratingPage } from "../result";
@@ -20,6 +21,15 @@ export function CompletePage() {
 	const { accessKey } = useParams<{ accessKey: string }>();
 
 	const { proceed, isPending } = useProceedRecommendResult();
+	const {
+		data: { maxCount },
+	} = useGetGatheringCapacity(accessKey);
+
+	useEffect(() => {
+		if (maxCount === 1) {
+			proceed();
+		}
+	}, [maxCount]);
 
 	useEffect(() => {
 		if (accessKey) {

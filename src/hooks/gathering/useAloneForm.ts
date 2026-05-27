@@ -59,7 +59,7 @@ export function useAloneForm() {
 				distance: null,
 			});
 
-			router.replace(`/gathering/${gathering.accessKey}/opinion/pending`);
+			router.replace(`/gathering/${gathering.accessKey}/opinion/complete`);
 		} catch (error) {
 			if (isApiError(error)) {
 				toast.warning(error.message);
