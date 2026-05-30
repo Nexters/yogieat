@@ -5,6 +5,12 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.10.0](https://github.com/Nexters/yogieat/compare/v2.9.0...v2.10.0) (2026-05-30)
+
+### Features
+
+* 혼자서/여럿이서 선택 페이지 및 혼자서 결정하기 플로우 추가 ([#151](https://github.com/Nexters/yogieat/issues/151)) ([9a1f94d](https://github.com/Nexters/yogieat/commit/9a1f94d8ef227d313b761a33887ae29d08547e10))
+
 ## [2.9.0-beta.2](https://github.com/Nexters/yogieat/compare/v2.9.0-beta.1...v2.9.0-beta.2) (2026-05-30)
 
 ### Features
