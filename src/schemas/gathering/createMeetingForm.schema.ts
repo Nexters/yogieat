@@ -6,14 +6,14 @@ import {
 	validateDateInput,
 } from "#/utils/gathering/create";
 
-const timeSlotSchema = z.enum([
+export const timeSlotSchema = z.enum([
 	"LUNCH",
 	"DINNER",
 ] satisfies readonly TimeSlot[]);
 
-const regionSchema = z.string();
+export const regionSchema = z.string();
 
-const scheduledDateSchema = z.string().check((ctx) => {
+export const scheduledDateSchema = z.string().check((ctx) => {
 	// 10자리(yyyy.MM.dd) 입력 완료 시에만 validation 수행
 	// 빈 문자열이거나 입력 중일 때는 에러 표시하지 않음
 	if (ctx.value.length < 10) {

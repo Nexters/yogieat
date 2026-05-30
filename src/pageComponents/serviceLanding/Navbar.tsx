@@ -35,7 +35,7 @@ export const Navbar = () => {
 					aria-label="요기잇"
 				/>
 				<Link
-					href="/gathering/create"
+					href="/gathering/select"
 					className="ygi:cursor-pointer ygi:rounded-full ygi:bg-button-secondary ygi:px-5 ygi:py-2.5 ygi:body-14-bd ygi:text-text-inverse ygi:transition-colors ygi:hover:bg-button-secondary-hover"
 				>
 					바로 시작하기

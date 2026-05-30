@@ -28,7 +28,7 @@ export const LandingPage = () => {
 
 	const handleStartClick = () => {
 		trackCtaClick({ page_id: PAGE_ID, button_name: "모임 링크 생성 시작" });
-		router.replace("/gathering/create");
+		router.push("/gathering/select");
 	};
 
 	useEffect(() => {

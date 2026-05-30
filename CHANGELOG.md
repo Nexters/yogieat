@@ -5,45 +5,51 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.9.0-beta.2](https://github.com/Nexters/yogieat/compare/v2.9.0-beta.1...v2.9.0-beta.2) (2026-05-30)
+
+### Features
+
+- 혼자서/여럿이서 선택 페이지 및 혼자서 결정하기 플로우 추가 ([#151](https://github.com/Nexters/yogieat/issues/151)) ([9a1f94d](https://github.com/Nexters/yogieat/commit/9a1f94d8ef227d313b761a33887ae29d08547e10))
+
 ## [2.9.0](https://github.com/Nexters/yogieat/compare/v2.8.2...v2.9.0) (2026-05-24)
 
 ### Features
 
-* 서비스 랜딩 페이지 to-be 시안 리뉴얼 ([#149](https://github.com/Nexters/yogieat/issues/149)) ([4161a76](https://github.com/Nexters/yogieat/commit/4161a7612f22ed0a6790e2499622342f5dbe401a))
+- 서비스 랜딩 페이지 to-be 시안 리뉴얼 ([#149](https://github.com/Nexters/yogieat/issues/149)) ([4161a76](https://github.com/Nexters/yogieat/commit/4161a7612f22ed0a6790e2499622342f5dbe401a))
 
 ## [2.9.0-beta.1](https://github.com/Nexters/yogieat/compare/v2.8.2...v2.9.0-beta.1) (2026-05-24)
 
 ### Features
 
-* 서비스 랜딩 페이지 to-be 시안 리뉴얼 ([#149](https://github.com/Nexters/yogieat/issues/149)) ([4161a76](https://github.com/Nexters/yogieat/commit/4161a7612f22ed0a6790e2499622342f5dbe401a))
+- 서비스 랜딩 페이지 to-be 시안 리뉴얼 ([#149](https://github.com/Nexters/yogieat/issues/149)) ([4161a76](https://github.com/Nexters/yogieat/commit/4161a7612f22ed0a6790e2499622342f5dbe401a))
 
 ## [2.8.2](https://github.com/Nexters/yogieat/compare/v2.8.1...v2.8.2) (2026-05-21)
 
 ### Bug Fixes
 
-* 맛집 상세 폰트 및 결과 페이지 추천 식당 UI 개선 ([#147](https://github.com/Nexters/yogieat/issues/147)) ([1223862](https://github.com/Nexters/yogieat/commit/1223862e227fbc99d9160841270991ad5e6977cc))
+- 맛집 상세 폰트 및 결과 페이지 추천 식당 UI 개선 ([#147](https://github.com/Nexters/yogieat/issues/147)) ([1223862](https://github.com/Nexters/yogieat/commit/1223862e227fbc99d9160841270991ad5e6977cc))
 
 ## [2.8.2-beta.1](https://github.com/Nexters/yogieat/compare/v2.8.1...v2.8.2-beta.1) (2026-05-21)
 
 ### Bug Fixes
 
-* 맛집 상세 폰트 및 결과 페이지 추천 식당 UI 개선 ([#147](https://github.com/Nexters/yogieat/issues/147)) ([1223862](https://github.com/Nexters/yogieat/commit/1223862e227fbc99d9160841270991ad5e6977cc))
+- 맛집 상세 폰트 및 결과 페이지 추천 식당 UI 개선 ([#147](https://github.com/Nexters/yogieat/issues/147)) ([1223862](https://github.com/Nexters/yogieat/commit/1223862e227fbc99d9160841270991ad5e6977cc))
 
 ## [2.8.1](https://github.com/Nexters/yogieat/compare/v2.8.0...v2.8.1) (2026-05-18)
 
 ### Bug Fixes
 
-* **region:** RegionStep 배너 버튼 클릭 시 폼 자동 제출 방지 ([#145](https://github.com/Nexters/yogieat/issues/145)) ([8745207](https://github.com/Nexters/yogieat/commit/874520734afd5c84d3a90843c2885d09bd5c515e))
+- **region:** RegionStep 배너 버튼 클릭 시 폼 자동 제출 방지 ([#145](https://github.com/Nexters/yogieat/issues/145)) ([8745207](https://github.com/Nexters/yogieat/commit/874520734afd5c84d3a90843c2885d09bd5c515e))
 
 ## [2.8.0](https://github.com/Nexters/yogieat/compare/v2.7.0...v2.8.0) (2026-05-16)
 
 ### Features
 
-* **region:** 지역 요청 제출 중 버튼 비활성화 처리 ([#144](https://github.com/Nexters/yogieat/issues/144)) ([34c1ded](https://github.com/Nexters/yogieat/commit/34c1ded93c368cf2af4bbf952e2c22dc01f541d6))
+- **region:** 지역 요청 제출 중 버튼 비활성화 처리 ([#144](https://github.com/Nexters/yogieat/issues/144)) ([34c1ded](https://github.com/Nexters/yogieat/commit/34c1ded93c368cf2af4bbf952e2c22dc01f541d6))
 
 ### Code Refactoring
 
-* 식당 상세 페이지 OG 메타데이터 양식 수정 ([#143](https://github.com/Nexters/yogieat/issues/143)) ([dff7e66](https://github.com/Nexters/yogieat/commit/dff7e66ec6b5f781b4ea07df1aea7df89adfd7e4))
+- 식당 상세 페이지 OG 메타데이터 양식 수정 ([#143](https://github.com/Nexters/yogieat/issues/143)) ([dff7e66](https://github.com/Nexters/yogieat/commit/dff7e66ec6b5f781b4ea07df1aea7df89adfd7e4))
 
 ## [2.7.0-beta.7](https://github.com/Nexters/yogieat/compare/v2.7.0-beta.6...v2.7.0-beta.7) (2026-05-12)
 
