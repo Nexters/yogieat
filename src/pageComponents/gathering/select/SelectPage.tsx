@@ -40,7 +40,7 @@ export function SelectPage() {
 						</StepHeader.Title>
 					</StepHeader.Root>
 
-					<div className="ygi:flex ygi:gap-2">
+					<div className="ygi:flex ygi:gap-sm">
 						<ModeCard
 							mode="alone"
 							isSelected={selected === "alone"}

@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 
 import { Banner } from "#/components/banner";
-import { Button } from "#/components/button/Button";
+import { Button } from "#/components/button";
 import { Dialog } from "#/components/dialog";
 import { Layout } from "#/components/layout";
 import { StepHeader } from "#/components/stepHeader";

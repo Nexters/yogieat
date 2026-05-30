@@ -21,7 +21,7 @@ export const ModeCard = ({ mode, isSelected, onSelect }: ModeCardProps) => (
 		type="button"
 		onClick={() => onSelect(mode)}
 		className={twJoin(
-			"ygi:flex ygi:h-52.5 ygi:flex-1 ygi:cursor-pointer ygi:flex-col ygi:items-center ygi:justify-center ygi:gap-4 ygi:rounded-xl ygi:p-4 ygi:transition-all",
+			"ygi:flex ygi:h-52.5 ygi:flex-1 ygi:cursor-pointer ygi:flex-col ygi:items-center ygi:justify-center ygi:gap-md ygi:rounded-xl ygi:p-md ygi:transition-all",
 			isSelected
 				? "ygi:bg-button-tertiary-hover"
 				: "ygi:bg-button-tertiary-disabled ygi:hover:bg-button-tertiary",

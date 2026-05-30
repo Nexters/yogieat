@@ -21,16 +21,14 @@ export function CompletePage() {
 	const { accessKey } = useParams<{ accessKey: string }>();
 
 	const { proceed, isPending } = useProceedRecommendResult();
-	const {
-		data: { maxCount },
-	} = useGetGatheringCapacity(accessKey);
+	const { data } = useGetGatheringCapacity(accessKey);
+	const maxCount = data?.maxCount;
 
 	useEffect(() => {
 		if (maxCount === 1) {
 			proceed();
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [maxCount]);
+	}, [maxCount, proceed]);
 
 	useEffect(() => {
 		if (accessKey) {

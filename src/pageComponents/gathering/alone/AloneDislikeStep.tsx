@@ -2,7 +2,7 @@
 
 import { useFormContext, useWatch } from "react-hook-form";
 
-import { Button } from "#/components/button/Button";
+import { Button } from "#/components/button";
 import { DotsLoader } from "#/components/dotsLoader";
 import { Layout } from "#/components/layout";
 import { StepHeader } from "#/components/stepHeader";

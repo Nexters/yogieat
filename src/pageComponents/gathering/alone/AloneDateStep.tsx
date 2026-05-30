@@ -26,7 +26,7 @@ export const AloneDateStepContent = () => {
 
 	return (
 		<section className="ygi:pt-3">
-			<div className="ygi:flex ygi:flex-col ygi:gap-8">
+			<div className="ygi:flex ygi:flex-col ygi:gap-xl">
 				<div className="ygi:flex ygi:flex-col ygi:gap-xl ygi:px-6">
 					<StepHeader.Root>
 						<StepHeader.Title>
@@ -40,7 +40,7 @@ export const AloneDateStepContent = () => {
 					<h2 className="ygi:heading-22-bd ygi:text-text-primary">
 						시간대를 선택해 주세요
 					</h2>
-					<div className="ygi:flex ygi:gap-3">
+					<div className="ygi:flex ygi:gap-md">
 						<Chip
 							selected={timeSlotField.value === "LUNCH"}
 							onClick={() => handleTimeSlotChange("LUNCH")}
