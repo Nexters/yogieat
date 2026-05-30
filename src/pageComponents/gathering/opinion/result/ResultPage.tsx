@@ -70,7 +70,7 @@ export function ResultPage() {
 			page_id: PAGE_ID,
 			button_name: "모임 링크 다시 만들기",
 		});
-		router.push("/gathering/create");
+		router.push("/gathering/select");
 	};
 
 	useEffect(() => {

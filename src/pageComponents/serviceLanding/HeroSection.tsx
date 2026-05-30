@@ -41,7 +41,7 @@ export const HeroSection = () => {
 					</div>
 
 					<Link
-						href="/gathering/create"
+						href="/gathering/select"
 						className="ygi:inline-flex ygi:cursor-pointer ygi:items-center ygi:justify-center ygi:rounded-full ygi:bg-white ygi:px-8 ygi:py-4 ygi:heading-18-bd ygi:text-text-primary ygi:transition-colors ygi:hover:bg-white/90"
 					>
 						바로 시작하기
