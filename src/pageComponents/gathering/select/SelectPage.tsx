@@ -1,46 +1,27 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 import { BackwardButton } from "#/components/backwardButton";
+import { Button } from "#/components/button";
+import { DotsLoader } from "#/components/dotsLoader";
 import { Layout } from "#/components/layout";
 import { StepHeader } from "#/components/stepHeader";
 
-type GatheringMode = "alone" | "together";
-
-interface ModeOptionProps {
-	title: string;
-	description: string;
-	onClick: () => void;
-}
-
-const ModeOption = ({ title, description, onClick }: ModeOptionProps) => {
-	return (
-		<button
-			type="button"
-			onClick={onClick}
-			className="ygi:flex ygi:w-full ygi:cursor-pointer ygi:flex-col ygi:gap-2 ygi:rounded-xl ygi:bg-button-tertiary ygi:px-5 ygi:py-6 ygi:text-left ygi:transition-colors ygi:hover:bg-button-tertiary-hover"
-		>
-			<span className="ygi:heading-18-bd ygi:text-text-primary">
-				{title}
-			</span>
-			<span className="ygi:body-14-rg ygi:text-text-secondary">
-				{description}
-			</span>
-		</button>
-	);
-};
-
-const ROUTE: Record<GatheringMode, string> = {
-	alone: "/gathering/alone",
-	together: "/gathering/create",
-};
+import { type GatheringMode, ModeCard } from "./ModeCard";
 
 export function SelectPage() {
 	const router = useRouter();
+	const [selected, setSelected] = useState<GatheringMode | null>(null);
+	const [isPending, setIsPending] = useState(false);
 
-	const handleSelect = (mode: GatheringMode) => {
-		router.push(ROUTE[mode]);
+	const handleNext = () => {
+		if (!selected) return;
+		setIsPending(true);
+		router.push(
+			selected === "alone" ? "/gathering/alone" : "/gathering/create",
+		);
 	};
 
 	return (
@@ -50,27 +31,43 @@ export function SelectPage() {
 			</Layout.Header>
 
 			<Layout.Content>
-				<div className="ygi:flex ygi:h-full ygi:flex-col ygi:gap-6 ygi:px-6 ygi:pt-3">
+				<div className="ygi:flex ygi:flex-col ygi:gap-6 ygi:px-6 ygi:pt-3">
 					<StepHeader.Root>
 						<StepHeader.Title>
-							어떻게 정할까요?
+							이번에 갈 맛집,
+							<br />
+							어떻게 정할 건가요?
 						</StepHeader.Title>
 					</StepHeader.Root>
 
-					<div className="ygi:flex ygi:flex-col ygi:gap-3">
-						<ModeOption
-							title="혼자서 바로 정할게요"
-							description="내 취향을 입력하면 바로 결과를 알려드려요"
-							onClick={() => handleSelect("alone")}
+					<div className="ygi:flex ygi:gap-2">
+						<ModeCard
+							mode="alone"
+							isSelected={selected === "alone"}
+							onSelect={setSelected}
 						/>
-						<ModeOption
-							title="여럿이서 같이 정할게요"
-							description="모임 링크를 만들고 함께 취향을 모아요"
-							onClick={() => handleSelect("together")}
+						<ModeCard
+							mode="together"
+							isSelected={selected === "together"}
+							onSelect={setSelected}
 						/>
 					</div>
 				</div>
 			</Layout.Content>
+
+			<Layout.Footer>
+				<div className="ygi:px-6">
+					<Button
+						type="button"
+						variant="primary"
+						width="full"
+						disabled={!selected || isPending}
+						onClick={handleNext}
+					>
+						{isPending ? <DotsLoader /> : "다음"}
+					</Button>
+				</div>
+			</Layout.Footer>
 		</Layout.Root>
 	);
 }
