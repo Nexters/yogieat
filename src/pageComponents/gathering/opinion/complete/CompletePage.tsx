@@ -29,6 +29,7 @@ export function CompletePage() {
 		if (maxCount === 1) {
 			proceed();
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [maxCount]);
 
 	useEffect(() => {
