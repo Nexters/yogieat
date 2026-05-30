@@ -9,10 +9,7 @@ import { StepTransition } from "#/components/stepTransition";
 import { Toaster } from "#/components/toast";
 import { useAloneForm, useAloneFunnel } from "#/hooks/gathering";
 
-import {
-	AloneDateStepContent,
-	AloneDateStepFooter,
-} from "./AloneDateStep";
+import { AloneDateStepContent, AloneDateStepFooter } from "./AloneDateStep";
 import {
 	AloneDislikeStepContent,
 	AloneDislikeStepFooter,

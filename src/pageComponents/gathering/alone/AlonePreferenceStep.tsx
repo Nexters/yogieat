@@ -15,9 +15,7 @@ export const AlonePreferenceStepContent = () => {
 	return (
 		<div className="ygi:flex ygi:flex-col ygi:gap-8 ygi:px-6 ygi:pt-3 ygi:pb-6">
 			<StepHeader.Root>
-				<StepHeader.Title>
-					먹고 싶은 음식을 골라주세요
-				</StepHeader.Title>
+				<StepHeader.Title>먹고 싶은 음식을 골라주세요</StepHeader.Title>
 			</StepHeader.Root>
 			<PreferenceStep.Content />
 		</div>
