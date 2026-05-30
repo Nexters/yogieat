@@ -59,7 +59,9 @@ export function useAloneForm() {
 				distance: null,
 			});
 
-			router.replace(`/gathering/${gathering.accessKey}/opinion/complete`);
+			router.replace(
+				`/gathering/${gathering.accessKey}/opinion/complete`,
+			);
 		} catch (error) {
 			if (isApiError(error)) {
 				toast.warning(error.message);

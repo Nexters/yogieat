@@ -1,3 +1,5 @@
+export { aloneFormSchema, type AloneFormSchema } from "./aloneForm.schema";
+
 export {
 	createMeetingFormSchema,
 	type CreateMeetingFormSchema,
@@ -11,8 +13,3 @@ export {
 	type OpinionFormSchema,
 	preferredCategoriesSchema,
 } from "./opinionForm.schema";
-
-export {
-	aloneFormSchema,
-	type AloneFormSchema,
-} from "./aloneForm.schema";

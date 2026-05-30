@@ -4,7 +4,12 @@ import { useCallback, useState } from "react";
 
 import type { AloneStep } from "#/types/gathering";
 
-const ALONE_STEP_ORDER: AloneStep[] = ["date", "region", "preference", "dislike"];
+const ALONE_STEP_ORDER: AloneStep[] = [
+	"date",
+	"region",
+	"preference",
+	"dislike",
+];
 
 export function useAloneFunnel() {
 	const [step, setStep] = useState<AloneStep>(ALONE_STEP_ORDER[0]);
