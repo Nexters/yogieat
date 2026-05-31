@@ -42,3 +42,6 @@ next-env.d.ts
 
 # Git worktrees
 .worktrees/
+
+# Figma MCP scratch assets
+.figma-tmp/
