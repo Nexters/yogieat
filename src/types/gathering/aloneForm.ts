@@ -1,1 +1,1 @@
-export type AloneStep = "date" | "region" | "preference" | "dislike";
+export type AloneStep = "region" | "preference" | "dislike";
