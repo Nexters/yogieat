@@ -9,7 +9,6 @@ import { StepTransition } from "#/components/stepTransition";
 import { Toaster } from "#/components/toast";
 import { useAloneForm, useAloneFunnel } from "#/hooks/gathering";
 
-import { AloneDateStepContent, AloneDateStepFooter } from "./AloneDateStep";
 import {
 	AloneDislikeStepContent,
 	AloneDislikeStepFooter,
@@ -38,8 +37,6 @@ export function AloneFormPage() {
 
 	const renderContent = () => {
 		switch (step) {
-			case "date":
-				return <AloneDateStepContent />;
 			case "region":
 				return <AloneRegionStepContent />;
 			case "preference":
@@ -53,8 +50,6 @@ export function AloneFormPage() {
 
 	const renderFooter = () => {
 		switch (step) {
-			case "date":
-				return <AloneDateStepFooter onNext={next} />;
 			case "region":
 				return <AloneRegionStepFooter onNext={next} />;
 			case "preference":

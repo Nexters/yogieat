@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { format } from "date-fns";
 import { compact } from "es-toolkit";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -8,8 +9,12 @@ import { useForm } from "react-hook-form";
 import { useCreateGathering } from "#/hooks/apis/gathering";
 import { useCreateParticipant } from "#/hooks/apis/participant";
 import { aloneFormSchema, type AloneFormSchema } from "#/schemas/gathering";
+import type { TimeSlot } from "#/types/gathering";
 import { isApiError } from "#/utils/api";
 import { toast } from "#/utils/toast";
+
+const getTimeSlotByCurrentHour = (): TimeSlot =>
+	new Date().getHours() < 15 ? "LUNCH" : "DINNER";
 
 export function useAloneForm() {
 	const router = useRouter();
@@ -22,8 +27,6 @@ export function useAloneForm() {
 		mode: "onChange",
 		resolver: zodResolver(aloneFormSchema),
 		defaultValues: {
-			scheduledDate: "",
-			timeSlot: null,
 			region: null,
 			dislikedCategories: [],
 			preferredCategories: {
@@ -35,14 +38,17 @@ export function useAloneForm() {
 	});
 
 	const handleSubmit = methods.handleSubmit(async (data) => {
-		if (!data.timeSlot || !data.region) return;
+		if (!data.region) return;
+
+		const scheduledDate = format(new Date(), "yyyy-MM-dd");
+		const timeSlot = getTimeSlotByCurrentHour();
 
 		try {
 			const { data: gathering } = await createGathering({
 				peopleCount: 1,
 				region: data.region,
-				scheduledDate: data.scheduledDate.replace(/\./g, "-"),
-				timeSlot: data.timeSlot,
+				scheduledDate,
+				timeSlot,
 			});
 
 			const preferences = compact([
