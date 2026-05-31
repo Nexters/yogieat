@@ -29,6 +29,10 @@ export interface RestaurantDetail {
 	reviewCount: number;
 	aiMateSummaryTitle: string | null;
 	aiMateSummaryContents: string[];
+	/** 요기잇 메이커 픽 제목. null/빈값/"-" 일 수 있으며, 그 경우 UI 기본 라벨로 폴백한다. */
+	teamRecommendationTitle: string | null;
+	/** 요기잇 메이커 픽 본문(추천 사유). 이 값의 유무로 섹션 렌더링을 결정한다. */
+	teamRecommendationReason: string | null;
 }
 
 /**
