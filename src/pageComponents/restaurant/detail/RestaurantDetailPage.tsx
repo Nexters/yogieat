@@ -11,6 +11,7 @@ import { useGetRestaurantDetail } from "#/hooks/apis/restaurant";
 
 import { AiSummarySection } from "./AiSummarySection";
 import { HeroImageSection } from "./HeroImageSection";
+import { MakerPickSection } from "./makerPickSection";
 import { OverviewSection } from "./OverviewSection";
 import { PriceLevelSection } from "./PriceLevelSection";
 import { RepresentMenuSection } from "./RepresentMenuSection";
@@ -54,6 +55,7 @@ export const RestaurantDetailPage = () => {
 					<div className="ygi:flex ygi:flex-col ygi:divide-y ygi:divide-dashed ygi:divide-border-default ygi:bg-surface-white">
 						<OverviewSection restaurant={restaurant} />
 						<AiSummarySection restaurant={restaurant} />
+						<MakerPickSection restaurant={restaurant} />
 					</div>
 
 					<div className="ygi:flex ygi:flex-col ygi:divide-y ygi:divide-dashed ygi:divide-border-default ygi:bg-surface-white">
