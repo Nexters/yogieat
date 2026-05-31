@@ -5,7 +5,6 @@ import { useCallback, useState } from "react";
 import type { AloneStep } from "#/types/gathering";
 
 const ALONE_STEP_ORDER: AloneStep[] = [
-	"date",
 	"region",
 	"preference",
 	"dislike",
