@@ -10,10 +10,6 @@ import { Toaster } from "#/components/toast";
 import { useAloneForm, useAloneFunnel } from "#/hooks/gathering";
 
 import {
-	AloneDislikeStepContent,
-	AloneDislikeStepFooter,
-} from "./AloneDislikeStep";
-import {
 	AlonePreferenceStepContent,
 	AlonePreferenceStepFooter,
 } from "./AlonePreferenceStep";
@@ -41,8 +37,6 @@ export function AloneFormPage() {
 				return <AloneRegionStepContent />;
 			case "preference":
 				return <AlonePreferenceStepContent />;
-			case "dislike":
-				return <AloneDislikeStepContent />;
 			default:
 				return null;
 		}
@@ -53,9 +47,7 @@ export function AloneFormPage() {
 			case "region":
 				return <AloneRegionStepFooter onNext={next} />;
 			case "preference":
-				return <AlonePreferenceStepFooter onNext={next} />;
-			case "dislike":
-				return <AloneDislikeStepFooter isPending={isPending} />;
+				return <AlonePreferenceStepFooter isPending={isPending} />;
 			default:
 				return null;
 		}
