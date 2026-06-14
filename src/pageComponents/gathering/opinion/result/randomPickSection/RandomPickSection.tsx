@@ -32,7 +32,7 @@ export const RandomPickSection = ({ accessKey }: RandomPickSectionProps) => {
 				)}
 			>
 				<div className="ygi:flex ygi:flex-col ygi:items-start ygi:gap-3">
-					<p className="ygi:body-14-bd ygi:text-left ygi:text-text-primary">
+					<p className="ygi:text-left ygi:body-14-bd ygi:text-text-primary">
 						추천 받은 맛집 중에
 						<br />
 						랜덤으로 뽑아보세요
@@ -41,7 +41,7 @@ export const RandomPickSection = ({ accessKey }: RandomPickSectionProps) => {
 						className={twJoin(
 							"ygi:flex ygi:items-center ygi:gap-0.5",
 							"ygi:rounded-full ygi:bg-surface-primary",
-							"ygi:py-1 ygi:pl-3 ygi:pr-2",
+							"ygi:py-1 ygi:pr-2 ygi:pl-3",
 						)}
 					>
 						<span className="ygi:caption-12-bd ygi:text-text-interactive">

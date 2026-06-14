@@ -45,7 +45,7 @@ export const RandomPickDrumrollPage = ({
 
 					<div className="ygi:relative ygi:w-full">
 						<ResultGeneratingIllustration />
-						<div className="ygi:absolute ygi:left-1/2 ygi:top-0 ygi:-translate-x-1/2 ygi:-translate-y-1/2">
+						<div className="ygi:absolute ygi:top-0 ygi:left-1/2 ygi:-translate-x-1/2 ygi:-translate-y-1/2">
 							<ResultGeneratingSpeechBubble />
 						</div>
 					</div>
