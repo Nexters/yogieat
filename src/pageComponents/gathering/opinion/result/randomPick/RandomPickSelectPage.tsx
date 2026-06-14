@@ -5,39 +5,13 @@ import { useMemo, useState } from "react";
 import { twJoin } from "tailwind-merge";
 
 import { BackwardButton } from "#/components/backwardButton";
+import { CheckBox } from "#/components/checkbox";
 import { Layout } from "#/components/layout";
 import { CATEGORY_LABEL } from "#/constants/gathering/opinion";
 import { useGetRecommendResult } from "#/hooks/apis/recommendResult";
 import type { Restaurant } from "#/types/gathering";
 
 import { RandomPickDrumrollPage } from "./RandomPickDrumrollPage";
-
-const CheckIndicator = ({ checked }: { checked: boolean }) => (
-	<div
-		className={twJoin(
-			"ygi:flex ygi:h-6 ygi:w-6 ygi:shrink-0 ygi:items-center ygi:justify-center",
-			"ygi:rounded-sm ygi:transition-colors",
-			checked
-				? "ygi:bg-surface-active ygi:stroke-icon-inverse"
-				: "ygi:border ygi:border-border-default ygi:bg-surface-white ygi:stroke-border-default",
-		)}
-	>
-		<svg
-			width="14"
-			height="10"
-			viewBox="0 0 14 10"
-			fill="none"
-			xmlns="http://www.w3.org/2000/svg"
-		>
-			<path
-				d="M1 5L5 9L13 1"
-				strokeWidth="2"
-				strokeLinecap="round"
-				strokeLinejoin="round"
-			/>
-		</svg>
-	</div>
-);
 
 interface RestaurantSelectItemProps {
 	restaurant: Restaurant;
@@ -53,18 +27,16 @@ const RestaurantSelectItem = ({
 	const categoryLabel = CATEGORY_LABEL[restaurant.largeCategory];
 
 	return (
-		<button
-			type="button"
-			role="checkbox"
-			aria-checked={checked}
-			onClick={() => onCheckedChange(!checked)}
+		<CheckBox.Root
+			checked={checked}
+			onCheckedChange={onCheckedChange}
 			className={twJoin(
 				"ygi:flex ygi:w-full ygi:items-center ygi:gap-3",
 				"ygi:border-b ygi:border-border-default ygi:last:border-none",
-				"ygi:bg-surface-white ygi:px-6 ygi:py-5 ygi:text-left ygi:cursor-pointer",
+				"ygi:bg-surface-white ygi:px-6 ygi:py-5 ygi:text-left",
 			)}
 		>
-			<CheckIndicator checked={checked} />
+			<CheckBox.Indicator />
 			<div className="ygi:flex ygi:items-center ygi:gap-2">
 				<span className="ygi:body-16-sb ygi:text-text-primary">
 					{restaurant.restaurantName}
@@ -75,7 +47,7 @@ const RestaurantSelectItem = ({
 					</span>
 				)}
 			</div>
-		</button>
+		</CheckBox.Root>
 	);
 };
 
@@ -152,9 +124,14 @@ export const RandomPickSelectPage = () => {
 							<RestaurantSelectItem
 								key={restaurant.restaurantId}
 								restaurant={restaurant}
-								checked={selectedIds.has(restaurant.restaurantId)}
+								checked={selectedIds.has(
+									restaurant.restaurantId,
+								)}
 								onCheckedChange={(checked) =>
-									handleToggle(restaurant.restaurantId, checked)
+									handleToggle(
+										restaurant.restaurantId,
+										checked,
+									)
 								}
 							/>
 						))}

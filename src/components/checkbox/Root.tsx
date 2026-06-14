@@ -10,6 +10,7 @@ interface CheckBoxRootProps {
 	disabled?: boolean;
 	onCheckedChange: (checked: boolean) => void;
 	children: ReactNode;
+	className?: string;
 }
 
 export const Root = ({
@@ -17,6 +18,7 @@ export const Root = ({
 	disabled = false,
 	onCheckedChange,
 	children,
+	className,
 }: CheckBoxRootProps) => {
 	const handleClick = () => {
 		if (!disabled) {
@@ -48,6 +50,7 @@ export const Root = ({
 				className={twMerge(
 					"ygi:inline-flex ygi:cursor-pointer ygi:items-center ygi:gap-2 ygi:select-none",
 					disabled && "ygi:cursor-not-allowed ygi:opacity-50",
+					className,
 				)}
 			>
 				{children}
