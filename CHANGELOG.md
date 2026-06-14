@@ -5,6 +5,12 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.12.0-beta.3](https://github.com/Nexters/yogieat/compare/v2.12.0-beta.2...v2.12.0-beta.3) (2026-06-14)
+
+### Features
+
+* 랜덤 뽑기 기능 추가 ([#157](https://github.com/Nexters/yogieat/issues/157)) ([08c3232](https://github.com/Nexters/yogieat/commit/08c3232d6e206b26a7dda4fe961428aa5fbe6a9e))
+
 ## [2.12.0-beta.2](https://github.com/Nexters/yogieat/compare/v2.12.0-beta.1...v2.12.0-beta.2) (2026-06-10)
 
 ### Code Refactoring
