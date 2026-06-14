@@ -7,7 +7,7 @@ import { useCheckBoxContext } from "./context";
 const indicatorVariants = cva(
 	[
 		"ygi:flex ygi:items-center ygi:justify-center",
-		"ygi:h-6 ygi:w-6 ygi:rounded-lg",
+		"ygi:h-6 ygi:w-6 ygi:rounded-sm",
 		"ygi:transition-colors",
 	],
 	{
