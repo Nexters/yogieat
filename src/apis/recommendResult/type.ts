@@ -1,7 +1,23 @@
-import type { RecommendationResult, Restaurant } from "#/types/gathering";
+import type {
+	GatheringInfo,
+	RecommendationResult,
+	Restaurant,
+} from "#/types/gathering";
+import type { RecommendationResultStatus } from "#/constants/gathering/opinion";
 
-/** 추천 결과 조회 응답 */
+/** 추천 결과 조회 응답 (v1) */
 export type GetRecommendResultResponse = RecommendationResult;
+
+/** 추천 결과 조회 응답 (v2) */
+export type GetRecommendResultV2Response = {
+	status: RecommendationResultStatus;
+	recommendResults: Restaurant[];
+	gathering: GatheringInfo;
+	preferences: Record<string, number>;
+	dislikes: Record<string, number>;
+	distances: Record<string, number>;
+	agreementRate: number;
+};
 
 export type PostProcessRecommendResultRequest = {
 	accessKey: string;

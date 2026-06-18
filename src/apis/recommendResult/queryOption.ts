@@ -1,6 +1,6 @@
 import { queryOptions } from "@tanstack/react-query";
 
-import { getRecommendResult } from "./api";
+import { getRecommendResult, getRecommendResultV2 } from "./api";
 import { recommendResultKeys } from "./queryKey";
 
 /**
@@ -11,5 +11,10 @@ export const recommendResultOptions = {
 		queryOptions({
 			queryKey: recommendResultKeys.detail(accessKey),
 			queryFn: () => getRecommendResult(accessKey),
+		}),
+	restaurantList: (accessKey: string) =>
+		queryOptions({
+			queryKey: recommendResultKeys.restaurantList(accessKey),
+			queryFn: () => getRecommendResultV2(accessKey),
 		}),
 };
