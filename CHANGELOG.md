@@ -5,6 +5,12 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.12.0-beta.4](https://github.com/Nexters/yogieat/compare/v2.12.0-beta.3...v2.12.0-beta.4) (2026-06-21)
+
+### Features
+
+* 랜덤 뽑기 식당 목록 조회 API v2 마이그레이션 ([#158](https://github.com/Nexters/yogieat/issues/158)) ([e4b639f](https://github.com/Nexters/yogieat/commit/e4b639f579031a74bf4d82011e4f5398e861b2d7))
+
 ## [2.12.0-beta.3](https://github.com/Nexters/yogieat/compare/v2.12.0-beta.2...v2.12.0-beta.3) (2026-06-14)
 
 ### Features
