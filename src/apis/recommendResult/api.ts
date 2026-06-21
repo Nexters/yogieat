@@ -1,12 +1,12 @@
 import { apiClient, apiClientV2 } from "#/utils/api";
 
-import {
-	type GetRecommendResultResponse,
-	type GetRecommendResultV2Response,
+import type {
+	GetRecommendResultResponse,
+	GetRecommendResultV2Response,
 	PostProcessRecommendResultRequest,
 	PostProcessRecommendResultResponse,
-	type RerollRecommendResultRequest,
-	type RerollRecommendResultResponse,
+	RerollRecommendResultRequest,
+	RerollRecommendResultResponse,
 } from "./type";
 
 /**
