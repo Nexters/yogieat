@@ -5,6 +5,17 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.13.0](https://github.com/Nexters/yogieat/compare/v2.12.0...v2.13.0) (2026-06-21)
+
+### Features
+
+* 랜덤 뽑기 기능 추가 ([#157](https://github.com/Nexters/yogieat/issues/157)) ([08c3232](https://github.com/Nexters/yogieat/commit/08c3232d6e206b26a7dda4fe961428aa5fbe6a9e))
+* 랜덤 뽑기 식당 목록 조회 API v2 마이그레이션 ([#158](https://github.com/Nexters/yogieat/issues/158)) ([e4b639f](https://github.com/Nexters/yogieat/commit/e4b639f579031a74bf4d82011e4f5398e861b2d7))
+
+### Code Refactoring
+
+* 1인 플로우에서 불호 스텝 제거 및 dislikes 고정값 ANY 설정 ([#156](https://github.com/Nexters/yogieat/issues/156)) ([6231685](https://github.com/Nexters/yogieat/commit/62316853c5482823b045ac8c62d3ba5d821a8a72))
+
 ## [2.12.0](https://github.com/Nexters/yogieat/compare/v2.11.0...v2.12.0) (2026-05-31)
 
 ### Features
