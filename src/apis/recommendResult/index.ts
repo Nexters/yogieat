@@ -1,5 +1,5 @@
 // API
-export { getRecommendResult } from "./api";
+export { getRecommendResult, getRecommendResultV2 } from "./api";
 
 // Mutation Key & Option
 export { recommendResultMutationKeys } from "./mutationKey";
@@ -12,6 +12,7 @@ export { recommendResultOptions } from "./queryOption";
 // Types
 export type {
 	GetRecommendResultResponse,
+	GetRecommendResultV2Response,
 	RerollRecommendResultRequest,
 	RerollRecommendResultResponse,
 } from "./type";

@@ -1,14 +1,14 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { twJoin } from "tailwind-merge";
 
 import { BackwardButton } from "#/components/backwardButton";
 import { CheckBox } from "#/components/checkbox";
 import { Layout } from "#/components/layout";
 import { CATEGORY_LABEL } from "#/constants/gathering/opinion";
-import { useGetRecommendResult } from "#/hooks/apis/recommendResult";
+import { useGetRecommendResultRestaurantList } from "#/hooks/apis/recommendResult";
 import type { Restaurant } from "#/types/gathering";
 
 import { RandomPickDrumrollPage } from "./RandomPickDrumrollPage";
@@ -54,12 +54,8 @@ const RestaurantSelectItem = ({
 export const RandomPickSelectPage = () => {
 	const { accessKey } = useParams<{ accessKey: string }>();
 	const router = useRouter();
-	const { data: result } = useGetRecommendResult(accessKey);
-
-	const restaurants = useMemo(
-		() => [result.topRecommendation, ...result.otherCandidates],
-		[result],
-	);
+	const { data: restaurants } =
+		useGetRecommendResultRestaurantList(accessKey);
 
 	const [selectedIds, setSelectedIds] = useState<Set<number>>(
 		() => new Set(restaurants.map((r) => r.restaurantId)),
@@ -151,7 +147,7 @@ export const RandomPickSelectPage = () => {
 						"ygi:pb-[env(safe-area-inset-bottom)]",
 					)}
 				>
-					<div className="ygi:px-6 ygi:pt-4">
+					<div className="ygi:px-6 ygi:py-4">
 						<button
 							type="button"
 							onClick={handleRandomPick}

@@ -6,10 +6,10 @@ import {
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { getRestaurantDetail, restaurantOptions } from "#/apis/restaurant";
-import { CATEGORY_LABEL } from "#/constants/gathering/opinion";
+import { restaurantOptions } from "#/apis/restaurant";
 import { RestaurantDetailPage } from "#/pageComponents/restaurant/detail";
 import { ERROR_CODES, isApiError } from "#/utils/api";
+import { buildRestaurantDetailMetadata } from "#/utils/metadata/restaurant/restaurantDetailMetadata";
 
 interface RestaurantDetailRouteProps {
 	params: Promise<{
@@ -21,38 +21,7 @@ export async function generateMetadata({
 	params,
 }: RestaurantDetailRouteProps): Promise<Metadata> {
 	const { id } = await params;
-
-	try {
-		const { data: restaurant } = await getRestaurantDetail(id);
-
-		const title = `${restaurant.restaurantName} | ${CATEGORY_LABEL[restaurant.largeCategory]}`;
-		const description = "[요기잇] 추천 맛집을 확인해보세요.";
-		const canonicalPath = `/restaurants/${id}`;
-
-		return {
-			title,
-			description,
-			alternates: { canonical: canonicalPath },
-			openGraph: {
-				title,
-				description,
-				type: "website",
-				locale: "ko_KR",
-				siteName: "요기잇",
-				url: canonicalPath,
-				...(restaurant.imageUrl && {
-					images: [
-						{
-							url: restaurant.imageUrl,
-							alt: restaurant.restaurantName,
-						},
-					],
-				}),
-			},
-		};
-	} catch {
-		return {};
-	}
+	return buildRestaurantDetailMetadata(id);
 }
 
 export default async function RestaurantDetailRoute({

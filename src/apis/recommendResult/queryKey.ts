@@ -5,4 +5,6 @@ export const recommendResultKeys = {
 	all: ["recommendResult"] as const,
 	detail: (accessKey: string) =>
 		[...recommendResultKeys.all, accessKey] as const,
+	restaurantList: (accessKey: string) =>
+		[...recommendResultKeys.all, accessKey, "restaurantList"] as const,
 };
