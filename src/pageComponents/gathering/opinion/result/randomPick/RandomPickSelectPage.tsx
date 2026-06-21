@@ -54,7 +54,8 @@ const RestaurantSelectItem = ({
 export const RandomPickSelectPage = () => {
 	const { accessKey } = useParams<{ accessKey: string }>();
 	const router = useRouter();
-	const { data: restaurants } = useGetRecommendResultRestaurantList(accessKey);
+	const { data: restaurants } =
+		useGetRecommendResultRestaurantList(accessKey);
 
 	const [selectedIds, setSelectedIds] = useState<Set<number>>(
 		() => new Set(restaurants.map((r) => r.restaurantId)),

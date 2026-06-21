@@ -1,9 +1,9 @@
+import type { RecommendationResultStatus } from "#/constants/gathering/opinion";
 import type {
 	GatheringInfo,
 	RecommendationResult,
 	Restaurant,
 } from "#/types/gathering";
-import type { RecommendationResultStatus } from "#/constants/gathering/opinion";
 
 /** 추천 결과 조회 응답 (v1) */
 export type GetRecommendResultResponse = RecommendationResult;
