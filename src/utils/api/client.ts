@@ -15,6 +15,12 @@ interface ApiClientConfig {
 	headers?: KyOptions["headers"];
 }
 
+const buildKyOptions = (options?: ApiRequestOptions): KyOptions => ({
+	headers: options?.headers,
+	searchParams: options?.searchParams,
+	timeout: options?.timeout,
+});
+
 /**
  * API 클라이언트 생성 함수
  * Server Component, Client Component 모두에서 사용 가능
@@ -39,15 +45,6 @@ export const createApiClient = (config: ApiClientConfig) => {
 				},
 			],
 		},
-	});
-
-	/**
-	 * 공통 요청 옵션 변환
-	 */
-	const buildKyOptions = (options?: ApiRequestOptions): KyOptions => ({
-		headers: options?.headers,
-		searchParams: options?.searchParams,
-		timeout: options?.timeout,
 	});
 
 	return {

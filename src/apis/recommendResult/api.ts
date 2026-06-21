@@ -1,4 +1,4 @@
-import { apiClient, createApiClient } from "#/utils/api";
+import { apiClient, apiClientV2 } from "#/utils/api";
 
 import {
 	type GetRecommendResultResponse,
@@ -8,10 +8,6 @@ import {
 	type RerollRecommendResultRequest,
 	type RerollRecommendResultResponse,
 } from "./type";
-
-const apiClientV2 = createApiClient({
-	baseUrl: `${process.env.NEXT_PUBLIC_API_URL}/api/v2`,
-});
 
 /**
  * 추천 결과 조회 API (v1)
