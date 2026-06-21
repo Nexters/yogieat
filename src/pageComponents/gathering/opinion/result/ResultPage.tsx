@@ -19,6 +19,7 @@ import { useGetRecommendResult } from "#/hooks/apis/recommendResult";
 import { useGetRegions } from "#/hooks/apis/region";
 
 import { FeedbackSection } from "./FeedbackSection";
+import { RandomPickSection } from "./randomPickSection";
 import { RecommendedRestaurantSection } from "./recommendedRestaurantSection";
 import { TasteSummaryCard } from "./TasteSummaryCard";
 import { VoteSummarySection } from "./voteSummarySection";
@@ -111,6 +112,8 @@ export function ResultPage() {
 						accessKey={accessKey}
 						initialList={initialRestaurantList}
 					/>
+
+					<RandomPickSection accessKey={accessKey} />
 
 					<VoteSummarySection
 						preferences={recommendationResult.preferences}
