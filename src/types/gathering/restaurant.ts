@@ -23,5 +23,7 @@ export interface Restaurant {
 	priceLevel: string | null;
 	aiMateSummaryTitle: string | null;
 	aiMateSummaryContents: string[];
+	teamRecommendationTitle: string | null;
+	teamRecommendationReason: string | null;
 	reasonText: string | null;
 }

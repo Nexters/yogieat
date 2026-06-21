@@ -7,27 +7,28 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { restaurantOptions } from "#/apis/restaurant";
-import { RestaurantDetailPage } from "#/pageComponents/restaurant/detail";
+import { RandomPickResultPage } from "#/pageComponents/gathering/opinion/result/randomPick";
 import { ERROR_CODES, isApiError } from "#/utils/api";
 import { buildRestaurantDetailMetadata } from "#/utils/metadata/restaurant/restaurantDetailMetadata";
 
-interface RestaurantDetailRouteProps {
+interface RandomPickResultRouteProps {
 	params: Promise<{
-		id: string;
+		accessKey: string;
+		restaurantId: string;
 	}>;
 }
 
 export async function generateMetadata({
 	params,
-}: RestaurantDetailRouteProps): Promise<Metadata> {
-	const { id } = await params;
-	return buildRestaurantDetailMetadata(id);
+}: RandomPickResultRouteProps): Promise<Metadata> {
+	const { restaurantId } = await params;
+	return buildRestaurantDetailMetadata(restaurantId);
 }
 
-export default async function RestaurantDetailRoute({
+export default async function RandomPickResultRoute({
 	params,
-}: RestaurantDetailRouteProps) {
-	const { id } = await params;
+}: RandomPickResultRouteProps) {
+	const { restaurantId } = await params;
 	const queryClient = new QueryClient({
 		defaultOptions: {
 			queries: {
@@ -37,7 +38,7 @@ export default async function RestaurantDetailRoute({
 	});
 
 	try {
-		await queryClient.fetchQuery(restaurantOptions.detail(id));
+		await queryClient.fetchQuery(restaurantOptions.detail(restaurantId));
 	} catch (error) {
 		if (isApiError(error)) {
 			switch (error.errorCode) {
@@ -50,7 +51,7 @@ export default async function RestaurantDetailRoute({
 
 	return (
 		<HydrationBoundary state={dehydrate(queryClient)}>
-			<RestaurantDetailPage />
+			<RandomPickResultPage />
 		</HydrationBoundary>
 	);
 }

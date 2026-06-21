@@ -1,0 +1,97 @@
+name: Release & Deploy
+
+# develop 에 작업이 머지된 뒤, 버튼 한 번으로 운영 배포를 실행하는 워크플로우.
+#
+# 동작:
+#   1. develop 을 main 으로 머지 (package.json / CHANGELOG 충돌은 main 기준 자동 해결)
+#   2. main push (GITHUB_TOKEN push 는 다른 워크플로우를 트리거하지 않음 → 아래에서 명시적으로 호출)
+#   3. 기존 워크플로우 3종을 workflow_dispatch 로 트리거
+#        - Semantic Release (버전 태깅 / CHANGELOG / GitHub Release)
+#        - Production Deployment (yogieat.com 라이브 배포)
+#        - Sync main to develop (main → develop 역동기화 PR)
+#
+# 실행 방법:
+#   - GitHub UI: Actions → "Release & Deploy" → Run workflow → confirm 에 "deploy" 입력
+#   - CLI:       gh workflow run release.yml -f confirm=deploy
+
+on:
+    workflow_dispatch:
+        inputs:
+            confirm:
+                description: '운영 배포 확인 — "deploy" 를 입력하세요 (오작동 방지)'
+                required: true
+                default: ""
+
+concurrency:
+    group: release-${{ github.repository }}
+    cancel-in-progress: false
+
+permissions:
+    contents: write
+    actions: write
+
+jobs:
+    release:
+        name: Promote develop → main & deploy
+        runs-on: ubuntu-latest
+        if: ${{ github.event.inputs.confirm == 'deploy' }}
+        env:
+            GH_TOKEN: ${{ github.token }}
+        steps:
+            - name: Checkout (full history)
+              uses: actions/checkout@v5
+              with:
+                  fetch-depth: 0
+                  ref: main
+
+            - name: Configure git
+              run: |
+                  git config user.name "github-actions[bot]"
+                  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+            - name: Merge develop → main (버전 파일 충돌 자동 해결)
+              id: merge
+              run: |
+                  set -euo pipefail
+                  git fetch origin main develop
+                  git checkout main
+                  git reset --hard origin/main
+
+                  if [ "$(git rev-list --count origin/main..origin/develop)" -eq 0 ]; then
+                    echo "nothing=1" >> "$GITHUB_OUTPUT"
+                    echo "✅ develop 에 새로 배포할 변경이 없습니다. 종료합니다."
+                    exit 0
+                  fi
+
+                  echo "📦 배포 대상 커밋 (origin/main..origin/develop):"
+                  git log --oneline --no-merges origin/main..origin/develop
+
+                  # 머지 시도. package.json / CHANGELOG 는 main(정식 버전) 과 develop(beta) 이
+                  # 구조적으로 갈라져 항상 충돌하므로, main 쪽 값을 채택한다.
+                  # (semantic-release 가 push 이후 버전을 재계산해 두 파일을 다시 생성한다)
+                  git merge --no-ff --no-commit origin/develop || true
+                  git checkout --ours -- package.json CHANGELOG.md 2>/dev/null || true
+                  git add -- package.json CHANGELOG.md 2>/dev/null || true
+
+                  # 버전 파일 외 충돌이 남아있으면 사람이 직접 해결해야 함 → 실패 처리
+                  if git diff --name-only --diff-filter=U | grep -q .; then
+                    echo "❌ 버전 메타데이터 외 충돌이 발생했습니다. 로컬에서 수동 해결이 필요합니다:"
+                    git diff --name-only --diff-filter=U
+                    git merge --abort
+                    exit 1
+                  fi
+
+                  git commit -m "Merge branch 'develop' into main (release)"
+                  git push origin main
+                  echo "nothing=0" >> "$GITHUB_OUTPUT"
+                  echo "✅ develop → main 머지 및 push 완료"
+
+            - name: Trigger downstream workflows (deploy / release / sync)
+              if: ${{ steps.merge.outputs.nothing == '0' }}
+              run: |
+                  set -euo pipefail
+                  gh workflow run semantic-release.yml --ref main
+                  gh workflow run production-deploy.yml --ref main -f deploy_client=true
+                  gh workflow run sync-main-to-develop.yml --ref main
+                  echo "🚀 트리거 완료: Semantic Release / Production Deployment / Sync main to develop"
+                  echo "진행 상황: ${{ github.server_url }}/${{ github.repository }}/actions"

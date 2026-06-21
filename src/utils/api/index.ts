@@ -8,8 +8,8 @@ export { ERROR_CODES } from "./errorCodes";
 // Errors
 export { ApiError, isApiError } from "./errors";
 
-// Default instance
-export { apiClient } from "./instance";
+// Default instances
+export { apiClient, apiClientV2 } from "./instance";
 
 // Types
 export type {

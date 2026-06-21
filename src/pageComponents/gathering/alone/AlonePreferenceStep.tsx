@@ -3,6 +3,7 @@
 import { useFormContext, useWatch } from "react-hook-form";
 
 import { Button } from "#/components/button";
+import { DotsLoader } from "#/components/dotsLoader";
 import { Layout } from "#/components/layout";
 import { StepHeader } from "#/components/stepHeader";
 import { PreferenceStep } from "#/pageComponents/gathering/opinion/form/PreferenceStep";
@@ -23,11 +24,11 @@ export const AlonePreferenceStepContent = () => {
 };
 
 interface AlonePreferenceStepFooterProps {
-	onNext: () => void;
+	isPending: boolean;
 }
 
 export const AlonePreferenceStepFooter = ({
-	onNext,
+	isPending,
 }: AlonePreferenceStepFooterProps) => {
 	const { control } = useFormContext<AloneFormSchema>();
 
@@ -42,13 +43,12 @@ export const AlonePreferenceStepFooter = ({
 		<Layout.Footer>
 			<div className="ygi:px-6">
 				<Button
-					type="button"
+					type="submit"
 					variant="primary"
 					width="full"
-					disabled={disabled}
-					onClick={onNext}
+					disabled={disabled || isPending}
 				>
-					다음
+					{isPending ? <DotsLoader /> : "완료"}
 				</Button>
 			</div>
 		</Layout.Footer>

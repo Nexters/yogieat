@@ -28,7 +28,6 @@ export function useAloneForm() {
 		resolver: zodResolver(aloneFormSchema),
 		defaultValues: {
 			region: null,
-			dislikedCategories: [],
 			preferredCategories: {
 				first: undefined,
 				second: undefined,
@@ -60,7 +59,7 @@ export function useAloneForm() {
 			await createParticipant({
 				accessKey: gathering.accessKey,
 				nickname: "나",
-				dislikes: data.dislikedCategories,
+				dislikes: ["ANY"],
 				preferences,
 				distance: null,
 			});

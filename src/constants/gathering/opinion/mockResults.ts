@@ -28,6 +28,8 @@ export const MOCK_RECOMMENDATION_RESULT: RecommendationResult = {
 		priceLevel: null,
 		aiMateSummaryTitle: null,
 		aiMateSummaryContents: [],
+		teamRecommendationTitle: null,
+		teamRecommendationReason: null,
 		reasonText: null,
 	},
 	otherCandidates: [
@@ -58,6 +60,8 @@ export const MOCK_RECOMMENDATION_RESULT: RecommendationResult = {
 			priceLevel: null,
 			aiMateSummaryTitle: null,
 			aiMateSummaryContents: [],
+			teamRecommendationTitle: null,
+			teamRecommendationReason: null,
 			reasonText: null,
 		},
 		{
@@ -87,6 +91,8 @@ export const MOCK_RECOMMENDATION_RESULT: RecommendationResult = {
 			priceLevel: null,
 			aiMateSummaryTitle: null,
 			aiMateSummaryContents: [],
+			teamRecommendationTitle: null,
+			teamRecommendationReason: null,
 			reasonText: null,
 		},
 	],
