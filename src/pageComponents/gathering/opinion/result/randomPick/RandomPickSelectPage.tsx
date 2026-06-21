@@ -147,7 +147,7 @@ export const RandomPickSelectPage = () => {
 						"ygi:pb-[env(safe-area-inset-bottom)]",
 					)}
 				>
-					<div className="ygi:px-6 ygi:pt-4">
+					<div className="ygi:px-6 ygi:py-4">
 						<button
 							type="button"
 							onClick={handleRandomPick}
