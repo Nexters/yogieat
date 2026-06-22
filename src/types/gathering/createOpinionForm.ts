@@ -8,4 +8,4 @@ export interface OpinionForm {
 	preferredCategories: PreferredCategory;
 }
 
-export type OpinionStep = "nickname" | "dislike" | "preference";
+export type OpinionStep = "dislike" | "preference";

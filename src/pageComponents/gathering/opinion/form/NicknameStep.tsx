@@ -145,7 +145,7 @@ const Footer = ({ onNext }: FooterProps) => {
 		trackStepComplete({
 			page_id: "의견수합_퍼널",
 			step_name: "이름",
-			step_value: nickname,
+			step_value: nickname ?? "",
 		});
 
 		onNext();
@@ -167,6 +167,7 @@ const Footer = ({ onNext }: FooterProps) => {
 	);
 };
 
+// NOTE : 닉네임 입력 스텝은 현재 퍼널에서 제거된 상태. 새로운 기획 확정 전까지 코드 보존
 export const NicknameStep = {
 	Header,
 	Content,

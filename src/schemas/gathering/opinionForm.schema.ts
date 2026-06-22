@@ -55,7 +55,7 @@ export const preferredCategoriesSchema = z
 	});
 
 export const opinionFormSchema = z.object({
-	nickname: nicknameSchema,
+	nickname: nicknameSchema.optional(), // NOTE : 닉네임 입력 스텝이 제거되어 optional, 의견 수합 제출 시 랜덤으로 닉네임 값 할당
 	dislikedCategories: dislikedCategoriesSchema,
 	preferredCategories: preferredCategoriesSchema,
 });
