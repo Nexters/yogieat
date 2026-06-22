@@ -50,7 +50,13 @@ type ParticipantErrorCode =
 type LockErrorCode = "L001";
 
 /** Recommend 에러 코드 */
-type RecommendErrorCode = "REC001" | "REC002" | "REC003";
+type RecommendErrorCode =
+	| "REC001"
+	| "REC002"
+	| "REC003"
+	| "REC004"
+	| "REC005"
+	| "REC006";
 
 /**
  * 서버에서 반환하는 모든 에러 코드 타입
@@ -122,4 +128,7 @@ export const ERROR_CODES = {
 	INVALID_CATEGORY_AGGREGATION: "REC001",
 	INVALID_PREFERENCE_SCORE: "REC002",
 	RECOMMEND_ALREADY_PROCEEDED: "REC003",
+	RECOMMEND_RESULT_NOT_FOUND: "REC004",
+	RECOMMEND_REROLL_NOT_AVAILABLE: "REC005",
+	RECOMMEND_REROLL_LIMIT_EXCEEDED: "REC006",
 } as const satisfies Record<string, ErrorCode>;

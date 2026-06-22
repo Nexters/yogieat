@@ -10,7 +10,6 @@ import { Toaster } from "#/components/toast";
 import { useOpinionForm, useOpinionFunnel } from "#/hooks/gathering";
 
 import { DislikeStep } from "./DislikeStep";
-import { NicknameStep } from "./NicknameStep";
 import { PreferenceStep } from "./PreferenceStep";
 
 export function OpinionFormPage() {
@@ -28,19 +27,11 @@ export function OpinionFormPage() {
 	};
 
 	const renderHeader = () => {
-		if (step === "nickname") return null;
 		return <BackwardButton onClick={handleBackward} />;
 	};
 
 	const renderContent = () => {
 		switch (step) {
-			case "nickname":
-				return (
-					<div className="ygi:flex ygi:flex-col ygi:gap-xl ygi:px-6 ygi:pt-3">
-						<NicknameStep.Header />
-						<NicknameStep.Content />
-					</div>
-				);
 			case "dislike":
 				return (
 					<div className="ygi:pt-3">
@@ -66,8 +57,6 @@ export function OpinionFormPage() {
 
 	const renderFooter = () => {
 		switch (step) {
-			case "nickname":
-				return <NicknameStep.Footer onNext={next} />;
 			case "dislike":
 				return <DislikeStep.Footer onNext={next} />;
 			case "preference":
