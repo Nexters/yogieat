@@ -5,23 +5,22 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.12.0-beta.4](https://github.com/Nexters/yogieat/compare/v2.12.0-beta.3...v2.12.0-beta.4) (2026-06-21)
-
-### Features
-
-* 랜덤 뽑기 식당 목록 조회 API v2 마이그레이션 ([#158](https://github.com/Nexters/yogieat/issues/158)) ([e4b639f](https://github.com/Nexters/yogieat/commit/e4b639f579031a74bf4d82011e4f5398e861b2d7))
-
-## [2.12.0-beta.3](https://github.com/Nexters/yogieat/compare/v2.12.0-beta.2...v2.12.0-beta.3) (2026-06-14)
+## [2.13.0](https://github.com/Nexters/yogieat/compare/v2.12.0...v2.13.0) (2026-06-21)
 
 ### Features
 
 * 랜덤 뽑기 기능 추가 ([#157](https://github.com/Nexters/yogieat/issues/157)) ([08c3232](https://github.com/Nexters/yogieat/commit/08c3232d6e206b26a7dda4fe961428aa5fbe6a9e))
-
-## [2.12.0-beta.2](https://github.com/Nexters/yogieat/compare/v2.12.0-beta.1...v2.12.0-beta.2) (2026-06-10)
+* 랜덤 뽑기 식당 목록 조회 API v2 마이그레이션 ([#158](https://github.com/Nexters/yogieat/issues/158)) ([e4b639f](https://github.com/Nexters/yogieat/commit/e4b639f579031a74bf4d82011e4f5398e861b2d7))
 
 ### Code Refactoring
 
 * 1인 플로우에서 불호 스텝 제거 및 dislikes 고정값 ANY 설정 ([#156](https://github.com/Nexters/yogieat/issues/156)) ([6231685](https://github.com/Nexters/yogieat/commit/62316853c5482823b045ac8c62d3ba5d821a8a72))
+
+## [2.12.0](https://github.com/Nexters/yogieat/compare/v2.11.0...v2.12.0) (2026-05-31)
+
+### Features
+
+* 1인 모드에서 약속 날짜 선택 스텝 제거 ([#155](https://github.com/Nexters/yogieat/issues/155)) ([448a673](https://github.com/Nexters/yogieat/commit/448a673462a5e67d334b7357e1369594d1b907b7))
 
 ## [2.12.0-beta.1](https://github.com/Nexters/yogieat/compare/v2.11.0...v2.12.0-beta.1) (2026-05-31)
 
