@@ -5,6 +5,7 @@ import { compact } from "es-toolkit";
 import { useParams, useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
+import { RANDOM_NICKNAMES } from "#/constants/nickname";
 import { useCreateParticipant, useGetRecommendResult } from "#/hooks/apis";
 import { ToastLinkButton } from "#/pageComponents/gathering/opinion";
 import { opinionFormSchema, type OpinionFormSchema } from "#/schemas/gathering";
@@ -24,7 +25,6 @@ export function useOpinionForm() {
 		mode: "onChange",
 		resolver: zodResolver(opinionFormSchema),
 		defaultValues: {
-			nickname: "",
 			dislikedCategories: [],
 			preferredCategories: {
 				first: undefined,
@@ -40,27 +40,37 @@ export function useOpinionForm() {
 	};
 
 	const handleSubmit = methods.handleSubmit(async (data) => {
-		try {
-			const preferences = compact([
-				data.preferredCategories.first,
-				data.preferredCategories.second,
-				data.preferredCategories.third,
-			]);
+		const preferences = compact([
+			data.preferredCategories.first,
+			data.preferredCategories.second,
+			data.preferredCategories.third,
+		]);
 
-			await createParticipant({
-				accessKey,
-				preferences,
-				nickname: data.nickname,
-				dislikes: data.dislikedCategories,
-				distance: null, // NOTE : 거리 스텝이 제거되어 ANY (null) 로 수정정
-			});
-			router.replace(`/gathering/${accessKey}/opinion/pending`);
-		} catch (error) {
-			if (isApiError(error)) {
-				switch (error.errorCode) {
-					case ERROR_CODES.GATHERING_FULL:
-					case ERROR_CODES.DUPLICATE_NICKNAME:
-					case ERROR_CODES.RECOMMEND_ALREADY_PROCEEDED: {
+		const shuffledNicknames = [...RANDOM_NICKNAMES].sort(
+			() => Math.random() - 0.5,
+		);
+
+		for (const nickname of shuffledNicknames) {
+			try {
+				await createParticipant({
+					accessKey,
+					preferences,
+					nickname,
+					dislikes: data.dislikedCategories,
+					distance: null, // NOTE : 거리 스텝이 제거되어 ANY (null) 로 수정
+				});
+				router.replace(`/gathering/${accessKey}/opinion/pending`);
+				return;
+			} catch (error) {
+				if (isApiError(error)) {
+					if (error.errorCode === ERROR_CODES.DUPLICATE_NICKNAME)
+						continue;
+
+					if (
+						error.errorCode === ERROR_CODES.GATHERING_FULL ||
+						error.errorCode ===
+							ERROR_CODES.RECOMMEND_ALREADY_PROCEEDED
+					) {
 						toast.warning(error.message, {
 							action: (
 								<ToastLinkButton
@@ -71,13 +81,16 @@ export function useOpinionForm() {
 						});
 						return;
 					}
-				}
 
-				toast.warning(error.message);
+					toast.warning(error.message);
+					return;
+				}
+				toast.warning("모임 참여에 실패했습니다. 다시 시도해주세요.");
 				return;
 			}
-			toast.warning("모임 참여에 실패했습니다. 다시 시도해주세요.");
 		}
+
+		toast.warning("모임 참여에 실패했습니다. 다시 시도해주세요.");
 	});
 
 	return {
