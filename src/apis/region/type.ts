@@ -4,6 +4,8 @@ import type { GeoJsonGeometry } from "#/types/geo";
 export type Coordinates = GeoJsonGeometry;
 
 /** 지역 정보 */
+export type RegionStatus = "ACTIVE" | "PENDING" | "INACTIVE";
+
 export interface RegionInfo {
 	/** 지역 코드 (예: GANGNAM) */
 	code: string;
@@ -11,6 +13,8 @@ export interface RegionInfo {
 	province: string;
 	/** 표시 이름 (예: 강남역) */
 	displayName: string;
+	/** 지역 운영 상태 */
+	status: RegionStatus;
 	/** 기준 좌표 */
 	coordinatesStandard: Coordinates;
 }

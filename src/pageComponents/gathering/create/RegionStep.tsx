@@ -51,8 +51,13 @@ export const RegionStepContent = () => {
 			</Tab.Root>
 
 			<div className="ygi:flex ygi:flex-wrap ygi:gap-3 ygi:px-5">
-				{filteredRegions.map(({ code, displayName }) => (
-					<RegionChip key={code} value={code} label={displayName} />
+				{filteredRegions.map(({ code, displayName, status }) => (
+					<RegionChip
+						key={code}
+						value={code}
+						label={displayName}
+						status={status}
+					/>
 				))}
 			</div>
 		</section>
