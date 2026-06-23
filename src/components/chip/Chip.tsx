@@ -11,22 +11,45 @@ const chipVariants = cva(
 	],
 	{
 		variants: {
+			variant: {
+				filled: "",
+				dashed: [
+					"ygi:border-[3px] ygi:border-dashed ygi:border-border-default",
+					"ygi:bg-transparent ygi:text-text-disabled",
+					"ygi:hover:bg-transparent ygi:hover:text-text-disabled",
+					"ygi:disabled:bg-transparent ygi:disabled:text-text-disabled",
+					"ygi:disabled:hover:bg-transparent ygi:disabled:hover:text-text-disabled",
+				],
+			},
 			selected: {
-				false: [
+				false: "",
+				true: "",
+			},
+		},
+		compoundVariants: [
+			{
+				variant: "filled",
+				selected: false,
+				class: [
 					"ygi:bg-button-tertiary ygi:text-text-secondary",
 					"ygi:hover:bg-button-tertiary-hover ygi:hover:text-text-primary",
 					"ygi:disabled:bg-button-tertiary-disabled ygi:disabled:text-text-disabled",
 					"ygi:disabled:hover:bg-button-tertiary-disabled ygi:disabled:hover:text-text-disabled",
 				],
-				true: [
+			},
+			{
+				variant: "filled",
+				selected: true,
+				class: [
 					"ygi:bg-button-secondary ygi:text-text-inverse",
 					"ygi:hover:bg-button-secondary-hover",
 					"ygi:disabled:bg-button-secondary-disabled ygi:disabled:text-text-inverse",
 					"ygi:disabled:hover:bg-button-secondary-disabled",
 				],
 			},
-		},
+		],
 		defaultVariants: {
+			variant: "filled",
 			selected: false,
 		},
 	},
@@ -38,6 +61,7 @@ export type ChipProps = Omit<ComponentProps<"button">, "className"> &
 export const Chip = ({
 	ref,
 	type = "button",
+	variant,
 	selected,
 	children,
 	disabled,
@@ -49,7 +73,7 @@ export const Chip = ({
 			type={type}
 			aria-pressed={selected ?? false}
 			disabled={disabled}
-			className={chipVariants({ selected })}
+			className={chipVariants({ selected, variant })}
 			{...props}
 		>
 			{children}
