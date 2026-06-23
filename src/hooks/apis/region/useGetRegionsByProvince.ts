@@ -7,8 +7,11 @@ export const useGetRegionsByProvince = () => {
 	return useSuspenseQuery({
 		...regionQueryOptions.list(),
 		select: (response) => {
+			const displayableRegions = response.data.regions.filter(
+				(region) => region.status !== "INACTIVE",
+			);
 			const grouped = Map.groupBy(
-				response.data.regions,
+				displayableRegions,
 				(region) => region.province,
 			);
 
@@ -16,9 +19,13 @@ export const useGetRegionsByProvince = () => {
 			for (const [province, regions] of grouped) {
 				sorted.set(
 					province,
-					[...regions].sort((a, b) =>
-						a.displayName.localeCompare(b.displayName, "ko"),
-					),
+					[...regions].sort((a, b) => {
+						if (a.status !== b.status) {
+							return a.status === "ACTIVE" ? -1 : 1;
+						}
+
+						return a.displayName.localeCompare(b.displayName, "ko");
+					}),
 				);
 			}
 
