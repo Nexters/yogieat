@@ -7,7 +7,7 @@ on:
     workflow_dispatch:
 
 permissions:
-    contents: read
+    contents: write
     pull-requests: write
 
 jobs:
@@ -52,11 +52,12 @@ jobs:
                   fi
 
             - name: Create sync PR (main → develop)
+              id: create-pr
               if: steps.check.outputs.needs_sync == 'true' && steps.existing.outputs.skip != 'true'
               env:
                   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
-                  gh pr create \
+                  PR_URL=$(gh pr create \
                     --base develop \
                     --head main \
                     --title "chore: sync main back to develop" \
@@ -83,4 +84,13 @@ jobs:
 
                   -   [프로젝트 문서]()
                   EOF
-                  )"
+                  )")
+                  echo "pr_url=$PR_URL" >> $GITHUB_OUTPUT
+
+            - name: Auto-merge sync PR
+              if: steps.check.outputs.needs_sync == 'true' && steps.existing.outputs.skip != 'true'
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  gh pr merge "${{ steps.create-pr.outputs.pr_url }}" --merge --admin
+                  echo "✅ Sync PR 자동 머지 완료"

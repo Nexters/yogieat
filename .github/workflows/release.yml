@@ -86,12 +86,29 @@ jobs:
                   echo "nothing=0" >> "$GITHUB_OUTPUT"
                   echo "✅ develop → main 머지 및 push 완료"
 
-            - name: Trigger downstream workflows (deploy / release / sync)
+            - name: Trigger semantic release & production deploy
               if: ${{ steps.merge.outputs.nothing == '0' }}
               run: |
                   set -euo pipefail
                   gh workflow run semantic-release.yml --ref main
                   gh workflow run production-deploy.yml --ref main -f deploy_client=true
-                  gh workflow run sync-main-to-develop.yml --ref main
-                  echo "🚀 트리거 완료: Semantic Release / Production Deployment / Sync main to develop"
+                  echo "🚀 트리거 완료: Semantic Release / Production Deployment"
                   echo "진행 상황: ${{ github.server_url }}/${{ github.repository }}/actions"
+
+            - name: Wait for production deploy to succeed
+              if: ${{ steps.merge.outputs.nothing == '0' }}
+              run: |
+                  set -euo pipefail
+                  echo "⏳ Production Deployment 완료 대기 중..."
+                  sleep 10
+                  RUN_ID=$(gh run list --workflow=production-deploy.yml --branch main --limit=1 --json databaseId --jq '.[0].databaseId')
+                  echo "📋 Production Deploy Run ID: $RUN_ID"
+                  gh run watch "$RUN_ID" --exit-status
+                  echo "✅ Production Deployment 성공 확인"
+
+            - name: Trigger sync main to develop
+              if: ${{ steps.merge.outputs.nothing == '0' }}
+              run: |
+                  set -euo pipefail
+                  gh workflow run sync-main-to-develop.yml --ref main
+                  echo "🔄 Sync main to develop 트리거 완료"
