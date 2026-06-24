@@ -5,16 +5,11 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.12.0-beta.6](https://github.com/Nexters/yogieat/compare/v2.12.0-beta.5...v2.12.0-beta.6) (2026-06-23)
+## [2.14.0](https://github.com/Nexters/yogieat/compare/v2.13.0...v2.14.0) (2026-06-23)
 
 ### Features
 
 * 오픈 예정 지역 칩 지원 ([#161](https://github.com/Nexters/yogieat/issues/161)) ([bd690be](https://github.com/Nexters/yogieat/commit/bd690be72aefdd0ade1779f69ca98b9d73b27a75))
-
-## [2.12.0-beta.5](https://github.com/Nexters/yogieat/compare/v2.12.0-beta.4...v2.12.0-beta.5) (2026-06-22)
-
-### Features
-
 * 의견 수합 퍼널 닉네임 입력 스텝 제거 ([#160](https://github.com/Nexters/yogieat/issues/160)) ([0d102f0](https://github.com/Nexters/yogieat/commit/0d102f03d4efb253d3cd894b09494a2be5e3293c))
 
 ## [2.13.0](https://github.com/Nexters/yogieat/compare/v2.12.0...v2.13.0) (2026-06-21)
