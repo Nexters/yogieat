@@ -5,6 +5,12 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.12.0-beta.7](https://github.com/Nexters/yogieat/compare/v2.12.0-beta.6...v2.12.0-beta.7) (2026-06-24)
+
+### Features
+
+* together 모드 인원 선택에서 1명 제거 ([#163](https://github.com/Nexters/yogieat/issues/163)) ([7678db3](https://github.com/Nexters/yogieat/commit/7678db35dbfbfa3573bb8c7700fef6b692580e29))
+
 ## [2.14.0](https://github.com/Nexters/yogieat/compare/v2.13.0...v2.14.0) (2026-06-23)
 
 ### Features
