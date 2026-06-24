@@ -32,7 +32,7 @@ export const scheduledDateSchema = z.string().check((ctx) => {
 });
 
 export const createMeetingFormSchema = z.object({
-	peopleCount: z.number().nullable(),
+	peopleCount: z.number().min(2).nullable(),
 	scheduledDate: scheduledDateSchema,
 	timeSlot: timeSlotSchema.nullable(),
 	region: regionSchema.nullable(),
