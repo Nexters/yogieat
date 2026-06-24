@@ -5,6 +5,12 @@ All notable changes to the YogiEat project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.12.0-beta.8](https://github.com/Nexters/yogieat/compare/v2.12.0-beta.7...v2.12.0-beta.8) (2026-06-24)
+
+### Bug Fixes
+
+* together 모드 첫 스텝 뒤로가기 버튼 노출 및 동작 수정 ([#166](https://github.com/Nexters/yogieat/issues/166)) ([bdadfda](https://github.com/Nexters/yogieat/commit/bdadfda512246bf9652875cc3456c665db7c31b7))
+
 ## [2.15.0](https://github.com/Nexters/yogieat/compare/v2.14.0...v2.15.0) (2026-06-24)
 
 ### Features
