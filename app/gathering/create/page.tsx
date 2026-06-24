@@ -28,7 +28,7 @@ export default function GatheringCreatePage() {
 
 	const handleBackward = () => {
 		if (isFirstStep) {
-			router.push("/app");
+			router.back();
 		} else {
 			back();
 		}
@@ -65,9 +65,7 @@ export default function GatheringCreatePage() {
 			<Layout.Root>
 				<form onSubmit={onSubmit}>
 					<Layout.Header>
-						{step !== "people" && (
-							<BackwardButton onClick={handleBackward} />
-						)}
+						<BackwardButton onClick={handleBackward} />
 					</Layout.Header>
 
 					<Layout.Content>
