@@ -87,11 +87,14 @@ jobs:
                   echo "✅ develop → main 머지 및 push 완료"
 
             - name: Trigger semantic release & production deploy
+              id: trigger-deploy
               if: ${{ steps.merge.outputs.nothing == '0' }}
               run: |
                   set -euo pipefail
                   gh workflow run semantic-release.yml --ref main
+                  TRIGGERED_AT=$(date -u +%Y-%m-%dT%H:%M:%SZ)
                   gh workflow run production-deploy.yml --ref main -f deploy_client=true
+                  echo "triggered_at=$TRIGGERED_AT" >> $GITHUB_OUTPUT
                   echo "🚀 트리거 완료: Semantic Release / Production Deployment"
                   echo "진행 상황: ${{ github.server_url }}/${{ github.repository }}/actions"
 
@@ -99,9 +102,23 @@ jobs:
               if: ${{ steps.merge.outputs.nothing == '0' }}
               run: |
                   set -euo pipefail
-                  echo "⏳ Production Deployment 완료 대기 중..."
-                  sleep 10
-                  RUN_ID=$(gh run list --workflow=production-deploy.yml --branch main --limit=1 --json databaseId --jq '.[0].databaseId')
+                  echo "⏳ Production Deployment run 등록 대기 중..."
+                  TRIGGERED_AT="${{ steps.trigger-deploy.outputs.triggered_at }}"
+                  RUN_ID=""
+                  for i in $(seq 1 12); do
+                    RUN_ID=$(gh run list --workflow=production-deploy.yml --branch main --limit=5 \
+                      --json databaseId,createdAt \
+                      --jq "[.[] | select(.createdAt >= \"$TRIGGERED_AT\")] | .[0].databaseId // empty")
+                    if [ -n "$RUN_ID" ]; then
+                      break
+                    fi
+                    echo "⏳ 아직 등록되지 않음, 5초 후 재시도... ($i/12)"
+                    sleep 5
+                  done
+                  if [ -z "$RUN_ID" ]; then
+                    echo "❌ Production Deploy run을 찾을 수 없습니다."
+                    exit 1
+                  fi
                   echo "📋 Production Deploy Run ID: $RUN_ID"
                   gh run watch "$RUN_ID" --exit-status
                   echo "✅ Production Deployment 성공 확인"
