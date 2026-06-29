@@ -14,7 +14,7 @@ const chipVariants = cva(
 			variant: {
 				filled: "",
 				dashed: [
-					"ygi:border-[3px] ygi:border-dashed ygi:border-border-default",
+					"ygi:outline-[3px] ygi:outline-offset-[-3px] ygi:outline-border-default ygi:outline-dashed",
 					"ygi:bg-transparent ygi:text-text-disabled",
 					"ygi:hover:bg-transparent ygi:hover:text-text-disabled",
 					"ygi:disabled:bg-transparent ygi:disabled:text-text-disabled",
