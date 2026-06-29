@@ -33,6 +33,7 @@ export const RegionChip = ({ value, label, status }: RegionChipProps) => {
 		<Chip
 			selected={!isPendingRegion && field.value === value}
 			variant={isPendingRegion ? "dashed" : "filled"}
+			aria-disabled={isPendingRegion}
 			onClick={handleClick}
 		>
 			{label}
