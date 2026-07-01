@@ -4,7 +4,10 @@ import { isNil } from "es-toolkit";
 import { useState } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 
-import { trackStepComplete } from "#/components/analytics";
+import {
+	trackStepComplete,
+	trackTogetherRegionSelectClick,
+} from "#/components/analytics";
 import { Banner } from "#/components/banner";
 import { Button } from "#/components/button/Button";
 import { Dialog } from "#/components/dialog";
@@ -87,6 +90,7 @@ export const RegionStepFooter = ({ isPending }: RegionStepFooterProps) => {
 			step_name: "장소",
 			step_value: regionLabel,
 		});
+		trackTogetherRegionSelectClick({ region_name: regionLabel });
 	};
 
 	return (

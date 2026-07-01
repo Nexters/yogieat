@@ -1,10 +1,14 @@
 "use client";
 
 import { omit } from "es-toolkit";
+import { useParams } from "next/navigation";
 import { useEffect } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 
-import { trackStepComplete } from "#/components/analytics";
+import {
+	trackMemberPreferenceCategoryCompleteClick,
+	trackStepComplete,
+} from "#/components/analytics";
 import { Button } from "#/components/button";
 import { DotsLoader } from "#/components/dotsLoader";
 import { Layout } from "#/components/layout";
@@ -128,6 +132,7 @@ interface FooterProps {
 }
 
 const Footer = ({ isPending }: FooterProps) => {
+	const { accessKey } = useParams<{ accessKey: string }>();
 	const { control } = useFormContext<OpinionFormSchema>();
 
 	const { preferredCategories, disabled } = useWatch({
@@ -154,6 +159,10 @@ const Footer = ({ isPending }: FooterProps) => {
 			page_id: "의견수합_퍼널",
 			step_name: "선호음식",
 			step_value: preferredLabels,
+		});
+		trackMemberPreferenceCategoryCompleteClick({
+			group_id: accessKey,
+			preferred_categories: preferredLabels,
 		});
 	};
 

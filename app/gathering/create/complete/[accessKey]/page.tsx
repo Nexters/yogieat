@@ -4,7 +4,12 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { twJoin } from "tailwind-merge";
 
-import { trackCtaClick, trackViewPage } from "#/components/analytics";
+import {
+	trackCtaClick,
+	trackHostOpinionStartClick,
+	trackMeetingCreateRestartClick,
+	trackViewPage,
+} from "#/components/analytics";
 import { Button } from "#/components/button";
 import { MeetingCompleteIllustration } from "#/components/illustrations";
 import { Layout } from "#/components/layout";
@@ -17,6 +22,7 @@ export default function GatheringCreateCompletePage() {
 
 	const handlePreferenceInput = () => {
 		trackCtaClick({ page_id: PAGE_ID, button_name: "내 취향 입력" });
+		trackHostOpinionStartClick();
 		router.push(`/gathering/${params.accessKey}/opinion`);
 	};
 
@@ -25,6 +31,7 @@ export default function GatheringCreateCompletePage() {
 			page_id: PAGE_ID,
 			button_name: "모임 링크 다시 만들기",
 		});
+		trackMeetingCreateRestartClick();
 		router.push("/gathering/create");
 	};
 

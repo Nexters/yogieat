@@ -4,6 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { twJoin } from "tailwind-merge";
 
+import { trackRandomPickClick } from "#/components/analytics";
 import { BackwardButton } from "#/components/backwardButton";
 import { CheckBox } from "#/components/checkbox";
 import { Layout } from "#/components/layout";
@@ -81,6 +82,9 @@ export const RandomPickSelectPage = () => {
 			selectedIds.has(r.restaurantId),
 		);
 		if (selected.length === 0) return;
+		trackRandomPickClick({
+			selection_modified: selected.length < restaurants.length,
+		});
 
 		const picked = selected[Math.floor(Math.random() * selected.length)];
 		setPickedRestaurantId(picked.restaurantId);

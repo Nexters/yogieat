@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 
+import { trackMeetingCreateStartClick } from "#/components/analytics";
 import { LandingLogoIcon } from "#/icons/landingLogoIcon";
 
 const Player = dynamic(
@@ -42,6 +43,7 @@ export const HeroSection = () => {
 
 					<Link
 						href="/gathering/select"
+						onClick={trackMeetingCreateStartClick}
 						className="ygi:inline-flex ygi:cursor-pointer ygi:items-center ygi:justify-center ygi:rounded-full ygi:bg-white ygi:px-8 ygi:py-4 ygi:heading-18-bd ygi:text-text-primary ygi:transition-colors ygi:hover:bg-white/90"
 					>
 						바로 시작하기

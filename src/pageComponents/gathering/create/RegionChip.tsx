@@ -3,6 +3,7 @@
 import { useController, useFormContext } from "react-hook-form";
 
 import type { RegionStatus } from "#/apis/region";
+import { trackUpcomingRegionClick } from "#/components/analytics";
 import { Chip } from "#/components/chip";
 import type { CreateMeetingFormSchema } from "#/schemas/gathering";
 import { toast } from "#/utils/toast";
@@ -23,6 +24,7 @@ export const RegionChip = ({ value, label, status }: RegionChipProps) => {
 
 	const handleClick = () => {
 		if (isPendingRegion) {
+			trackUpcomingRegionClick({ region_name: label });
 			toast.warning("곧 추가될 지역입니다. 조금만 기다려주세요!");
 			return;
 		}

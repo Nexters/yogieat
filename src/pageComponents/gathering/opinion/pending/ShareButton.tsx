@@ -2,7 +2,7 @@
 
 import { useParams } from "next/navigation";
 
-import { trackShareClick } from "#/components/analytics";
+import { trackShareButtonClick, trackShareClick } from "#/components/analytics";
 import { Button } from "#/components/button";
 import { share } from "#/utils/share";
 
@@ -14,7 +14,11 @@ export const ShareButton = ({ pageId }: ShareButtonProps) => {
 	const { accessKey } = useParams<{ accessKey: string }>();
 
 	const handleShare = () => {
-		trackShareClick({ page_id: pageId, share_location: "Footer" });
+		trackShareClick({ page_id: pageId, share_location: "결과대기페이지" });
+		trackShareButtonClick({
+			group_id: accessKey,
+			share_location: "결과대기페이지",
+		});
 		const opinionUrl = `${window.location.origin}/gathering/${accessKey}/landing`;
 		share({
 			title: "함께 갈 맛집, 같이 정해요!",
