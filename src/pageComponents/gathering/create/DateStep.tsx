@@ -3,7 +3,10 @@
 import { isNil } from "es-toolkit";
 import { useController, useFormContext, useWatch } from "react-hook-form";
 
-import { trackStepComplete } from "#/components/analytics";
+import {
+	trackScheduleSelectClick,
+	trackStepComplete,
+} from "#/components/analytics";
 import { Button } from "#/components/button";
 import { Chip } from "#/components/chip";
 import { Layout } from "#/components/layout";
@@ -78,6 +81,7 @@ export const DateStepFooter = ({ onNext }: DateStepFooterProps) => {
 	});
 
 	const handleNext = () => {
+		const scheduledDate = getValues("scheduledDate");
 		const timeSlot = getValues("timeSlot");
 		const timeSlotLabel = timeSlot ? TIME_SLOT_LABEL[timeSlot] : "";
 		trackStepComplete({
@@ -85,6 +89,12 @@ export const DateStepFooter = ({ onNext }: DateStepFooterProps) => {
 			step_name: "시간대",
 			step_value: timeSlotLabel,
 		});
+		if (scheduledDate && timeSlot) {
+			trackScheduleSelectClick({
+				scheduled_date: scheduledDate.replace(/\./g, "-"),
+				time_slot: timeSlot,
+			});
+		}
 		onNext();
 	};
 

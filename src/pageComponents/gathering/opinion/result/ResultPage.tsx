@@ -7,6 +7,7 @@ import { twJoin } from "tailwind-merge";
 
 import {
 	trackCtaClick,
+	trackShareButtonClick,
 	trackShareClick,
 	trackViewPage,
 } from "#/components/analytics";
@@ -63,7 +64,11 @@ export function ResultPage() {
 	};
 
 	const handleShare = () => {
-		trackShareClick({ page_id: PAGE_ID, share_location: "Footer" });
+		trackShareClick({ page_id: PAGE_ID, share_location: "결과페이지" });
+		trackShareButtonClick({
+			group_id: accessKey,
+			share_location: "결과페이지",
+		});
 	};
 
 	const handleRecreateLink = () => {

@@ -3,6 +3,8 @@
 import { motion } from "motion/react";
 import Link from "next/link";
 
+import { trackMeetingCreateStartClick } from "#/components/analytics";
+
 import { useScrollReveal } from "./useScrollReveal";
 
 export const CtaSection = () => {
@@ -26,6 +28,7 @@ export const CtaSection = () => {
 				</p>
 				<Link
 					href="/gathering/select"
+					onClick={trackMeetingCreateStartClick}
 					className="ygi:flex ygi:cursor-pointer ygi:items-center ygi:justify-center ygi:rounded-full ygi:bg-white ygi:px-6 ygi:py-3 ygi:heading-18-bd ygi:text-text-primary ygi:transition-colors ygi:hover:bg-white/90"
 				>
 					바로 시작하기

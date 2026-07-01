@@ -18,7 +18,11 @@ const Player = dynamic(
 	},
 );
 
-import { trackCtaClick, trackViewPage } from "#/components/analytics";
+import {
+	trackCtaClick,
+	trackMeetingCreateStartClick,
+	trackViewPage,
+} from "#/components/analytics";
 import { Layout } from "#/components/layout";
 
 const PAGE_ID = "모임생성_랜딩";
@@ -28,6 +32,7 @@ export const LandingPage = () => {
 
 	const handleStartClick = () => {
 		trackCtaClick({ page_id: PAGE_ID, button_name: "모임 링크 생성 시작" });
+		trackMeetingCreateStartClick();
 		router.push("/gathering/select");
 	};
 

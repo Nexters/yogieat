@@ -4,7 +4,11 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { twJoin } from "tailwind-merge";
 
-import { trackCtaClick, trackViewPage } from "#/components/analytics";
+import {
+	trackCtaClick,
+	trackMemberLandingClick,
+	trackViewPage,
+} from "#/components/analytics";
 import { Button } from "#/components/button";
 import { Layout } from "#/components/layout";
 import { useGetGathering } from "#/hooks/apis/gathering";
@@ -24,6 +28,7 @@ export function LandingPage() {
 
 	const handleAlreadySubmitted = () => {
 		trackCtaClick({ page_id: PAGE_ID, button_name: "이미 입력했어요" });
+		trackMemberLandingClick({ group_id: accessKey });
 		router.push(`/gathering/${accessKey}/opinion/pending`);
 	};
 

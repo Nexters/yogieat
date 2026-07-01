@@ -1,8 +1,12 @@
 "use client";
 
+import { useParams } from "next/navigation";
 import { useFormContext, useWatch } from "react-hook-form";
 
-import { trackStepComplete } from "#/components/analytics";
+import {
+	trackMemberDislikeCategoryCompleteClick,
+	trackStepComplete,
+} from "#/components/analytics";
 import { Button } from "#/components/button/Button";
 import { Layout } from "#/components/layout";
 import { StepHeader } from "#/components/stepHeader";
@@ -52,6 +56,7 @@ interface FooterProps {
 }
 
 const Footer = ({ onNext }: FooterProps) => {
+	const { accessKey } = useParams<{ accessKey: string }>();
 	const { control } = useFormContext<OpinionFormSchema>();
 
 	const { dislikedCategories = [], disabled } = useWatch({
@@ -73,6 +78,10 @@ const Footer = ({ onNext }: FooterProps) => {
 			page_id: "의견수합_퍼널",
 			step_name: "비선호음식",
 			step_value: dislikedLabels,
+		});
+		trackMemberDislikeCategoryCompleteClick({
+			group_id: accessKey,
+			disliked_categories: dislikedLabels,
 		});
 		onNext();
 	};

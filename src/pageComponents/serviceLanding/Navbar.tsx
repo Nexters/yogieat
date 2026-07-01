@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+import { trackMeetingCreateStartClick } from "#/components/analytics";
 import { LandingLogoIcon } from "#/icons/landingLogoIcon";
 
 export const Navbar = () => {
@@ -36,6 +37,7 @@ export const Navbar = () => {
 				/>
 				<Link
 					href="/gathering/select"
+					onClick={trackMeetingCreateStartClick}
 					className="ygi:cursor-pointer ygi:rounded-full ygi:bg-button-secondary ygi:px-5 ygi:py-2.5 ygi:body-14-bd ygi:text-text-inverse ygi:transition-colors ygi:hover:bg-button-secondary-hover"
 				>
 					바로 시작하기

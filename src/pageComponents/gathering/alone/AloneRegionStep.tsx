@@ -4,13 +4,14 @@ import { isNil } from "es-toolkit";
 import { useState } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 
+import { trackAloneRegionSelectClick } from "#/components/analytics";
 import { Banner } from "#/components/banner";
 import { Button } from "#/components/button";
 import { Dialog } from "#/components/dialog";
 import { Layout } from "#/components/layout";
 import { StepHeader } from "#/components/stepHeader";
 import { Tab } from "#/components/tab";
-import { useGetRegionsByProvince } from "#/hooks/apis/region";
+import { useGetRegions, useGetRegionsByProvince } from "#/hooks/apis/region";
 import { RegionChip } from "#/pageComponents/gathering/create/RegionChip";
 import { RegionRequestDialog } from "#/pageComponents/gathering/create/RegionRequestDialog";
 import type { AloneFormSchema } from "#/schemas/gathering";
@@ -66,7 +67,8 @@ interface AloneRegionStepFooterProps {
 export const AloneRegionStepFooter = ({
 	onNext,
 }: AloneRegionStepFooterProps) => {
-	const { control } = useFormContext<AloneFormSchema>();
+	const { control, getValues } = useFormContext<AloneFormSchema>();
+	const { data: regions } = useGetRegions();
 	const isValid = useWatch({
 		control,
 		name: "region",
@@ -74,6 +76,13 @@ export const AloneRegionStepFooter = ({
 	});
 
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+	const handleNext = () => {
+		const region = getValues("region");
+		const regionLabel = (region && regions.get(region)) || "-";
+		trackAloneRegionSelectClick({ region_name: regionLabel });
+		onNext();
+	};
 
 	return (
 		<>
@@ -109,7 +118,7 @@ export const AloneRegionStepFooter = ({
 						variant="primary"
 						width="full"
 						disabled={!isValid}
-						onClick={onNext}
+						onClick={handleNext}
 					>
 						다음
 					</Button>
