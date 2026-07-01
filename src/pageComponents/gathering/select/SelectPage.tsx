@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+import { trackGatheringModeSelectClick } from "#/components/analytics";
 import { BackwardButton } from "#/components/backwardButton";
 import { Button } from "#/components/button";
 import { DotsLoader } from "#/components/dotsLoader";
@@ -18,6 +19,7 @@ export function SelectPage() {
 
 	const handleNext = () => {
 		if (!selected) return;
+		trackGatheringModeSelectClick({ flow_type: selected });
 		setIsPending(true);
 		router.push(
 			selected === "alone" ? "/gathering/alone" : "/gathering/create",

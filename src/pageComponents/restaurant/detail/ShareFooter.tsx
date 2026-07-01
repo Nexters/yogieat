@@ -2,7 +2,12 @@
 
 import { twJoin } from "tailwind-merge";
 
-import { trackCtaClick, trackShareClick } from "#/components/analytics";
+import {
+	trackCtaClick,
+	trackPhoneClick,
+	trackShareButtonClick,
+	trackShareClick,
+} from "#/components/analytics";
 import { share } from "#/utils/share";
 
 const baseButtonClass = twJoin(
@@ -38,6 +43,10 @@ export const ShareFooter = ({
 			page_id: pageId,
 			share_location: "식당 상세 하단 공유 버튼",
 		});
+		trackShareButtonClick({
+			share_location: "식당 상세 하단 공유 버튼",
+			restaurant_name: restaurantName,
+		});
 		share({
 			title: "[요기잇]",
 			text: `${restaurantName}\n${restaurantAddress}`,
@@ -50,6 +59,7 @@ export const ShareFooter = ({
 			page_id: pageId,
 			button_name: "전화하기",
 		});
+		trackPhoneClick({ restaurant_name: restaurantName });
 	};
 
 	return (

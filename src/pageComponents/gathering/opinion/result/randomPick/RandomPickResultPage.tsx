@@ -3,6 +3,10 @@
 import { useParams, useRouter } from "next/navigation";
 import { twJoin } from "tailwind-merge";
 
+import {
+	trackRandomPickRetryClick,
+	trackShareButtonClick,
+} from "#/components/analytics";
 import { BackwardButton } from "#/components/backwardButton";
 import { Layout } from "#/components/layout";
 import { Toaster } from "#/components/toast";
@@ -30,10 +34,18 @@ export const RandomPickResultPage = () => {
 	};
 
 	const handleRetry = () => {
+		trackRandomPickRetryClick({
+			restaurant_name: restaurant.restaurantName,
+		});
 		router.push(`/gathering/${accessKey}/opinion/result/random-pick`);
 	};
 
 	const handleShare = async () => {
+		trackShareButtonClick({
+			group_id: accessKey,
+			share_location: "제비뽑기 결과",
+			restaurant_name: restaurant.restaurantName,
+		});
 		await share({
 			title: "[요기잇]",
 			text: `${restaurant.restaurantName}\n${restaurant.address}`,

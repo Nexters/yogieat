@@ -3,7 +3,10 @@
 import { isNil } from "es-toolkit";
 import { useController, useFormContext, useWatch } from "react-hook-form";
 
-import { trackStepComplete } from "#/components/analytics";
+import {
+	trackPeopleCountSelectClick,
+	trackStepComplete,
+} from "#/components/analytics";
 import { Button } from "#/components/button";
 import { Layout } from "#/components/layout";
 import { StepIndicator } from "#/components/stepIndicator";
@@ -59,6 +62,9 @@ export const PeopleStepFooter = ({ onNext }: PeopleStepFooterProps) => {
 			step_name: "인원수",
 			step_value: peopleCountLabel,
 		});
+		if (peopleCount) {
+			trackPeopleCountSelectClick({ people_count: peopleCount });
+		}
 		onNext();
 	};
 

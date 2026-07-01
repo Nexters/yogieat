@@ -1,6 +1,8 @@
 "use client";
 
-import { trackCtaClick } from "#/components/analytics";
+import { useParams } from "next/navigation";
+
+import { trackCtaClick, trackResultViewClick } from "#/components/analytics";
 import { Button } from "#/components/button";
 import { Spinner } from "#/components/spinner";
 
@@ -15,8 +17,14 @@ export const ShowResultButton = ({
 	onProceed,
 	isPending,
 }: ShowResultButtonProps) => {
+	const { accessKey } = useParams<{ accessKey: string }>();
+
 	const handleClickShowResultButton = () => {
 		trackCtaClick({ page_id: pageId, button_name: "추천 결과 보기" });
+		trackResultViewClick({
+			group_id: accessKey,
+			submit_progress: 100,
+		});
 		onProceed();
 	};
 

@@ -3,7 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { trackRestaurantClick } from "#/components/analytics";
+import {
+	trackRecommendedRestaurantClick,
+	trackRestaurantClick,
+} from "#/components/analytics";
 import { CATEGORY_LABEL } from "#/constants/gathering/opinion";
 import { StarIcon } from "#/icons/starIcon";
 import type { Restaurant } from "#/types/gathering";
@@ -22,6 +25,9 @@ export const RestaurantCard = ({ restaurant }: RestaurantCardProps) => {
 			restaurant_id: restaurant.restaurantId,
 			restaurant_name: restaurant.restaurantName,
 			rank_type: "other",
+		});
+		trackRecommendedRestaurantClick({
+			restaurant_name: restaurant.restaurantName,
 		});
 	};
 
